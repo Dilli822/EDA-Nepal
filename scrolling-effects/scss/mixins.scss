@@ -1,0 +1,36 @@
+
+//mixins scss
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: "";
+    flex-direction: "";
+}
+
+@mixin flexSpaceBetween{
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+    flex-wrap: "";
+    flex-direction: "";
+}
+
+@mixin flexSpaceAround{
+    display: flex;
+    justify-content: space-around;
+    align-items: space-around;
+    flex-wrap: "";
+    flex-direction: "";
+}
+
+@mixin flexSpaceEvenly{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: space-evenly;
+    flex-wrap: "";
+    flex-direction: "";
+}
+
+
