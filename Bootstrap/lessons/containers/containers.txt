@@ -1,0 +1,21 @@
+
+  # we have mainly two types of containers.
+  # .container and .container-fluid.
+
+    The .container class 
+    provides a responsive fixed width container
+
+    The .container-fluid class 
+    provides a full width container, spanning the entire width of the viewport
+
+ 
+
+ # Container Padding 
+ # by default we have 15px left and right padding with zero on top and bottom.
+ # we can add padding top by using bootstrap class pt-3
+ # <div class="container pt-3"></div>
+ # and compare with this <div class="container"></div>
+
+
+ -----
+
