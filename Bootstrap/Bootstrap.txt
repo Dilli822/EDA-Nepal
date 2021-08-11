@@ -19,3 +19,7 @@ Bootstrap’s grid system can adapt across all six default breakpoints, and any 
 
 # How to use it?
 ----<div class="col-md"> with this one line code .</div>
+
+# we have to use @media queries in css but with bootstrap
+# we just need to use row class 
+# <div class="row sm-6"> means it will 50% once it hits less than 576px

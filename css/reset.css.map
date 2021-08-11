@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,CAAC,CAAA;EACG,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;EACT,UAAU,EAAE,UAAU;EACtB,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,IAAI;EACrB,eAAe,EAAE,IAAI;CACxB;;AAED,AAAA,MAAM,CAAA;EACF,MAAM,EAAE,OAAO;CAClB",
+    "sources": [
+        "../scrolling-effects/scss/reset.scss"
+    ],
+    "names": [],
+    "file": "reset.css"
+}
