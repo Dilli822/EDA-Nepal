@@ -1,0 +1,61 @@
+
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Center Me</title>
+   </head>
+
+   <style>
+
+       .parent,.container, .container2{
+           width: 100%;
+           height: 500px;
+           border: 1px solid red;
+       }
+
+       .child ,.child2{
+            background-color: #ff0000;
+             width: 250px;
+             height: 250px;
+             
+         }
+         
+         h2{
+           text-align: center;
+         }
+
+        .child {
+         position: absolute;
+         top: 30%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         }
+
+         .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+      
+   </style>
+
+   <body>
+
+    <div class="parent">
+       <h2>Transform Translate</h2>
+        <div class="child">
+        </div>
+    </div>
+
+
+    <h2>centered flex align-items</h2>
+    <div class="container">
+        <div class="child2">
+        </div>
+    </div>
+       
+   </body>
+   </html>
