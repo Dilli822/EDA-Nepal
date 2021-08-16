@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.css">
+<!---
+ <style>
+     .form-submit {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 4px;
+}
+
+/*.form-search .form-submit .btn-search, .btn-search {
+    background-color: #E75054;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border: 2px solid #E75054;
+    width: 100%;
+    height: 45px;
+    font-weight: 520;
+    font-size: 22px;
+}
+
+    .form-search .form-submit .btn-search:hover, .btn-search:hover {
+        background-color: #ffffff;
+        color: #E75054;
+        border: 2px solid #E75054;
+        font-weight: 520;
+    }
+	*/
+
+.form-search h5 {
+    font-size: 22px;
+    font-weight: 300;
+    margin-left: 38%;
+    color: #9c9797;
+}
+
+/* .form-cn .form-search .form-submit .awe-btn {
+    line-height: 42px;
+    width: 100%;
+    background-position: right 10px center;
+}
+
+.form-cn .form-search .form-submit .awe-btn {
+    line-height: 42px;
+    width: 100%;
+    background-position: right 10px center;
+}
+
+.awe-btn.awe-search {
+    border-radius: 5px;
+    background-color: #59c45b;
+    color: #fff;
+    border-color: #4db74f;
+    padding-right: 40px;
+    padding-left: 20px;
+    background-position: right 10px center;
+    background-image: url(../images/icon-search.png);
+}
+
+.awe-btn.awe-btn-lager {
+    line-height: 50px;
+    font-size: 18px;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.awe-btn:hover, .awe-btn:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.awe-btn.awe-search {
+    border-radius: 5px;
+    background-color: #59c45b;
+    color: #fff;
+    border-color: #4db74f;
+    padding-right: 40px;
+    padding-left: 20px;
+    background-position: right 10px center;
+    background-image: url(../images/icon-search.png);
+}
+
+.awe-btn.awe-btn-lager {
+    line-height: 50px;
+    font-size: 18px;
+    padding-left: 35px;
+    padding-right: 35px;
+} */
+
+.form-cn {
+    background-color: darkgray;
+    padding: 20px 30px 30px 30px;
+    border-top: 5px solid #fff;
+}
+
+
+/*    .form-cn .form-search {
+        background-color: #fff;
+        margin-top: 20px;
+    }
+
+
+        .form-cn .form-search .form-field, .form-search .form-field {
+            float: left;
+            padding: 20px 15px;
+            border-right: 1px solid #e6e6e6;
+            font-size: 18px;
+            width: 50%;
+        }
+
+            .form-cn .form-search .form-field .select select {
+                height: 36px;
+                border: 1px solid #aaa;
+                border-radius: 4px;
+                width: 100%;
+                color: #999;
+            }
+
+            .form-search .form-field .field-input {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                border: 0;
+                outline: none;
+                color: #999;
+                background-color: transparent;
+                font-weight: 400;
+                border: 1px solid #aaa;
+                height: 40px;
+                border-radius: 4px;
+                padding-left: 10px;
+            }
+
+            .form-cn .form-search .form-field label {
+                font-size: 14px;
+                padding-right: 30px;
+                margin-top: -2px;
+                margin-bottom: -13px;
+            }
+
+            .form-cn .form-search .form-field span .selection span {
+                height: 40px !important;
+                color: #999;
+            }
+
+            .form-search .form-field label {
+                display: block;
+                z-index: 0;
+                font-weight: 600;
+                margin-top: -15px;
+                overflow: hidden;
+                font-size: 14px;
+                height: 29px;
+                color: #bcbcbc;
+                position: initial;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                top: 50%;
+                -webkit-transform: translate(0, -50%);
+                -moz-transform: translate(0, -50%);
+                -ms-transform: translate(0, -50%);
+                -o-transform: translate(0, -50%);
+            }
+
+.form-field .box-header {
+    border: none !important;
+}
+
+.form-field .form-control {
+    height: 40px !important;
+    font-size: 16px !important;
+    color: #999;
+}
+
+.form-hotel .field-destination {
+    width: 450px;
+}
+
+/*  .form-tiqetbooking .form-search .field-destination {
+    width: 30%;
+} */
+
+/*      .select select {
+            cursor: pointer;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            top: 0;
+            opacity: 0;
+        }*/
+.user-form .field-input .input-text {
+    border: 1px solid #dedede;
+    background-color: transparent;
+    padding: 14px 10px;
+    width: 100%;
+    color: #333333;
+    font-family: 'Open sans';
+}
+
+.user-form p {
+    font-family: 'Georgia';
+    font-style: italic;
+    font-size: 16px;
+    margin-bottom: 35px;
+    margin-top: 10px;
+    color: #666666;
+}
+
+.user-form a {
+    color: black;
+} 
+.modal-content .modal-body .dateCheckInOutContainer {
+	padding: 5px;
+	background-color: #e9ecef;
+}
+
+
+.homepage-list {
+    background-color: #000000a8;
+    margin: 5% 0% 5% 0%;
+    padding-bottom: 2%;
+}
+
+.nav-homepage {
+    padding-top:2rem;
+	padding-bottom: .5rem;
+}
+
+
+
+    nav .navbar-collapse .navbar-nav .nav-item {
+        min-width: 80px;
+    }
+
+        nav .navbar-collapse .navbar-nav .nav-item a {
+            text-decoration: none !important;
+            text-transform: uppercase;
+            color: #ffffff !important;
+        }
+
+            nav .navbar-collapse .navbar-nav .nav-item a:hover {
+                color: #dd8966 !important;
+            }
+
+.nav-homepage .nav-item {
+	border-right: 2px solid white;
+	padding: 2rem 0;
+    position: relative;
+	flex:2 2 auto;
+	display:flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	min-width:5rem;
+/*    height: 125px;*/
+}
+
+.nav-homepage .nav-item:last-child {
+	border-right: none;
+}
+
+    .nav-homepage .nav-item .nav-link.active:before, .nav .nav-item:hover:before {
+        bottom: -10px;
+		
+    }
+	
+
+    .nav-homepage .nav-item:before {
+        position: absolute;
+        bottom: -47px;
+        content: '';
+		left:calc(50% + 19px);
+        border: 17px solid transparent;
+        border-bottom-color: rgba(255, 255, 255, 0.85);
+      
+        transform: translate(-109%, 0);
+        /* -moz-transform: translate(-109%, 0);
+        -ms-transform: translate(-109%, 0);
+        -o-transform: translate(-109%, 0); */
+        transition: all 0.2s linear;
+        /* -moz-transition: all 0.2s linear;
+        -ms-transition: all 0.2s linear;
+        -o-transition: all 0.2s linear; */ 
+    }
+	
+
+    .nav-homepage .nav-item .nav-link {
+        text-transform: uppercase;
+        max-width: 150px;
+		height: 50px;
+        color: #ffffff !important;
+    }
+
+    .nav-homepage .nav-item .active {
+        background-color: #454443 !important;
+        color: #ffffff !important;
+    }
+
+    .nav-homepage .nav-item img {
+        width: 35px;
+        height: 35px;
+		margin:1rem;
+    }
+
+.tab-content {
+    background-color: rgba(255, 255, 255, 0.85);
+    width: 95%;
+    margin-left: 3%;
+    margin-top: -3%;
+}
+
+.flys-search a {
+    color: #ffffff !important;
+    font-size: 24px !important;
+}
+
+.tab-content > .active {
+    margin-top: 3.7%;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+#acselector {
+    margin-top: 10px !important;
+}
+
+@media (max-width: 767px) {
+    .form-cn .form-search .form-field {
+        width: 100% !important;
+        font-size: 16px !important;
+    }
+
+    .form-search .form-submit .btn-search, .btn-search {
+        font-size: 15px !important;
+    }
+
+    .form-search h5 {
+        font-size: 18px !important;
+        margin-left: 12% !important;
+    }
+
+    .search-area .price-form {
+        width: 95% !important;
+        margin-left: 5px !important;
+    }
+
+    .nav-homepage .nav-item .nav-link.active:before, .nav .nav-item:hover:before {
+        display: none !important;
+    }
+
+    .nav-homepage .nav-item:before {
+        display: none !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+
+    .landingSearchForm .dateCheckInOutContainer {
+        font-size: 15px !important;
+        width: 109% !important;
+        margin-left: -6px !important;
+    }
+
+    .search-form form.landingSearchForm .input-group input {
+        font-size: 14px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .landingSearchForm .dateCheckInOutContainer {
+        width: 121% !important;
+    }
+
+    .homepage-list {
+        margin-bottom: 12% !important;
+    }
+
+    .nav-homepage .nav-item .nav-link.active:before, .nav .nav-item:hover:before {
+        display: none !important;
+    }
+
+    .nav-homepage .nav-item:before {
+        display: none !important;
+    }
+	.navm .nav-item {
+		margin-left: -5% !important;
+	}
+	.sub-banner .container .welcome-box {
+		width: 105% !important;
+		margin-left: -3% !important;
+	}
+	.search-area .dateCheckInOutContainer span {
+		font-size: 14px !important;
+	}
+	.search-area #totalPerson {
+		font-size: 14px !important;
+	}
+	
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+	.sub-banner .container .welcome-box {
+		width: 107% !important;
+		margin-left: -3% !important;
+	}
+	.modal-content .modal-body #acselector {
+		margin-right: 0px !important;
+	}
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+	.search-form .search-area .dateCheckInOutContainer {
+		text-align: start !important;
+		margin-left: 10px;
+	}
+
+        .nav-homepage .nav-item {
+            border: none !important;
+            padding: 0% 3% 2% 5% !important;
+        }
+}
+
+@media (max-width: 576px) {
+    .nav-homepage {
+        height:auto;
+    }
+	.search-form .search-area .dateCheckInOutContainer {
+		text-align: start !important;
+		margin-left: 10px;
+	}
+        .nav-homepage .nav-item {
+            border: none !important;
+            padding: 0% 3% 2% 5% !important;
+        }
+
+
+    .tab-content {
+        width: 90% !important;
+        margin-left: 5% !important;
+    }
+
+    .nav-homepage .nav-item img {
+        height: 30px !important;
+        width: 30px !important;
+        margin: 5% 5% 0% -10% !important;
+    }
+
+    #acselector {
+        margin-left: 5px !important;
+    }
+
+    .landingSearchForm .dateCheckInOutContainer {
+        width: 100% !important;
+        margin-left: 5px !important;
+    }
+
+    .homepage-list {
+        margin-bottom: 23% !important;
+    }
+	.search-form form a.check-io {
+		float: left !important;
+		width: 95% !important;
+	}
+	.sub-banner .container .welcome-box {
+		width: 104% !important;
+		margin-left: -2% !important;
+	}
+	#btnMapLocation , #btnProceed{
+		font-size: 13px !important;
+	}
+}
+
+#pac-container #pac-input {
+    height: 38px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    margin: 10px 5px 0px 0px !important;
+}
+
+/* .tab-pane #tripSelectFlyUs {
+    padding: 20px 0px 0px 20px;
+}
+
+    .tab-pane #tripSelectFlyUs span {
+        padding-right: 20px;
+    }
+
+.tab-pane #tripListFlyUs, .tab-pane #tripListAcitivity {
+    margin-top: -20px;
+}
+
+#tripSelectFlyUs label {
+    margin-right: 10px !important;
+    font-size: 14px !important;
+}
+
+#tripListFlyUs #trip-label, #tripListAcitivity #trip-label {
+    width: 7% !important;
+}
+
+    #tripListFlyUs #trip-label label {
+        padding: 5px 0px 0px 20px;
+    } */
+
+/* #form-field .select2-container {
+    width: 90% !important;
+    padding: 0px 0px 0px 20px !important;
+}
+
+    #form-field .select2-container .selection .select2-selection {
+        height: 36px !important;
+        width: 100% !important;
+    } */
+
+/* #tripSelectAcitivity label, #tripSelectAcitivity span {
+    margin-right: 10px !important;
+    font-size: 14px !important;
+}
+
+#form-field-activity .select2-container {
+    width: 90% !important;
+    padding: 2px !important;
+}
+
+#tripListAcitivity #trip-label label {
+    padding: 5px 0px 0px 0px;
+}
+
+#form-field-activity .select2-container .selection .select2-selection {
+    height: 36px !important;
+    width: 100% !important;
+}
+
+.field-input .col-form-label {
+    width: 130px !important;
+}
+
+#tripSelect {
+    margin-bottom: 10px;
+}
+
+    #tripSelect span, #tripSelect label {
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+#tripCreate .col-form-label {
+    width: 130px !important;
+}
+
+#tripCreate input {
+    padding: 12px 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+
+
+.tabs-head.nav-tabs-two li > a.active {
+    border-bottom: none !important;
+}
+.schedule-wrap a {
+	margin-bottom: 10px;
+	margin-right: 10px;
+} */
+
+
+
+#activity-select .select2-selection, #activity-select #EventType, #activity-select .btn-danger, #map-load .btn-danger, #map-address input, #pd-select .select2-selection, #tripListAcitivity .select2-selection, #create-trip input, #tripListFlyUs .select2-selection, #pd-info .select2-selection, #pd-info input, #activity-create input, .form-submit .btn-danger, #hotel-create input, #tripListHotel .select2-selection, #hotel-select select, #hotel-select input, #hotel-select .select2-selection, #EventTypeCatalog, #tripListHotelBed .select2-selection, #TripListEvent select {
+	height: 40px;
+	font-size: 16px;
+	overflow: hidden;
+	border: 1px solid #aaa;
+}
+#activity-select #EventType, #activity-select label, #tripListAcitivity label, #create-trip label, #tripListFlyUs label, #pd-select label, #pd-info label, #activity-create label, #hotel-create label, #tripListHotel label, #EventTypeCatalog {
+	font-size: 16px;
+	color: #999;
+	font-weight: 500;
+}
+#activity-select .btn-danger:hover, #map-load .btn-danger:hover, .form-submit .btn-danger:hover {
+	background-color: #ffffff;
+    color: #E75054;
+    border: 2px solid #E75054;
+}
+#tripSelectAcitivity {
+	margin-bottom: -15px;
+}
+div #tripListFlyUs {
+	margin-left: 15px !important;
+}
+div #tripSelectFlyUs {
+	padding: 20px 0px 0px 20px;
+}
+.error {
+	color: red !important;
+}
+.sub-banner .container .welcome-box {
+	width: 102%;
+	margin-left: -1%;
+}
+#HomePickUpDropOff_0, #HomePickUpDropOff_1 {
+	height: 16px !important;
+}
+.selection #select2-CatalogCountry-container, .selection #select2-CatalogCity-container {
+	line-height: 34px !important;
+}
+#tripSelectHotelBed , #tripListHotelBed {
+	text-align: left;
+	padding: 10px 0px 0px 20px;
+}
+#tripCreateHotelBed {
+	text-align: left;
+	padding-left: 20px;
+}
+#hotel-create .form-control {
+	width: 95% !important;
+}
+.explore-blog {
+	margin-bottom: 20px;
+}
+.blog-content ul {
+	padding-left: 0px !important;
+}
+.nav-homepage .nav-item:hover {
+    bottom: 0px;
+}
+
+.nav-homepage .nav-item .nav-link {
+    text-transform: uppercase;
+    max-width: 150px;
+    height: 50px;
+    color: #ffffff !important;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: unset !important;
+}
+/* .jaunt2TabActive {
+   /* position: absolute;
+    bottom: 0px;
+    content: '';
+    border-bottom: 17px solid transparent;
+    border-bottom-color: rgba(255, 255, 255, 0.85);*/
+/*    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+} */
+.jaunt2TabActive:before
+{
+
+    bottom:0px !important;
+}
+ </style>
+
+
+ <body>
+     
+
+   <ul class="nav nav-homepage nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item jaunt2TabActive" role="presentation">
+<button class="nav-link active" id="pills-hotels-tab" data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="true">Hotel</button>
+<img src="/Content/assets/jaunt2/images/icon-hotel.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="true">
+</li>
+    <li class="nav-item" role="presentation">
+<button class="nav-link" id="pills-flight-tab" data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="true">flight</button>
+<img src="/Content/assets/jaunt2/images/icon-flight.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="false">
+</li>
+
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="pills-activities-tab" data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="true">Activities</button>
+<img src="/Content/assets/jaunt2/images/icon-vacation.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="false">
+</li>
+    <li class="nav-item" role="presentation">
+<button class="nav-link" id="pills-carey-tab" data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="true">Airport Home PickUp/DropOff</button>
+<img src="/Content/assets/jaunt2/images/icon-car.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="false">
+</li>
+
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="pills-specialEvent-tab" data-bs-toggle="pill" data-bs-target="#pills-specialEvent" type="button" role="tab" aria-controls="pills-specialEvent" aria-selected="true">Special Event</button>
+<img src="/Content/assets/jaunt2/images/icon-vacation.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-specialEvent" type="button" role="tab" aria-controls="pills-specialEvent" aria-selected="false">
+</li>
+</ul> -->
+<style>
+    .container{
+        display: flex;
+        justify-content: center;
+        color:#fff;
+        background-color: black;
+    }
+
+
+    @media only screen and (min-width: 800px) and (max-width: 7680px){
+            .container{
+                color: red;
+                background-color: green;
+            }
+        }
+        *{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+
+        }
+        .navm{
+            display: flex;
+            justify-content: center;
+        }
+        .line{
+            border-right: 3px solid #fff;
+            padding: 0rem .125rem;
+        }
+
+      
+</style>
+<!-- 
+<div class="container">
+    <div class="item">items1</div>
+    <div class="item">items2</div>
+    <div class="item">items1</div>
+    <div class="item">items2</div>
+    <div class="item">items1</div>
+    <div class="item">items2</div>
+</div> -->
+
+<div class="container">
+    <div class="welcome-box alert alert-lite  text-center">
+
+        <div class="welb-wrap" style="display: flex;">
+            <ul class="navm">
+                        <li class="nav-item" role="presentation">
+                           
+                            
+                            <button class="nav-link active btn-hotelPlanner" id="btn-hotelPlanner" title="Send RFP for group rooms" type="button" role="tab" aria-selected="true">
+                                Book your Hotel
+
+
+                            </button> <br>
+                           <img src="http://unsplash.it/401" alt="" width="50px">
+                 
+                        </li>
+                        <div class="line"></div>
+
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link btn-flyusredirect" id="btn-flyusredirect" title="" type="button" role="tab" aria-selected="true">
+                            Book your flight  from (flyUS)
+
+                            
+                        </button> <br>
+                        <i class=" fa fa-facebook" style="text-align:center;"></i>
+
+                    </li>
+                                                    <li class="nav-item" role="presentation">
+                        <button class="nav-link btnTiqets" title="Purchase tickets to offer attendees through online registration">
+                            Book an Activity from the Tiqets
+
+                            
+                        </button><br>
+                        <i class=" fa fa-facebook" style="text-align:center;"></i>
+
+ <div class="line">
+
+                        </div>
+                    </li>
+                                                    <li class="nav-item" role="presentation">
+                        <button class="nav-link btnHomePickUp" title="HomePickUp" style="cursor:pointer">
+                            PickUp/DropOff
+                        </button><br>
+                        <i class=" fa fa-facebook" style="text-align:center;"></i>
+                    </li>
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

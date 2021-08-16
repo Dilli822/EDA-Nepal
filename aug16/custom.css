@@ -1,0 +1,108 @@
+.thumbnail-preview button.btn.btn-default {
+    background-color: #59c45b;
+}
+.thumbnail-preview button.btn {
+    color:#fff;
+}
+.user-profile__navigation .active.nav-item {
+    background-color: #59c45b;
+    
+}
+.user-profile__navigation .active.nav-item a{
+   color: #fff;
+}
+.dropdown-menu .dropdown-item{
+    cursor:pointer;
+}
+.collapse.show {
+    display: block;
+}
+.table.customtable {
+    font-size: 15px;
+}
+
+    .table.customtable td {
+        padding: 0 10px;
+    }
+
+.btn-primary {
+    background-color: #415973 !important;
+    color: #fff !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.form-control {
+    border-radius: 0;
+}
+/*Pagination Start*/
+.pager-info {
+    font-size: 15px;
+}
+
+.pagiwrap {
+    padding-top: 15px;
+}
+
+.page-size-selector {
+    margin-right: 5px;
+}
+
+    .page-size-selector select {
+        height: 30px;
+        padding: 0 5px;
+		width: 120px;
+    }
+
+ul.tabs-head.nav-tabs-two {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    background: none;
+    width: 100%;
+}
+
+.tabs-head.nav-tabs-two li.active {
+    border: none;
+}
+
+.tabs-head.nav-tabs-two li > a {
+    cursor: pointer;
+    line-height: 50px;
+}
+
+    .tabs-head.nav-tabs-two li > a.active {
+        border-bottom: 3px solid #000;
+    }
+/*Pagination End*/
+/*select2 start*/
+span.select2-selection.select2-selection--single {
+    border: 1px solid #dedede !important;
+    background-color: transparent !important;
+    height: 43px !important;
+    padding-top: 7px !important;
+    padding-left: 10px !important;
+    padding-right: 7px !important;
+}
+
+span.select2-selection__placeholder, span.select2-selection__rendered {
+    font-size: 15px;
+    padding-left: 10px;
+}
+/*select2 end*/
+
+span.select2-container.select2-container--default.select2-container--open {
+    z-index: 1070;
+}
+
+/*participant Start*/
+.action-bottons .awe-btn {
+    display: inline-block;
+}
+
+.action-bottons .form-check-label .form-check-input {
+    margin-top: 9px;
+}
+/*participant End*/

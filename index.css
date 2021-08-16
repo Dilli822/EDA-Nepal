@@ -1,0 +1,66 @@
+
+
+/* display flex and content is kept at center with padding: 1.5rem updated on aug16 */
+
+.welb-wrap {
+    /* display flex and content is kept at center with padding: 1.5rem updated on aug16 */
+        display: flex;
+        justify-content: center;
+        height: 150px;
+        width: auto;
+        padding: 1.5rem;
+        background-color: #000000a8;
+        margin: -4% 0% -6% 0%;
+    }
+
+   
+    @media (min-width: 992px) and (max-width: 1200px) {
+        .welb-wrap {
+        /* margin top -4 to -2% updated on aug 16 */
+            margin: -2% 0% -10% 0% !important;
+        }}
+
+        @media (min-width: 992px) and (max-width: 1200px) {
+            .welb-wrap {
+			/* margin top -4 to -2% updated on aug 16 */
+                margin: -2% 0% -10% 0% !important;
+            }
+
+            #acselector {
+                margin-left: 0% !important;
+                width: 100% !important;
+            }
+        }
+
+          /* .navm .nav-item .nav-link {
+                    display: none;
+                } thththt*/
+
+	/* media responsive space evenly only for pc screen onupdated aug 16 2021 */
+    @media only screen and (min-width: 800px) and (max-width: 7680px){
+        .navm {
+            display: flex;
+            justify-content: space-evenly;
+            list-style: none;
+            width: 100%;
+        }
+    }
+    
+     .line{
+    border-right: 3px solid #fff;
+    padding: 0rem .125rem;
+}
+
+             /* 
+            .navm:first-child {
+                margin-left: -30px !important;
+            */
+
+            @media only screen and (min-width: 800px) and (max-width: 7680px){
+                .navm {
+                    display: flex;
+                    justify-content: space-evenly;
+                    list-style: none;
+                    width: 100%;
+                }
+            }
