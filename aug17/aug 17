@@ -46,9 +46,157 @@ http://demojaunt2.qa.destindiy.com/Jaunt2/Trip/GroupInfo
     margin: 0 auto;
 }
 
-
-   @media only screen and (max-width: 535px){
+  @media only screen and (max-width: 535px){
     #cp-btn {
       width: 100%;
     }
    }
+
+
+
+-------------------------------profile MyDashboard options -----------
+http://demojaunt2.qa.destindiy.com/Jaunt2/Trip/GroupInfo
+# centered--
+ # text-align centered 
+   .user-profile__navigation li a {
+    font-family: 'Lato';
+    font-size: 16px;
+    color: #333333;
+    display: block;
+    text-decoration: none;
+    padding: 15px 0;
+    text-align: center;
+}
+
+-------------------------sign out page--------------------------
+http://demojaunt2.qa.destindiy.com/UserAuthJaunt2/LogOn
+# margin-top: -4rem; is added and other margin commented out.
+.main {
+    margin-top: -4rem;
+    /* margin-top: -110px; */
+    /* margin-bottom: 30px; */
+}
+
+
+http://demojaunt2.qa.destindiy.com/UserAuthJaunt2/LogOn
+---line no 3010-----
+.sub-banner {
+      display: flex;
+}
+
+
+----line 357---
+.main-cn {
+    border: 1px solid red;
+    padding: 2rem;
+    /* height: 100%; */
+    /* margin-top: -1rem; */
+}
+
+
+<div class="container" style="
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+">
+
+----------for pc screeen ---
+----line 348
+.main {
+    /* margin-top: 10rem; */
+    /* margin-bottom: 30px; */
+    margin: 2rem 0 2rem 0;
+  
+  
+  --------------------------------------  
+    for larger pc screen
+    more than 1200px only 
+    
+element.style {
+}
+.main {
+    /* margin-top: 10rem; */
+    /* margin-bottom: 30px; */
+    margin: 7rem 0 2rem 0;
+}
+}
+
+-------for screen less than 1200px------
+  @media only screen and (max-width:1200px) and (min-width: 0px){
+    .main {
+      margin: 2rem 0 2rem 0;
+  }
+   }
+   
+   
+   line no 3018 .
+   -------sub-banner {
+    /* padding-top: 60px; */
+    /* padding-bottom: 5rem; */
+    display: flex;
+}
+
+
+
+
+
+
+-------Dashboard page nav bar and another blue background div was merged together.
+---for screen less than 1200px only.
+.sub-banner {
+    /* padding-top: 60px; */
+    padding: 4rem 0;
+    display: flex;
+}
+
+---we got problems by putting padding as it was for all inner pages so we gave height to the sub_banner height 100px for only screen less than 1200px.
+
+
+---------------img width.
+<img src="https://edaqastorage.blob.core.windows.net/uploadfiles/20210525/64511528d80b4f558816791ed9417b76DW0e.png" class="light-logo" style="width: 250px;" alt="homepage">
+
+
+----remove this on line 12032----
+@media (max-width: 767px)
+.sub-banner {
+    /* padding-top: 40px; */
+    /* padding-bottom: 40px; */
+    
+    -----style.css: 3010
+    http://demojaunt2.qa.destindiy.com/Jaunt2/Trip/Finish?TripId=3825
+    
+    ---report page.
+    
+    .sub-banner {
+    border: 1px soi;
+    l: 60px;
+    border: 1px solid red;
+    padding: 5rem;
+    /* padding-bottom: 5rem; */
+    /* display: flex; */
+}
+
+--------------------
+element.style {
+}
+--line no 12244
+@media (max-width: 767px)
+.main {
+    margin-top: 1rem;
+    padding: 2rem 0;
+    background-color: #fff;
+}
+
+line no 354
+.main {
+    /* margin: 35rem 0; */
+    padding: 25rem 0;
+    /* margin: 2rem 0 2rem 0; */
+}
+
+line no 257
+.main {
+    /* margin-top: -30px !important; */
+}
+
+
