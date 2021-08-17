@@ -1,0 +1,133 @@
+
+                <div class="container">
+                        <!--<div class="welb-wrap">--->
+                           <!--- <ul class="navm"> -->
+						   <!--- nav tag with ul as parent added --->
+						    <nav>
+							   <ul class="main-nav">
+                                @foreach (var hotel in hotelUrlList)
+                                {
+                                    string title = "";
+                                    if (hotel.Key.ToString() == EnabledHotelType.TWAI.ToString())
+                                    {
+                                        title = "Click here to search and pay for rooms";
+                                    }
+                                    else if (hotel.Key.ToString() == EnabledHotelType.TukMein.ToString())
+                                    {
+                                        title = "Click here to access timeshare block accomodations";
+                                    }
+                                    else if (hotel.Key.ToString() == EnabledHotelType.HotelBeds.ToString())
+                                    {
+                                        title = "Click here to book hotel";
+                                    }
+                                    else
+                                    {
+                                        title = "Send RFP for group rooms";
+                                    }
+                                    if (hotel.Key == "HotelPlanner")
+                                    {
+                                        //<li class="nav-item" role="presentation">
+                                            @*<a href="javascript:void(0);" id="btn-hotelPlanner" title="@title" class="awe-btn awe-btn-1 awe-btn-small btn-hotelPlanner" style="">Book your Hotel(@hotel.Key)  </a>*@
+                                            <button class="nav-link active btn-hotelPlanner" id="btn-hotelPlanner" title="@title" type="button" role="tab" aria-selected="true">
+                                                Book your Hotel
+                                                <img src="/Content/assets/jaunt2/images/icon-hotel.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="false">
+
+                                            </button>
+                                        </li> //
+										
+										// added child tag as nav ul li //
+										 // <li class="nav-item" role="presentation">//
+										 
+										      <li class="child" role="presentation">
+
+                                            @*<a href="javascript:void(0);" id="btn-hotelPlanner" title="@title" class="awe-btn awe-btn-1 awe-btn-small btn-hotelPlanner" style="">Book your Hotel(@hotel.Key)  </a>*@
+                                            <button class="nav-link active btn-hotelPlanner" id="btn-hotelPlanner" title="@title" type="button" role="tab" aria-selected="true">
+                                                Book your Hotel
+                                                <img src="/Content/assets/jaunt2/images/icon-hotel.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="false">
+                                            </button>
+
+											</li>
+										
+										
+										 
+                                    }
+                                    else if (hotel.Key == "HotelBed")
+                                    {
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active btn-hotelBed" title="@title" type="button" role="tab" aria-selected="true">
+                                                Book your Hotel
+                                                <img src="/Content/assets/jaunt2/images/icon-hotel.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="false">
+                                            </button>
+
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item" role="presentation">
+                                            <a href="@(hotel.Value + (hotel.Key.ToUpper() == "TWAI" ? ("&returnUrl=" + Url.Encode(Request.Url.AbsoluteUri)) : "") )" class="awe-btn awe-btn-1 awe-btn-small btn-redirect" id="btn-redirect" title="@title">
+                                                Book Your Hotel(@hotel.Key)
+                                                <img src="/Content/assets/jaunt2/images/icon-hotel.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="false">
+                                            </a>
+
+                                        </li>
+										
+
+                                    }
+
+                                }
+
+                                @foreach (var fbooking in flightBookingUrl)
+                                {
+                                    string title = string.Empty;
+                                    if (fbooking.Key.ToString() == EnableFlightBookingType.TWAI.ToString())
+                                    {
+                                        title = "Send Request for group air";
+                                    }
+                                    else if (fbooking.Key.ToString() == EnableFlightBookingType.FlyUs.ToString())
+                                    {
+                                        title = "Send Request for group air";
+
+                                    }
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link btn-flyusredirect" id="btn-flyusredirect" title="@title" type="button" role="tab" aria-selected="true">
+                                            Book your flight  from (@fbooking.Key)
+
+                                            @*<a href="javascript:void(0);" id="btn-flyusredirect" title="@title" class="awe-btn awe-btn-1 awe-btn-small btn-flyusredirect">Book your flight (@fbooking.Key)</a>*@
+                                            <img src="/Content/assets/jaunt2/images/icon-flight.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="false">
+                                        </button>
+
+                                    </li>
+							
+									
+
+                                }
+                                @if (clientOptions.EnableTiqets)
+                                {
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link btnTiqets" title="Purchase tickets to offer attendees through online registration">
+                                            Book an Activity from the Tiqets
+
+                                            @*<a href="@((string)eventTarrifModel.CatalogUrl)" target="_blank" class="awe-btn awe-btn-1 awe-btn-small" title="Purchase tickets to offer attendees through online registration">Book an Activity from the Tiqets</a>*@
+                                            <img src="/Content/assets/jaunt2/images/icon-vacation.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="false">
+                                        </button>
+                                    </li>
+									
+									   
+                                }
+                                @if (clientOptions.EnableHomePickDrop)
+                                {
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link btnHomePickUp" title="HomePickUp" style="cursor:pointer">
+                                            PickUp/DropOff
+                                            <img src="/Content/assets/jaunt2/images/icon-car.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="false">
+                                        </button>
+                                    </li>
+									
+									   
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+        
+
+            }

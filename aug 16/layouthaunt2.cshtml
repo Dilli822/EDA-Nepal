@@ -1,0 +1,43 @@
+ <!-- <li class="nav-item" role="presentation">
+                                            @*<a href="javascript:void(0);" id="btn-hotelPlanner" title="@title" class="awe-btn awe-btn-1 awe-btn-small btn-hotelPlanner" style="">Book your Hotel(@hotel.Key)  </a>*@
+                                            <button class="nav-link active btn-hotelPlanner" id="btn-hotelPlanner" title="@title" type="button" role="tab" aria-selected="true">
+                                                Book your Hotel
+                                                <img src="/Content/assets/jaunt2/images/icon-hotel.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="false">
+
+                                            </button>
+
+
+                                        </li>
+										 -->
+
+                                         <div class="container-wrapper" style="display: flex;">
+                <div class="container">
+                    <div class="welcome-box alert alert-lite  text-center">
+
+                        <!--<div class="welb-wrap">--->
+                           <!--- <ul class="navm"> -->
+						    <nav>
+							   <ul class="main-nav">
+                                @foreach (var hotel in hotelUrlList)
+                                {
+                                    string title = "";
+                                    if (hotel.Key.ToString() == EnabledHotelType.TWAI.ToString())
+                                    {
+                                        title = "Click here to search and pay for rooms";
+                                    }
+                                    else if (hotel.Key.ToString() == EnabledHotelType.TukMein.ToString())
+                                    {
+                                        title = "Click here to access timeshare block accomodations";
+                                    }
+                                    else if (hotel.Key.ToString() == EnabledHotelType.HotelBeds.ToString())
+                                    {
+                                        title = "Click here to book hotel";
+                                    }
+                                    else
+                                    {
+                                        title = "Send RFP for group rooms";
+                                    }
+
+                                        if (hotel.Key == "HotelPlanner")
+                                    { 
+                                      

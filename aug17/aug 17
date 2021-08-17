@@ -1,0 +1,54 @@
+
+
+-----aug 17 updates-----
+
+----- http://demojaunt2.qa.destindiy.com/Jaunt2-------
+------button img was set as button type apperance button by bootstrap.
+
+button.child-btn img{
+apperance: none;
+}
+
+
+-----line 1998 of style.css-----
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+------------
+http://demojaunt2.qa.destindiy.com/Jaunt2
+--------
+.header .container {
+    position: relative;
+    display: flex;
+  justify-content: space-between;
+
+}
+
+
+----------------------------------------
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+http://demojaunt2.qa.destindiy.com/Jaunt2
+-------
+.sub-banner {
+   /* padding-top: 60px;*/
+    padding-bottom: 5rem;
+   /* padding-left: 15px;
+    padding-right: 15px; */
+}
+
+
+----------------------------------------------------------------
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+----style.css line no 13951........
+http://demojaunt2.qa.destindiy.com/Jaunt2/Trip/GroupInfo
+
+#cp-btn {
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
+   @media only screen and (max-width: 535px){
+    #cp-btn {
+      width: 100%;
+    }
+   }
