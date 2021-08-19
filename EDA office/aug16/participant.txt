@@ -1,0 +1,262 @@
+
+
+-------original css ---
+welb-wrap {
+    height: 150px;
+    padding-top: 20px;
+    background-color: #000000a8;
+    margin: -4% 0% -6% 0%;
+}
+
+--------corrected--------
+
+
+element.style {
+}
+@media (min-width: 992px) and (max-width: 1200px)
+.welb-wrap {
+    margin: -1% 0% -10% 0% !important;
+}
+
+.welb-wrap {
+    height: 150px;
+    padding: 2rem;
+    width: auto;
+    background-color: #000000a8;
+    margin: -4% 0% -6% 0%;
+    display: flex;
+    justify-content: center;
+}
+
+-----bars icon----
+.bars{
+    margin: 1rem 0;
+}
+
+
+----------------------------
+# display none in mobile versions
+@media (max-width: 575px)
+.welb-wrap {
+    display: none;
+    height: 70px !important;
+    margin: -7% 0% -14% -5% !important;
+    width: 110% !important;
+
+@media (min-width: 576px) and (max-width: 767px)
+.welb-wrap {
+    display: none;
+    height: 70px !important;
+    margin: -7% 0% -14% 0% !important;
+
+-------------------------------------
+
+----icons to be displayed------------
+
+element.style {
+}
+@media (min-width: 576px) and (max-width: 767px)
+.navm .nav-item .nav-link {
+    display: flex;
+    max-width: 100%;
+    /* display: none; */
+}
+
+------bars icon--------
+@media (max-width: 767px)
+.bars {
+    margin: 1rem 0;
+    right: 15px;
+}
+--------------------
+element.style {
+}
+@media (max-width: 575px)
+.welb-wrap {
+    height: 70px !important;
+    /* margin: -7% 0% -14% -5% !important; */
+    /* width: 110% !important; */
+    margin: 1em 0rem 0 0;
+}
+
+------------------------------
+
+
+element.style {
+}
+@media (min-width: 576px) and (max-width: 767px)
+.welb-wrap {
+    height: 70px !important;
+    /* margin: -7% 0% -14% 0% !important; */
+    margin-top: .25rem;
+}
+
+----------------throw this shit---------------------
+@media (min-width: 768px) and (max-width: 991px)
+.welb-wrap {
+    /* margin: -7% 0% -14% 0% !important; */
+}
+
+------------------------------- 1200px laptop screeen
+@media (min-width: 992px) and (max-width: 1200px)
+.welb-wrap {
+    margin-top: .25rem;
+    /* margin: 2% -10% 0% !important; */
+}
+
+--------------------------------------------------------
+-------------------------------------
+@media (min-width: 768px) and (max-width: 991px)
+.welb-wrap {
+    margin: .05% 0% -10% 0%;
+}
+
+------------must be icons displayed---------
+
+@media (min-width: 576px) and (max-width: 767px)
+.navm .nav-item .nav-link {
+    /* display: none; */
+    display: visible;
+}
+
+
+--------two items together ----
+element.style {
+}
+@media (max-width: 575px)
+.navm .nav-item {
+    border: 1px solid red;
+    /* padding: 0% 3% 0% 5% !important; */
+}
+
+----------------------------------------------------
+navitems algined properly.
+
+element.style {
+}
+@media (min-width: 576px) and (max-width: 767px)
+.navm .nav-item .nav-link {
+    /* display: none; */
+    display: vi;
+    display: visible;
+    display: flex;
+}
+
+.navm .nav-item .nav-link {
+    max-width: 150px;
+    height: 50px;
+    margin-bottom: 14%;
+    color: #ffffff;
+    background-color: inherit;
+    border: none;
+    padding-top: 1.5rem;
+}
+
+---------------------------
+
+@media (max-width: 575px)
+.navm .nav-item .nav-link {
+    /* display: none; */
+}
+-------------------------------------
+element.style {
+}
+@media (max-width: 575px)
+.welb-wrap {
+    /* height: 70px !important; */
+    /* margin: -7% 0% -14% -5% !important; */
+    /* width: 110% !important; */
+    margin-top: .1rem;
+}
+
+.welb-wrap {
+    /* height: 150px; */
+    /* padding-top: 20px; */
+    background-color: #000000a8;
+    margin: -4% 0% -6% 0%;
+    /* margin: 1rem -6%; */
+    justify-content: center;
+}
+
+----------------------------------------
+element.style {
+}
+@media (max-width: 575px)
+.navm .nav-item img {
+    /* font-size: .5rem; */
+    height: 30px !important;
+    /* margin: -10% 0% 0% 0% !important; */
+}
+.navm .nav-item img {
+    height: 40px !important;
+}
+
+-------------------------------------------
+
+element.style {
+}
+@media (max-width: 575px)
+.navm .nav-item .nav-link {
+    /* display: none; */
+}
+.navm .nav-item .nav-link {
+    max-width: 150px;
+    /* height: 60px; */
+    margin-bottom: 14%;
+    color: #ffffff;
+    background-color: inherit;
+    border: none;
+    padding-top: 1.5rem;
+}
+
+
+
+--------------------removed all for container proper height and placed height auto
+@media (min-width: 576px) and (max-width: 767px)
+.welb-wrap {
+    /* height: 70px !important; */
+    height: auto;
+    /* margin: -2% 0% -14% 0% !important; */
+}}
+
+----removed margin -----
+
+@media (min-width: 576px) and (max-width: 767px)
+.navm .nav-item img {
+    height: 30px !important;
+    /* margin: -10% 0% 0% 0% !important; */
+}
+
+---------------removed for proper margin --------------
+@media (min-width: 576px) and (max-width: 767px)
+.navm:first-child {
+    /* margin-left: -30px !important; */
+}
+
+
+-----------removed display none- and removed welb wrap--------
+@media (max-width: 575px)
+.navm .nav-item .nav-link {
+    /* display: none; */
+}
+@media (max-width: 575px)
+.welb-wrap {
+    /* height: 70px !important; */
+    /* margin: -2% 0% -14% -5% !important; */
+    /* width: 110% !important; */
+}
+-------margin removed -------
+@media (max-width: 575px)
+.navm .nav-item img {
+    height: 30px !important;
+    /* margin: -10% 0% 0% 0% !important; */
+
+
+----------card-header padding removed-----
+======= this was dynamic css no need to do========
+    .card-header {
+    /*padding: .5rem 1rem;*/
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}

@@ -1,0 +1,51 @@
+
+---------aug 18---------
+
+---mobile screen only----
+1. Build Inspiration page side nav bar.
+
+2. Button's element spilled out of page AdminDomain/Participant/4125 .
+
+3. DIY Dashboard To Do list paragraph and Headings with buttons add task padding and margin.
+
+4.  Button's element and dropdown arrow spilled out and button needs to justify-content: flex-end;  of page AdminDomain/Participant/4125 .
+
+5. CustomField/DMCRebate create field box size (optional).
+
+6. AdminDomain/DIY/EventData Event options text-align center with margin and paddings and buttons alignments(optional).
+
+7. Main Landing Page Feature section element's header and para font-size and alignment (optional).
+
+8. http://demodiy.qa.destindiy.com/ LOGIN PAGE needs attention on mobile's screen it's position and width can be changed for better UI.
+
+
+9. DashBoard's search button's padding for better alignment in div in pc screen only.
+
+10. Load Paticipant Participants and Add New Tax button's padding and margin.
+
+11. Side Nav bar of Participants margin and paddings on tab screen size.
+
+12. Arrival Schedule stylesheets ??? not given no idea.?
+
+13. Alert attention on .btn super default behaviours and side nav bar position fixed.
+
+14. Start New Group Img width and css needs to be removed
+
+15. GRoup info headers of startNew Group needs to text-aligned centered.
+
+16. EventData/Create?dmcid=39225 media width spilled out.
+
+17. Save profile back to the previous page button of UserManageDIY/Create page not aligned properly.
+
+18. Site page needs to have margin-left: -1rem; for mobile screen only as page was taking padding.
+
+19. Footer font-sizes on mobile screen needs to be decreased copyright (optional).
+
+20.Save profile buttons not aligned properly needs extra attention and buttons of contract generation page.
+
+21. cross icon and field options width not shown in pc screen .
+
+22. Activity button spilled out of control from pc screen of PLannerPO/4125.
+
+
+

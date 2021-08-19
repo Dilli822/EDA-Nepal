@@ -1,0 +1,2371 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Booking</title>
+    <!-- Font Google -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700%7COpen+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <!-- Library CSS -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="custom.css"> -->
+
+    <style>
+
+        .step {
+            width: 100% !important;
+        }
+
+        .payment-step li {
+            width: 33.3333% !important;
+        }
+
+
+        .user-profile__my-booking .table td a {
+            display: block !important;
+        }
+
+        .goog-logo-link {
+            display: none !important;
+        }
+
+        .goog-te-gadget {
+            color: transparent !important;
+        }
+
+        select.goog-te-combo {
+            border: 1px solid #ddd;
+            padding: 0px 19px;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        li .nav-item.dropdown.user-avatar a#navbarDropdownProfile {
+            padding-top: 0 !important;
+        }
+
+        .goog-te-gadget .goog-te-combo {
+            color: #555;
+        }
+
+        .goog-te-combo {
+            height: 32px;
+            margin-top: 3px;
+        }
+
+        .goog-te-banner {
+            display: none !important;
+        }
+
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+
+        #nav-wrap {
+            width: 103%;
+            margin-left: -1.5%;
+        }
+
+        .welb-wrap {
+            justify-content: flex;
+            height: 150px;
+            padding-top: 20px;
+            background-color: #000000a8;
+            margin: -4% 0% -6% 0%;
+        }
+
+        .navm {
+            margin-left: 3%;
+            list-style: none;
+        }
+
+            .navm:first-child {
+                margin-left: 0%;
+            }
+
+            .navm .nav-item {
+                float: left;
+                margin-right: 3%;
+                margin-left: -3%;
+            }
+
+                .navm .nav-item .nav-link {
+                    max-width: 150px;
+                    height: 50px;
+                    margin-bottom: 14%;
+                    color: #ffffff;
+                    background-color: inherit;
+                    border: none;
+                }
+
+                .navm .nav-item img {
+                    height: 40px !important;
+                }
+
+        .modal-body h2 {
+            text-align: center;
+        }
+
+        .modal-body #HomeCityAddressSection .box-title {
+            text-align: center;
+            margin-left: 0% !important;
+        }
+
+        .btn-search {
+            margin-bottom: 20px !important;
+        }
+
+        #tripPaxes #TripList {
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        #tripPaxes #PaxList {
+            border-radius: 5px;
+        }
+
+        .search-area .dateCheckInOutContainer {
+            margin-top: 20px;
+        }
+
+            .search-area .dateCheckInOutContainer img {
+                height: 30px;
+            }
+
+            .search-area .dateCheckInOutContainer span {
+                margin: 0px 5px 0px 5px;
+                font-size: 16px !important;
+            }
+
+        .search-area #acselector .input-group-text {
+            height: 38px;
+        }
+
+        .search-area .price-form {
+            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            padding: 10px;
+            position: absolute;
+            background: #fff;
+            z-index: 111111;
+            width: 39%;
+            height: 260px;
+            overflow: auto;
+        }
+
+            .search-area .price-form .room-Selector {
+                text-align: center;
+            }
+
+                .search-area .price-form .room-Selector #roomCount {
+                    border-radius: 5px !important;
+                }
+
+            .search-area .price-form .pax-Selector .text-center {
+                margin-top: 5px;
+            }
+
+            .search-area .price-form .pax-Selector .price-div {
+                text-align: center;
+                margin: 10px;
+            }
+
+            .search-area .price-form .price-div .valuebtn {
+                display: inline-block;
+                border: 1px solid #ddd;
+                border-radius: 25px;
+                margin: 5px 0px 10px 0px;
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                padding: 3px 3px 5px 3px;
+            }
+
+            .search-area .price-form .label {
+                display: flex;
+                color: #8c8989;
+                margin: 0% 0% 0% 45%;
+            }
+
+            .search-area .price-form .price-div .num {
+                text-align: center;
+                border: none !important;
+                border-bottom: 2px solid #ddd !important;
+                margin: 0px;
+                width: 36px;
+                height: 36px;
+            }
+        button img {
+            margin-top: 10px;
+        }
+
+        @media (min-width: 992px) and (max-width: 1200px) {
+            .welb-wrap {
+                margin: -4% 0% -10% 0% !important;
+            }
+
+            #acselector {
+                margin-left: 0% !important;
+                width: 100% !important;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            .welb-wrap {
+                margin: -7% 0% -14% 0% !important;
+            }
+
+            .landingSearchForm .dateCheckInOutContainer {
+                width: 100% !important;
+            }
+
+            #acselector {
+                margin-left: 0% !important;
+            }
+        }
+
+        @media (min-width: 576px) and (max-width: 767px) {
+            .welb-wrap {
+                height: 70px !important;
+                margin: -7% 0% -14% 0% !important;
+            }
+
+            .navm:first-child {
+                margin-left: -30px !important;
+            }
+
+            .navm .nav-item {
+                padding: 0% 3% 0% 5% !important;
+            }
+
+                .navm .nav-item .nav-link {
+                    display: none;
+                }
+
+                .navm .nav-item img {
+                    height: 30px !important;
+                    margin: -10% 0% 0% 0% !important;
+                }
+
+            .main {
+                margin-top: -30px !important;
+            }
+
+            .landingSearchForm .dateCheckInOutContainer {
+                width: 100% !important;
+            }
+
+            #acselector {
+                margin-left: 0% !important;
+                width: 100% !important;
+            }
+
+            .search-area .price-form {
+                margin-left: -5px !important;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .welb-wrap {
+                height: 70px !important;
+                margin: -7% 0% -14% -5% !important;
+                width: 110% !important;
+            }
+
+            .navm:first-child {
+                margin-left: -30px !important;
+            }
+
+            .navm .nav-item {
+                padding: 0% 3% 0% 5% !important;
+            }
+
+                .navm .nav-item .nav-link {
+                    display: none;
+                }
+
+                .navm .nav-item img {
+                    height: 30px !important;
+                    margin: -10% 0% 0% 0% !important;
+                }
+
+            .main {
+                margin-top: -30px !important;
+            }
+
+            .landingSearchForm .dateCheckInOutContainer {
+                min-width: 100% !important;
+            }
+
+            #acselector {
+                margin-left: 10px !important;
+                min-width: 95% !important;
+            }
+
+            .search-area .price-form {
+                margin-left: -5px !important;
+            }
+        }
+    </style>
+
+    <link rel="apple-touch-icon" sizes="76x76" href="/Content/assets/images/apple-icon.png">
+    <link rel="icon" type="image/png" href="/Content/assets/DIY/images/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Participant
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    
+    <!-- <link href="/Content/assets/jaunt2/css/library/font-awesome.min.css" rel="stylesheet" /> -->
+    <!-- <link href="/Content/assets/jaunt2/css/library/jquery-ui.min.css" rel="stylesheet" /> -->
+    <!-- CSS only -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+    <!-- CSS Files -->
+    <!-- <link href="/Content/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" /> -->
+    <!-- Date Picker Plugin JavaScript -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+    <!-- toast CSS -->
+    <!-- <link href="/Content/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet"> -->
+    <!-- sweet alert -->
+    <!-- <link href="/Content/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="/Content/material/css/spinners.css" rel="stylesheet" />
+    <link href="/Content/assets/jaunt2/css/style.css" rel="stylesheet" />
+    <link href="/Content/assets/jaunt2/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="/Content/assets/HotelBed/css/fontawesome.all.min.css" rel="stylesheet" />
+    <link href="/Content/assets/HotelBed/css/themeForest.css" rel="stylesheet" />
+    
+    
+    <link rel="stylesheet" href="/Content/assets/plugins/fancy/jquery.fancybox.css" type="text/css" media="screen" />
+    <link href="/Content/assets/plugins/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="/Content/assets/plugins/owl.carousel/assets/owl.theme.default.css" rel="stylesheet" />
+    <link href="/Content/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/plugins/cropper/cropper.min.css" rel="stylesheet" />
+    <link href="/Content/assets/plugins/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/assets/plugins/select2-4.0.4/select2-4.0.4/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="/Content/assets/Pages/jaunt2/Participant.css" rel="stylesheet" /> -->
+
+    
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="tb-cell">
+            <div id="page-loading">
+                <div></div>
+                <p>Loading</p>
+            </div>
+        </div>
+    </div>
+    <!-- Wrap -->
+    <div id="wrap">
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="container">
+                <!-- Logo -->
+                <div class="logo float-left">
+
+                    <a href="/" title="">
+                            <img src='https://storageedastatic.blob.core.windows.net/uploadfiles/20210809/1a3dde65d61f4c0590d44d20f86c849cLcEn.png' class="light-logo" alt="homepage" />
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <!-- Bars -->
+                <div class="bars" id="bars"></div>
+                <!-- End Bars -->
+                <div style="text-align:right">
+                    <!--Navigation-->
+                    <nav class="navigation nav-c nav-desktop" id="navigation" data-menu-type="1200">
+                        <div class="nav-inner">
+
+                            <div class="tb">
+                                <div class="tb-cell">
+
+
+                                    
+                                    <ul class="menu-list text-uppercase">
+
+
+                                                <li class="menu-parent">
+                                                    <a href="#" id="navbarDropdown" title="">Account</a>
+                                                    <ul class="sub-menu">
+                                                        <li>
+                                                            <a href="/Jaunt2/Profile/Index" title="">Profile</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/Jaunt2/UserDashboard/Index">Dashboard</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/UserAuthJaunt2/LogOut">LogOut</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <!--End Navigation-->
+                </div>
+
+            </div>
+        </header>
+        <!-- End Header -->
+        <!--Banner-->
+        <section class="sub-banner">
+            <!--Background-->
+            <div class="bg-parallax bg-1"></div>
+            <!--End Background-->
+            <!-- Logo -->
+                <div class="container">
+                    <div class="welcome-box alert alert-lite  text-center">
+
+                        <div class="welb-wrap">
+                            <ul class="navm">
+                                        <li class="nav-item" role="presentation">
+                                            
+                                            <button class="nav-link active btn-hotelPlanner" id="btn-hotelPlanner" title="Send RFP for group rooms" type="button" role="tab" aria-selected="true">
+                                                Book your Hotel
+                                                <img src="/Content/assets/jaunt2/images/icon-hotel.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="false">
+
+                                            </button>
+
+
+                                        </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link btn-flyusredirect" id="btn-flyusredirect" title="" type="button" role="tab" aria-selected="true">
+                                            Book your flight  from (flyUS)
+
+                                            
+                                            <img src="/Content/assets/jaunt2/images/icon-flight.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="false">
+                                        </button>
+
+                                    </li>
+                                                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link btnTiqets" title="Purchase tickets to offer attendees through online registration">
+                                            Book an Activity from the Tiqets
+
+                                            
+                                            <img src="/Content/assets/jaunt2/images/icon-vacation.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="false">
+                                        </button>
+                                    </li>
+                                                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link btnHomePickUp" title="HomePickUp" style="cursor:pointer">
+                                            PickUp/DropOff
+                                            <img src="/Content/assets/jaunt2/images/icon-car.png" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="false">
+                                        </button>
+                                    </li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            <div class="logo-banner text-center">
+                <a href="" title="">
+                    <img src="images/logo-banner.png" alt="">
+                </a>
+            </div>
+            <!-- Logo -->
+        </section>
+        <!--End Banner-->
+        <!-- Main -->
+        <div class="main">
+            <div class="container">
+                <div class="main-cn element-page bg-white clearfix">
+                    <!--Breakcrumb-->
+                    
+                    <!--End Breakcrumb-->
+
+                    <section class="user-profile">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12 col-xs-12">
+                                <div class="user-profile__header">
+                                    <h4>Rabin Maharjan</h4>
+                                    <span>rabin@e-destinaccess.com</span>
+
+                                    <p>
+                                        <img src="https://storageedastatic.blob.core.windows.net/uploadfiles/default_avatar.png" alt="User Image">
+
+                                    </p>
+                                </div>
+                                <ul class="user-profile__navigation">
+                                    <li class="nav-item"><a class="nav-link" href="/Jaunt2"><p>My Dashboard</p></a></li>
+<li class="nav-item"><a class="nav-link" href="/Jaunt2/Trip/GroupInfo"><p>Trip</p></a></li>
+<li class="nav-item"><a class="nav-link" href="/Jaunt2/Profile"><p>Profile</p></a></li>
+<li class="nav-item"><a class="nav-link" href="/UserAuthJaunt2/LogOut"><p>Sign Out</p></a></li>
+
+                                </ul>
+                            </div>
+                            <div class="col-md-9 col-sm-12 col-xs-12">
+                                
+<input id="ParentCity" name="ParentCity" type="hidden" value="True" />
+
+<div class="diy-content pad-t-20">
+    <div class="container">
+        <div class="diy-pageheader">
+        </div>
+    </div>
+</div>
+<article hidden>
+    <div class="article">
+        <p>
+            Transportation allows you to run arrival and departure schedules for your group. This allows you to send the schedules to your transportation provider
+        </p>
+
+    </div>
+</article>
+
+
+<div class="card">
+    <div class="card-body">
+
+
+        <div class="">
+
+<div class="step">
+    <!-- Step -->
+    <ul class="payment-step text-center clearfix">
+        <li class="  ">
+            <a href="/Jaunt2/Trip/groupinfo/20">
+                <span>1</span>
+                <p>Trip Info </p>
+            </a>
+           
+        </li>
+        <li class=" step-select  ">
+            <a href="/Jaunt2/Participant/Index/20">
+                <span>2</span>
+                <p>
+                    Participant/Schedule Event
+                </p>
+            </a>
+          
+        </li>
+        <li class="step-part ">
+            <a href="/Jaunt2/Trip/Finish/?tripId=20">
+                <span>3</span>
+                <p>
+                    Finish
+                </p>
+            </a>
+            
+        </li>
+        
+    </ul>
+    <!-- ENd Step -->
+</div>
+
+
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <ul class="tabs-head nav-tabs-two nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a data-toggle="tab" class="active" data-bs-toggle="tab" data-bs-target="#Participant" role="tab" aria-controls="Participant" aria-selected="true">Participant</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" data-bs-toggle="tab" data-bs-target="#EventTariff" role="tab" aria-controls="EventTariff" id="Events" aria-selected="true">Schedule Event</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="Participant" class="tab-pane show active">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-md-12 user-form">
+                                    <br />
+<form action="/Jaunt2/Participant/ParticipantList" id="ListForm" method="post">                                        <div class="row">
+                                            <div class="field-input col-lg-7 col-md-12 col-sm-12 mb-3">
+                                                <select class="form-control" id="Member" name="Member" style="width: 100% !important"><option value="">Select family Member </option>
+</select>
+                                            </div>
+                                            <div class="col-lg-5 col-md-12 col-sm-12">
+                                                <div class="action-bottons">
+                                                    <a href="javascript:void(0);" onclick="participant.loadCrmContactToPax(0)" class="awe-btn awe-btn-1 awe-btn-small">
+
+                                                        Add to Trip
+                                                    </a>
+                                                    <a href="javascript:void(0);" onclick="participant.onLoadPaxDetail(0)" class="awe-btn awe-btn-1 awe-btn-small">
+                                                        Add New PAX
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+<input id="IsDIYEnabled" name="IsDIYEnabled" type="hidden" value="True" />
+<input id="IsJaunt2Enabled" name="IsJaunt2Enabled" type="hidden" value="True" />
+
+
+<!--BEGIN SMART TOOL LIST-->
+
+<div class="card">
+    <div class="card-body user-form">
+        <div class="searchby">
+            <h4 class="card-title">Search By: </h4>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="">
+                                <label class="bmd-label-floating" for="txtSearch_By_Name">
+                                    Name
+                                </label>
+                                <input class="form-control" id="txtSearch_By_Name" type="text">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="">
+                                <label class="bmd-label-floating" for="txtSearch_By_HotelName">
+                                    Hotel Name
+                                </label>
+                                <input class="form-control" id="txtSearch_By_HotelName" type="text">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="">
+                                <label class="bmd-label-floating" for="txtSearch_By_RoomNo">
+                                    Room No.
+                                </label>
+                                <input class="form-control" id="txtSearch_By_RoomNo" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-btn col-lg-2 col-md-12 col-sm-12">
+                    <button type="button" id="btn-search-pax" class="awe-btn awe-btn-1 awe-btn-small" style="margin-top: 26px">Search</button>
+                </div>
+            </div>
+        </div>
+        <!--end searchby-->
+    </div>
+</div>
+
+                                        <div id="ParticipantList">
+                                        </div>
+</form>                                    <div class="row">
+                                        <div class="col-md-12 " id="AppendEditTable"></div>
+                                    </div>
+
+
+                                    <div class="procced-button">
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+
+                                                <a class="awe-btn awe-btn-1 awe-btn-small arrow-left" href="/Jaunt2/Trip/GroupInfo/20">
+
+                                                    <span class="btn-label btn-label-right arrow-right">
+                                                        
+                                                        Previous
+                                                    </span>
+
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 text-end">
+                                                <button type="submit" class="awe-btn awe-btn-1 awe-btn-small" onclick="javascript:location.href='/Jaunt2/Trip/Finish/?tripId=20'">
+                                                    Proceed to Next Step
+
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="EventTariff" class="tab-pane">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-md-12">
+                                    <div class="welcome-box alert alert-lite  text-center">
+                                        <h4>
+                                            Your Suppliers, Your Tool!
+                                        </h4>
+                                        <div class="schedule-wrap">
+
+                                                    <a href="javascript:void(0);" id="btn-hotelPlanner" title="Send RFP for group rooms" class="awe-btn awe-btn-1 awe-btn-small btn-hotelPlanner mb-2">Book your Hotel(HotelPlanner)  </a>
+                                                        <a href="javascript:void(0);" id="btn-flyusredirect" title="" class="awe-btn awe-btn-1 awe-btn-small btn-flyusredirect mb-2">Book your flight (flyUS)</a>
+
+
+                                                        
+                                                            <a href="#" class="awe-btn awe-btn-1 awe-btn-small btnTiqets mb-2" title="Purchase tickets to offer attendees through online registration">Book an Activity from the Tiqets</a>
+
+                                                </div>
+                                    </div>
+                                    <section class="cruise-list">
+                                        <!-- End Sort by and View by -->
+                                        <!-- Cruise Content -->
+                                        <div class="cruise-list-cn tour-list-cn" id="eventList">
+
+
+
+<!-- Item -->
+<div class="cruise-item" id="eventinfo_18" data-eventsectionname="18">
+    <figure class="cruise-img">
+
+        <img src="//i.travelapi.com/hotels/24000000/23570000/23569900/23569835/43d2e55a_z.jpg" alt="Event Image">
+    </figure>
+    <div class="cruise-text">
+        <div class="cruise-name">
+            <a href="javascript:void(0);">Desert Moon Motel(Independent-Other Hotels)</a>
+                        <div class="price">
+                            <small>Confirmation Id : </small><ins> H4005318</ins>
+                        </div>
+
+
+        </div>
+        <ul class="ship-port">
+            <li>
+
+In Las Vegas (Downtown Las Vegas) With a stay at Desert Moon Motel in Las Vegas (Downtown Las Vegas), you'll be a 2-minute drive from Fremont Street Experience and 8 minutes from World Market Center. This motel is 2.2 mi (3.5 km) from Las Vegas Premium Outlets North and 3.8 mi (6.1 km) from Las Vegas Convention Center. Stay in one of 30 guestrooms featuring Smart televisions. Complimentary wireless Internet access is available to keep you connected. Private bathrooms have deep soaking bathtubs a ...                                    <a href="javascript:void(0);" data-id="18" class="event-description" data-lat="36.16364" data-lng="-115.1264">View more</a>
+            </li>
+        </ul>
+        <div class="price-box">
+            <span class="price">
+                <br>
+                <ins>150.86 (USD)</ins>
+            </span>
+            <span class="price night">
+                <small>No.Of Guest : </small><ins>1</ins>
+
+            </span>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- End Item -->
+</div>
+
+
+                                        </div>
+                                        <!-- End Cruise Content -->
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-loadmanifest" class="modal diy-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+<form action="/Jaunt2/Participant/ImportManifest/20" class="form-horizontal" enctype="multipart/form-data" id="frmImport" method="post">            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Load by Manifest</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 paddingright0">Step 1</label>
+                                <div class="col-md-7 paddingleft0">
+                                    <a href="/Jaunt2/Participant/DownloadManifestTemplate?tripId=20" target="_blank" class="btn btn-success">
+                                        
+                                        <i class="fa fa-cloud-download"></i>&nbsp;Download mainfest template
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <!--/span-->
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-4 paddingright0">Step 2</label>
+                                <div class="col-md-7 paddingleft0">
+                                    <input class="tempms" type="file" name="manifest" />
+                                    <small>
+                                        File format: csv, xls, xlsx, 5 MB Max
+                                    </small>
+                                    <div class="form-check" style="margin-top: 15px;">
+                                        <label class="form-check-label" for="clearPAX">
+                                            Remove Previously Imported PAX
+                                            <input id="clearPAX" type="checkbox" name="clearPAX" value="true" class="form-check-input" />
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 loading">
+                            <img src="/Content/assets/images/loading.gif" alt="loading" />
+                            Import in progress. Please wait...
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="awe-btn awe-btn-1 awe-btn-small">
+                        <i class="fa fa-cloud-upload"></i> Import mainfest
+                    </button>
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+</form>        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="modal-departuregroup" class="modal diy-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-md">
+<form action="/Jaunt2/Participant/UpdateDepartureGroupMultiple" class="form-horizontal" enctype="multipart/form-data" id="frmUpdateDepartureGroup" method="post">            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Group</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-6 paddingright0">Group Name</label>
+                                <div class="col-md-6 paddingleft0">
+                                    <input class="form-control" id="DepartureGroup" name="DepartureGroup" type="text" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-6 paddingright0">Default Arrival Flight PAX</label>
+                                <div class="col-md-6 paddingleft0">
+                                    <select class="form-control" id="ddlArrivalSelectedPax"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-6 paddingright0">Arrival Vehicle</label>
+                                <div class="col-md-6 paddingleft0">
+
+                                    <select class="form-control" id="aActivityTemplateId" name="aActivityTemplateId"><option value="">Select</option>
+</select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-6 paddingright0">Default Departure Flight PAX</label>
+                                <div class="col-md-6 paddingleft0">
+                                    <select class="form-control" id="ddlSelectedPax"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-form-label col-md-6 paddingright0">Departure Vehicle</label>
+                                <div class="col-md-6 paddingleft0">
+                                    <select class="form-control" id="dActivityTemplateId" name="dActivityTemplateId"><option value="">Select</option>
+</select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="awe-btn awe-btn-1 awe-btn-small" onclick="participant.onUpdateMultipleDepartureGroup()">
+                        Update
+                    </button>
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+</form>        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div id="modal-stripe-payment" class="modal diy-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+<form action="/Jaunt2/SMSCredit/BuyCredit" id="payment-form" method="post">            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Payment Gateway</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <label for="card-element">
+                            Credit or debit card
+                        </label>
+                        <div id="card-element" style="width:100% !important">
+                            <!-- A Stripe Element will be inserted here. -->
+                        </div>
+                        <!-- Used to display form errors. -->
+                        <div id="card-errors" role="alert"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info" id="payBtn">Submit Payment</button>
+                        <button class="btn btn-danger waves-effect text-left" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+                      
+                    </div>
+                </div>
+            </div>
+</form>        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!--END BUTTON/LINK SECTION-->
+<div id="modal-flight" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book  Your Flight</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-md-12">
+
+                        <iframe src="https://www.flyus.com/partner-search/?pId=3003&amp;key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZGI0NWNlN2FmYjkzZmJmZDk4NjIyYzY5ZTk2NjZiMWYyODA5OWU4MjIwMDQ4MjEwZTk2NmY2ZTY5Mzc5YzczOGVjMzk0Y2NjODY0OWJkMzMiLCJpYXQiOjE2MjkwODYxMDIsIm5iZiI6MTYyOTA4NjEwMiwiZXhwIjoxNjYwNjIyMTAyLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.XN3oojmXVynLT5lDJoyX7RfADbKhLLgQf9zwt_3SRd2Nvt8kW2e9LcmHwTNGaBW-C8REg3Cgox_BmARO-Jxa75omf2RJhkWvxIXCXhyOcJiap9lrJ-A0DxZZ04lo8iR0qi6o_tYcTSwVzYRS0AmFNZHDnVHDg5WCxLs8pkoS9dPzGkgwWvnOjc6oKWBETRs2I8nIVuhYU0pb-p0g6KHC6d2z5eVIBQmHcB36M6yfy1ZvLzg-a6cu4BQszIdeoqVa1K4RGTqzeEtom6PBUwLXb7mef3U2qjcXkxvuzYMNk_yC_DY9rLuJTTdDYkZflGyAno4Uvi9_WQXVxD2-Sii-alHxv2rcV8T5Wj-tnWfUqB0uliSfdGT3CsufQp6iaycxeK0i5Nw6-1NbRd_XkrJ3jAIL0ziO2-X3QMWLtabW3y5VXXE2gQI8BJzRV2nXitVpQPEcWXlqejnxpmN6tbfpcPB9qO6eipaFryTFfCTJhC9_rHB-9N7D9cclVBBYAlh4WePvpf4adB-Kvdv4kLlJjG2252VxGwZxVUIZ_8zTMGIxNzbCZpNyGZ-BRsAhCv_f4EwZIElvU8NotnD58eSfEl4oCYKi_6aQg9sEwMaOMfECsebZ2zkzS9gbW_b2vN-K5-Be_PqMNR85Lh7dBt2Mun8N-qGxEv1LZUuftimvVSE&amp;ref=MjB8UmFiaW4gTWFoYXJqYW4gLyAyMDIxLTA4LTExIDAxOjIxOjE0fDB8MA&amp;ppay=0&amp;hurl=YWxsdmVnYXMubmV4Z2VubXRncy5jb20&amp;logo=https%3a%2f%2fstorageedastatic.blob.core.windows.net%2fuploadfiles%2f20210809%2f1a3dde65d61f4c0590d44d20f86c849cLcEn.png" width="100%" style="min-height: 400px;" frameborder="0" class="bookFlight"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="awe-btn awe-danger awe-btn-small" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-hotel" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book  Your Hotel</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body user-form">
+                <div class="row" style="text-align:left">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+
+                        <label class="col-form-label">Country</label>
+<select class="form-control select2" id="CountryId" name="CountryId" style="width: 100%"><option value=""></option>
+<option value="23">Argentina</option>
+<option value="65">Aruba</option>
+<option value="66">Australia</option>
+<option value="55">Austria</option>
+<option value="2">Belgium</option>
+<option value="30">Belize</option>
+<option value="92">Brazil</option>
+<option value="80">Bulgaria</option>
+<option value="51">Cambodia</option>
+<option value="18">Canada</option>
+<option value="52">China</option>
+<option value="24">Colombia</option>
+<option value="25">Costa Rica</option>
+<option value="40">Croatia</option>
+<option value="36">Czech Republic</option>
+<option value="11">Denmark</option>
+<option value="107">Dominican Republic</option>
+<option value="27">Ecuador</option>
+<option value="103">Egypt</option>
+<option value="16">Estonia</option>
+<option value="12">Finland</option>
+<option value="31">France</option>
+<option value="1">Germany</option>
+<option value="21">Greece</option>
+<option value="28">Guatemala</option>
+<option value="35">Hungary</option>
+<option value="10">Iceland</option>
+<option value="48">India</option>
+<option value="49">Indonesia</option>
+<option value="14">Ireland</option>
+<option value="43">Israel</option>
+<option value="34">Italy</option>
+<option value="131">Jamaica</option>
+<option value="44">Japan</option>
+<option value="8">Latvia</option>
+<option value="15">Lithuania</option>
+<option value="156">Luxembourg</option>
+<option value="47">Malaysia</option>
+<option value="37">Malta</option>
+<option value="22">Mexico</option>
+<option value="33">Monaco</option>
+<option value="155">Morocco</option>
+<option value="170">Myanmar</option>
+<option value="184">New Zealand</option>
+<option value="5">Norway</option>
+<option value="7">Oman</option>
+<option value="195">Palestinian Territory</option>
+<option value="26">Peru</option>
+<option value="13">Poland</option>
+<option value="19">Portugal</option>
+<option value="192">Puerto Rico</option>
+<option value="39">Romania</option>
+<option value="32">Russia</option>
+<option value="45">Singapore</option>
+<option value="206">Slovakia</option>
+<option value="38">Slovenia</option>
+<option value="233">South Africa</option>
+<option value="53">South Korea</option>
+<option value="20">Spain</option>
+<option value="4">Sweden</option>
+<option value="54">Switzerland</option>
+<option value="50">Taiwan</option>
+<option value="46">Thailand</option>
+<option value="3">The Netherlands</option>
+<option value="42">Turkey</option>
+<option value="41">United Arab Emirates</option>
+<option value="9">United Kingdom</option>
+<option value="17">United States</option>
+<option value="29">Uruguay</option>
+</select>                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="col-form-label">City</label>
+                            <select id="CityId" name="CityId" class=" form-control select2" style="width:100%">
+                                        <option value="357" >Albany</option>
+                                        <option value="305" >Allentown</option>
+                                        <option value="1464" >Allentown</option>
+                                        <option value="431" >Altadena</option>
+                                        <option value="442" >Atlanta</option>
+                                        <option value="338" >Auburn Hills</option>
+                                        <option value="337" >Austin</option>
+                                        <option value="366" >Baltimore</option>
+                                        <option value="373" >Bloomington</option>
+                                        <option value="452" >Bloomington</option>
+                                        <option value="1511" >Boca Raton</option>
+                                        <option value="367" >Boston</option>
+                                        <option value="368" >Boulder City</option>
+                                        <option value="352" >Branson</option>
+                                        <option value="339" >Bryan</option>
+                                        <option value="369" >Buena Park</option>
+                                        <option value="370" >Burbank</option>
+                                        <option value="341" >Cambridge</option>
+                                        <option value="361" >Camden</option>
+                                        <option value="371" >Camp Verde</option>
+                                        <option value="372" >Carlsbad</option>
+                                        <option value="417" >Carson City</option>
+                                        <option value="426" >Charleston</option>
+                                        <option value="443" >Charlotte</option>
+                                        <option value="453" >Chicago</option>
+                                        <option value="326" >Cincinnati</option>
+                                        <option value="374" >Clearwater</option>
+                                        <option value="375" >Clermont</option>
+                                        <option value="310" >Colorado Springs</option>
+                                        <option value="429" >Columbus</option>
+                                        <option value="365" >Coronado</option>
+                                        <option value="432" >Dallas</option>
+                                        <option value="450" >Darrow</option>
+                                        <option value="376" >Davie</option>
+                                        <option value="434" >Denver</option>
+                                        <option value="444" >Detroit</option>
+                                        <option value="377" >East Rutherford</option>
+                                        <option value="325" >Easton</option>
+                                        <option value="333" >Edgard</option>
+                                        <option value="315" >El Portal</option>
+                                        <option value="313" >Everglades City</option>
+                                        <option value="379" >Fairbanks</option>
+                                        <option value="378" >Felton</option>
+                                        <option value="430" >Folsom</option>
+                                        <option value="454" >Fort Bragg</option>
+                                        <option value="380" >Fort Lauderdale</option>
+                                        <option value="445" >Fort Myers</option>
+                                        <option value="420" >Fort Worth</option>
+                                        <option value="314" >Franklin</option>
+                                        <option value="1399" >Fresno</option>
+                                        <option value="1398" >Galveston</option>
+                                        <option value="342" >Goshen</option>
+                                        <option value="1517" >Grand Rapids</option>
+                                        <option value="389" >Haines</option>
+                                        <option value="316" >Hanover</option>
+                                        <option value="462" >Healy</option>
+                                        <option value="324" >Henderson</option>
+                                        <option value="438" >Hermitage</option>
+                                        <option value="381" >Honolulu</option>
+                                        <option value="436" >Houston</option>
+                                        <option value="344" >Humble</option>
+                                        <option value="359" >Incline Village</option>
+                                        <option value="319" >Jacksonville</option>
+                                        <option value="451" >Jean Lafitte</option>
+                                        <option value="423" >Juneau</option>
+                                        <option value="382" >Kahului</option>
+                                        <option value="348" >Kansas City</option>
+                                        <option value="457" >Kapolei</option>
+                                        <option value="308" >Kauai</option>
+                                        <option value="383" >Kayenta</option>
+                                        <option value="384" >Kearny</option>
+                                        <option value="1394" >Kemah</option>
+                                        <option value="385" >Kenansville</option>
+                                        <option value="386" >Key West</option>
+                                        <option value="328" >Kissimmee</option>
+                                        <option value="425" >Knoxville</option>
+                                        <option value="1400" >Koloa</option>
+                                        <option value="455" >Laie</option>
+                                        <option value="437" >Langhorne</option>
+                                        <option value="416" selected>Las Vegas</option>
+                                        <option value="330" >Lawrenceville</option>
+                                        <option value="440" >Layton</option>
+                                        <option value="393" >Lewiston</option>
+                                        <option value="424" >Littleton</option>
+                                        <option value="351" >Lockport (Niagara Falls)</option>
+                                        <option value="355" >Long Beach</option>
+                                        <option value="390" >Los Angeles</option>
+                                        <option value="312" >Loxahatchee</option>
+                                        <option value="327" >Lynchburg</option>
+                                        <option value="317" >Lyndhurst</option>
+                                        <option value="433" >Malvern</option>
+                                        <option value="391" >Memphis</option>
+                                        <option value="329" >Merritt Island</option>
+                                        <option value="419" >Miami</option>
+                                        <option value="1512" >Miami Beach</option>
+                                        <option value="323" >Middletown</option>
+                                        <option value="392" >Mill Valley</option>
+                                        <option value="1396" >Milpitas</option>
+                                        <option value="394" >Minneapolis</option>
+                                        <option value="318" >Moapa Town</option>
+                                        <option value="350" >Mount Vernon, Virginia</option>
+                                        <option value="395" >Myrtle Beach</option>
+                                        <option value="396" >Napa</option>
+                                        <option value="448" >Naples</option>
+                                        <option value="346" >Nashville</option>
+                                        <option value="401" >New Orleans</option>
+                                        <option value="463" >New York</option>
+                                        <option value="388" >Newark</option>
+                                        <option value="1393" >Newport</option>
+                                        <option value="1397" >Newport</option>
+                                        <option value="446" >Niagara Falls</option>
+                                        <option value="1395" >Norfolk</option>
+                                        <option value="427" >Oldsmar</option>
+                                        <option value="397" >Orlando</option>
+                                        <option value="398" >Page</option>
+                                        <option value="356" >Palm Springs</option>
+                                        <option value="421" >Palm Springs</option>
+                                        <option value="400" >Panama City Beach</option>
+                                        <option value="360" >Peach Springs</option>
+                                        <option value="441" >Philadelphia</option>
+                                        <option value="399" >Phoenix</option>
+                                        <option value="402" >Pigeon Forge</option>
+                                        <option value="460" >Pine Mountain</option>
+                                        <option value="447" >Plano</option>
+                                        <option value="403" >Plant City</option>
+                                        <option value="439" >Port Huron</option>
+                                        <option value="320" >Portland</option>
+                                        <option value="322" >Roslyn</option>
+                                        <option value="387" >Ruskin</option>
+                                        <option value="404" >Sacramento</option>
+                                        <option value="358" >Saint Augustine</option>
+                                        <option value="435" >Salt Lake City</option>
+                                        <option value="459" >San Antonio</option>
+                                        <option value="428" >San Diego</option>
+                                        <option value="405" >San Francisco</option>
+                                        <option value="406" >San Jose</option>
+                                        <option value="349" >San Juan</option>
+                                        <option value="1436" >Sanford</option>
+                                        <option value="408" >Santa Clara</option>
+                                        <option value="311" >Santa Cruz</option>
+                                        <option value="409" >Savannah</option>
+                                        <option value="410" >Schaumburg</option>
+                                        <option value="354" >Scottsdale</option>
+                                        <option value="411" >Seattle</option>
+                                        <option value="422" >Seward</option>
+                                        <option value="336" >Skagway</option>
+                                        <option value="340" >Sonoma</option>
+                                        <option value="407" >Stanford</option>
+                                        <option value="353" >Stonewall</option>
+                                        <option value="321" >Strafford</option>
+                                        <option value="362" >Summit</option>
+                                        <option value="345" >Talkeetna</option>
+                                        <option value="418" >Tallahassee</option>
+                                        <option value="335" >Tampa</option>
+                                        <option value="306" >Tempe</option>
+                                        <option value="1374" >Tucson</option>
+                                        <option value="456" >Vacherie</option>
+                                        <option value="307" >Valencia</option>
+                                        <option value="331" >Virginia Beach</option>
+                                        <option value="364" >Voorheesville</option>
+                                        <option value="458" >Wahiawa</option>
+                                        <option value="412" >Wailuku</option>
+                                        <option value="347" >Waimanalo</option>
+                                        <option value="414" >Wantagh</option>
+                                        <option value="343" >Washington, D.C.</option>
+                                        <option value="334" >Wildwood</option>
+                                        <option value="332" >Williams</option>
+                                        <option value="464" >Williamsburg</option>
+                                        <option value="461" >Willits</option>
+                                        <option value="413" >Winter Haven</option>
+                                        <option value="449" >Woodbridge</option>
+                                        <option value="415" >Yonkers</option>
+                                        <option value="309" >Yorba Linda</option>
+                                        <option value="363" >Yosemite Valley</option>
+
+                            </select>
+                        <input type="hidden" id="#CityName" name="#CityName" />
+                    </div>
+                </div>
+                <div class="row field-input" style="text-align:left">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="align-left">Chek-In Date</label>
+                        <input autocomplete="off" class="form-control date-picker" id="StartDate" name="StartDate" type="text" value="" />
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <label class="align-left">Check-Out Date</label>
+                        <input autocomplete="off" class="form-control date-picker" id="EndDate" name="EndDate" type="text" value="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="awe-btn awe-btn-1 awe-btn-small waves-effect text-left btnBookHotel" id="btnBookHotel" data-dismiss="modal">Search</button>
+                <button class="awe-btn awe-danger awe-btn-small" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Get start modal-->
+<div class="modal  text-center diy-modal" id="GetStartModal" tabindex="-1" role="dialog" aria-labelledby="GetStartModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Let’s get started with an Event!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body min-h">
+                <div class="diy-mtitle">
+                    <span>It’s time to start creating your Event.</span><br />
+                    <span> Please select an option below to continue </span>
+                </div>
+                <div class="mb-inner">
+                    <div class="diy-btnwrap  text-center">
+                        <a href="javascript:void(0)" class="btn btn-diy btn-primary" id="btn-create-event"> Add my Own Activities </a>
+                            <a href="javascript:void(0)" class="btn btn-diy btn-warning" id="btn-show-tariff"> Select an Activity from the Catalog </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--end get start modal-->
+
+
+
+
+
+                                <!--end content-->
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- End Main -->
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <!-- Logo -->
+                    <div class="col-md-4">
+                        <div class="logo-foter">
+                            <a href="/" title="">
+                                
+                                    <img src='https://storageedastatic.blob.core.windows.net/uploadfiles/20210809/1a3dde65d61f4c0590d44d20f86c849cLcEn.png' class="light-logo" alt="homepage" />
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End Logo -->
+                    <!-- Navigation Footer -->
+                    <!-- End Navigation Footer -->
+                    <!-- Footer Currency, Language -->
+                    <div class="col-sm-6 offset-md-4  col-md-4">
+                        <!-- Language -->
+                        <div class="currency-lang-bottom dropdown-cn float-left">
+                            <div class="g_lang">
+                                <div class="form-group float-left">
+                                    <div id="google_translate_element_2"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Language -->
+                        <!-- Currency -->
+                        <div class="currency-lang-bottom dropdown-cn float-left">
+                            <select class="form-control currency" id="CurrencySelect2" name="CurrencySelect2"><option value="">Currency</option>
+<option value="AED">AED</option>
+<option value="AFN">AFN</option>
+<option value="ALL">ALL</option>
+<option value="AMD">AMD</option>
+<option value="ANG">ANG</option>
+<option value="AOA">AOA</option>
+<option value="ARS">ARS</option>
+<option value="AUD">AUD</option>
+<option value="AWG">AWG</option>
+<option value="AZN">AZN</option>
+<option value="BAM">BAM</option>
+<option value="BBD">BBD</option>
+<option value="BDT">BDT</option>
+<option value="BGN">BGN</option>
+<option value="BHD">BHD</option>
+<option value="BIF">BIF</option>
+<option value="BMD">BMD</option>
+<option value="BND">BND</option>
+<option value="BOB">BOB</option>
+<option value="BRL">BRL</option>
+<option value="BSD">BSD</option>
+<option value="BTN">BTN</option>
+<option value="BWP">BWP</option>
+<option value="BYN">BYN</option>
+<option value="BZD">BZD</option>
+<option value="CAD">CAD</option>
+<option value="CDF">CDF</option>
+<option value="CHF">CHF</option>
+<option value="CLF">CLF</option>
+<option value="CLP">CLP</option>
+<option value="CNY">CNY</option>
+<option value="COP">COP</option>
+<option value="CRC">CRC</option>
+<option value="CUC">CUC</option>
+<option value="CUP">CUP</option>
+<option value="CVE">CVE</option>
+<option value="CZK">CZK</option>
+<option value="DJF">DJF</option>
+<option value="DKK">DKK</option>
+<option value="DOP">DOP</option>
+<option value="DZD">DZD</option>
+<option value="EGP">EGP</option>
+<option value="ERN">ERN</option>
+<option value="ETB">ETB</option>
+<option value="EUR">EUR</option>
+<option value="FJD">FJD</option>
+<option value="FKP">FKP</option>
+<option value="GBP">GBP</option>
+<option value="GEL">GEL</option>
+<option value="GHS">GHS</option>
+<option value="GIP">GIP</option>
+<option value="GMD">GMD</option>
+<option value="GNF">GNF</option>
+<option value="GTQ">GTQ</option>
+<option value="GYD">GYD</option>
+<option value="HKD">HKD</option>
+<option value="HNL">HNL</option>
+<option value="HRK">HRK</option>
+<option value="HTG">HTG</option>
+<option value="HUF">HUF</option>
+<option value="IDR">IDR</option>
+<option value="ILS">ILS</option>
+<option value="INR">INR</option>
+<option value="IQD">IQD</option>
+<option value="IRR">IRR</option>
+<option value="ISK">ISK</option>
+<option value="JMD">JMD</option>
+<option value="JOD">JOD</option>
+<option value="JPY">JPY</option>
+<option value="KES">KES</option>
+<option value="KGS">KGS</option>
+<option value="KHR">KHR</option>
+<option value="KMF">KMF</option>
+<option value="KPW">KPW</option>
+<option value="KRW">KRW</option>
+<option value="KWD">KWD</option>
+<option value="KYD">KYD</option>
+<option value="KZT">KZT</option>
+<option value="LAK">LAK</option>
+<option value="LBP">LBP</option>
+<option value="LKR">LKR</option>
+<option value="LRD">LRD</option>
+<option value="LSL">LSL</option>
+<option value="LYD">LYD</option>
+<option value="MAD">MAD</option>
+<option value="MDL">MDL</option>
+<option value="MGA">MGA</option>
+<option value="MKD">MKD</option>
+<option value="MMK">MMK</option>
+<option value="MNT">MNT</option>
+<option value="MOP">MOP</option>
+<option value="MUR">MUR</option>
+<option value="MVR">MVR</option>
+<option value="MWK">MWK</option>
+<option value="MXN">MXN</option>
+<option value="MYR">MYR</option>
+<option value="MZN">MZN</option>
+<option value="NAD">NAD</option>
+<option value="NGN">NGN</option>
+<option value="NIO">NIO</option>
+<option value="NOK">NOK</option>
+<option value="NPR">NPR</option>
+<option value="NZD">NZD</option>
+<option value="OMR">OMR</option>
+<option value="PAB">PAB</option>
+<option value="PEN">PEN</option>
+<option value="PGK">PGK</option>
+<option value="PHP">PHP</option>
+<option value="PKR">PKR</option>
+<option value="PLN">PLN</option>
+<option value="PYG">PYG</option>
+<option value="QAR">QAR</option>
+<option value="RON">RON</option>
+<option value="RSD">RSD</option>
+<option value="RUB">RUB</option>
+<option value="RWF">RWF</option>
+<option value="SAR">SAR</option>
+<option value="SBD">SBD</option>
+<option value="SCR">SCR</option>
+<option value="SDG">SDG</option>
+<option value="SEK">SEK</option>
+<option value="SGD">SGD</option>
+<option value="SHP">SHP</option>
+<option value="SLL">SLL</option>
+<option value="SOS">SOS</option>
+<option value="SRD">SRD</option>
+<option value="SVC">SVC</option>
+<option value="SYP">SYP</option>
+<option value="SZL">SZL</option>
+<option value="THB">THB</option>
+<option value="TJS">TJS</option>
+<option value="TMT">TMT</option>
+<option value="TND">TND</option>
+<option value="TOP">TOP</option>
+<option value="TRY">TRY</option>
+<option value="TTD">TTD</option>
+<option value="TWD">TWD</option>
+<option value="TZS">TZS</option>
+<option value="UAH">UAH</option>
+<option value="UGX">UGX</option>
+<option selected="selected" value="USD">USD</option>
+<option value="UYU">UYU</option>
+<option value="UZS">UZS</option>
+<option value="VEF">VEF</option>
+<option value="VND">VND</option>
+<option value="VUV">VUV</option>
+<option value="WST">WST</option>
+<option value="XAF">XAF</option>
+<option value="XCD">XCD</option>
+<option value="XDR">XDR</option>
+<option value="XOF">XOF</option>
+<option value="XPF">XPF</option>
+<option value="YER">YER</option>
+<option value="ZAR">ZAR</option>
+<option value="ZMW">ZMW</option>
+<option value="ZWL">ZWL</option>
+</select>
+
+
+                        </div>
+                        <!-- End Currency -->
+                        <!--CopyRight-->
+                        <p class="copyright">
+                            © 2021 e-destinACCESS™ All rights reserved.
+                        </p>
+                        <!--CopyRight-->
+                    </div>
+                    <!-- End Footer Currency, Language -->
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+        <div id="modal-flight" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Book  Your Flight</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+
+                                <iframe src="https://www.flyus.com/partner-search/?pId=3003&amp;key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNDNlMmM0ODgyODcyMzkyYTE1ZjQzOGMxZTZiZDQwYjBjMDgyYmUwOTFmMjM0NmFkOTdmMTM2YTNjZmViODczZmVhMDRhZGEyMzg0MmRlNjkiLCJpYXQiOjE2MjkwODYxMDMsIm5iZiI6MTYyOTA4NjEwMywiZXhwIjoxNjYwNjIyMTAzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Ikod2H8Zj8a7EmoBb7PF4-PnuGEkOItOqkkOAqqXKMqiOwGxiQfuXRcaR7hzJvtqT-py1p3ah_zfU_KLQxnwt-zd_pWq2dfsaDLeFtK5nDFatLILjSrqZvKYgpMgOlKj_szgZmokjUujr9k4iXHqgzPBNeiCH3HuXDhvy-pOD5Xl5krZw0E8QyS5zGSOCNQ27U2oWszjtDu6UM2tYwaNI59kilOt3lWbJ2avlWCHUTT3xDDjWlM5WtIDAs82SQkjMzML8R6FX5jLSOCu3ZxGpBvdZTHsMyGqTf3KICogWDk-al1pTtiWqKs2hOLqAaKFiCLSiJEpJ5NsfRHD6TPa4br1uyXskIOGQ9_4FmuxXMISjYebQucG_E1cnm3kwwtxs4MPVcjM4WvoXuVJjfk9nNCUGh07vsRUcoIV0qM-f4LmJ7tR0zilTt-fNMrgVF8lWwSpsxEIJRfW7B7CtoUnAcbdk9NUBhjTSyb3RAi0nDAf0QSw6KECjeL3HenNkveyd4Li8msGtWoifwdxGUNV4UIXspLZIfvr4pO2vyZb1aHm4ANDGAwpdl1UvHqRnfmY7Emhv99wS_PDRNlLwXDy4OzUjjg-4yvco6BG5XiER80fj4-GEueNJm0BcnJB3_cOnQpg9MuZ3d8GVhHugIyprYkLZMnw2DyiwLES4jjh0MM&amp;ref=MjB8UmFiaW4gTWFoYXJqYW4gLyAyMDIxLTA4LTExIDAxOjIxOjE0fDB8MA&amp;ppay=0&amp;hurl=YWxsdmVnYXMubmV4Z2VubXRncy5jb20&amp;logo=https%3a%2f%2fstorageedastatic.blob.core.windows.net%2fuploadfiles%2f20210809%2f1a3dde65d61f4c0590d44d20f86c849cLcEn.png" width="100%" style="min-height: 400px;" frameborder="0" class="bookFlight"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="awe-btn awe-danger awe-btn-small" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-hotel" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Book  Your Hotel</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body user-form">
+                        <div class="row" style="text-align:left">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                <label class="col-form-label">Country</label>
+<select class="form-control select2" id="CountryId" name="CountryId" style="width: 100%"><option value=""></option>
+<option value="23">Argentina</option>
+<option value="65">Aruba</option>
+<option value="66">Australia</option>
+<option value="55">Austria</option>
+<option value="2">Belgium</option>
+<option value="30">Belize</option>
+<option value="92">Brazil</option>
+<option value="80">Bulgaria</option>
+<option value="51">Cambodia</option>
+<option value="18">Canada</option>
+<option value="52">China</option>
+<option value="24">Colombia</option>
+<option value="25">Costa Rica</option>
+<option value="40">Croatia</option>
+<option value="36">Czech Republic</option>
+<option value="11">Denmark</option>
+<option value="107">Dominican Republic</option>
+<option value="27">Ecuador</option>
+<option value="103">Egypt</option>
+<option value="16">Estonia</option>
+<option value="12">Finland</option>
+<option value="31">France</option>
+<option value="1">Germany</option>
+<option value="21">Greece</option>
+<option value="28">Guatemala</option>
+<option value="35">Hungary</option>
+<option value="10">Iceland</option>
+<option value="48">India</option>
+<option value="49">Indonesia</option>
+<option value="14">Ireland</option>
+<option value="43">Israel</option>
+<option value="34">Italy</option>
+<option value="131">Jamaica</option>
+<option value="44">Japan</option>
+<option value="8">Latvia</option>
+<option value="15">Lithuania</option>
+<option value="156">Luxembourg</option>
+<option value="47">Malaysia</option>
+<option value="37">Malta</option>
+<option value="22">Mexico</option>
+<option value="33">Monaco</option>
+<option value="155">Morocco</option>
+<option value="170">Myanmar</option>
+<option value="184">New Zealand</option>
+<option value="5">Norway</option>
+<option value="7">Oman</option>
+<option value="195">Palestinian Territory</option>
+<option value="26">Peru</option>
+<option value="13">Poland</option>
+<option value="19">Portugal</option>
+<option value="192">Puerto Rico</option>
+<option value="39">Romania</option>
+<option value="32">Russia</option>
+<option value="45">Singapore</option>
+<option value="206">Slovakia</option>
+<option value="38">Slovenia</option>
+<option value="233">South Africa</option>
+<option value="53">South Korea</option>
+<option value="20">Spain</option>
+<option value="4">Sweden</option>
+<option value="54">Switzerland</option>
+<option value="50">Taiwan</option>
+<option value="46">Thailand</option>
+<option value="3">The Netherlands</option>
+<option value="42">Turkey</option>
+<option value="41">United Arab Emirates</option>
+<option value="9">United Kingdom</option>
+<option value="17">United States</option>
+<option value="29">Uruguay</option>
+</select>                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <label class="col-form-label">City</label>
+                                    <select id="CityId" name="CityId" class=" form-control select2" style="width:100%">
+                                                <option value="357" >Albany</option>
+                                                <option value="305" >Allentown</option>
+                                                <option value="1464" >Allentown</option>
+                                                <option value="431" >Altadena</option>
+                                                <option value="442" >Atlanta</option>
+                                                <option value="338" >Auburn Hills</option>
+                                                <option value="337" >Austin</option>
+                                                <option value="366" >Baltimore</option>
+                                                <option value="373" >Bloomington</option>
+                                                <option value="452" >Bloomington</option>
+                                                <option value="1511" >Boca Raton</option>
+                                                <option value="367" >Boston</option>
+                                                <option value="368" >Boulder City</option>
+                                                <option value="352" >Branson</option>
+                                                <option value="339" >Bryan</option>
+                                                <option value="369" >Buena Park</option>
+                                                <option value="370" >Burbank</option>
+                                                <option value="341" >Cambridge</option>
+                                                <option value="361" >Camden</option>
+                                                <option value="371" >Camp Verde</option>
+                                                <option value="372" >Carlsbad</option>
+                                                <option value="417" >Carson City</option>
+                                                <option value="426" >Charleston</option>
+                                                <option value="443" >Charlotte</option>
+                                                <option value="453" >Chicago</option>
+                                                <option value="326" >Cincinnati</option>
+                                                <option value="374" >Clearwater</option>
+                                                <option value="375" >Clermont</option>
+                                                <option value="310" >Colorado Springs</option>
+                                                <option value="429" >Columbus</option>
+                                                <option value="365" >Coronado</option>
+                                                <option value="432" >Dallas</option>
+                                                <option value="450" >Darrow</option>
+                                                <option value="376" >Davie</option>
+                                                <option value="434" >Denver</option>
+                                                <option value="444" >Detroit</option>
+                                                <option value="377" >East Rutherford</option>
+                                                <option value="325" >Easton</option>
+                                                <option value="333" >Edgard</option>
+                                                <option value="315" >El Portal</option>
+                                                <option value="313" >Everglades City</option>
+                                                <option value="379" >Fairbanks</option>
+                                                <option value="378" >Felton</option>
+                                                <option value="430" >Folsom</option>
+                                                <option value="454" >Fort Bragg</option>
+                                                <option value="380" >Fort Lauderdale</option>
+                                                <option value="445" >Fort Myers</option>
+                                                <option value="420" >Fort Worth</option>
+                                                <option value="314" >Franklin</option>
+                                                <option value="1399" >Fresno</option>
+                                                <option value="1398" >Galveston</option>
+                                                <option value="342" >Goshen</option>
+                                                <option value="1517" >Grand Rapids</option>
+                                                <option value="389" >Haines</option>
+                                                <option value="316" >Hanover</option>
+                                                <option value="462" >Healy</option>
+                                                <option value="324" >Henderson</option>
+                                                <option value="438" >Hermitage</option>
+                                                <option value="381" >Honolulu</option>
+                                                <option value="436" >Houston</option>
+                                                <option value="344" >Humble</option>
+                                                <option value="359" >Incline Village</option>
+                                                <option value="319" >Jacksonville</option>
+                                                <option value="451" >Jean Lafitte</option>
+                                                <option value="423" >Juneau</option>
+                                                <option value="382" >Kahului</option>
+                                                <option value="348" >Kansas City</option>
+                                                <option value="457" >Kapolei</option>
+                                                <option value="308" >Kauai</option>
+                                                <option value="383" >Kayenta</option>
+                                                <option value="384" >Kearny</option>
+                                                <option value="1394" >Kemah</option>
+                                                <option value="385" >Kenansville</option>
+                                                <option value="386" >Key West</option>
+                                                <option value="328" >Kissimmee</option>
+                                                <option value="425" >Knoxville</option>
+                                                <option value="1400" >Koloa</option>
+                                                <option value="455" >Laie</option>
+                                                <option value="437" >Langhorne</option>
+                                                <option value="416" selected>Las Vegas</option>
+                                                <option value="330" >Lawrenceville</option>
+                                                <option value="440" >Layton</option>
+                                                <option value="393" >Lewiston</option>
+                                                <option value="424" >Littleton</option>
+                                                <option value="351" >Lockport (Niagara Falls)</option>
+                                                <option value="355" >Long Beach</option>
+                                                <option value="390" >Los Angeles</option>
+                                                <option value="312" >Loxahatchee</option>
+                                                <option value="327" >Lynchburg</option>
+                                                <option value="317" >Lyndhurst</option>
+                                                <option value="433" >Malvern</option>
+                                                <option value="391" >Memphis</option>
+                                                <option value="329" >Merritt Island</option>
+                                                <option value="419" >Miami</option>
+                                                <option value="1512" >Miami Beach</option>
+                                                <option value="323" >Middletown</option>
+                                                <option value="392" >Mill Valley</option>
+                                                <option value="1396" >Milpitas</option>
+                                                <option value="394" >Minneapolis</option>
+                                                <option value="318" >Moapa Town</option>
+                                                <option value="350" >Mount Vernon, Virginia</option>
+                                                <option value="395" >Myrtle Beach</option>
+                                                <option value="396" >Napa</option>
+                                                <option value="448" >Naples</option>
+                                                <option value="346" >Nashville</option>
+                                                <option value="401" >New Orleans</option>
+                                                <option value="463" >New York</option>
+                                                <option value="388" >Newark</option>
+                                                <option value="1393" >Newport</option>
+                                                <option value="1397" >Newport</option>
+                                                <option value="446" >Niagara Falls</option>
+                                                <option value="1395" >Norfolk</option>
+                                                <option value="427" >Oldsmar</option>
+                                                <option value="397" >Orlando</option>
+                                                <option value="398" >Page</option>
+                                                <option value="356" >Palm Springs</option>
+                                                <option value="421" >Palm Springs</option>
+                                                <option value="400" >Panama City Beach</option>
+                                                <option value="360" >Peach Springs</option>
+                                                <option value="441" >Philadelphia</option>
+                                                <option value="399" >Phoenix</option>
+                                                <option value="402" >Pigeon Forge</option>
+                                                <option value="460" >Pine Mountain</option>
+                                                <option value="447" >Plano</option>
+                                                <option value="403" >Plant City</option>
+                                                <option value="439" >Port Huron</option>
+                                                <option value="320" >Portland</option>
+                                                <option value="322" >Roslyn</option>
+                                                <option value="387" >Ruskin</option>
+                                                <option value="404" >Sacramento</option>
+                                                <option value="358" >Saint Augustine</option>
+                                                <option value="435" >Salt Lake City</option>
+                                                <option value="459" >San Antonio</option>
+                                                <option value="428" >San Diego</option>
+                                                <option value="405" >San Francisco</option>
+                                                <option value="406" >San Jose</option>
+                                                <option value="349" >San Juan</option>
+                                                <option value="1436" >Sanford</option>
+                                                <option value="408" >Santa Clara</option>
+                                                <option value="311" >Santa Cruz</option>
+                                                <option value="409" >Savannah</option>
+                                                <option value="410" >Schaumburg</option>
+                                                <option value="354" >Scottsdale</option>
+                                                <option value="411" >Seattle</option>
+                                                <option value="422" >Seward</option>
+                                                <option value="336" >Skagway</option>
+                                                <option value="340" >Sonoma</option>
+                                                <option value="407" >Stanford</option>
+                                                <option value="353" >Stonewall</option>
+                                                <option value="321" >Strafford</option>
+                                                <option value="362" >Summit</option>
+                                                <option value="345" >Talkeetna</option>
+                                                <option value="418" >Tallahassee</option>
+                                                <option value="335" >Tampa</option>
+                                                <option value="306" >Tempe</option>
+                                                <option value="1374" >Tucson</option>
+                                                <option value="456" >Vacherie</option>
+                                                <option value="307" >Valencia</option>
+                                                <option value="331" >Virginia Beach</option>
+                                                <option value="364" >Voorheesville</option>
+                                                <option value="458" >Wahiawa</option>
+                                                <option value="412" >Wailuku</option>
+                                                <option value="347" >Waimanalo</option>
+                                                <option value="414" >Wantagh</option>
+                                                <option value="343" >Washington, D.C.</option>
+                                                <option value="334" >Wildwood</option>
+                                                <option value="332" >Williams</option>
+                                                <option value="464" >Williamsburg</option>
+                                                <option value="461" >Willits</option>
+                                                <option value="413" >Winter Haven</option>
+                                                <option value="449" >Woodbridge</option>
+                                                <option value="415" >Yonkers</option>
+                                                <option value="309" >Yorba Linda</option>
+                                                <option value="363" >Yosemite Valley</option>
+
+                                    </select>
+                                <input type="hidden" id="#CityName" name="#CityName" />
+                            </div>
+                        </div>
+                        <div class="row field-input" style="text-align:left">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <label class="align-left">Chek-In Date</label>
+                                <input autocomplete="off" class="form-control date-picker" id="StartDate" name="StartDate" type="text" value="" />
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <label class="align-left">Check-Out Date</label>
+                                <input autocomplete="off" class="form-control date-picker" id="EndDate" name="EndDate" type="text" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="awe-btn awe-btn-1 awe-btn-small waves-effect text-left btnBookHotel" id="btnBookHotel" data-dismiss="modal">Search</button>
+                        <button class="awe-btn awe-danger awe-btn-small" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-tiqet" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Book  Your Activities</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body user-form">
+                        <div class="row" style="text-align:left">
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+
+                                <label class="col-form-label">Country</label>
+                                <select id="CountryId" name="CountryId" style="width: 100%"></select>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+
+                                <label class="col-form-label">City</label>
+                                <select id="CityId" name="CityId" style="width: 100%"></select>
+                            </div>
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+
+                                <label class="col-form-label">Event Type</label>
+                                <select name="EventType" id="EventType" placeholder="Event Type" style="width:100% !important"></select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="awe-btn awe-btn-1 awe-btn-small waves-effect text-left btnBookTiqet" id="" data-dismiss="modal">Search</button>
+                        <button class="awe-btn awe-danger awe-btn-small" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-hotelBed" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Book  Your Hotel</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body user-form">
+                        <div class="search-form">
+                            <form action="#" class="landingSearchForm">
+                                <div class="search-area">
+
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-xs-12">
+                                            <a href="#" class="check-io">
+                                                <div id="datecheckInOut" class="dateCheckInOutContainer">
+                                                    <img src="/Content/assets/HotelBed/images/homepage/date.png" alt="Date"><span id="checkInText">Check In</span>
+                                                    <span><i class="fas fa-chevron-right"></i></span><span id="checkOutText">Check Out</span>
+                                                </div>
+                                                <div>
+                                                    <input style="width:100%" class="hotelDates" type="text" id="Dates" name="Dates" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-xs-12">
+                                            <div class="input-group mb-3" id="acselector">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input class="input-field form-control" type="text" id="totalPerson" name="person" readonly="readonly" value="2 Adult(s) 0 Child(s)">
+
+                                            </div>
+
+<div id="priceAdjuster" class="price-form col-md-3" style="display:none">
+    <div class="room-Selector">
+        <label id="lbl" class="label">Room</label>
+        <select class="form-control" id="roomCount" name="roomCount"><option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">9+</option>
+</select>
+    </div>
+    <div class="pax-Selector">
+        <div class="text-center" style="color:black">Room 1</div>
+        <div class="price-div text-center mb-1">
+            <label id="lbl" class="label mb-0">Adults</label><br>
+            <div class="valuebtn btnAdult" id="" data-value="Decrease"> <i class="fas fa-minus"></i> </div>
+            <input type="number" id="" class="num numberAdult" value="2">
+            <div class="valuebtn btnAdult" id="" data-value="Increase"> <i class="fas fa-plus"></i> </div>
+        </div>
+        <div class="price-div text-center">
+            <label id="lbl" class="label mb-0">Children</label><br>
+            <div class="valuebtn btnChild" id="" data-value="Decrease"> <i class="fas fa-minus"></i> </div>
+            <input type="number" id="" class="num numberChild" value="">
+            <div class="valuebtn btnChild" id="" data-value="Increase"> <i class="fas fa-plus"></i> </div>
+        </div>
+    </div>
+</div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="awe-btn awe-btn-1 awe-btn-small waves-effect text-left btn-SearchHotelBed" id="" data-dismiss="modal">Search</button>
+                        <button class="awe-btn awe-danger awe-btn-small" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- Library JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- <script src="/Content/assets/jaunt2/js/library/jquery-ui.min.js"></script> -->
+    <!-- Bootstrap tether Core JavaScript -->
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <!-- <script src="/Content/assets/plugins/popper/popper.min.js"></script> -->
+    <!-- Plugin for the momentJs  -->
+    <!-- <script src="/Content/assets/DIY/js/plugins/moment.min.js"></script>
+    <script src="/Content/assets/jaunt2/js/library/parallax.min.js"></script>
+    <script src="/Content/assets/jaunt2/js/library/jquery.nicescroll.js"></script>
+    <script src="/Content/assets/jaunt2/js/library/jquery.ui.touch-punch.min.js"></script>
+    <script src="/Content/assets/plugins/select2-4.0.4/select2-4.0.4/dist/js/select2.min.js"></script> -->
+    <!--stickey kit -->
+    <script src="/Content/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <!--<script language="javascript" src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  --->
+      <!-- Toast -->
+    <script src="/Content/assets/plugins/toast-master/js/jquery.toast.js"></script>
+    <!-- Sweet alert -->
+    <!-- <script src="/Content/assets/plugins/sweetalert/sweetalert.min.js"></script> -->
+    <!-- Jquery Validate -->
+    <!-- <script src="/Content/assets/plugins/jquery-validation/jquery.validate.min.js"></script> -->
+    <!-- Shared -->
+    <!-- <script src="/Content/Scripts/CurrencyConverter.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Shared.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="/Content/assets/plugins/jQuery-Articulate/articulate.js"></script>
+    <script src="/Content/assets/jaunt2/js/script.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Layout/LayoutJaunt2.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Hotel/ParticipantSelector.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    
+    <script src="/Content/PageScripts/Jaunt2/GoogleMap/ec_GoogleMap.js"></script> -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            if ($(window).width() <= 800) {
+                new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element_1');
+            }
+            else {
+                new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element_2');
+            }
+
+        }
+    </script>
+    <script>
+
+
+            var lan = new landing();
+        lan.TripId = '20';
+        lan.accessCode = 'T1968K';
+            lan.tId = 'AjpUfL1MaoigC8FiWRooOw==';
+            lan.SourceTiqets = 'Tiqets';
+            lan.DMCId = '40330';
+            lan.urlHotelPlanner = 'https://allvegas.hotelplanner.com';
+            lan.catalogUrl ='https://allvegassales.nexgenmtgs.com/';
+            lan.loadTiqetsCityBasedOnTiqetCountry = '/CacheData/GetTiqetsCity';
+            lan.loadTiqetEventType = '/CacheData/GetTiqetEventBasedOnCity';
+            lan.loadCityWithDMCUrl = '/CacheData/GetCityBasedOnEvent';
+            lan.loadCityUrl = '/CacheData/GetCity';
+            lan.loadCountryUrl = '/CacheData/GetCountry';
+            lan.loadCountryWithDMCUrl = '/CacheData/GetTiqetsCountry';
+            lan.hotelCityUrl = '/CacheData/GetCityBasedOnUserIdentity';
+            lan.loadEventTypeUrl = '/CacheData/GetEventType';
+        lan.loadEventTypeWithDMCUrl = '/CacheData/GetEventBasedOnCity';
+        lan.IsAuthenticated = 'True';
+        lan.EnableLogOn = 'False';
+        lan.EnableTripTag = 'True';
+        lan.EnableTripCreate = 'False';
+
+            lan.init();
+
+        //loadCountry($('#modal-tiqet #CountryId'));
+        //loadCity(null, $('#modal-tiqet #CityId'));
+        //loadEventType(null, $('#modal-tiqet #EventType'));
+
+        //$("#modal-tiqet #CountryId, #modal-tiqet #CityId,#modal-tiqet #EventType").select2();
+        //$("#modal-tiqet select[name='CountryId']").change(function () {
+        //    loadCity($(this).val(), $("#modal-tiqet select[name='CityId']"));
+        //});
+        //$("#modal-tiqet select[name='CityId']").change(function () {
+        //    loadEventType($(this).val(), $("#modal-tiqet select[name='EventType']"));
+        //});
+
+
+
+        function SwitchDMC() {
+            $.ajax({
+                type: 'POST',
+                url: '/UserAuth/SwitchDMC',
+                data: { DMCId: '' },
+                dataType: 'json',
+                success: function (data, strStatus) {
+                    if (data.Success)
+                        if (data.Data) {
+                            location.href = '/admindomain';
+                        } else {
+                            window.location.reload();
+                        }
+                    else
+                        showMessage(data.Message);
+                },
+                error: handleAjaxError()
+            });
+        }
+        $(document).ready(function () {
+
+
+            $().ready(function () {
+                $sidebar = $('.sidebar');
+                $sidebar_img_container = $sidebar.find('.sidebar-background');
+                $full_page = $('.full-page');
+                $sidebar_responsive = $('body > .navbar-collapse');
+                window_width = $(window).width();
+                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+                if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                    if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                        $('.fixed-plugin .dropdown').addClass('open');
+                    }
+                }
+
+
+                $('.fixed-plugin a').click(function (event) {
+                    // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                    if ($(this).hasClass('switch-trigger')) {
+                        if (event.stopPropagation) {
+                            event.stopPropagation();
+                        } else if (window.event) {
+                            window.event.cancelBubble = true;
+                        }
+                    }
+                });
+
+
+
+                $('.fixed-plugin .active-color span').click(function () {
+                    $full_page_background = $('.full-page-background');
+
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+                    var new_color = $(this).data('color');
+                    if ($sidebar.length != 0) {
+                        $sidebar.attr('data-color', new_color);
+                    }
+                    if ($full_page.length != 0) {
+                        $full_page.attr('filter-color', new_color);
+                    }
+
+                    if ($sidebar_responsive.length != 0) {
+                        $sidebar_responsive.attr('data-color', new_color);
+                    }
+                });
+
+                $('.fixed-plugin .background-color .badge').click(function () {
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+                    var new_color = $(this).data('background-color');
+                    if ($sidebar.length != 0) {
+                        $sidebar.attr('data-background-color', new_color);
+                    }
+                });
+                $('.fixed-plugin .img-holder').click(function () {
+                    $full_page_background = $('.full-page-background');
+                    $(this).parent('li').siblings().removeClass('active');
+                    $(this).parent('li').addClass('active');
+                    var new_image = $(this).find("img").attr('src');
+                    if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                        $sidebar_img_container.fadeOut('fast', function () {
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $sidebar_img_container.fadeIn('fast');
+                        });
+                    }
+                    if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+                        $full_page_background.fadeOut('fast', function () {
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                            $full_page_background.fadeIn('fast');
+                        });
+                    }
+                    if ($('.switch-sidebar-image input:checked').length == 0) {
+                        var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+                        $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                        $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                    }
+                    if ($sidebar_responsive.length != 0) {
+                        $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                    }
+                });
+
+                $('.switch-sidebar-image input').change(function () {
+                    $full_page_background = $('.full-page-background');
+                    $input = $(this);
+                    if ($input.is(':checked')) {
+                        if ($sidebar_img_container.length != 0) {
+                            $sidebar_img_container.fadeIn('fast');
+                            $sidebar.attr('data-image', '#');
+                        }
+                        if ($full_page_background.length != 0) {
+                            $full_page_background.fadeIn('fast');
+                            $full_page.attr('data-image', '#');
+                        }
+                        background_image = true;
+                    } else {
+                        if ($sidebar_img_container.length != 0) {
+                            $sidebar.removeAttr('data-image');
+                            $sidebar_img_container.fadeOut('fast');
+                        }
+                        if ($full_page_background.length != 0) {
+                            $full_page.removeAttr('data-image', '#');
+                            $full_page_background.fadeOut('fast');
+                        }
+                        background_image = false;
+                    }
+                });
+
+                $('.switch-sidebar-mini input').change(function () {
+                    $body = $('body');
+                    $input = $(this);
+                    if (md.misc.sidebar_mini_active == true) {
+                        $('body').removeClass('sidebar-mini');
+                        md.misc.sidebar_mini_active = false;
+                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                    } else {
+                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+                        setTimeout(function () {
+                            $('body').addClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = true;
+                        }, 300);
+                    }
+                    // we simulate the window Resize so the charts will get updated in realtime.
+                    var simulateWindowResize = setInterval(function () {
+                        window.dispatchEvent(new Event('resize'));
+                    }, 180);
+                    // we stop the simulation of Window Resize after the animations are completed
+                    setTimeout(function () {
+                        clearInterval(simulateWindowResize);
+                        $(".dataTables_paginate").addClass('pull-right');
+                    }, 1000);
+
+                });
+            });
+
+            $("#CurrencySelect, #CurrencySelect2").change(function () {
+                var val = $(this).val();
+                var cc = new CurrencyConverter();
+                cc.setDefaultCurrency(val);
+            });
+        });
+    </script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5dd6d29443be710e1d1e810c/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <script>
+        $('#return-to-top').click(function () {
+            $('.main-panel').scrollTop(0);
+            $('.main-panel').perfectScrollbar('update');
+        });
+    </script>
+    <!--End of Tawk.to Script-->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+    <script>
+                                                //var popupElement = 'Please click on play to know more about the page. </br>' +
+                                                //    '<div class="btn-group btn-toggle"style="float:right;" >' +
+                                                //    '<button class="btn btn-sm btn-primary" id ="play"> Play</button >' +
+                                                //    ' <button id="stop" class="btn btn-sm btn-danger active">Stop</button></div > ';
+
+                                                //$('#articulate').popover({
+                                                //    animation: true,
+                                                //    content: popupElement,
+                                                //    html: true
+                                                //});
+
+                                                //$('body').on('click', '.btn-toggle >#play', function () {
+                                                //    $('div.article').articulate('speak');
+                                                //});
+                                                //$('body').on('click', '.btn-toggle >#stop', function () {
+                                                //    $().articulate('stop');
+                                                //});
+    </script>
+
+
+    
+    <!-- <script src="/Content/assets/plugins/owl.carousel/owl.carousel.min.js"></script>
+    <script src="/Content/assets/plugins/fancy/jquery.fancybox.pack.js"></script>
+    <script src="/Content/assets/plugins/moment/min/moment-with-locales.min.js"></script>
+    <script src="/Content/Scripts/mutipleForm.js"></script>
+    <script src="/Content/Scripts/tableForm.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/Content/Scripts/paginationObject.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Participant/GoogleMap.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Participant/EditParticipants.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Participant/DIYParticipant.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Participant/segmentJs.js"></script>
+    <script src="/Content/assets/plugins/jquery form/jquery.form.min.js"></script>
+    <script src="/Content/assets/plugins/tinymce_5.8.1/tinymce.min.js"></script>
+    <script src="/Content/assets/plugins/select2-4.0.4/select2-4.0.4/dist/js/select2.min.js"></script>
+    <script src="/Content/assets/plugins/dropzone-master/dist/dropzone.js"></script>
+    <script src="/Content/assets/plugins/cropper/cropper.min.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/Participant/paxInfo.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/EventTariff/DIYIndex.js"></script>
+    <script src="/Content/PageScripts/Jaunt2/OpenMeeting/OpenMeeting.js"></script>
+    <script src="/Content/Scripts/thumbnailHelper.js"></script> -->
+    <script>
+        $(function () {
+            participant.tripId = '20';
+            participant.characterLimit = '';
+            participant.apiKey = "pk_test_orG9rBvfEv3Ve6POilz99UNf";
+            participant.listUrl = '/Jaunt/Participant/20';
+            participant.deleteUrl = '/Jaunt2/Participant/DeleteMultiple';
+            participant.updateDepartureGroupUrl = '/Jaunt2/Participant/UpdateDepartureGroup';
+            participant.updateArrivalUrl = '/Jaunt2/Participant/UpdateArrivalMultiple';
+            participant.updateDepartureUrl = '/Jaunt2/Participant/UpdateDepartureMultiple';
+            participant.editUrl = '/Jaunt2/Participant/Edit';
+            participant.sendDepartureNoticeUrl = '/Jaunt2/Participant/SendDepartureNotice';
+            participant.sendFlightInfoUrl = '/Jaunt2/Participant/SendFlightInfo';
+            participant.openMeetingUrl = '/Jaunt2/Participant/SendOpenMeetingEmail';
+            participant.downloadParticipantUrl = '/Jaunt2/Participant/DownloadUrlManifest';
+            participant.copyToCRMUrl = '/Jaunt2/Participant/CopyToCRM';
+            participant.plannerPoUrl = '/Jaunt/PlannerPO/20';
+            participant.scheduleDepartureUrl = '/Jaunt2/Transportation/ScheduleDeparture/20';
+            participant.customizeNoticeTemplate = '/Jaunt2/Participant/CustomizeTemplate';
+            participant.participantEmailUrl = '/Jaunt2/Participant/DIYPaxEmailSend';
+            participant.openMeetingtEmailUrl = '/Jaunt2/Participant/PaxOpenMeetingEmailSend';
+            participant.loadContentUrl = '/Jaunt2/Participant/GetContent';
+            participant.buySMSCreditUrl = '/Jaunt2/Participant/BuySMSCredit';
+            participant.getCreditPointUrl = '/Jaunt2/Participant/GetCreditPoint';
+            participant.sendFlightBookEmailUrl = '/Jaunt2/Participant/SendFlightBookEmail';
+            participant.sendHotelBookEmailUrl = '/Jaunt2/Participant/SendHotelBookEmail';
+            participant.homepickdropselectUrl = '/Jaunt2/Participant/HomePickUpDropOffSelect';
+            participant.mapUrl = '/Jaunt2/Participant/Map';
+            participant.loadCityUrl = '/CacheData/GetCity';
+            participant.loadCityWithDMCUrl = '/CacheData/GetCityBasedOnDMCAndCountry';
+            participant.listURL = '/Jaunt2/Participant/GetOfHotel';
+            participant.getBookedPaxs = '/Jaunt2/Participant/GetAlreadyBookedPaxList';
+            participant.groupBookingUrl = '/Jaunt2/Participant/GroupBookPax';
+            participant.groupBookingUrlFlyUs = '/Jaunt2/Participant/GroupBookFlyUS';
+            participant.sendOpenMeetingLink = 'False';
+            participant.getEmailContentUrl = '/Jaunt2/Participant/GetEmailTemplateContent';
+            participant.uploadImageUrl = '/ImageMedia/UploadImage';
+            participant.getTravelTimeUrl = '/Jaunt2/Participant/GetTravelTime';
+            participant.initParticipants();
+             //OpenMeeting
+             var op = new openMeeting();
+            op.tripId = '20';
+            op.imagePath = "https://storageedastatic.blob.core.windows.net/uploadfiles/welcomeimage.png";
+            op.uploadImageUrl = '/ImageMedia/UploadImage';
+            op.openMeetingUrl = '/Jaunt2/EventTariff/GetOpenMeeting';
+            op.saveOpenMeeting = '/Jaunt2/EventTariff/SaveOpenMeeting';
+            op.getEmailContentUrl = '/Jaunt2/Participant/GetEmailTemplateContent';
+            op.staticSiteUrl = 'https://storageedastatic.blob.core.windows.net';
+            op.init();
+            var tm = new tariff();
+            tm.tripId = '20';
+
+            tm.imagePath = "https://storageedastatic.blob.core.windows.net/uploadfiles/welcomeimage.png";
+            tm.getEventInfoUrl = '/Jaunt2/EventTariff/GetEventInfo';
+            //Supplies
+            //Misc.
+            tm.uploadImageUrl = '/ImageMedia/UploadImage';
+            tm.loadTypeUrl = '/CacheData/GetActivityType';
+            tm.refreshUrl = '/Jaunt2/EventTariff';
+            tm.getSupplierInfoUrl = '/Jaunt2/EventTariff/GetSupplierInfo';
+            tm.getSupplyInfoUrl = '/Jaunt2/EventTariff/GetDIYSupply';
+            tm.removeEventUrl = '/Jaunt2/EventTariff/RemoveEvent';
+            tm.scheduleTariffUrl = '/Jaunt/Participant/20';
+            tm.plannerPoUrl = '/Jaunt/PlannerPO/20';
+            //OpenMeeting
+            tm.openMeetingUrl = '/Jaunt2/EventTariff/GetOpenMeeting';
+            tm.saveOpenMeeting = '/Jaunt2/EventTariff/SaveOpenMeeting';
+            //City
+            tm.cachecityUrl = '/CacheData/GetCityBasedOnUserIdentity';
+            tm.getEventTemplateUrl = '/AdminDomain/EventTariff/GetEventTemplates';
+            tm.eventDescriptionUrl = '/Jaunt2/EventTariff/Description';
+            tm.getCityNameUrl = '/Jaunt2/EventTariff/GetCityName';
+            tm.getEventMapUrl = '/Jaunt2/EventTariff/GetEventMapById';
+            tm.loadlocationUrl = '/Jaunt2/EventTariff/GetLocation';
+            tm.maplocationUrl = '/Jaunt2/EventTariff/LoadMap';
+            tm.sendPOToSupplierUrl = '/Jaunt2/EventTariff/SendPOToSupplier';
+            tm.arrivalTransportType = 'Arrival';
+            tm.departureTransportType = 'Departure';
+            tm.getEmailContentUrl = '/Jaunt2/Participant/GetEmailTemplateContent';
+            tm.init();
+            $(".btn-flyusredirect").click(function () {
+                $("#modal-flight").modal('show');
+            });
+            $(".btn-hotelPlanner").click(function () {
+
+                $("#modal-hotel").modal('show');
+            });
+            initSelect2($("#modal-hotel select[name='CityId']"));
+            initSelect2($("#modal-hotel select[name='CountryId']")).on("change", function (e) {
+                var drp = $(this);
+                var val = parseInt(drp.val());
+                var cityDrp = $("#modal-hotel select[name='CityId']");
+                if (!isNaN(val)) {
+                    $.ajax({
+                        type: 'POST',
+                        url:'/CacheData/GetCityBasedOnUserIdentity',
+                        data: {
+                            countryId: val
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+
+                            cityDrp.find("option").remove();
+                            var output = [];
+
+                             for (var i = 0; i < data.length; i++) {
+                                 output.push('<option value="' + data[i].Key + '">' + data[i].Value + '</option>');
+                            }
+
+                            cityDrp.html(output.join(''));
+                        },
+                        error: handleAjaxError()
+                    });
+                } else {
+                    cityDrp.find("option").remove();
+                }
+            });
+            initDatePicker($("#modal-hotel .date-picker"));
+            $(".btnBookHotel").click(function () {
+
+                var cityname = $("#CityId option:selected").text();
+                var startDate = $("#modal-hotel #StartDate").val();
+                var endDate = $("#modal-hotel #EndDate").val();
+                window.open('https://allvegas.hotelplanner.com' + "/search/?city=" + cityname + "&InDate=" + startDate + "&OutDate=" + endDate + "&kw=" + '20', '_blank');
+            });
+
+            $("#Member").select2();
+        });
+        $('#transTools').on('click', function () {
+            $('div.transArticle').articulate('speak');
+        })
+
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE5D8hJIjeT3f5GYZh2NMJ6TtDcPkpQsA&libraries=places&type=airport"></script>
+    
+
+
+</body>
+</html>
