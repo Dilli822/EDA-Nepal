@@ -1,0 +1,82 @@
+bars before and after
+
+
+.bars {
+    width: 24px;
+    height: 18px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    margin: auto;
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+
+.bars:after {
+    height: 2px;
+    background-color: #fff;
+    display: block;
+    content: '';
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    cursor: pointer;
+    -webkit-transition: all 0.5s cubic-bezier(0.16, 0.68, 0.43, 0.99);
+    -moz-transition: all 0.5s cubic-bezier(0.16, 0.68, 0.43, 0.99);
+    -ms-transition: all 0.5s cubic-bezier(0.16, 0.68, 0.43, 0.99);
+    -o-transition: all 0.5s cubic-bezier(0.16, 0.68, 0.43, 0.99);
+}
+
+
+
+// bars
+
+<div class="bars" id="bars"> </div>
+//end bars
+
+// overlay content
+<div style="text-align:right">
+                    <!--Navigation-->
+                    <nav class="navigation nav-c nav nav-active" id="navigation" data-menu-type="1200">
+                        <div class="nav-inner">
+
+                            <div class="tb">
+                                <div class="tb-cell">
+
+
+                                    
+                                    <ul class="menu-list text-uppercase">
+
+
+                                                <li class="menu-parent">
+                                                    <a href="#" id="navbarDropdown" title="">Account</a>
+                                                    <ul class="sub-menu">
+                                                        <li>
+                                                            <a href="/Jaunt2/Profile/Index" title="">Profile</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/Jaunt2/UserDashboard/Index">Dashboard</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/UserAuthJaunt2/LogOut">LogOut</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <!--End Navigation-->
+                </div>

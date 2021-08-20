@@ -1,0 +1,66 @@
+
+
+------Aug 20 Destiny Faulty Responsiveness Solutions-------
+
+---login page 
+
+----Content/material/css/style.css
+
+http://demodiy.qa.destindiy.com/UserAuth/Logon
+
+--css line no style.css 8728 remove it all
+--    
+line no 6314.
+  .login-register{ 
+   background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;  
+    height: 80%;
+    width: 100%;
+    /* padding: 10% 0; */
+    position: fixed;
+    border: 1px solid red;
+    /* display: block; */
+    /* margin: 0 auto; */
+}
+
+
+----linr no 6325----
+.login-box {
+    position: absolute;
+    /* top: 50%; */
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+---
+
+line no 8709 remove it.
+line no 781.
+---------------------------------------------------------------
+
+page 
+
+css line no : 17672
+.card .card-header .card-title {
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+Content/assests/DIY/Css/new_style.css
+-- container was slightly tending to right side of mobile screen .
+--only for mobile screen margin is minus 1rem left:
+css line no 1170
+@media (max-width: 600px){
+.main-panel > .content {
+    padding: 10px 0px;
+    margin-left: -1rem;
+}
+
+-------copyright text size can be decreased less than 16px for better font-size in mobile screen--
+.copyright.float-left {
+    float: none !important;
+    display: block;
+    text-align: center;
+    font-size: .85rem;
+}
