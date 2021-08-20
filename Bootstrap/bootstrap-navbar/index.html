@@ -20,48 +20,73 @@
        <!-- fontAwesome 4 -->
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+       <!-- stylsheets -->
+       <link rel="stylesheet" href="style.css">
    </head>
 
    <style>
        *{
            padding: 0;
            margin: 0;
-           text-decoration: none;
-           list-style-type: none;
-       }
-       ul.collapse-navbar{
-           height: 100%;
-           border: 1px solid red;
-           text-decoration: none;
-           list-style-type: none;
+           box-sizing: border-box;
        }
 
+       #lists{
+           height: 100%;
+           width: 100%;
+           background-color: rgb(2, 2, 2);
+           position: fixed;
+          
+       }
+
+
+nav.nav-ul{
+    position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         color: #fff;
+         font-size: 2rem;
+}
+
+button#btn-close{
+    outline: none;
+    background-color: none;
+    border: none;
+}
    </style>
    <body>
 
     <!-- responsive navbar starts-->
-      <nav class="navbar-light bg-light">
 
-        <div class="container-fluid">
+    <button id="open-btn" class="navbar-toggler"style="display: block; float: right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <i class="fa fa-bars">
 
-          <button data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-              <span><i class="fa fa-bars"></i></span>
+            </i>
+        </span>
+            
           </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
+            
+                    <nav class="nav navbar-nav" id="lists">
+                        <button class="navbar-toggler" id="btn-close" style="display: flex; color: #fff; transition: none; box-shadow: none; padding: 2rem; justify-content: flex-end; outline: none!important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                            <span>
+                                <i class="fa fa-close"> </i>
+                            </span>
+                                
+                              </button>
+                       <nav class="nav-ul">
+                        <ul class="">
+                            <li class="nav">home</li>
+                            <li class="nav">home</li>
+                            <li class="nav">home</li>
+                        </ul>
+                       </nav>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <nav>
-                  <ul class="collapse-navbar">
-                      <li><a href="#">Home</a></li>
-                      <li><a href="#">Home</a></li>
-                      <li><a href="#">Home</a></li>
-                  </ul>
-              </nav>
-
-            <div>
-
-            </div>
-          
-      </nav>
-
+                    </nav>
+                </div>
+          </div>
+                
    </body>
    </html>
