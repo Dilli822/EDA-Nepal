@@ -34,4 +34,23 @@ header nav ul li:first-child {
 */
 
 
+--------------------------------------------------------------------------------------
+
+----------------------------------------------------------------
+----------C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+
+-------------style.css------------------
+
+--> line no 10443 footer logo css added.
+--> from line no 10443 custom footer css added .
+
+-------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------
+-----C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Shared----
+----------LayoutJaunt2.cshtml
+--- added custom footer with no bootstrap touching--
+
+
 
