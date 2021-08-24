@@ -8,8 +8,9 @@
 
 -- line no: 499 <li> tag  inline css padding-left: rem; added
 --- line no 298 margin: 1rem; added
-
-
+---- line no  377 of Hotel added padding 5rem
+-- line no 295 font-size 3rem and margin 1.5 rem added.
+--- line no 432 added new css style button#account-btn 
 
 ------------------------------------------------------------------------------------
 ------------C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\HotelBed\css-----

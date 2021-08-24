@@ -1,4 +1,5 @@
 
+
    <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -7,27 +8,121 @@
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <title>Document</title>
    </head>
+
+   <style>
+
+@media (max-width: 767px){
+.bars {
+    right: 15px;
+}
+}
+.bars {
+    width: 24px;
+    height: 18px;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    top: 0;
+    bottom: 0;
+    right: 15px;
+    margin: auto;
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.nav.nav-c.nav-active {
+    visibility: visible;
+    opacity: 1;
+    left: 0;
+    z-index: 9999999;
+}
+
+.nav.nav-c {
+    width: 100%;
+    left: 100%;
+    -webkit-transition: opacity 0.3s ease;
+    -moz-transition: opacity 0.3s ease;
+    -ms-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+}
+.nav {
+    width: 320px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: url(../images/background/bg-5.jpg) no-repeat;
+    background-size: cover;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+}
+.navigation {
+    display: inline-block;
+}
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+       
+       .nav .nav-inner {
+    border: 5px solid red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgba(14, 34, 64, 0.9);
+    -webkit-overflow-scrolling: touch;
+     }
+
+
+     .nav .bars-close {
+    position: absolute;
+    font-size: 0;
+    top: 27px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    z-index: 9;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    }
+
+   </style>
    <body>
-
-    <div class="nav-inner">
-        <a href="#" class="bars-close" id="bars-close" style="display: inline;">Close</a>
-        <div class="tb">
-            <div class="tb-cell">
-                <ul class="menu-list text-uppercase">
-
-                        <li>
-                            <a href="/UserAuthJaunt2/LogOn">Sign In</a>
-                        </li>
-                        <li>
-                            <a href="/UserRegisterJaunt2/SignUp">Sign Up</a>
-                        </li>
-
+    <nav class="navigation nav-c nav-active nav" id="navigation" data-menu-type="1200">
+        <div class="nav-inner">
+            <a href="#" class="bars-close" id="bars-close" style="display: inline;">Close</a>
+            <div class="tb">
+                <div class="tb-cell">
+                    <ul class="menu-list text-uppercase">
+                            <li>
+                                <a href="/UserAuthJaunt2/LogOn">Sign In</a>
+                            </li>
+                            <li>
+                                <a href="/UserRegisterJaunt2/SignUp">Sign Up</a>
+                            </li>
 
 
-                </ul>
+
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    </nav>
        
    </body>
    </html>
