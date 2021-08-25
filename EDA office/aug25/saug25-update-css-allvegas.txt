@@ -1,0 +1,134 @@
+
+
+---------------------aug 25 allvegas css updates------------
+------C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+-----style.css-----------
+--- line no 356 style.css
+.main {
+    position: absolute;
+    margin: 2rem 0 2rem 0;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+--------------------------------------
+----------line no 10445----VVI-----
+  footer {
+    background-color: #111111;
+    font-family: 'Open Sans';
+    color: #fff;
+    position: absolute;
+    /* top: 0; */
+    bottom: 50%;
+    left: 0;
+    height: 20vh;
+    width: 100%;
+    top: 80%;
+}
+
+
+-----------line no 2003 style.css-----
+
+header#header { added height of 100px}
+
+----line no 10476 added 
+@media only screen and (max-width: 456px)
+footer {
+    height: 35%;
+    top: 100%;
+}
+
+--- line no 364 of style.css
+#    .main {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+  }
+
+  @media only screen and (max-width: 800px){
+    .main {
+        position: static;
+        transform: none;
+        width: 100%;
+  }
+  }
+   
+   
+   
+   --  line no 10466-------
+    @media only screen and (max-width: 600px){
+     footer{
+         top: 100%;
+         height: 25vh;
+     }
+ }
+   
+   
+   
+   --line no 12064--- margin added ---
+   @media (max-width: 767px)
+.header .logo img {
+    height: 60px;
+    margin: 1rem;
+}
+   
+   
+   ----line no 373
+ 
+ -------------style.css------  
+.main-cn {
+    margin-top: 3rem;
+    /* border: 1px solid red; */
+    padding-bottom: 11rem;
+    /* height: 150vh; */
+}
+   
+
+--- line no 10492
+------updated heigt 15%
+@media only screen and (max-width: 456px)
+footer {
+    height: 15%;
+}
+   
+   ---line no 13053
+   @media (max-width: 767px)
+footer {
+    padding-bottom: 30px;
+    height: 25%;
+}
+   ---line no 13061 height: 60vh; for less than 991px
+   
+   
+   
+   ----all height removed except line no: 10474
+   @media only screen and (max-width: 500px)
+footer {
+    top: 100%;
+    height: 50vh;
+}
+----------------------------------------------------
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
