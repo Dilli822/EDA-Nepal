@@ -1,0 +1,92 @@
+
+-----------------------aug 26---------------------------------------------
+------C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css---
+
+--------------------------style.css-----
+--- line no 10456 of style.css
+/* 23. Footer 
+ --------------------------------------------------------------------------------*/
+
+ /* footer part css updated on aug 25 2021**/
+ footer {
+    background-color: #111111;
+    font-family: 'Open Sans';
+    color: #fff;
+    position: absolute;
+    /* top: 0; */
+    /*bottom: 50%; */
+    left: 0;
+    /*height: 200px; */
+    width: 100%;
+    top: 100%;
+ }
+
+
+ /* updated on aug 26 2021 **/
+/*-------------------------*/
+ @media only screen and (max-width: 900px) and (min-width: 500px){
+     footer{
+         top: 100%;
+         height: 20%;
+     }
+ }
+
+ @media only screen and (max-width: 500px) and (min-width: 320px){
+    footer{
+        top: 100%;
+        height: 20%;
+        border: 5px solid green;
+    }
+}
+
+
+ /** aug 26 2021**/
+/* ===========custom added on aug 25 2021*/
+==== commented out the .main css.
+
+ @media only screen and (min-width: 1024px) and (max-width: 1336px){
+    /* .main{
+       position: absolute;
+       top: 48%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       width: 100%;
+    }      */
+    
+    .main-cn{
+        padding-bottom: 5rem;
+    }
+    footer{
+        top: 100%;
+    }
+
+   } 
+
+   /*===========*/
+   
+  --------------------------------------------------------
+  ----------C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css\style.css------------
+  
+--- style.css line no 2397 .nav {}
+# background image and it's properties are removed.
+
+
+-----------------------------------------------------
+
+
+-- line no 10468 and 10470 commented out.
+
+--- line no 10476 to 10484 new css added .
+ /*** added css on aug 26 2021 ***/
+/*-------------------------*/
+ @media only screen and (max-width: 800px){
+     .main{
+         margin-top: 0;
+     }
+ }
+ 
+-------for main only.---------
+ .main{
+     margin-top: 5rem;
+ }
+
