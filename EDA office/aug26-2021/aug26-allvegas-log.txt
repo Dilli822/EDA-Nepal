@@ -89,4 +89,183 @@
  .main{
      margin-top: 5rem;
  }
+ 
+ ======================
+ .footer-wrapper{
+ margin-right: 10rem;
+ }
+ ==========================
+ 
+ 
+ # LandingJaunt2.cshtml
+ line no 26 to line no 37 commented out.
+ 
+ # footer part remake
+ # style.css of line no 10500
+ .footer-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  # html strucuture
+     <footer>
+            <div class="container">
+
+            <!--footer wrapper--->
+            <div class="footer-wrapper">
+
+                <!--- footer logo ----->
+                <div class="footer-logo">
+                    <figure>
+                        @if ((currentDMC) != null && !string.IsNullOrEmpty(currentDMC.LogoPath))
+                        {
+                            <img src='@(NGX.Web.WebConfigValues.StaticContentSiteUrl + "/uploadfiles/" + currentDMC.LogoPath)' class="light-logo" alt="homepage" />
+                        }
+                        else
+                        {
+                            <img src="/Content/assets/images/logo-light-text-reverted.png" class="light-logo" alt="homepage" />
+                        }
+                    </figure>
+                </div>
+
+                <div class="selection" style="display: flex;">
+                    <!----footer language selection------->
+                  <div class="language-selection" style="margin-right: 1.5rem;">
+                        <div class="g_lang">
+                            <div class="form-group float-left">
+                                <div id="google_translate_element_2">
+                         </div>
+                    </div>
+                </div>
+            </div>
+                            
+                        <!---- footer USD selection------>
+                        <div class="currency-selection">
+                            @Html.CurrencyDropdownList("CurrencySelect2", "Currency", new { @class = "form-control currency" })
+                        </div>
+                   
+                </div>
+                    @* <!----footer language selection------->
+                    <div class="language-selection">
+                      
+                        <div class="g_lang">
+                            <div class="form-group float-left">
+                                <div id="google_translate_element_2">
+                         </div>
+                    </div>
+                </div>
+            </div>
+                            
+                        <!---- footer USD selection------>
+                        <div class="currency-selection">
+                            @Html.CurrencyDropdownList("CurrencySelect2", "Currency", new { @class = "form-control currency" })
+                        </div>
+                   
+            </div>
+         </div> *@
+        </div>
+
+
+            <div class="Copyright">
+
+                <!--- footer copyright----------->
+                <p style="text-align: center; color:#fff; font-size: 1rem; background-color:#111111; border: 1px solid #111111;">
+                    © @DateTime.Now.Year e-destinACCESS™ All rights reserved.
+                </p>
+            </div>
+
+        </footer>
+        
+ 
+ # LandingJaunt2.cshtml
+ 
+  <style>
+        @* .g_lang {
+            /*            z-index: 9999;*/
+            position: relative;
+            padding-top: 60px;
+            padding-left: 20px;
+        } *@
+
+         .goog-logo-link {
+            display: none !important;
+        }
+
+        .goog-te-gadget {
+            color: transparent !important;
+             margin:0;
+        }
+
+        
+.goog-te-gadget .goog-te-combo {
+    margin: 0px 0px !important;
+}
+        select.goog-te-combo {
+            border: 1px solid #ddd;
+            @* padding: 0px 19px; *@
+            border-radius: 4px;
+            width: 100%;
+            margin:0;
+        } 
+
+         @* li.nav-item.dropdown.user-avatar a#navbarDropdownProfile {
+            padding-top: 0 !important;
+        }
+
+        .goog-te-gadget .goog-te-combo {
+            color: #555;
+        } *@
+
+        .goog-te-combo {
+            height: 30px;
+            border: 1px solid red;
+            @* margin-top: 3px; *@
+            margin:0;
+        } 
+
+        .goog-te-banner {
+            display: none !important;
+        }
+
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        } 
+
+        body {
+            top: 0px !important;
+        }
+
+        /* .logo-banner img {
+            max-height: 120px;
+        }*/
+        /*
+        .nav-desktop ul > li > a {
+            color: #fff;
+        }*/
+
+        @* .header {
+            background-color: #000;
+        } *@
+
+             @* .header.header-stick {
+                background-color: #000 !important;
+            }  
+
+            .header .header-stick ul.menu-list li a{
+                background-color:red;
+            } *@
+            
+
+
+    </style>
+  ---------- google select languages default css overrided and alignments and margin updated.--------------------------------------------
+ 
 

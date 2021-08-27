@@ -1,0 +1,43 @@
+
+===================standard css================================
+  --line no 10536	
+   /* updated on aug 27 2021 **/
+   p.copyright-text{
+    text-align: center; 
+    color:#fff; 
+    font-size: 1rem; 
+    background-color:#111111; 
+    border: 1px solid #111111;
+   }
+   
+   
+   --line no 10524
+      
+/* footer part media query for justify content on aug 27 2021  */
+  @media only screen and (max-width: 768px) { 
+      .footer-wrapper{
+          justify-content: center;
+      }
+  }
+  
+  ===============================================================
+  # _LandingJaunt2.cshtml and _LayoutJaunt2.cshtml
+  
+  
+  # line no 528 of _LayoutJaunt2.cshtml
+  .language-selection{
+            margin-right: 1.5rem;
+            }
+            
+  # line no 106
+     /* added on aug 27 2021 **/
+        .language-selection{
+            margin-right: 1.5rem;
+            }
+        
+        #google_translate_element_2{
+            margin: 0;
+        }
+
+     /********aug27 2021 ****/
+            
