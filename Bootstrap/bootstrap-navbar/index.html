@@ -31,62 +31,103 @@
            box-sizing: border-box;
        }
 
+     .main-open-bar button#open-btn {
+    display: block; 
+    float: right; 
+    box-shadow: none;
+    padding: 1rem 1rem 0 1rem;
+     }
+
        #lists{
            height: 100%;
            width: 100%;
-           background-color: rgb(2, 2, 2);
-           position: fixed;
-          
+           background-color: rgba(13, 36, 70, 0.9);
+           position: fixed;    
        }
 
-
-nav.nav-ul{
-    position: absolute;
+    nav#nav-ul{ 
+         position: absolute;
          top: 50%;
          left: 50%;
          transform: translate(-50%, -50%);
-         color: #fff;
          font-size: 2rem;
 }
 
-button#btn-close{
-    outline: none;
-    background-color: none;
-    border: none;
+nav#nav-ul li a{
+    color:#fff;
+    padding: 1rem 0;
 }
+
+button#close-btn{
+    border: none;
+    display: flex; 
+    color:#fff;
+    transition: none; 
+    box-shadow: none; 
+    padding: .85rem; 
+    font-size: 1.5rem;
+    justify-content: flex-end; 
+    outline: none!important;
+}
+
+#secondary-nav li a.dropdown-item{
+    font-size: 1.55rem; 
+    text-align: center;
+    width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.dropdown-menu{
+    border: none;
+    background-color: inherit;
+}
+ul.dropdown-menu li a:hover{
+    background-color: inherit;
+}
+
    </style>
    <body>
 
-    <!-- responsive navbar starts-->
+    <!-----------------------Top Navigation starts ------------------->
 
-    <button id="open-btn" class="navbar-toggler"style="display: block; float: right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-            <i class="fa fa-bars">
+     <div class="main-open-bar">
+        <button id="open-btn" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span>
+                <i class="fa fa-bars"></i>
+            </span> 
+           </button>
+         </div>
 
-            </i>
-        </span>
-            
-          </button>
-        
           <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
-            
-                    <nav class="nav navbar-nav" id="lists">
-                        <button class="navbar-toggler" id="btn-close" style="display: flex; color: #fff; transition: none; box-shadow: none; padding: 2rem; justify-content: flex-end; outline: none!important;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-                            <span>
-                                <i class="fa fa-close"> </i>
-                            </span>
-                                
-                              </button>
-                       <nav class="nav-ul">
-                        <ul class="">
-                            <li class="nav">home</li>
-                            <li class="nav">home</li>
-                            <li class="nav">home</li>
-                        </ul>
-                       </nav>
 
-                    </nav>
+                    <div class="nav navbar-nav" id="lists">
+                            
+                        <button class="navbar-toggler" id="close-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                                <span>
+                                    <i class="fa fa-close"> </i>
+                                </span>
+                                  </button>               
+                                      
+                            <nav id="nav-ul" class="navbar navbar-expand-lg"> 
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" style="text-align:center;font-size: 1.85rem;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                          ACCOUNT
+                                        </a>
+
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="secondary-nav">
+                                          <li><a class="dropdown-item" href="#" style="font-size: 1.5rem">PROFILE</a></li>
+                                          <li><a class="dropdown-item" href="#">DASHBOARD</a></li>
+                                          <li><a class="dropdown-item" href="#" style="font-size: 1.5rem">LOGOUT</a></li>
+                                        </ul>
+                                      </li>
+                            </nav> 
+                    </div>
                 </div>
-          </div>
+
+      <!-------------------------- Navigation Ends--------------- -->
+       
                 
    </body>
    </html>

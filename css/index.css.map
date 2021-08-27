@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,IAAI,CAAA;EACA,MAAM,EAAE,eAAe;CAC1B;;AACD,AAAA,OAAO,CAAA;EACH,MAAM,EAAE,eAAe;CAC1B",
+    "sources": [
+        "../Bootstrap/scss/index.scss"
+    ],
+    "names": [],
+    "file": "index.css"
+}
