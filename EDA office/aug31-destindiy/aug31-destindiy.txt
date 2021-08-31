@@ -1,0 +1,123 @@
+
+
+------------Aug31- DestinDiy-------------------
+
+--url http://demodiy.qa.destindiy.com/AdminDomain/DIYCustomField/DMCRebate
+--- C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIYTest\Content\assets\DIY\Css\
+
+*************material-dashboard.css*************************
+
+1. line no 5817 
+ /* commented out on aug 31 2021 **/
+
+    /* .modal-header .close {
+        padding: 1rem;
+        margin: -1rem -1rem -1rem auto;
+    } */
+ 
+
+2. line no 16859
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 12px 8px;
+    vertical-align: middle;
+    border-color: #ddd;
+    /*added text-align on aug 31 2021 **/
+    text-align: center;
+}
+
+
+3.line no 11862
+.form-control {
+    background: no-repeat center bottom, center calc(100% - 1px);
+    background-size: 0 100%, 100% 100%;
+    border: 0;
+    /* height: 36px; updated on aug 31 2021  */
+    height: 52px;
+    transition: background 0s ease-out;
+    /* padding-left: 0;
+    padding-right: 0;
+    border-radius: 0; */
+    font-size: 14px;
+}
+
+4. 
+-------------------------------------------------------------------
+
+****************************************************************************
+
+*********************************************************************
+----- C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIYTest\Content\material\css---
+--------------------- style.css-----------------------------------------
+.footer {
+    bottom: 0;
+    color: #67757c;
+    left: 0px;
+    padding: 17px 15px;
+    position: absolute;
+    right: 0;
+    border-top: 1px solid rgba(120, 130, 140, 0.13);
+    background: #ffffff;
+    /* added on aug31 2021 */
+    text-align: center;
+}
+
+******************************************************************************
+
+******************************************************************************
+--------C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIYTest\Content\assets\DIY\Css----
+************************** new_style.css*******************'
+
+1. line no 1872
+--- commented out all and added color black.
+/** updated on aug 31 2021 tuesday **/
+button.close {
+    color:#000;
+    /* opacity: 1; */
+    /* color: #fff !important; */
+    text-shadow: none;
+    /* padding: 0 !important;
+    margin-top: -27px !important;
+    margin-right: 10px !important; */
+}
+
+2.line no 207
+--removed max-height: 50px!important;
+#accordion .card-header {
+    background: #9C27B0;
+    color: #fff;
+    display: block;
+    border-radius: 0;
+    /* commented out on aug 31 2021 **/
+    /* max-height: 50px !important; */
+}
+
+3. line no 1024
+   .ns-btn-wrap {
+        /* added on aug31 2021 tuesday **/
+        text-align: center;
+        margin-top: 10px;
+    }
+4. line no 1068
+   .ns-btn-wrap {
+        /** added on aug 31 2021 tuesday **/
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+---- Index.cshtml---------
+--- line no: 145
+------ DIYIndex.cshtml-----
+---- line no: 36--------
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
