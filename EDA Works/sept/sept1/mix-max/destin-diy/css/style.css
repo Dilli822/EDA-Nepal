@@ -1,0 +1,646 @@
+/* ===|| Font Intigration Start ||=== */
+@font-face{
+    font-family: 'Segoe UI';
+    src: url(..//fonts/Segoe-UI.ttf);
+}
+@font-face{
+    font-family: 'Segoe UI Italic';
+    src: url(..//fonts/Segoe-UI-Italic.ttf);
+}
+@font-face{
+    font-family: 'Segoe UI Semibold';
+    src: url(..//fonts/Segoe-UI-Semibold.ttf);
+}
+@font-face{
+    font-family: 'Segoe UI Bold';
+    src: url(..//fonts/Segoe-UI-Bold.ttf);
+}
+@font-face{
+    font-family: 'Segoe UI Bold Italic';
+    src: url(..//fonts/Segoe-UI-Bold-Italic.ttf);
+}
+/* ===|| Font Intigration End ||=== */
+
+
+/* ===|| Common CSS Start ||=== */
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Segoe UI';
+    font-size: 16px;
+}
+h1{
+    font-size: 30px;
+    color: #0071bc;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+h3{
+    font-size: 22px;
+    color: #0071bc;
+    font-weight: 700;
+}
+h5{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ===|| Common CSS End ||=== */
+
+
+/* ===|| Top Header CSS Start ||=== */
+.top-header{
+    background-color: #0071bb;
+    font-size: 14px;
+    padding: 10px 0 30px;
+}
+.top-header .contact-info ul li{
+    margin-right: 20px;
+    list-style: none;
+    display: inline-block;
+    color: #fff;
+}
+.top-header .contact-info ul li i{
+    margin-right: 10px;
+}
+
+.top-header .social-icon  ul li{
+    margin-right: 10px;
+    list-style: none;
+    display: inline-block;
+    color: #fff;
+}
+.top-header .social-icon  ul li a i{
+    font-size: 16px;
+    color: #fff;
+}
+/* ===|| Top Header CSS End ||=== */
+
+/* ===|| Header CSS Start ||=== */
+header{
+    min-height: 80px;
+    position: absolute;
+    width: 100%;
+    z-index: 9999;
+    text-align: center;
+}
+header .container{
+    margin-top: -35px;
+    background-color: #fff;
+}
+header .logo{
+    width: 15%;
+}
+header .logo img{
+    width: 100%;
+}
+header ul.navbar-nav li{
+    margin-left:30px;
+}
+header ul.navbar-nav li a{
+    color: #707070;
+    font-weight: 600;
+    transition: .3s;
+}
+header ul.navbar-nav li a:hover{
+    color: #0071bb;
+}
+header ul.navbar-nav li.login{
+    margin-top: 3px;
+}
+header ul.navbar-nav li.login a{
+    width: 150px;
+    display: inline-block;
+    padding: 5px 30px;
+    background-color: #0071bb;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    border: 2px solid #0071bb;
+    border-radius: 50px;
+    transition: .3s;
+}
+header ul.navbar-nav li.login a:hover{
+    background-color: #fff;
+    color: #0071bb;
+}
+/* ===|| Header CSS End ||=== */
+
+
+/* ===|| Banner CSS Start ||=== */
+/*
+.banner-section{
+    position: relative;
+    z-index: 0;
+} 
+.banner-section .banner-video{
+    width: 100%;
+    min-height: 800px;
+}
+.banner-section .banner-video img{
+    background-size: cover;
+}
+.video-background-controls {
+    position: absolute !important;
+    left: 1% !important;
+    top: 79% !important;
+}
+.video-background-controls .play-toggle{
+    margin-right: 2px;
+}
+.video-background-controls .play-toggle i{
+    padding: 5px;
+    font-size: 22px;
+}
+.video-background-controls .mute-toggle i{
+    padding: 5px;
+    font-size: 22px;
+}
+.banner-section .banner-content .container {
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 6%;
+    padding: 40px 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    border-radius: 50px;
+}
+.banner-section .banner-video img {
+    background-size: cover;
+    height: 800px;
+}
+*/
+/* .banner-section .owl-theme .owl-nav {
+    margin-top: 0 !important;
+} */
+
+img{
+    max-width: 100%;
+}
+
+.banner-video{
+    position: relative;
+    height: 100%;
+}
+
+
+#banner-text-video .banner-content{
+    position: absolute;
+    top: 55%; 
+    left: 3%;
+    /* top: 40%;
+    left: 20%; */
+}
+
+.banner-content h2{
+    text-transform: uppercase;
+    color: rgb(44 62 165);
+}
+.banner-content p{
+    color:rgb(20, 20, 20);
+    /* font-size: 1rem; */
+    font-weight: bolder;
+}
+
+.banner-section .owl-theme .owl-nav button.owl-prev{
+    position: absolute;
+    top: 40%;
+    left: 2%;
+    outline: 0;
+}
+
+.banner-section .owl-theme .owl-nav button.owl-prev:hover{
+    background: none !important;
+}
+
+.banner-section .owl-theme .owl-nav button.owl-next{
+    position: absolute;
+    top: 40%;
+    right: 2%;
+    outline: 0;
+}
+
+.banner-section .owl-theme .owl-nav button.owl-next:hover{
+    background: none;
+}
+
+.banner-section .owl-theme .owl-nav button.owl-prev span{
+    font-size: 45px;
+    font-weight: 500;
+    color: #000;
+}
+.banner-section .owl-theme .owl-nav button.owl-next span{
+    font-size: 45px;
+    font-weight: 500;
+    color: #000;
+}
+.banner-section .owl-theme .owl-dots {
+    display: none !important; 
+    visibility: hidden;
+}
+
+/**===|| Banner CSS End ||===**/
+
+
+/** ===|| About US CSS Start ||===**/
+.about-section h1::after{
+    content: '';
+    position: absolute;
+    width: 4%;
+    height: 5px;
+    background-color: #000;
+    left: 48%;
+    bottom: 0;
+}
+.about-section .right-img {
+    width: 100%;
+    text-align: center;
+}
+.about-section .right-img img{
+    width: 80%;
+}
+/** ===|| About US CSS End ||===**/
+
+
+/** ===|| Service CSS Start ||===**/
+#service-section{
+    position: relative;
+}
+#service-section .service-row{
+    margin-top: -400px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+#service-section .service-row .single-item{
+    padding: 25px 20px 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+}
+#service-section .service-row .single-item h4{
+    font-size: 20px;
+    font-weight: 700;
+    color: #0071bc;
+}
+#service-section .service-row .single-item i{
+    margin-bottom: 20px;
+    font-size: 35px;
+    color: #054f7c;
+}
+#service-section .service-row .single-item p{
+    font-size: 14px;
+}
+
+#service-section .service-quotes .quotes{
+    margin-top: -45px;
+    position: absolute;
+    z-index: 9999;
+    padding: 20px 40px 10px;
+    background-color: #006fb9;
+}
+#service-section .service-quotes .quotes h6{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+#service-section .owl-theme .owl-nav {
+    margin-top: 0 !important;
+}
+#service-section .owl-theme .owl-nav button.owl-prev{
+    position: absolute;
+    top: 40%;
+    left: 2%;
+    outline: 0;
+}
+#service-section .owl-theme .owl-nav button.owl-prev:hover{
+    background: none !important;
+}
+#service-section .owl-theme .owl-nav button.owl-next{
+    position: absolute;
+    top: 40%;
+    right: 2%;
+    outline: 0;
+}
+#service-section .owl-theme .owl-nav button.owl-next:hover{
+    background: none;
+}
+#service-section .owl-theme .owl-nav button.owl-prev span{
+    font-size: 45px;
+    font-weight: 500;
+    color: #000;
+}
+#service-section .owl-theme .owl-nav button.owl-next span{
+    font-size: 45px;
+    font-weight: 500;
+    color: #000;
+}
+#service-section .owl-theme .owl-dots {
+    display: none !important; 
+    visibility: hidden;
+}
+/** ===|| Service CSS End ||===**/
+#partner-section .partner-heading h4{
+    margin-top: 30px;
+    font-weight: 700;
+    color: #0F598A;
+}
+#partner-section .partner-heading h4::before{
+    content: '';
+    width: 35%;
+    height: 1.5px;
+    background-color: #707070;
+    position: absolute;
+    left: 0;
+    top: 70%;  
+}
+#partner-section .partner-heading h4::after{
+    content: '';
+    width: 35%;
+    height: 1.5px;
+    background-color: #707070;
+    position: absolute;
+    right: 0;
+    top: 70%;  
+}
+#partner-section .our-partner .item {
+    width: 100%;
+    padding: 50px;
+}
+#partner-section .our-partner .item img{
+    width: 100%;
+}
+#partner-section .owl-theme .owl-nav {
+    margin-top: 0 !important;
+}
+#partner-section  .owl-theme .owl-nav button.owl-prev{
+    position: absolute;
+    top: 20%;
+    left: 0;
+    outline: 0;
+}
+#partner-section .owl-theme .owl-nav button.owl-prev:hover{
+    background: none !important;
+}
+#partner-section  .owl-theme .owl-nav button.owl-next{
+    position: absolute;
+    top: 20%;
+    right: 0;
+    outline: 0;
+}
+#partner-section .owl-theme .owl-nav button.owl-next:hover{
+    background: none;
+}
+#partner-section  .owl-theme .owl-nav button.owl-prev span{
+    font-size: 45px;
+    font-weight: 500;
+    color: #000;
+}
+#partner-section  .owl-theme .owl-nav button.owl-next span{
+    font-size: 45px;
+    font-weight: 500;
+    color: #000;
+}
+#partner-section  .owl-theme .owl-dots {
+    display: none !important; 
+    visibility: hidden;
+}
+/** ===|| Service CSS End ||===**/
+
+
+/* ===|| E2E Solution Section Start ||=== */
+#e2e-section .left-img img{
+    width: 100%;
+}
+#e2e-section .right-content{
+    margin-top: 50px;
+}
+#e2e-section .right-content p{ 
+    font-size: 16px;
+    line-height: 26px;
+}
+/* ===|| E2E Solution Section End ||=== */
+
+
+/** ===|| Feature Section Start ||=== **/
+.works{
+    padding: 50px 0px;
+}
+.works .filtering {
+    padding-bottom: 20px;
+}
+.works .filtering h1::after{
+    content: '';
+    width: 4%;
+    height: 5px;
+    background-color: #000;
+    position: absolute;
+    top: 30%;
+    left: 48%;
+}
+.works .filtering .filter{
+    margin-top: 20px;
+    display: inline-block;
+    padding: 29px 15px 0;
+}
+
+.works .filtering .filter span {
+    margin: 0 30px;
+    padding: 8px 0px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #707070;
+}
+.works .filtering .filter span.active{
+    border-bottom: 2px solid #000;
+}
+.works .gallery{
+    width: 100%;
+}
+.works .gallery .bor-t{
+    border-top: 1px solid #918c8c;
+}
+.works .item-img{
+    position: relative;
+}
+.works .item-img .item-img-overlay{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    opacity: 0;
+    transition: 1s;
+    visibility: hidden;
+    background: rgba(255, 255, 255, .75);
+}
+.works .item-img:hover .item-img-overlay{
+    visibility: visible;
+    opacity: 1;
+}
+.works .item-img {
+    margin-bottom: 30px;
+}
+.works .item-img img{
+    width: 100%;
+    background-size: cover;
+    overflow: hidden;
+}
+.works .item-img .item-img-overlay .overlay-info{
+    text-align: center;
+    margin-top: 80px;
+
+}
+.works .item-img .item-img-overlay .overlay-info span i{
+    position: absolute;
+    right: 20px;
+    bottom: 30px;
+    font-size: 25px;
+}
+.works .item-img .item-img-overlay .overlay-info span i{
+    border: 3px solid #000;
+    border-radius: 100%;
+    padding: 8px;
+}
+.works .item-img .item-img-overlay .overlay-info span i:hover{
+    background:crimson;
+    color: #ffffff;
+    border: 3px solid crimson;
+    transition: .5s;
+}
+.works .item-img .item-img-overlay .overlay-info p{
+    font-weight: bold;
+    font-size: 12px;
+}
+.works .item-img .item-img-overlay .overlay-info h6{
+    font-weight: 500;
+}
+
+/** ===|| Feature CSS End ||=== **/
+
+
+/** ===|| Testimonial CSS Start ||=== **/
+#testimonial{
+    background-color: #006fb9;
+}
+/** ===|| Testimonial CSS End ||=== **/
+
+
+/** ===|| SignUp CSS Start ||=== **/
+.p-size{
+    font-size: 14px;
+    font-weight: 700;
+}
+.contact-form .form-field{
+    position: relative;
+    margin: 20px 0;
+}
+.contact-form .input-text{
+    display: block;
+    width: 100%;
+    height: 36px;
+    border-width: 0 0 2px 0;
+    border-color: #c4c2c2;
+    font-size: 16px;
+    line-height: 26px;
+}
+.contact-form .input-text:focus + .label,
+.contact-form .input-text.not-empty + .label{
+    transform: translateY(-20px);
+}
+.contact-form .input-text:focus{
+    outline: none !important;
+}
+.contact-form .label{
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 26px;
+    color: #747474;
+    cursor: text;
+    transition: transform 0.2s ease-in-out;    
+}
+.contact-form .form-field .submit-btn{
+    margin-top: 20px;
+    width: 150px;
+    display: inline-block;
+    padding: 5px 30px;
+    background-color: #0071bb;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    border: 2px solid #0071bb;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: .3s;
+}
+.contact-form .form-field .submit-btn:hover{
+    background-color: #fff;
+    color: #0071bb;
+}
+
+/** ===|| SignUp CSS End ||=== **/
+
+
+/** ===|| Contact Details CSS Start ||=== **/
+#contact-all-details{
+    min-height: 780px;
+}
+#contact-all-details .google-map{
+    z-index: 0;
+}
+#contact-all-details .contact-details .container{
+    margin-top: -100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    border-radius: 30px;
+    background: #fff !important;
+    box-shadow: 0 7px 15px 4px #96a2b4;
+}
+#contact-all-details .contact-details h3{
+    color: #245192 !important;
+}
+#contact-all-details .contact-details ul.ul-upper{
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #c4c2c2;
+}
+#contact-all-details .contact-details ul li{
+    margin-bottom: 20px;
+    list-style: none;
+    color: #000;
+}
+#contact-all-details .contact-details ul li i{
+    margin-right: 20px;
+    color: #0071bc !important;
+}
+#contact-all-details .contact-details ul li span{
+    font-weight: 600;
+}
+
+#contact-all-details .contact-details .contact-down h3{
+    font-weight: 700;
+}
+#contact-all-details .contact-details ul.ul-down li{
+    display: inline-block;
+}
+#contact-all-details .contact-details ul.ul-down li a i{
+    font-size: 18px;
+}
+#contact-all-details .contact-details .button-width input.submit-btn{
+    width: 100%;
+}
+/** ===|| Contact Details CSS end ||=== **/
