@@ -1,0 +1,383 @@
+@using guestACCESS.ClientWeb;
+@using guestACCESS.Kernel.DMCManagement;
+@{
+    var cart = guestACCESS.eCommerce.ShoppingCart.GetShoppingCartofCurrentUser();
+    var dmcId = ViewBag.DMCId == null ? cart.DMCId : (int)ViewBag.DMCId;
+    var logoPath = string.Empty;
+    var companyProfile = guestACCESS.Kernel.DMCManagement.CompanyProfile.GetDMCProfile(dmcId);
+    var TripId = !string.IsNullOrEmpty(Request.QueryString["programId"]) ? Convert.ToInt32(Request.QueryString["programId"]) : ViewData["TripId"]!= null? (int)ViewData["TripId"]: 0;
+    if (TripId > 0)
+    {
+        var tripInfo = new guestACCESS.Kernel.TripManagement.Trip(TripId);
+        if (!string.IsNullOrEmpty(tripInfo.ContractLogo))
+        {
+            logoPath = tripInfo.ContractLogo;
+        }
+
+    }
+    else
+    {
+        logoPath = companyProfile.LogoPath;
+    }
+    if (dmcId == 0)
+    {
+        dmcId = WebConfigValues.DMCId;
+    }
+    if (logoPath == null || logoPath == String.Empty && dmcId > 0)
+    {
+        var dmcInfo = new DMC(dmcId);
+        logoPath = guestACCESS.Kernel.DMCManagement.CompanyProfile.GetDMCProfile(dmcId).LogoPath;
+        if (string.IsNullOrEmpty(logoPath))
+        {
+            var parentDmcId = dmcInfo.ParentDMCId > 0 ? dmcInfo.ParentDMCId.Value : dmcInfo.DMCId;
+            var parentCompanyLogo = parentDmcId > 0 ? guestACCESS.Kernel.DMCManagement.CompanyProfile.GetDMCProfile(parentDmcId).LogoPath : string.Empty;
+            logoPath = parentCompanyLogo;
+        }
+    }
+
+    var bookingDate = HttpContext.Current.Session["TwaiHotelFlightBooking"] != null ? (string)HttpContext.Current.Session["TwaiHotelFlightBooking"] : "";
+    var bookingTime = guestACCESS.Kernel.Twai.TWAIBookingCart.getBookingTimer();
+    var jsDateTime = bookingDate;
+
+
+    var bId = Request.QueryString["bId"];
+    List<Guid> identifier = new List<Guid>();
+    var ident = string.Empty;
+    if (cart.Count() > 0)
+    {
+        foreach (var i in cart)
+        {
+            if (i.HotelId != null || i.ItineraryToken != null)
+            {
+                identifier.Add(i.Identifier);
+            }
+        }
+
+    }
+    ident = string.Join(",", identifier);
+    var scheduleJsonData = Html.Raw(Json.Encode(identifier));
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>
+        @ViewBag.Title
+    </title>
+    <!-- Font Google -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7COpen+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <!-- End Font Google -->
+    <link href="/Content/plugins/fontawesome/css/all.min.css" rel="stylesheet" />
+    <!-- Library CSS -->
+    <link rel="stylesheet" href="/Content/assets/jaunt2/css/library/font-awesome.min.css">
+    <link rel="stylesheet" href="/Content/assets/jaunt2/css/library/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/assets/jaunt2/css/library/jquery-ui.min.css">
+    <link rel="stylesheet" href="/Content/assets/jaunt2/css/library/owl.carousel.css">
+    <link rel="stylesheet" href="/Content/assets/jaunt2/css/library/jquery.mb.YTPlayer.min.css">
+    <!-- End Library CSS -->
+    <link rel="stylesheet" href="/Content/assets/jaunt2/css/style.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Content/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/Content/dist/css/AdminLTE.customize.css">
+
+    <link href="/Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <link href="/Content/plugins/select2/select2.min.css" rel="stylesheet" />
+    <link href="/Content/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+    <link href="~/Content/Fairmont/css/2015/Bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <style>
+        .clockpicker-popover {
+            z-index: 9999;
+        }
+
+        .modal-header .close {
+            margin-top: -20px;
+        }
+
+        .countdown-timer {
+            text-align: center;
+            background: #082b41;
+            font-family: sans-serif;
+            font-weight: 100;
+            color: #fff;
+            max-width: 50%;
+            margin: auto;
+            padding: 4px;
+            border-radius: 9px;
+            margin-top: 90px;
+        }
+        .package-item .package-text p::before {
+            content: "";
+            margin: 0;
+        }
+
+        /* added css for footer currency on sept3 2021 */
+        #footer-currency{
+            margin-top: 12rem;
+           /* border: 2px solid red; */
+        }
+        /* margintop decreased for mobile screen on sept3 2021 **/
+        @@media only screen and (max-width: 768px){
+             #footer-currency{
+            margin-top: 2rem!important;
+           /* border: 2px solid red; */
+        }
+        }
+
+        /* overrided style font-size on sept 6 2021 */
+        .goog-te-combo, .goog-te-banner *, .goog-te-ftab *, .goog-te-menu *, .goog-te-menu2 *, .goog-te-balloon * {
+    font-family: arial;
+    font-size: 1rem!important;
+    /* width: 100%; */
+   }
+    </style>
+    @RenderSection("HeadContent", required: false)
+
+    <style>
+     @{var dmcInformation = new DMC(dmcId); }
+      @if (dmcInformation.DMCId > 0)
+      {
+          var colorSchema = new guestACCESS.Kernel.DMCManagement.DMCOption(dmcInformation.ParentDMCId > 0 ? dmcInformation.ParentDMCId.Value : dmcInformation.DMCId).ColorSchemaPublic;
+          if (!string.IsNullOrWhiteSpace(colorSchema))
+          {
+
+            @Html.Raw(colorSchema.Replace("&lt;","<").Replace("&gt;", ">"))
+          }
+      }
+
+    </style>
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<body style="width:100%;">
+    <div id="wrap">
+
+        <header id="header" class="header">
+            <div class="container">
+                <!-- Logo -->
+                <div class="logo float-left">
+                    <a href="javascript:void(0);" title="">
+                        @Html.Image(logoPath, "logo", "")
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <!-- Bars -->
+                <div class="bars" id="bars" style="display: none;"></div>
+                <!-- End Bars -->
+                <!--Navigation-->
+                <div id="navMenu">
+                    @{Html.RenderPartial("ShoppingCart"); }
+                </div>
+                <!--End Navigation-->
+            </div>
+        </header>
+        <section class="sub-banner">
+            <!--Background-->
+            <div class="bg-parallax bg-1"></div>
+            <!--End Background-->
+            @if (bId != null)
+            {
+
+                @*<div class='countdown-timer'>
+
+                    <p><strong>Please pay before time runs out.</strong></p>
+                    <div id="tm" style="font-size: 20px">Valid for :<span id="countdownTimer"></span></div>
+                    <div id=""></div>
+                    <br />
+
+                </div>*@
+            }
+        </section>
+
+        @RenderBody()
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <!-- Logo -->
+                    <div class="col-md-4">
+                        <div class="logo-foter">
+                            <a href="javascript:void(0);" title="">
+                                @Html.Image(logoPath, "logo", "")
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3 col-md-4">
+
+                        <div class="ul-ft">
+                            <ul>
+                                <li><a href="javascript:void(0);" title="">@companyProfile.CompanyName</a></li>
+                                <li><a href="javascript:void(0);" title=""><i class="fas fa-map-marker-alt"></i>@companyProfile.Address</a></li>
+                                <li><a href="javascript:void(0);" title=""><i class="fas fa-envelope"></i>@companyProfile.Email</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Navigation Footer -->
+                    <!-- Footer Currency, Language -->
+                    <div class="col-sm-6 col-md-4" id="footer-currency">
+
+                        <!-- End Currency -->
+                        <div class="col-sm-6 col-md-6 g_lang">
+                            <div id="google_translate_element_2"></div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 " style="margin-top: 3px">
+
+                            @Html.CurrencyDropdownList("CurrencySelect", "Currency", new { @class = "form-control currency", @style = "width:100%" })
+                        </div>
+
+                        <!--CopyRight-->
+                        <p class="copyright">
+                            <span>Copyright © @DateTime.Now.Year e-destinACCESS,Inc. All Rights Reserved</span>
+                        </p>
+                        <div class="copyright">
+                            @{
+                                Html.RenderPartial("_poweredBy");
+                            }
+                        </div>
+                        <!--CopyRight-->
+                    </div>
+                    <!-- End Footer Currency, Language -->
+
+
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+    </div>
+    <div id="alertArea" class="alert-area">
+        @RenderSection("Alerts", required: false)
+    </div>
+    <!-- ./wrapper -->
+    @RenderSection("Additional", required: false)
+    <link href="/Content/assets/opentoweb/style.css" rel="stylesheet" />
+
+    <script src="/Content/plugins/jQuery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/jaunt2/js/library/bootstrap.min.js"></script>
+    <!-- jQuery validate -->
+    <script src="/Content/plugins/jQuery-validate/jquery.validate.min.js"></script>
+    <!-- Moment -->
+    <script src="/Content/plugins/moment/min/moment-with-locales.min.js"></script>
+    <!-- Time Plugin JavaScript -->
+    <script src="~/Content/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="/Content/dist/js/shared.js"></script>
+    <script src="/Content/dist/js/CurrencyConverter.js"></script>
+    <script src="/Content/plugins/select2/select2.min.js"></script>
+    <script src="/Content/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/Content/plugins/toast-master/js/jquery.toast.js"></script>
+
+
+    <script type="text/javascript" src="/Content/assets/jaunt2/js/library/parallax.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/jaunt2/js/library/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="/Content/assets/jaunt2/js/library/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/jaunt2/js/library/jquery.mb.YTPlayer.min.js"></script>
+    <script type="text/javascript" src="/Content/assets/jaunt2/js/library/SmoothScroll.js"></script>
+    <script type="text/javascript" src="/Content/proposal/js/popper.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#CurrencySelect").change(function () {
+                var val = $(this).val();
+                var cc = new CurrencyConverter();
+                cc.setDefaultCurrency(val);
+            });
+            setTimeout(function () {
+                $('#CurrencySelect').select2();
+            }, 700);
+            if (@(jsDateTime.Count())> 0 && $("#countdownTimer").length>1) {
+                setCountDownTimer();
+            } else {
+                localStorage.expireDate = "";
+            }
+                    });
+
+
+
+        var setCountDownTimer = function () {
+            var identifier = '@ident';
+            var testing = identifier.split(',');
+            localStorage.expireDate = "";
+            var sDate = new Date('@bookingTime');
+            var timestamp = parseInt();
+            var end;
+            var currentDate = sDate;
+            if (localStorage.expireDate === null || localStorage.expireDate === undefined || localStorage.expireDate == "") {
+                currentDate.setTime(currentDate.getTime() + parseInt(0) * 60000);
+                localStorage.expireDate = currentDate;
+            }
+            end = new Date(localStorage.expireDate);
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer;
+            function showRemaining() {
+
+                var now = new Date();
+                var distance = end - now;
+                if (distance < 0) {
+
+                    clearInterval(timer);
+                    document.getElementById('countdownTimer').innerHTML = 'Booking Time Expired. Please restart the process again';
+                    localStorage.expireDate = "";
+                    //setTimeout(function () {
+
+                    $.each(testing, function (key, value) {
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/ShoppingCart/Remove',
+                            data: { identifier: value },
+                            dataType: 'json',
+                            success: function (r, strStatus) {
+
+                                var returnUrl = window.location.pathname;
+                                if (returnUrl.indexOf("Tariff") != -1) {
+
+                                    window.location.href = '/Tariff/?programId=@TripId'
+                                    localStorage.expireDate = "";
+                                }
+                                else {
+                                    window.location.href = '/Summary/Index'
+                                    localStorage.expireDate = "";
+                                }
+
+                            },
+                            error: ecCommon.handleAjaxError()
+                        });
+                    });
+                    //}, 4000);
+                    return;
+                }
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+                //document.getElementById('countdownTimer').innerHTML = days + 'days ';
+                document.getElementById('countdownTimer').innerHTML = hours + 'hrs ';
+                document.getElementById('countdownTimer').innerHTML += minutes + 'mins ';
+                document.getElementById('countdownTimer').innerHTML += seconds + 'mins ';
+            }
+            timer = setInterval(showRemaining, 1000);
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element_2');
+            $(".goog-logo-link").remove();
+            $("#google_translate_element_2").children().find('select').addClass("form-control");
+            $('.goog-te-gadget').html($('.goog-te-gadget').children());
+        }
+    </script>
+    @RenderSection("FootContent", required: false)
+</body>
+</html>

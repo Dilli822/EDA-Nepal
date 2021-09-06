@@ -1,0 +1,272 @@
+
+
+-----------sept6 2021 allvegas.catalog page faulty responsive css updates-------
+-- location
+--http://jaunt2sales.qa.nexgenmtgs.com/Catalog?dmcId=39330&cityId=37789&tc=2&pageSize=10&pageNum=1&source=Tiqets
+.owl-carousel .owl-item img {
+    display: block;
+    margin: 0 auto;
+    /* text-align: center; */
+    max-width: 100%;
+    /* height: 100%; */
+    width: auto;
+    /* border-radius: 0; */
+    /* object-fit: cover; */
+    /* border-radius: 8px 8px 0 0; */
+}
+----------------------------------------------------------
+--http://jaunt2sales.qa.nexgenmtgs.com/Content/plugins/int/Tellnput/int/TelInput.css : 98
+iti__selected-flag {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* height: 100%; */
+    padding: .6rem;
+}
+-------------------------------------------------------------------------
+
+
+
+
+
+***************C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Content\assets\jaunt2\css******
+-------style.css----------
+
+-- line no 4623
+.package-item .package-text p {
+    margin: 0;
+    color: #666666;
+    font-family: 'Open sans';
+    font-size: 13px;
+    line-height: 20px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: justify;
+}
+
+--- line no: 13953
+.select2-selection__rendered:after {
+    content: '\f107';
+    position: absolute;
+    right: 0;
+    font-family: 'FontAwesome';
+    font-size: 24px;
+    color: #272424;
+    font-weight: normal;
+}
+
+-- line no 12063
+@media (max-width: 767px)
+.sub-banner {
+    padding-top: 0px;
+    padding-bottom: 40px;
+}
+
+-- line no 3015
+/* End Banner */
+.sub-banner {
+    padding-top: 60px;
+    padding-bottom: 185px;
+    padding-left: 15px;
+    padding-right: 15px;
+    /* updated on sept6 2021 maybe temporary */
+    visibility: hidden;
+}
+------------------------------------
+--- footer for only ipad
+-- style.css
+-- line no : 11977
+@media (max-width: 991px)
+footer .ul-ft {
+    margin-top: 35px;
+    border: 2px solid red;
+}
+--- style.css
+--- line no893
+.proceed-btn-contain {
+    float: right;
+    padding: 2rem;
+}
+
+-- last line no 14225
+/* updated on sept6 2021 overrided .owl carousel images */
+.owl-carousel .owl-item img {
+    display: block!important;
+    margin: 0 auto!important;
+    max-width: 100%;
+    width: auto!important;
+    border-radius: 0;
+    object-fit: cover;
+   /* border-radius: 8px 8px 0 0; */
+border: 1px solid red;
+}
+---- line no : 135958
+.select2-selection__rendered:after {
+    content: '\f107';
+    position: absolute;
+    right: 0;
+    font-family: 'FontAwesome';
+    font-size: 24px;
+    /* updated color to more brighter on sept6 2021 */
+    color: #2c2b2b;
+    font-weight: normal;
+}
+
+
+
+////////////FOR ipad only screen //////////////
+---768px to 1024px---
+----- C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Content\dist\css\
+----\ AdminLTE.min.css: 7\
+@media (max-width: 991px)
+.error-page>.error-content>h3 {
+    /* text-align: center; */
+}
+
+--- general error occurred with only p tag add id and put these css 
+--- p {
+    margin: 0 0 0 3rem;
+}
+
+--- for smaller mobile screens
+-- linw no 7 AdminLTE.min.css
+@media (max-width: 991px)
+.error-page>.error-content {
+    /* margin-left: 0; */
+    /* margin-right: 0; */
+}
+
+.error-page>.error-content {
+    /* margin-left: 190px; */
+    /* display: block; */
+}
+----AdminLTE.min.css-----
+.content {
+    min-height: 250px;
+    /* padding: 15px; */
+    /* margin-right: auto; */
+    /* margin-left: auto; */
+    /* padding-left: 15px; */
+    /* padding-right: 15px; */
+}
+
+**********overrided on AdminLTE.customize.css******
+-- from line no 221 to 234.
+/* overided bootstrap with css classes */
+/* on sept6 2021 */
+.error-page p{
+    margin-left: 2rem!important;
+    border:2px solid red;
+}
+
+.error-page>.error-content>h3 {
+    font-weight: 300;
+    font-size: 25px;
+    margin-left: 2rem!important;
+}
+/*  */
+
+////////////////openToweb css//////////////////
+// C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Content\assets\openToWeb
+// style.css
+-- line no 893
+@media only screen and (min-width: 992px) {
+    .proceed-btn-contain {
+        float: right;
+        /* added css on sept6 2021 */
+        padding: 2rem;
+        border: 2px solid red;
+    }
+}
+-- line no 847
+  /* updated on sept 6 2021  */
+
+    .proceed-btn-contain {
+        margin: auto;
+        padding: 2rem 0;
+        /* border: 2px solid green; */
+    }
+}
+-- line no 800
+@media only screen and (max-width: 767px)
+.cart-btn {
+    float: none;
+    display: inline-block;
+    padding:2rem;
+}
+
+
+//// line no 130 of Jaunt2/Content/assets/_L
+C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Views\Shared
+---- _LayoutCatalog.cshtml-----
+    /* overrided style font-size on sept 6 2021 */
+        .goog-te-combo, .goog-te-banner *, .goog-te-ftab *, .goog-te-menu *, .goog-te-menu2 *, .goog-te-balloon * {
+    font-family: arial;
+    font-size: 1rem;
+    /* width: 100%; */
+   }
+
+
+*************************************************
+--location : C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Views\BookCarService\Index.cshtml
+**************Index.cshtml************************
+-- line no: 79 
+ #btn-contactList-1 {
+            position: fixed;
+            top: 32%;
+            /*right: -75px;*/
+            right: -35px;
+            /* updated on sept 6 2021 **/
+            z-index: 999!important;
+        }
+
+********Index.cshtml********
+-- line no: 73
+ /* overrided selection button **/
+            /* on sept6 2021 */
+            .form-control {
+                 margin-top: 0.4rem!important;
+                 }
+
+******C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Views\Shared****
+********* _LayoutBooking.cshtml******
+--- line no : 84
+        /* overrided form for ipad pro only on sept6 2021 */
+  @@media only screen and (max-width: 1366px) and (min-width: 1024px){
+        .form-control {
+        display: block!important;
+        width: 100%!important;
+        height: 34px!important;
+        padding: 0px!important;
+        }
+            } 
+--- line no 81
+  .form-control{
+            margin-top: 0.4rem!important;
+        }
+--- this is for catalog page
+-- .package-item .package-text p {
+            margin: 0;
+            color: #666666;
+            font-family: 'Open sans';
+            font-size: 13px;
+            line-height: 20px;
+            font-style: italic;
+            text-align: justify;
+            /* added font-weight on sept 6 2021 */
+            font-weight: bold;
+        }
+
+*********************************************
+****C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Views\Shared***
+********_LayoutOpenToWeb.cshtml*****
+-- line no: 55
+
+ /* updated onsept 6 2021 **/
+        @@media only screen and (max-width: 800px){
+            .logorow .col-sm-12.col-md-2 {
+            justify-content: center;
+        }
+        }

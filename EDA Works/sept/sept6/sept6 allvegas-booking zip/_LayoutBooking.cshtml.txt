@@ -1,0 +1,232 @@
+@using guestACCESS.ClientWeb;
+@{ 
+    var dmcId = (int)ViewBag.DMCId;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>
+        @ViewBag.Title
+    </title>
+    <!-- Font Google -->
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7COpen+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <!-- End Font Google -->
+    <link href="/Content/assets/BookCarService/css/library/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Content/assets/BookCarService/css/library/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/assets/BookCarService/css/library/jquery-ui.min.css" rel="stylesheet" />
+    <link href="/Content/assets/BookCarService/css/library/owl.carousel.css" rel="stylesheet" />
+    <link href="/Content/assets/BookCarService/css/library/jquery.mb.YTPlayer.min.css" rel="stylesheet" />
+    <link href="../../Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../../Content/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+    <!-- End Library CSS -->
+    <link href="/Content/assets/BookCarService/css/style.css" rel="stylesheet" />
+
+    <style>
+        .g_lang {
+            /*            z-index: 9999;*/
+            position: relative;
+            padding-top: 60px;
+            padding-left: 20px;
+        }
+
+        .goog-logo-link {
+            display: none !important;
+        }
+
+        .goog-te-gadget {
+            color: transparent !important;
+        }
+
+        select.goog-te-combo {
+            border: 1px solid #ddd;
+            padding: 0px 19px;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        li.nav-item.dropdown.user-avatar a#navbarDropdownProfile {
+            padding-top: 0 !important;
+        }
+
+        .goog-te-gadget .goog-te-combo {
+            color: #555;
+        }
+
+        .goog-te-combo {
+            height: 32px;
+            margin-top: 3px;
+        }
+
+        .goog-te-banner {
+            display: none !important;
+        }
+
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
+        }
+
+        .logo-banner img {
+            max-height: 120px;
+        }
+
+        /* overrided form for ipad pro only on sept6 2021 */
+        
+        .form-control{
+            margin-top: 0.4rem!important;
+        }
+    /* overriddedfor ipad pro screen resolution */
+    @@media only screen and (max-width: 1366px) and (min-width: 1024px){
+        .form-control {
+        display: block!important;
+        width: 100%!important;
+        height: 34px!important;
+        padding: 0px!important;
+        }
+            } 
+    </style>
+    @RenderSection("HeadContent", required: false)
+    <style>
+     @{var dmcInformation = new guestACCESS.Kernel.DMCManagement.DMC(dmcId); }
+      @if (dmcInformation.DMCId > 0)
+      {
+          var colorSchema = new guestACCESS.Kernel.DMCManagement.DMCOption(dmcInformation.ParentDMCId > 0 ? dmcInformation.ParentDMCId.Value : dmcInformation.DMCId).ColorSchemaPublic;
+          if (!string.IsNullOrWhiteSpace(colorSchema))
+          {
+
+            @Html.Raw(colorSchema.Replace("&lt;","<").Replace("&gt;", ">"))
+          }
+      }
+
+    </style>
+</head>
+<body class="">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="tb-cell">
+            <div id="page-loading">
+                <div></div>
+                <p>Loading</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wrap -->
+    <div id="wrap">
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="container">
+                <!-- Logo -->
+                <div class="logo float-left">
+                    <a href="/" title="">
+                        @{
+                            var dmcInfo = new guestACCESS.Kernel.DMCManagement.DMC(dmcId);
+                            var companyProfile = guestACCESS.Kernel.DMCManagement.CompanyProfile.GetDMCProfile(dmcInfo.ParentDMCId ?? dmcInfo.DMCId);
+                        }
+
+
+                        @if (ViewData["CompanyLogo"] == null)
+                        {
+                            @Html.Image(companyProfile.LogoPath, "logo", "")
+                        }
+                        else
+                        {
+                            string companyLogo = (string)ViewData["CompanyLogo"];
+                            <img src="@companyLogo" />
+                        }
+                    </a>
+                </div>
+                <!-- End Logo -->
+            </div>
+        </header>
+        <!-- End Header -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Currency, Language -->
+                    <div class="col-sm-6 col-md-4 float-right">
+                        <div class="g_lang">
+                            <div class="form-group float-left">
+                                <div id="google_translate_element_2"></div>
+                            </div>
+                            <div class="form-group float-right">
+                                @Html.CurrencyDropdownList("CurrencySelect2", "Currency", new { @class = "form-control currency" })
+                            </div>
+                        </div>
+                        <!-- End Currency -->
+                        <!--CopyRight-->
+                        <p class="copyright">
+                            © @DateTime.Now.Year e-destinACCESS™ All rights reserved.
+                        </p>
+                        <div>
+                            @{
+                                Html.RenderPartial("_poweredBy");
+                            }
+                        </div>
+                        <!--CopyRight-->
+                    </div>
+                    <!-- End Footer Currency, Language -->
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+    </div>
+    <div id="alertArea" class="alert-area">
+        @RenderSection("Alerts", required: false)
+    </div>
+    @RenderSection("Additional", required: false)
+    <!-- Library JS -->
+    <script src="/Content/assets/BookCarService/js/library/jquery-1.11.0.min.js"></script>
+
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="/Content/assets/BookCarService/js/library/jquery-ui.min.js"></script>
+
+    <script src="/Content/assets/BookCarService/js/library/bootstrap.min.js"></script>
+    <script src="/Content/assets/BookCarService/js/library/owl.carousel.min.js"></script>
+    <script src="/Content/assets/BookCarService/js/library/parallax.min.js"></script>
+    <script src="/Content/assets/BookCarService/js/library/jquery.nicescroll.js"></script>
+    <script src="/Content/assets/BookCarService/js/library/jquery.ui.touch-punch.min.js"></script>
+    <script src="/Content/assets/BookCarService/js/library/jquery.mb.YTPlayer.min.js"></script>
+    <script src="/Content/plugins/jQuery-validate/jquery.validate.min.js"></script>
+    <script src="/Content/assets/BookCarService/js/library/SmoothScroll.js"></script>
+    <script src="/Content/dist/js/shared.js"></script>
+    <script src="/Content/dist/js/CurrencyConverter.js"></script>
+    <script src="../../Content/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="../../Content/plugins/toast-master/js/jquery.toast.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- End Library JS -->
+    <!-- Main Js -->
+    <script src="/Content/assets/BookCarService/js/script.js"></script>
+
+    <!-- End Main Js -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            if ($(window).width() <= 800) {
+                new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element_1');
+            }
+            else {
+                new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element_2');
+            }
+
+        }
+
+        $("#CurrencySelect, #CurrencySelect2").change(function () {
+            var val = $(this).val();
+            var cc = new CurrencyConverter();
+            cc.setDefaultCurrency(val);
+        });
+    </script>
+    @RenderSection("FootContent",required:false)
+</body>
+</html>
