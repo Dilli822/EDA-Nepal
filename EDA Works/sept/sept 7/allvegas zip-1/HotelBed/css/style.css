@@ -1,0 +1,2885 @@
+/** ====|| Common CSS Start ||==== **/
+@font-face {
+    font-family: 'Open Sans', sans-serif;
+    src: url(..//fonts/OpenSans-Regular.ttf);
+    src: url(..//fonts/OpenSans-Light.ttf);
+    src: url(..//fonts/OpenSans-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Montserrat', sans-serif;
+    src: url(../fonts/Montserrat-Regular.ttf);
+    src: url(../fonts/Montserrat-SemiBold.ttf);
+    src: url(../fonts/Montserrat-Bold.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 58px;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 42px;
+    text-align: center;
+    /* padding added for extra space and better looks */
+    padding: 1rem;
+}
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+}
+
+.ind-icon {
+    color: #e7e7e7 !important;
+}
+
+.pr-0 {
+    padding-right: 0;
+}
+
+.pl-0 {
+    padding-left: 0;
+}
+/** ====|| Common CSS End ||==== **/
+/** ====|| Header CSS Start ||==== **/
+header#homepage-header {
+    background-image: linear-gradient( 0deg, rgb(19 17 17 / 48%), rgb(20 0 21 / 43%)), url(../images/homepage/home-banner.jpg);
+    background-size: cover;
+    min-height: 530px;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+/*Nav Start*/
+header nav {
+    overflow: hidden;
+    z-index: 9999;
+	/*border: 1px solid red;*/
+	
+  }
+
+    header nav .logo {
+        width: 25%;
+    }
+
+    header nav a img {
+		width: 100%;
+    }
+
+  /*  updated on aug 19 2021 */ 
+  header nav .navbar-collapse {
+	 display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end
+		 
+    } 
+
+    /* header nav ul li {
+        margin-left: 37px;
+        min-width: 80px;
+    } */
+
+        /* header nav ul li:first-child {
+            margin-left: 0;
+        } */
+
+        header nav ul li:last-child .fa-user {
+            padding: 5px;
+            margin-left: -15px;
+        }
+
+        header nav ul li:last-child span {
+            margin-left: 10px;
+        }
+
+        header nav ul li a {
+            font-size: 15px;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+            header nav ul li a:hover {
+                color: #dd8966 !important;
+            }
+
+        header nav ul li#b-drop {
+            position: relative;
+        }
+
+            header nav ul li#b-drop > ul {
+                margin: 0;
+                padding: 0;
+                visibility: hidden;
+            }
+
+                header nav ul li#b-drop > ul li {
+                    position: absolute;
+                    list-style: none;
+                    width: 100px;
+                }
+
+            header nav ul li#b-drop:hover > ul li {
+                visibility: visible;
+                z-index: 999;
+            }
+
+            header nav ul li#b-drop > ul li a {
+                text-decoration: none;
+            }
+
+        header nav ul li#s-drop {
+            position: relative;
+        }
+
+            header nav ul li#s-drop > ul {
+                margin: 0px;
+                padding: 0;
+                visibility: hidden;
+				position: fixed;
+				list-style-type: none;
+            }
+			header nav ul li#s-drop .nav-link {
+				color: #fff !important;
+				cursor: pointer;
+			}
+			header nav ul li#s-drop .nav-link:hover {
+				color: #dd8966 !important;
+			}
+                /*   header nav ul li#s-drop > ul li {
+                    margin-left: 8px;
+                    position: absolute;
+                    list-style: none;
+                    text-align: left;
+                }*/
+
+                header nav ul li#s-drop > ul li {
+                    margin-left: 8px;
+					background: #303030;
+					padding: 4px;
+                    /* position: absolute;
+                    list-style: none;
+                    text-align: left;*/
+                }
+
+
+            header nav ul li#s-drop:hover > ul li {
+                visibility: visible;
+                z-index: 999;
+            }
+
+            header nav ul li#s-drop > ul li a {
+                text-decoration: none;
+            }
+
+/*Nav Start*/
+
+/* Header Content Start */
+.banner-content {
+    text-align: center;
+    position: relative;
+}
+
+    .banner-content h1 {
+        margin-top: 40px;
+    }
+
+    .banner-content p {
+        margin: 10px 0px 40px;
+        word-spacing: 2px;
+        font-size: 14px;
+    }
+/* Search Form Start */
+.search-form {
+    margin: 0 30px;
+    border: 8px solid rgb(16 15 15 / 25%);
+    border-radius: 3px;
+}
+
+    .search-form {
+        padding: 8px;
+        outline: none;
+        background: #fff;
+    }
+
+        .search-form i {
+            font-size: 18px;
+            color: #dcdcdc;
+            margin-top: 5px !important;
+        }
+
+        .search-form .search-area {
+            background-color: #fff;
+            font-size: 14px;
+        }
+
+            .search-form .search-area input {
+                outline: none;
+                border: none;
+                margin:0 6rem;
+				font-size: 16px;
+            }
+
+                .search-form .search-area input::placeholder {
+                    font-size: 16px;
+                    color: #a0a0a0;
+                }
+
+            .search-form .search-area img.search-in {
+                width: 3%;
+            }
+
+        .search-form a.check-io, a.adults {
+            padding: 8px 15px;
+            color: #676767;
+            text-decoration: none;
+            /*    border-right: 1px solid #c0c0c0;*/
+        }
+
+        .search-form a.adults {
+            border-right: none;
+        }
+
+            .search-form a.adults span {
+                font-weight: 600;
+                color: #000;
+            }
+
+        .search-form a.check-io img, a.adults img {
+            width: 20px;
+            margin-right: 8px;
+            margin-top: -7px;
+        }
+
+        .search-form a.check-io span, .search-form a.check-io span .fa-chevron-right {
+            font-size: 16px;
+            color: #676767;
+            padding: 0px 2px;
+        }
+		.search-form .search-area .dateCheckInOutContainer {
+			margin-top: -5px;
+		}
+        .search-form .search-area .search-btn {
+            padding: 9px 25px;
+            background: #e2a500;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid #e2a500;
+            border-radius: 4px;
+            transition: .3s;
+			margin-top: 9px;
+        }
+
+            .search-form .search-area .search-btn:hover {
+                background: #fff;
+                color: #e2a500;
+            }
+
+    .search-form .room-Selector {
+        margin: 0 20px;
+    }
+
+.your-qus {
+    padding: 0 50px;
+    margin-top: 30px;
+    position: relative;
+}
+
+    .your-qus p {
+        line-height: 23px;
+    }
+
+    .your-qus .qus-img {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        right: -2%;
+    }
+
+        .your-qus .qus-img img {
+            width: 80%;
+        }
+/* Search Form End */
+
+/* Header Content End */
+
+/** ====|| Header CSS End ||==== **/
+
+
+/** ====|| Feature CSS Start||==== **/
+/*Three Service Start*/
+.three-service {
+    margin-top: -70px;
+    text-align: center;
+}
+
+    .three-service .single-service {
+        margin: 0;
+        padding: 0;
+        background-color: #e75054;
+        min-height: 100px;
+    }
+
+        .three-service .single-service img {
+            padding-top: 25px;
+            width: 30%;
+        }
+
+        .three-service .single-service.last img {
+            padding-top: 38.5px;
+        }
+
+        .three-service .single-service p {
+            font-family: 'Montserrat', sans-serif;
+            padding: 20px 0;
+            color: #fff;
+            font-weight: 600;
+        }
+
+.feature-section .feature-content {
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+    .feature-section .feature-content h2 {
+        padding-top: 30px;
+    }
+
+p.same-p {
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.feature-content .feature-img {
+    width: 100% !important;
+	height: 370px;
+    background-size: cover;
+    border-radius: 7px;
+    text-align: right;
+    padding: 0px 20px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.feature-content .photo-wrap {
+    position: relative;
+    margin-top: -20px;
+}
+
+.feature-content .text-div {
+    position: absolute;
+    top: 33px;
+    right: 45px;
+    text-transform: uppercase;
+}
+
+    .feature-content .text-div h5 {
+        text-align: right;
+        font-size: 20px;
+        color: #cf9801;
+    }
+
+    .feature-content .text-div h3 {
+        font-size: 24px;
+        color: #ffffff;
+    }
+
+.feature-content .feature-img h5 {
+    color: #cf9801;
+    position: absolute;
+    top: 33px;
+    right: 33px;
+    font-size: 24px;
+}
+
+.feature-content .feature-img h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    position: absolute;
+    top: 63px;
+    right: 33px;
+    font-size: 28px;
+}
+
+.feature-content .feature-img2 {
+    margin-bottom: 10px;
+    width: 100%;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 7px;
+    text-transform: uppercase;
+    box-shadow: 0 10px rgba(0, 0, 0, 0) inset,120px -80px 120px rgba(0, 0, 0, 0.719) inset, -10px 0 rgba(0, 0, 255, 0) inset, 10px 0 rgba(0, 128, 0, 0) inset;
+}
+
+    .feature-content .feature-img2 img {
+        height: 24%;
+    }
+
+.feature-content .img-div2 h3 {
+    font-size: 28px !important;
+}
+
+.feature-content .img-div2 h6 {
+    font-size: 16px !important;
+}
+
+.feature-content .feature-img2 h3 {
+    margin-top: 95px;
+    color: #fff;
+}
+
+.feature-content .feature-img2 h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 5px;
+    color: #cf9801;
+}
+/*Three Service End*/
+/** ====|| Feature CSS End||==== **/
+
+
+/** ====|| Exclusive Deal CSS Start||==== **/
+.edeal {
+    padding: 50px 0 70px;
+    background: #f6f6f6;
+}
+
+.edeal-section h1 {
+    text-align: center;
+}
+
+.edeal-section p {
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 30px;
+}
+
+.edeal .ex-offer {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+    padding: 0px;
+}
+
+    .edeal .ex-offer .feature-img3 {
+        width: 100%;
+        min-height: 300px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .edeal .ex-offer .offer-amount {
+        border: 3px solid #fff;
+        border-radius: 5px;
+        position: absolute;
+        top: 8px;
+        left: 16px;
+        margin: 10px 10px 20px 10px;
+        width: 87%;
+		height: 82%;
+        font-size: 28px;
+        text-align: center;
+    }
+
+        .edeal .ex-offer .offer-amount h3 {
+            margin: 10px 30px 210px;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+    .edeal .ex-offer .edeal-hname {
+        border-radius: 5px;
+        padding: 8px;
+        position: absolute;
+        margin: -85px 20px 0px 45px;
+        text-align: center;
+        width: 75%;
+        background-color: #fff;
+    }
+
+        .edeal .ex-offer .edeal-hname h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+        }
+
+;
+/** ====|| Exclusive Deal CSS End||==== **/
+/** ====|| Explore Blog CSS Start||==== **/
+.explore-blog {
+    padding: 50px 0 60px;
+}
+
+.explore-blog h1 {
+    text-align: center;
+}
+
+.explore-blog > p {
+    padding-bottom: 30px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.explore-blog .single-blog {
+    width: 100%;
+}
+
+    .explore-blog .single-blog img {
+        width: 100%;
+    }
+
+    .explore-blog .single-blog .blog-content {
+        padding: 15px;
+        border: 1px solid #e7e7e7;
+        border-radius: 5px;
+        padding-bottom: 5px;
+        overflow: hidden;
+    }
+
+        .explore-blog .single-blog .blog-content h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            line-height: 35px;
+            color: #000;
+            text-align: center;
+        }
+
+        .explore-blog .single-blog .blog-content p {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 22px;
+            color: #676767;
+			height: 160px;
+			overflow: auto;
+        }
+
+        .explore-blog .single-blog .blog-content ul li {
+            margin-bottom: 10px;
+            list-style: none;
+            font-size: 14px;
+            color: #676767;
+        }
+
+            .explore-blog .single-blog .blog-content ul li i {
+                padding-right: 15px;
+                font-size: 16px;
+                color: #e75054;
+            }
+
+.blog-content .blog-btn {
+    margin-top: 20px;
+}
+
+    .blog-content .blog-btn ul li {
+        list-style: none;
+        float: left;
+        border: 2px solid #e75054;
+        border-radius: 5px;
+    }
+
+        .blog-content .blog-btn ul li:nth-child(2) {
+            float: right;
+        }
+
+        .blog-content .blog-btn ul li a {
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #e75054;
+            display: inline-block;
+            padding: 7px 20px;
+            transition: .3s;
+        }
+
+            .blog-content .blog-btn ul li a:hover {
+                background: #e75054;
+                color: #fff;
+            }
+
+        .blog-content .blog-btn ul li:nth-child(2) a {
+            background: #e75054;
+            color: #fff;
+        }
+
+            .blog-content .blog-btn ul li:nth-child(2) a:hover {
+                background: #fff;
+                color: #e75054;
+            }
+/** ====|| Explore Blog CSS End||==== **/
+
+
+/** ====|| Footer CSS Start||==== **/
+footer {
+    padding: 30px 0px;
+    /* bg color pure black on sept7 2021 **/
+    background: #000000;
+    color: #fff;
+}
+
+    /*Footer Left Start*/
+    footer .footer-contact {
+        padding: 0px 15px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 28px;
+    }
+
+        footer .footer-contact .f-logo {
+            margin-bottom: 20px;
+            width: 40%;
+        }
+
+            footer .footer-contact .f-logo img {
+                width: 100%;
+            }
+
+        footer .footer-contact ul {
+            margin-top: 30px;
+        }
+
+            footer .footer-contact ul li {
+                margin-right: 24px;
+                list-style: none;
+                display: inline-block;
+            }
+
+                footer .footer-contact ul li a i {
+                    padding: 6px;
+                    font-size: 17px;
+                    width: 32px;
+                    height: 32px;
+                    text-align: center;
+                    background: #515151;
+                    color: #252525;
+                    border: 2px solid #515151;
+                    border-radius: 50%;
+                    transition: .3s;
+                }
+
+                    footer .footer-contact ul li a i:hover {
+                        background: #252525;
+                        ;
+                        color: #515151;
+                    }
+    /*Footer Left End*/
+
+    /*Footer Right Start*/
+    footer .lorem {
+        margin-top: 40px;
+        padding: 0px 15px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 28px;
+    }
+
+        footer .lorem h6 {
+            font-weight: 700;
+            color: #e75054;
+             /* footer heading menu wasnot aligned properly. */ 
+            margin-left: 2rem;
+            font-size: 1.5rem;
+        }
+
+        footer .lorem ul {
+            margin-top: 38px;
+        }
+
+            footer .lorem ul li {
+                margin-bottom: 12px;
+                list-style: none;
+            }
+/*Footer Right End*/
+/** ====|| Footer  CSS End||==== **/
+
+
+/** ===========|| ****** Homepgae  CSS End ******||=========== **/
+
+
+
+
+
+/** ===========|| ****** Business Page  CSS Start ******||=========== **/
+/** Header CSS Start **/
+header#common-header {
+    background: #303030;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 30%);
+}
+
+header form.menu-search button {
+    outline: none;
+    cursor: pointer;
+}
+
+header form.menu-search {
+    margin-left: 3%;
+    width: 33%;
+    padding: 5px;
+    background-color: #6f6f6f;
+    border-radius: 3px;
+}
+
+    header form.menu-search .search-place {
+        width: 89%;
+        background-color: #fff;
+        border-radius: 3px;
+    }
+
+        header form.menu-search .search-place i {
+            padding-top: 8px;
+            padding-left: 8px;
+            font-size: 20px;
+            color: #c0c0c0;
+        }
+
+        header form.menu-search .search-place input {
+            width: 85%;
+            height: 30px;
+            padding: 0 7px 3px;
+            border: none;
+            outline: none !important;
+        }
+
+            header form.menu-search .search-place input::placeholder {
+                padding-bottom: 10px;
+            }
+
+    header form.menu-search button {
+        background: #6f6f6f;
+        border: none;
+        color: #fff;
+        margin-left: 12px;
+    }
+/** Header CSS End **/
+
+
+/** Banner CSS Start **/
+section#banner-section img {
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+}
+
+.owl-theme .owl-nav button.owl-prev {
+    position: absolute;
+    top: 30%;
+    left: 2%;
+    outline: 0;
+}
+
+    .owl-theme .owl-nav button.owl-prev:hover {
+        background: none !important;
+    }
+
+.owl-theme .owl-nav button.owl-next {
+    position: absolute;
+    top: 30%;
+    right: 2%;
+    outline: 0;
+}
+
+    .owl-theme .owl-nav button.owl-next:hover {
+        background: none;
+    }
+
+.owl-theme .owl-nav button.owl-prev span {
+    font-size: 45px;
+    font-weight: 500;
+    color: #9f9f9f;
+}
+
+.owl-theme .owl-nav button.owl-next span {
+    font-size: 45px;
+    font-weight: 500;
+    color: #9f9f9f;
+}
+
+.owl-theme .owl-dots {
+    display: none !important;
+    visibility: hidden;
+}
+
+section#banner-section .banner-left img {
+    width: 100%;
+}
+/** Banner CSS End **/
+
+/** ====|| Amazing Magic CSS Start||==== **/
+section#amazing-magic {
+    padding: 50px 0;
+    background: #f6f6f6;
+}
+
+    section#amazing-magic ul li {
+        list-style: none;
+        display: inline-block;
+    }
+
+        section#amazing-magic ul li a {
+            font-weight: 600;
+            text-decoration: none;
+            color: #000;
+        }
+
+    section#amazing-magic .container h2 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 40px;
+        font-weight: 600;
+        text-align: left;
+        margin-left: 30px;
+    }
+/** ====|| Amazing Magic CSS End||==== **/
+
+/** ====|| Amazing Content CSS Start||==== **/
+section#amazing-content {
+    padding: 50px 0;
+}
+
+
+    /*==| Amazing Left Sidebar Start|==*/
+    section#amazing-content .amazing-p {
+        padding: 20px 30px;
+        border: 2px solid #f1f1f1;
+        border-radius: 8px;
+    }
+
+        section#amazing-content .amazing-p p {
+            margin-bottom: 18px;
+            font-weight: 300;
+            line-height: 28px;
+            font-size: 14px;
+        }
+
+            section#amazing-content .amazing-p p:last-child {
+                margin-bottom: 0;
+            }
+/* Amzaing Content End*/
+
+.amazing-policy {
+    padding: 30px 0;
+}
+
+    .amazing-policy ul {
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+        .amazing-policy ul li {
+            margin-right: 50px;
+            list-style: none;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+            .amazing-policy ul li:last-child {
+                margin-right: 0;
+            }
+
+            .amazing-policy ul li img {
+                width: 22px;
+                margin-right: 5px;
+            }
+/* Amzaing Policy End*/
+
+section#amazing-content .show-times {
+    padding: 30px;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+}
+
+    section#amazing-content .show-times h4 {
+        padding-bottom: 40px;
+        line-height: 0;
+    }
+
+.show-times .price-plan {
+    margin-bottom: 40px;
+    padding: 7px;
+    background: #f5f5f5;
+    border-radius: 7px;
+}
+
+    .show-times .price-plan .row div {
+        height: 40px;
+    }
+
+    .show-times .price-plan .date-btn {
+        width: 100%;
+        padding: 5px;
+        text-align: center;
+        background-color: #e75054;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+
+        .show-times .price-plan .date-btn h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 0;
+            padding: 8px 0 0px;
+        }
+
+        .show-times .price-plan .date-btn p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            line-height: 0;
+            color: #fff;
+            padding: 7px 0 0;
+        }
+
+
+    .show-times .price-plan .time h5 {
+        margin-top: 12px;
+        color: #000;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .show-times .price-plan .price-details {
+        padding-left: 11px;
+        text-align: center;
+    }
+
+        .show-times .price-plan .price-details h6 {
+            margin-top: 5px;
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+            .show-times .price-plan .price-details h6 img {
+                width: 20px;
+                margin-right: 7px;
+            }
+
+        .show-times .price-plan .price-details p {
+            font-size: 12px;
+            line-height: 5px;
+        }
+
+    .show-times .price-plan .percent {
+        width: 100%;
+        padding: 5px;
+        text-align: center;
+        border: 2px solid #e75054;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+
+        .show-times .price-plan .percent h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #e75054;
+            line-height: 0;
+            padding: 8px 0 0px;
+        }
+
+        .show-times .price-plan .percent p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            line-height: 0;
+            color: #e75054;
+            padding: 7px 0 0;
+        }
+
+
+    .show-times .price-plan .price-change {
+        padding: 12px 0 5px 7px;
+    }
+
+        .show-times .price-plan .price-change p {
+            margin-right: 5px;
+            float: left;
+            font-size: 12px;
+            line-height: 22px;
+            color: #e75054;
+            ;
+        }
+
+        .show-times .price-plan .price-change h5 {
+            margin-left: 5px;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+.show-times .load-more {
+    text-align: center;
+}
+
+    .show-times .load-more a {
+        padding: 10px 25px;
+        border: 2px solid #e75054;
+        border-radius: 5px;
+        text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        color: #e75054;
+        transition: .3s;
+    }
+
+        .show-times .load-more a:hover {
+            background: #e75054;
+            ;
+            color: #fff;
+        }
+/* Show Times CSS End*/
+/*==| Amazing Left Sidebar End |==*/
+
+
+/*==| Amazing Right Sidebar Start |==*/
+.hotel-map, .best-shows {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+    .hotel-map h6 {
+        font-size: 14px;
+        line-height: 10px;
+    }
+
+    .hotel-map .h-map {
+        margin-top: 16px;
+    }
+
+        .hotel-map .h-map iframe {
+            border-radius: 8px;
+        }
+    /* Hotel Map CSS End */
+
+
+    /*==| Amazing Right Sidebar End |==*/
+    .best-shows ul {
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+
+        .best-shows ul li {
+            margin-bottom: 12px;
+            list-style: none;
+        }
+
+            .best-shows ul li:last-child {
+                margin-bottom: 0px;
+            }
+
+            .best-shows ul li a {
+                font-size: 14px;
+                font-weight: 700;
+                color: #e75054;
+                text-decoration: none;
+            }
+/** ====|| Amazing Content CSS End||==== **/
+
+/** ====|| Hotel List Section CSS Starts Here||=== **/
+
+.hotel-list {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 30px;
+    padding: 10px 0px 5px 0px;
+    max-width: 100%;
+}
+
+    .hotel-list > * {
+        display: inline-block;
+    }
+
+    .hotel-list .form-group {
+        margin-left: 20px;
+    }
+
+        .hotel-list .form-group .input-group-text {
+            height: 40px;
+        }
+
+        .hotel-list .form-group .input-group {
+            margin-top: -5px;
+        }
+
+            .hotel-list .form-group .input-group .input-field {
+                font-size: 14px;
+            }
+
+    .hotel-list .label {
+        font-size: 12px;
+        color: #858281;
+        width: 100%;
+    }
+
+        .hotel-list .label .input-field {
+            border: none;
+            padding: 1%;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+            cursor: pointer;
+            width: 200px;
+            height: 40px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .hotel-list .label .fa-user {
+            padding: 25px 0px 0px 6px;
+            position: absolute;
+            cursor: pointer;
+        }
+
+    .hotel-list .price-form {
+        width: 17%;
+        /* margin-top: 20px; */
+        padding-top: 5px;
+        /* transform: translate(550px,-54px); */
+        z-index: 1;
+        position: absolute;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+        height: 255px;
+        overflow: auto;
+        /* margin-top: -15px; */
+    }
+
+        .hotel-list .price-form .room-Selector .room-count {
+            border: none;
+            margin: 5px 10px 5px 10px;
+            width: 190px;
+            box-shadow: 0 2px 2px 0 rgb(0 0 0 / 20%), 0 3px 10px 0 rgb(0 0 0 / 19%);
+            border-radius: 5px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .hotel-list .price-form .pax-Selector .room-label {
+            margin: 5px 0px 0px 10px;
+            color: #848581;
+        }
+
+        .hotel-list .price-form .price-div {
+            display: inherit;
+            margin-bottom: 3px;
+        }
+
+        .hotel-list .price-form .label {
+            font-size: 12px;
+            color: #8c8989;
+            width:56%;
+        }
+
+        .hotel-list .price-form .price-div .valuebtn {
+            display: inline-block;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin: 10px 0px 10px 0px;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            padding: 3px 3px 5px 3px;
+        }
+
+            .hotel-list .price-form .price-div .valuebtn:hover {
+                cursor: pointer;
+                background: #eee;
+            }
+
+        .hotel-list .price-form .price-div .num {
+            text-align: center;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            margin: 0px;
+            width: 36px;
+            height: 36px;
+        }
+
+        .hotel-list .price-form .price-div input::-webkit-outer-spin-button,
+        .hotel-list .price-form .price-div input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .hotel-list .price-form .price-div input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .hotel-list .price-form .footer {
+            border: 1px solid #bdb6b5;
+        }
+
+            .hotel-list .price-form .footer .btn-cancel {
+                background-color: #E75054;
+                border: none;
+                border-radius: 5px;
+                color: #ffffff;
+                padding: 3px;
+                height: 30px;
+                width: 60px;
+                float: right;
+                margin: 0px 5px 5px 10px;
+                margin-top: 4px;
+            }
+
+                .hotel-list .price-form .footer .btn-cancel:hover {
+                    background-color: #ffffff;
+                    color: #E75054;
+                    padding: 2px;
+                    border: 2px solid #E75054;
+                    cursor: pointer;
+                }
+
+            .hotel-list .price-form .footer .btn-ok {
+                background-color: #307bf2;
+                border: none;
+                border-radius: 5px;
+                color: #ffffff;
+                height: 30px;
+                width: 20%;
+                float: right;
+                margin: 2%;
+            }
+
+                .hotel-list .price-form .footer .btn-ok:hover {
+                    background-color: #ffffff;
+                    color: #307bf2;
+                    border: 2px solid #307bf2;
+                    cursor: pointer;
+                }
+
+    .hotel-list .btn-search {
+        background-color: #E75054;
+        border-radius: 5px;
+        border: none;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        border: 2px solid #E75054;
+        max-height: 45px;
+        min-width: 12%;
+        font-weight: 520;
+        margin-left: 10px;
+        padding-top: 8px;
+    }
+
+        .hotel-list .btn-search:hover {
+            background-color: #ffffff;
+            color: #E75054;
+            border: 2px solid #E75054;
+            font-weight: 520;
+        }
+
+    .hotel-list .filter-items {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+        .hotel-list .filter-items .list-category {
+            list-style-type: none;
+            overflow: hidden;
+        }
+
+            .hotel-list .filter-items .list-category li {
+                float: left;
+                margin: 1% 5.5% 2% -1%;
+            }
+
+                .hotel-list .filter-items .list-category li:last-child {
+                    margin-right: 0% !important;
+                }
+
+                .hotel-list .filter-items .list-category li a {
+                    display: block;
+                    color: black;
+                    text-align: center;
+                    text-decoration: none;
+                }
+
+                .hotel-list .filter-items .list-category li .default {
+                    color: #bdaa00;
+                }
+
+#business-list .list-category li .default {
+    color: #bdaa00;
+}
+
+.hotel-list .room-list {
+    display: block;
+}
+
+    .hotel-list .room-list .room-header {
+        text-decoration: underline;
+        color: #939695;
+        margin-left: 20px;
+        font-weight: 400;
+    }
+
+.room-list .accordion .accordion-item .accordion-header {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+    .room-list .accordion .accordion-item .accordion-header .accordion-button {
+        height: 40px;
+        border-radius: 5px;
+    }
+
+        .room-list .accordion .accordion-item .accordion-header .accordion-button .text-center h5 {
+            padding-top: 7px;
+        }
+
+.room-list .card {
+    width: 100%;
+    height: 187px;
+    margin: 0px 0px 20px 0px;
+	padding:0 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
+    .room-list .card .hotel-image {
+        width: 220px;
+        height: 204px;
+    }
+
+    .room-list .card .room-category {
+        list-style-type: none;
+        width: 50%;
+        margin-left: 230px;
+        margin-top: -180px;
+		padding:0 2rem;
+        height: 179px;
+    }
+/* 
+        .room-list .card .room-category li {
+        } */
+
+            .room-list .card .room-category li a {
+                display: flex;
+                margin-left: 5px;
+            }
+
+            .room-list .card .room-category li .green-links{
+                color: black;
+                padding: 5px 0px 5px 0px;
+				font-weight:600;
+                text-decoration: none;
+            }
+			.room-list .card .room-category li .blue-links{
+                padding: 5px 0px 5px 0px;
+                text-decoration: none;
+            }
+
+            .room-list .card .room-category li .plain-text {
+                color: black;
+                pointer-events: none;
+                text-decoration: none;
+            }
+
+            .room-list .card .room-category li .details-link {
+                color: #bdaa00;
+                padding-top: 6px;
+                text-decoration: underline;
+            }
+
+    .room-list .card .list-buttons {
+        list-style-type: none;
+  
+        margin-left: auto;
+        margin-top: -170px;
+        height: 168px;
+        margin-right: 10px;
+    }
+
+        .room-list .card .list-buttons .btn-disabled {
+            width: 80px;
+            height: 50px;
+            border-radius: 5px;
+            border: none;
+            background-color: #E75054;
+            color: white;
+            font-size: 14px;
+            margin-bottom: 40px;
+            pointer-events: none;
+        }
+
+        .room-list .card .list-buttons .btn-Select {
+            width: 80px;
+            height: 38px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ffffff;
+            border: 2px solid #16b116;
+            color: #16b116;
+            font-size: 16px;
+            margin-top: 17px;
+            cursor: pointer;
+        }
+
+            .room-list .card .list-buttons .btn-Select:hover {
+                background-color: #16b116;
+                color: #ffffff;
+                cursor: pointer;
+                border: 2px solid #16B116;
+            }
+
+.room-list #btn-book {
+    display: none;
+    background: #16b116;
+    cursor: pointer;
+    height: 36px;
+    margin: 10px 20px 0px 20px;
+    padding-top: 5px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    text-align: center;
+}
+
+    .room-list #btn-book:hover {
+        background-color: #3ba62b;
+        color: #ffffff;
+    }
+
+/** ====|| Hotel List Section CSS Ends Here||=== **/
+
+
+/** ===========|| ****** Business Page  CSS End ******||=========== **/
+
+
+
+/** ===========|| ****** Inner Page  CSS Start ******||=========== **/
+/** ====|| Amazing Review CSS Start||==== **/
+/** ==| Review CSS Start |== **/
+section#banner-section {
+    height: 280px;
+    overflow: hidden;
+    margin-top: 96px;
+    position: relative;
+    z-index: 1;
+}
+
+    section#banner-section .banner-left, .banner-middle, .banner-right {
+        width: 100%;
+        height: 400px;
+    }
+
+        section#banner-section .banner-left img {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+        }
+
+    section#banner-section .banner-right img {
+        width: 100%;
+        height: 400px;
+        background-size: cover;
+    }
+
+section#amazing-magic .review-btn {
+    width: 48%;
+    float: left;
+    margin-top: 22px;
+}
+
+    section#amazing-magic .review-btn p {
+        font-size: 12px;
+        font-weight: 600;
+        color: #9f9f9f;
+        text-align: center;
+        line-height: 12px;
+    }
+
+    section#amazing-magic .review-btn a {
+        background-color: #51a145;
+        padding: 7px 18px;
+        border: 2px solid #51a145;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+        section#amazing-magic .review-btn a img {
+            width: 15%;
+        }
+
+            section#amazing-magic .review-btn a img:nth-child(2) {
+                width: 40%;
+            }
+
+section#amazing-magic .review-btn2 {
+    width: 48%;
+    float: left;
+    margin-top: 48px;
+    margin-left: 11px;
+}
+
+    section#amazing-magic .review-btn2.second {
+        width: 45%;
+        float: left;
+        margin-top: 48px;
+        margin-left: 11px;
+    }
+
+        section#amazing-magic .review-btn2.second a {
+            padding: 10px 30px;
+        }
+
+    section#amazing-magic .review-btn2 a {
+        background-color: #E75054;
+        padding: 10px 50px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #fff;
+        border: 2px solid #E75054;
+        border-radius: 5px;
+        transition: .3s;
+    }
+
+        section#amazing-magic .review-btn2 a:hover {
+            background: #e7e7e7;
+            color: #E75054;
+        }
+/** ==| Review CSS END |== **/
+
+/** ====|| Amazing Review CSS End||==== **/
+
+
+/** ====|| Amazing Catagory CSS Start ||==== **/
+#inner-blog {
+    padding: 30px 0;
+}
+
+    #inner-blog .inner-paragraph {
+        padding: 15px 25px 0;
+        border: 2px solid #f1f1f1;
+        border-radius: 8px;
+    }
+
+        #inner-blog .inner-paragraph p {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 25px;
+        }
+/** Inner Paragraph End **/
+
+.amazing {
+    padding: 30px 0;
+}
+
+.amazing-policy2.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.amazing-policy2 ul {
+    margin-bottom: 0;
+}
+
+    .amazing-policy2 ul li {
+        list-style: none;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 300;
+    }
+
+        .amazing-policy2 ul li:nth-child(1) {
+            width: 28%;
+        }
+
+        .amazing-policy2 ul li:nth-child(2) {
+            width: 22%;
+        }
+
+        .amazing-policy2 ul li:nth-child(3) {
+            width: 15%;
+        }
+
+        .amazing-policy2 ul li:nth-child(4) {
+            width: 33%;
+        }
+
+        .amazing-policy2 ul li:last-child {
+            margin-right: 0;
+        }
+
+        .amazing-policy2 ul li img {
+            width: 22px;
+            margin-right: 5px;
+        }
+/** Amzing PLoicy2 End **/
+.benificial-service {
+    padding: 15px 12px;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+}
+
+    .benificial-service ul {
+        margin: 0;
+        padding: 0;
+    }
+
+        .benificial-service ul li {
+            margin-bottom: 10px;
+            list-style-position: inside;
+            color: #e75054;
+        }
+
+            .benificial-service ul li:last-child {
+                margin-bottom: 0;
+            }
+
+            .benificial-service ul li span {
+                margin-left: -10px;
+                font-size: 14px;
+                font-weight: 300;
+                color: #000;
+            }
+/* Benificial Service CSS End */
+
+.terms-condition {
+    margin: 30px 0;
+    padding: 15px 25px 0;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+}
+
+    .terms-condition h6 {
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .terms-condition p {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 25px;
+    }
+/* Terms & Condition CSS End*/
+.transport {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+}
+
+    .transport h4 {
+        margin-bottom: 25px;
+    }
+
+    .transport p {
+        margin-bottom: 15px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+        .transport p:last-child {
+            margin-bottom: 0;
+        }
+
+        .transport p span {
+            float: right;
+        }
+
+/* Transport CSS End */
+
+/** ====|| Amazing Catagory CSS End ||==== **/
+/** ===========|| ****** Inner Page  CSS End ******||=========== **/
+
+
+
+
+/** ===========|| ****** Business List Page  CSS Start ******||=========== **/
+
+/* List Tab CSS Start */
+section#business-list {
+    overflow: hidden;
+    margin-top: 100px;
+}
+
+    section#business-list .list-tab {
+        padding: 50px 0;
+        overflow: hidden;
+    }
+
+        section#business-list .list-tab ul li {
+            margin: 0px 30px 0px 0px;
+            list-style: none;
+            float: left;
+        }
+
+            section#business-list .list-tab ul li:first-child {
+                margin-left: -30px;
+            }
+
+            section#business-list .list-tab ul li:last-child {
+                margin-right: 0;
+                float: right;
+            }
+
+            section#business-list .list-tab ul li a {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 12px;
+                font-weight: 600;
+                text-decoration: none;
+                color: #9f9f9f;
+                padding: 5px 10px;
+                border: 2px solid #9f9f9f;
+                border-radius: 5px;
+                transition: .3s color ease-in-out;
+            }
+
+                section#business-list .list-tab ul li a:hover {
+                    color:black;
+                }
+
+                section#business-list .list-tab ul li a img {
+                    margin-right: 5px;
+                }
+
+            section#business-list .list-tab ul li:nth-child(2) a img {
+                width: 25%;
+            }
+
+            section#business-list .list-tab ul li select {
+                font-family: 'Montserrat', sans-serif;
+                padding: 4px 7px;
+                font-size: 12px;
+                font-weight: 600;
+                color: #9f9f9f;
+                border: 2px solid #9f9f9f;
+                border-radius: 5px;
+                outline: none;
+                cursor: pointer;
+            }
+
+                section#business-list .list-tab ul li select option {
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+				
+				.minPrice{
+					color: green !important;
+				}
+
+.container .row .list-tab a {
+    cursor: pointer;
+}
+/* List Tab CSS End */
+
+
+/* Filter Section CSS Starts */
+
+.search-container {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.19);
+    max-width: 100%;
+    padding-top: 10px;
+    border-radius: 5px;
+    margin: -20px 0px 20px 0px;
+    position: relative;
+}
+
+    .search-container > * {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .search-container .form-group {
+        margin-left: 20px;
+    }
+
+        .search-container .form-group .input-group-text {
+            height: 40px;
+        }
+
+        .search-container .form-group .input-group {
+            margin-top: -15px;
+        }
+
+    .search-container .btn-x {
+        float: right;
+        font-size: 25px;
+        margin: -18px 7px 0px 5px;
+        cursor: pointer;
+        font-weight: 800;
+        color: #f70a0a;
+    }
+
+        .search-container .btn-x:hover {
+            color: black;
+        }
+
+    .search-container .label {
+        font-size: 16px;
+        color: #858281;
+        width: 100%;
+    }
+
+        .search-container .label .fa-user {
+            padding: 25px 0px 0px 6px;
+            position: absolute;
+            cursor: pointer;
+        }
+
+    .search-container .price-form {
+        padding-top: 5px;
+        background-color: #ffffff;
+        overflow: auto;
+        height: 245px;
+        position: absolute;
+		width: 33%;
+        margin-top: 190px;
+        z-index: 1;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+        .search-container .price-form .room-Selector .room-count {
+            border: none;
+            margin: 5px 10px 5px 10px;
+            width: 190px;
+            box-shadow: 0 2px 2px 0 rgb(0 0 0 / 20%), 0 3px 10px 0 rgb(0 0 0 / 19%);
+            border-radius: 5px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .search-container .price-form .pax-Selector .room-label {
+            margin: 5px 0px 0px 10px;
+            color: #848581;
+        }
+
+        .search-container .price-form .price-div {
+            display: inherit;
+        }
+
+        .search-container .price-form .label {
+            
+            font-size: 12px;
+            color: #8c8989;
+            width:50px;
+        }
+
+        .search-container .price-form .price-div .valuebtn {
+            display: inline-block;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin: 5px 0px 10px 0px;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            padding: 3px 3px 5px 3px;
+        }
+
+            .search-container .price-form .price-div .valuebtn:hover {
+                cursor: pointer;
+                background: #eee;
+            }
+
+        .search-container .price-form .price-div .num {
+            text-align: center;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            margin: 0px;
+            width: 36px;
+            height: 36px;
+        }
+
+        .search-container .price-form .price-div input::-webkit-outer-spin-button,
+        .search-container .price-form .price-div input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .search-container .price-form .price-div input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .search-container .price-form .footer {
+            border: 1px solid #bdb6b5;
+        }
+
+            .search-container .price-form .footer .btn-cancel {
+                background-color: #E75054;
+                border: none;
+                border-radius: 5px;
+                color: #ffffff;
+                padding: 3px;
+                height: 10%;
+                width: 34%;
+                float: right;
+                margin: 0px 5px 5px 10px;
+                margin-top: 4px;
+            }
+
+                .search-container .price-form .footer .btn-cancel:hover {
+                    background-color: #ffffff;
+                    color: #E75054;
+                    padding: 2px;
+                    border: 2px solid #E75054;
+                    cursor: pointer;
+                }
+
+            .search-container .price-form .footer .btn-ok {
+                background-color: #307bf2;
+                border: none;
+                border-radius: 5px;
+                color: #ffffff;
+                height: 30px;
+                width: 20%;
+                float: right;
+                margin: 2%;
+            }
+
+                .search-container .price-form .footer .btn-ok:hover {
+                    background-color: #ffffff;
+                    color: #307bf2;
+                    border: 2px solid #307bf2;
+                    cursor: pointer;
+                }
+
+    .search-container .btn-search {
+        background-color: #E75054;
+        border-radius: 5px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        border: 2px solid #E75054;
+        height: 40px;
+        min-width: 12%;
+        font-weight: 520;
+        margin: 4% 0% 0% 4.5%;
+    }
+
+        .search-container .btn-search:hover {
+            background-color: #ffffff;
+            color: #E75054;
+            border: 2px solid #E75054;
+            font-weight: 520;
+        }
+
+    .search-container .dropdown {
+        width: 20%;
+        margin-left: 5%;
+    }
+
+        .search-container .dropdown .dropbtn {
+            background-color: white;
+            color: black;
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+        }
+
+    .search-container .guest-container .hotel-list .guest-container {
+        display: inline-block;
+        margin-left: 20px;
+    }
+
+    .search-container .guest-container label.label, .hotel-list .guest-container label.label {
+        margin-bottom: 8px;
+        margin-left: 0;
+    }
+
+    .search-container .guest-container .input-group-text, .search-container .guest-container input, .hotel-list .input-group-text, .hotel-list input {
+        background-color: #fff;
+    }
+
+    .search-container .room-Selector, .hotel-list .room-Selector {
+        margin: 0 20px;
+    }
+
+    .search-container .dropdown .dropdown-content, .hotel-list .dropdown .dropdown-content {
+        position: relative;
+    }
+
+    .search-container .guest-container input, .hotel-list .guest-container input {
+        border-left: 0;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .search-container .guest-container .fas.fa-user, .hotel-list .guest-container .fas.fa-user {
+        font-size: 15px;
+        padding: 5px;
+        background-color: #fff;
+    }
+
+    .search-container .dropdown .dropbtn:hover, .hotel-list .dropdown .dropbtn:hover {
+        cursor: pointer;
+    }
+
+    .search-container .dropdown .dropdown-content {
+        margin: 5% 5% 0% 2%;
+        display: none;
+        position: relative;
+        background-color: white;
+        width: 90%;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        margin-bottom: 20px;
+        overflow: auto;
+    }
+
+        .search-container .dropdown .dropdown-content a {
+            color: black;
+            margin-top: -28px;
+            margin-left: 16%;
+            padding: 4px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .search-container .dropdown .dropdown-content a:hover {
+                cursor: pointer;
+            }
+
+    .search-container .dropdown .dropdown:hover .dropbtn {
+        cursor: pointer;
+    }
+
+    .search-container .dropdown .dropdown-content .price {
+        width: 31%;
+        height: 38px;
+        margin: 10% 0px 20% 6%;
+        border-radius: 8px;
+        border: 1px solid black;
+    }
+
+    .search-container .dropdown .dropdown-content .fa-star {
+        color: #dbd100;
+        margin-left: -2px;
+    }
+
+    .search-container .dropdown .dropdown-content .dropdown-content-extend {
+        margin: 1% 5% 0% 0%;
+        display: none;
+        background-color: white;
+        width: 100%;
+        box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
+    }
+
+        .search-container .dropdown .dropdown-content .dropdown-content-extend .label-dist {
+            font-size: 14px;
+            color: #747678;
+            margin: 0px 10px 0px 10px;
+        }
+
+        .search-container .dropdown .dropdown-content .dropdown-content-extend .distance {
+            height: 28px;
+            margin: 5px 0px 5px 0px;
+            width: 30%;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 2px 0 rgb(0 0 0 / 20%), 0 3px 10px 0 rgb(0 0 0 / 19%);
+            text-align: center;
+        }
+
+        .search-container .dropdown .dropdown-content .dropdown-content-extend input::-webkit-outer-spin-button,
+        .search-container .dropdown .dropdown-content .dropdown-content-extend input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .search-container .dropdown .dropdown-content .dropdown-content-extend input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .search-container .dropdown .dropdown-content .dropdown-content-extend .chkbox {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .search-container .dropdown .dropdown-content .dropdown-content-extend .label {
+            color: #626363;
+            font-size: 16px;
+            margin: 5px 10px 5px 10px;
+        }
+
+/* Filter Section CSS Ends */
+
+/* Individual List Content CSS Start */
+.individual-business {
+    overflow: hidden;
+}
+
+    .individual-business .single-business {
+        height: 240px;
+        margin-bottom: 30px;
+    }
+
+        .individual-business .single-business .business-image img {
+            width: 100%;
+            height: 240px;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .individual-business .single-business .bimage-content {
+            padding: 10px;
+            border: 2px solid #e7e7e7;
+            border-left: 0;
+            border-radius: 0 8px 8px 0;
+            height: 240px;
+            overflow: hidden;
+        }
+
+            .individual-business .single-business .bimage-content h4 {
+                padding-left: 2rem;
+            }
+
+                .individual-business .single-business .bimage-content h4 span {
+                    margin: 5px 15px 0 0;
+                    float: right;
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #9f9f9f;
+                }
+
+    /* Business Heading End */
+    .individual-business .business-image img {
+        width: 100%;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .individual-business .bimage-content {
+        min-height: 240px;
+    }
+
+        .individual-business .bimage-content ul.b-rating li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .individual-business .bimage-content ul li img {
+            margin-right: -5px;
+            padding: 0;
+        }
+
+        .individual-business .bimage-content ul li span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #16b116;
+            float: right;
+        }
+        /* Review CSS End */
+
+        .individual-business .bimage-content .business-details .person-business p {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 22px;
+            padding-right: 15px;
+        }
+
+        .individual-business .bimage-content .business-details .person-img img {
+            width: 100%;
+        }
+        /* Business Details CSS End */
+        .individual-business .bimage-content ul.opening-loc {
+            margin-bottom: 0;
+        }
+
+            .individual-business .bimage-content ul.opening-loc li {
+                margin-right: 0px;
+                font-size: 14px;
+                display: inline-block;
+                width: 100%;
+            }
+
+            .individual-business .bimage-content ul.opening-loc li {
+                color: #9f9f9f;
+            }
+
+                .individual-business .bimage-content ul.opening-loc li img {
+                    margin-right: 3px;
+                }
+				
+				.hotelDetailLink{
+					text-decoration: none;
+				}
+				
+				
+/* Individual List Content CSS End */
+
+section#business-list .rigt-map {
+    text-align: center;
+    overflow: hidden;
+}
+
+    section#business-list .rigt-map iframe {
+        overflow: hidden;
+    }
+/** ===========|| ****** Business List Page  CSS End ******||=========== **/
+
+
+
+
+/** ===========|| ****** Business Page  CSS End ******||=========== **/
+/**Amazing Magic CSS Start**/
+section#amazing-magic .review-btn.two {
+    margin-top: 50px;
+    text-align: center;
+}
+
+    section#amazing-magic .review-btn.two a {
+        padding: 7px 23px;
+        background: #e2a500;
+        border: 2px solid #e2a500;
+        transition: .3s;
+    }
+
+        section#amazing-magic .review-btn.two a img {
+            width: 10%;
+        }
+
+section#amazing-magic .review-btn2.second a {
+    background: #fff !important;
+    color: #E75054 !important;
+}
+
+    section#amazing-magic .review-btn2.second a:hover {
+        background: #E75054 !important;
+        color: #fff !important;
+    }
+/**Amazing Magic CSS End**/
+#inner-blog .amazing-policy2.second ul li:nth-child(1) {
+    width: 30% !important;
+}
+
+#inner-blog .amazing-policy2.second ul li:nth-child(2) {
+    width: 30% !important;
+}
+
+#inner-blog .amazing-policy2.second ul li:nth-child(3) {
+    width: 30% !important;
+}
+/**Amazing Magic CSS End**/
+
+/* Benificial Service CSS Start*/
+#inner-blog .benificial-service h6 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+#inner-blog .benificial-service ul#business-bservices li {
+    list-style: none !important;
+    text-align: left !important;
+}
+
+    #inner-blog .benificial-service ul#business-bservices li span {
+        margin-left: 0 !important;
+    }
+
+/* Benificial Service CSS End */
+
+/** Two Review CSS Start **/
+#inner-blog .two-review {
+    margin-top: 30px;
+    padding: 20px 0;
+}
+
+    #inner-blog .two-review h4 {
+        padding-bottom: 5px;
+    }
+
+    #inner-blog .two-review .single-review {
+        margin-bottom: 30px;
+        padding: 15px 25px;
+        border: 2px solid #f1f1f1;
+        border-radius: 8px;
+    }
+
+        #inner-blog .two-review .single-review .left-client h5 {
+            margin-top: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        #inner-blog .two-review .single-review .left-client p {
+            margin-top: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            color: #9f9f9f;
+        }
+
+            #inner-blog .two-review .single-review .left-client p img {
+                width: 20%;
+                margin-top: -5px;
+            }
+
+        #inner-blog .two-review .single-review .review-content h5 {
+            margin: 5px 0 25px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+            #inner-blog .two-review .single-review .review-content h5 span {
+                float: right;
+            }
+
+                #inner-blog .two-review .single-review .review-content h5 span img {
+                    width: 23%;
+                    margin-left: -7px;
+                }
+
+        #inner-blog .two-review .single-review .review-content p {
+            font-size: 14px;
+            line-height: 25px;
+        }
+
+        #inner-blog .two-review .single-review .review-content .three-rest-img .single-rest img {
+            width: 100%;
+        }
+/** Two Review CSS End **/
+
+/* Inner Right Sidebar CSS Start  */
+section#inner-blog .hotel-map ul {
+    margin-top: 10px
+}
+
+    section#inner-blog .hotel-map ul li {
+        margin-bottom: 15px;
+        list-style: none;
+    }
+
+        section#inner-blog .hotel-map ul li:last-child {
+            margin-bottom: 0;
+        }
+
+        section#inner-blog .hotel-map ul li span {
+            margin-left: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+        }
+/* Map CSS End */
+
+section#inner-blog .price-range {
+    margin: 30px 0;
+    padding: 12px;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+}
+
+    section#inner-blog .price-range ul {
+        margin-bottom: 0;
+    }
+
+        section#inner-blog .price-range ul li {
+            list-style: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+            section#inner-blog .price-range ul li:first-child {
+                margin-right: 20px;
+            }
+
+            section#inner-blog .price-range ul li:last-child {
+                margin-right: 0;
+            }
+
+            section#inner-blog .price-range ul li img {
+                width: 15px;
+                margin: -2px;
+                padding: 0;
+            }
+
+            section#inner-blog .price-range ul li span {
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 0;
+            }
+
+                section#inner-blog .price-range ul li span#sp-bold {
+                    font-size: 15px;
+                    font-weight: 700;
+                }
+/* Price Range End */
+
+section#inner-blog .payment-system h4 {
+    margin-bottom: 20px;
+}
+
+section#inner-blog .payment-system {
+    margin: 30px 0;
+    padding: 12px;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+}
+
+    section#inner-blog .payment-system p {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+        section#inner-blog .payment-system p:last-child {
+            margin-bottom: 0;
+        }
+
+        section#inner-blog .payment-system p span {
+            float: right;
+        }
+
+            section#inner-blog .payment-system p span img {
+                width: 82%;
+            }
+/* Payment System End */
+
+section#inner-blog .claim-business {
+    text-align: center;
+}
+
+    section#inner-blog .claim-business .cliam-btn {
+        margin-top: 25px;
+    }
+
+        section#inner-blog .claim-business .cliam-btn a {
+            background-color: #fff;
+            padding: 12px 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #E75054;
+            border: 2px solid #E75054;
+            border-radius: 5px;
+            transition: .3s;
+        }
+
+            section#inner-blog .claim-business .cliam-btn a:hover {
+                background: #E75054;
+                color: #e7e7e7;
+            }
+/** ===|| CheckOut Page CSS Starts Here ||=== **/
+
+/**-- Check Out Form CSS Starts Here **/
+
+.checkout {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px 0px 10px 0px;
+    background-color: #f2f2f2;
+    width: 65%;
+    padding: 10px;
+    border-radius: 5px;
+    float: left;
+}
+.checkout .payment-portion {
+	box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 2px 8px 0 rgb(0 0 0 / 19%);
+    margin: 10px 10px 20px 10px;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+.checkout .payment-portion .StripeElement {
+	border: 2px solid #ddd;
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+    .checkout .room-number {
+        color: #848581;
+        font-size: 16px;
+    }
+
+    .checkout h4 {
+        font-weight: 450;
+        padding-bottom: 10px;
+        color: #858281;
+    }
+
+    .checkout .form-row {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #cccbca;
+    }
+
+        .checkout .form-row .form-group .label-field {
+            font-size: 13px;
+            font-weight: 400;
+            color: #858281;
+        }
+
+        .checkout .form-row .form-group .form-control {
+            font-size: 16px;
+            height: 45px;
+        }
+
+.side-portion {
+    width: 33%;
+    float: left;
+    margin: 10px 0px 20px 10px;
+}
+
+    .side-portion .card .card-body .card-title {
+        font-weight: 400;
+        color: #6b6c6e;
+        margin-bottom: 30px;
+    }
+
+    .side-portion .card .card-body h6 {
+        font-weight: 350;
+        max-width: 90%;
+    }
+
+.checkout .checkout-button {
+    text-align: center;
+}
+
+    .checkout .checkout-button .btn-next {
+        width: 120px;
+        height: 38px;
+        border-radius: 5px;
+        border: none;
+        background-color: #16B116;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+        .checkout .checkout-button .btn-next:hover {
+            background-color: #ffffff;
+            color: #16B116;
+            cursor: pointer;
+            border: 2px solid #16B116;
+        }
+
+.checkout .form-row .form-group .form-control {
+    cursor: pointer;
+}
+
+/**-- Check Out Form CSS Ends Here **/
+
+/**-- Side Details Of Hotels CSS Starts Here **/
+
+.side-portion .card {
+    width: 110%;
+    margin: 0px 20px 20px 10px;
+    padding: 0px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
+    .side-portion .card .row .col-md-5 img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .side-portion .card .row .card-body {
+        width: 58%;
+        margin-bottom: -4%;
+    }
+
+    .side-portion .card .card-body .card-title {
+        font-size: 20px;
+    }
+
+    .side-portion .card .card-body .card-subtitle {
+        font-size: 18px;
+    }
+
+    .side-portion .card .row .card-body .room-category {
+        list-style-type: none;
+        overflow: hidden;
+        width: 120%;
+        margin: -15px 0px 0px -35px;
+    }
+
+        .side-portion .card .row .card-body .room-category li a {
+            font-size: 16px;
+            width: 100%;
+            text-decoration: none;
+        }
+
+        .side-portion .card .row .card-body .room-category li .green-links {
+            color: #16B116;
+        }
+
+        .side-portion .card .row .card-body .room-category li .plain-text {
+            color: black;
+            pointer-events: none;
+        }
+
+        .side-portion .card .row .card-body .room-category li .details-link {
+            color: #bdaa00;
+            text-decoration: underline;
+        }
+
+        .side-portion .card .row .card-body .room-category .btn-book {
+            width: 80px;
+            height: 36px;
+            border-radius: 5px;
+            border: none;
+            background-color: #16B116;
+            color: white;
+            font-size: 14px;
+            margin-top: 5%;
+            cursor: pointer;
+        }
+
+            .side-portion .card .row .card-body .room-category .btn-book:hover {
+                background-color: #ffffff;
+                color: #16B116;
+                cursor: pointer;
+                border: 2px solid #16B116;
+            }
+
+#mapDiv #content {
+    width: 180px;
+    height: 215px;
+    margin-top: -20px;
+}
+
+    #mapDiv #content p img {
+        width: 100%;
+        height: 100px;
+    }
+
+    #mapDiv #content p .fa-star {
+        color: #dbd100;
+        margin-top: 10px;
+    }
+
+    #mapDiv #content #title {
+        margin-top: -20px;
+    }
+
+        #mapDiv #content #title a {
+            color: #e75054;
+            font-size: 14px;
+            margin: 5px 0px 10px 0px;
+            display: inline-block;
+            font-weight: 500;
+            line-height: 2;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+
+    #mapDiv #content #bodyContent h6 {
+        margin: -5px 0px 5px 0px;
+        font-size: 14px;
+        color: #9f9f9f;
+    }
+
+    #mapDiv #content #bodyContent img {
+        margin-bottom: 5px;
+    }
+
+    #mapDiv #content .text-center {
+        padding: 0;
+        color: #4d4c4c;
+    }
+
+        #mapDiv #content .text-center h5 {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #9f9f9f;
+        }
+
+.accordion-button:not(.collapsed) {
+    color: #0a1628;
+    background-color: #e4e9f0;
+}
+
+.room-category li:last-child {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.container .bcrumb {
+    margin-top: 4%;
+}
+
+#business-list {
+    margin-top: 150px;
+}
+
+#btn-grp {
+    margin-top: 10px;
+}
+
+#btn-start {
+    margin-bottom: 10px;
+}
+
+/** RPf Form CSS Starts here **/
+
+.rpf-wrap {
+    border: 2px solid #dcdfe0;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 2%), 0 2px 4px 0 rgb(0 0 0 / 2%);
+	margin-bottom: 10px;
+}
+.rpf-wrap .section-title, .rpf-wrap .box-title {
+	padding: 5px;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    background: rgba(0,0,0,.03);
+}
+.rpf-wrap .row {
+	padding: 10px;
+}
+.rpf-wrap .box-title button {
+	float: right;
+}
+
+/** RPf Form CSS Ends here **/
+
+/** Poupup Login Form CSS Starts here **/
+
+.modal {
+	z-index: 111111 !important;
+}
+.up-wrap {
+	margin-top: -20px;
+}
+.up-wrap input {
+	border-radius: 5px;
+}
+.modal-footer button {
+	font-size: 18px !important;
+}
+#slider {
+	width: 80%;
+	margin-left: 10%;
+	margin-bottom: 10%;
+	background: #2298f2;
+}
+.ui-slider-horizontal .ui-slider-handle {
+	background: #2298f2 !important;
+}
+.dropdown-content .fa-chevron-right {
+	margin-left: 6px;
+}
+.childAge {
+    height: 30px;
+    margin: 5px 5px 10px 0px;
+    width: 30%;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+}
+#photo-wrap {
+	position: relative;
+}
+.text2-div {
+	position: absolute;
+	top: 110px;
+	left: 31%;
+	text-transform: uppercase;
+	text-align: center;
+}
+.text1-div {
+	position: absolute;
+	top: 33px;
+	right: 54px;
+	text-transform: uppercase;
+	text-align: right;
+}
+.text1-div h3, .text2-div h3 {
+	color: #fff;
+	font-size: 2.5rem;
+}
+.text1-div h5, .text2-div h6 {
+	color: #cf9801;
+	font-size: 1.75rem;
+}
+#select2-CountryId-container, #select2-Destination-container, #select2-CityId-container {
+	margin-top: 5px;
+}
+.checkout-table {
+	width: 100%;
+	margin: 10px 0px 10px 0px;
+	background-color: #f2f2f2;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 2px 8px 0 rgb(0 0 0 / 19%);
+	border-radius: 5px;
+}
+.table-first-front {
+	width: 45%;
+	padding: 5px;
+}
+.table-first-back {
+	width: 50%;
+	padding: 5px;
+}
+.table-second-front {
+	width: 75%;
+	padding: 5px;
+}
+.table-second-back {
+	width: 25%;
+	padding: 5px;
+}
+.card .card-body .hotel-name {
+	background-color: #f2f2f2;
+	padding: 5px;
+	box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 2px 8px 0 rgb(0 0 0 / 19%);
+	border-radius: 5px;
+	font-size: 22px;
+	text-align: center;
+}
+.search-area .price-form #roomCount, .search-area .price-form #roomCount option {
+	font-size: 18px !important;
+}
+
+/** Popup Login Form CSS Ends here **/
+
+/**-- Side Details Of Hotels CSS Ends Here **/
+
+/** ===|| CheckOut Page CSS Starts Here ||=== **/
+
+/** Claim CSS End **/
+/* Inner Right Sidebar CSS Start  */
+
+
+/** ===========|| ****** Business  Page  CSS End ******||=========== **/
