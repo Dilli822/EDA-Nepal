@@ -1,0 +1,143 @@
+
+-----Sept8-All-CSS-Updates-----
+==================================================================
+--------C:\inetpub\wwwroot\NexGen\Test\Sales\Jaunt2\Content\assets\jaunt2\css--
+----- style.css----
+-- line no: 13995
+-- span.select2-selection.select2-selection--single, span.select2-selection.select2-selection--single:active {
+    border: 0;
+    /* border-bottom: 2px dotted; */
+    border-radius: 5px!important;
+}
+===================================================================
+-- line no : 10596 
+-- style.css
+--footer span.select2-selection.select2-selection--single {
+    height: 34px;
+    border-radius: 5px;
+}
+=====================================================================
+- font-size select language smaller remove it --
+-- .goog-te-combo, .goog-te-banner *, .goog-te-ftab *, .goog-te-menu *, .goog-te-menu2 *, .goog-te-balloon * {
+    font-family: arial;
+    /* font-size: 1rem !important; */
+    /* width: 100%; */
+    /* text-align: center!important; */
+}
+=======================================================================
+
+-- line no : 14004
+.select2-selection__rendered:after {
+    content: '\f107';
+    position: absolute;
+    right: 0;
+    font-family: 'FontAwesome';
+    font-size: 24px;
+    /* updated color to more brighter on sept8  2021 */
+    color:#272727;;
+    font-weight: normal;
+} 
+
+=======================================================================
+-- lineno: 14354
+-span.select2-container.select2-container--default {
+    z-index: 0!important;
+}
+
+
+
+
+
+***************************************************************
+--- location in server 
+--- C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+------------------ style.css-----------------------------
+-- for url: http://demojaunt2.qa.destindiy.com/Content/assets/jaunt2/css/style.css
+-- line no: 2015
+.header {
+    background-color: #000000!important;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    height: 20px;
+}
+
+================================================================================
+--- line no : 2063
+
+@media (min-width: 800px) {
+    .header.header-stick {
+        background-color: #000000!important;
+        }
+    .header.header-stick a{
+        color: rgb(255, 255, 255) !important;
+    }
+}
+
+-- line no: 2025
+/* added on sept 7 2021 */
+ @media only screen and (max-width: 800px){
+    .header{
+        background-color: transparent!important;
+    }
+}  
+-- line no : 12414
+-- line no: 13077
+.user-profile {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 8rem;
+}
+
+=======================================================================
+
+-- line no: 2086
+.header.header-stick .bars:after, .header.header-stick .bars:before {
+    background-color: #f7f7f7;
+}
+
+
+************************************************************
+--C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Shared
+--------------_LandingJaunt2.cshtml--
+--- overrided css on _LandingJaunt2.cshtml---
+select.goog-te-combo {
+    border: 1px solid #ddd;
+    border-radius: 5px!important;
+    width: 100%;
+    margin: 0;
+    color: #424040!important;
+    background-color: #ffffff;
+}
+==========================================
+  .goog-te-gadget {
+            /* updated on sept8  2021 */
+            color: #ffffff!important;
+             margin:0;
+        }
+***********************************************************
+--C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Shared
+--_LayoutJaunt2.cshtml---
+-- line no: 605 to 616
+-- @@media (min-width: 768px){
+.col-md-9 {
+    margin-top: -2rem!important;
+}
+}
+/* commented out on sept 8 2021 */
+/* added on sept 2 2021 profile */
+/* .mb-4 {
+    margin-top: -5rem!important;
+    margin-bottom: 1.5rem!important;
+} */
+
+@@media (min-width: 992px){
+.col-lg-6 {
+    flex: 0 0 auto;
+    width: 50%;
+    /* margin-top: -5rem!important; */
+}
+} 
+=========================================================
+
