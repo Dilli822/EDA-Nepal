@@ -1,0 +1,116 @@
+
+
+--C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Shared
+-- _LayoutJaunt2.cshtml----
+--- line no: 586
+==============================================================
+---  item container was sticked so detached this container contains filght,hotel section
+@media only screen and (max-width: 1200px){
+.item-container {
+    margin-top: 6rem !important;
+}
+}
+=============================================================
+---line no: 653
+------ making google powered by black and invisible with bg color
+  .goog-te-gadget {
+            /* updated on sept8  2021 */
+            /* added color black on sept 9 2021 */
+            /* color: #ffffff !important; */
+            color: black!important;
+            margin: 0;
+        }
+=================================================================
+ ***********************************************************************************************
+*************jaunt2/css/style.css****************
+------ user-profile margin-top added so that it
+--- won't stick together.
+-- line no: 13081
+     /* User Profile */
+        .user-profile {
+            margin-left: 0;
+            margin-right: 0;
+            /* updated css on sept 9 2021 */
+           margin-top: 10rem;
+        }
+============================================================
+-- line no: 14311
+----- margin top commented out 
+--- for ipad screen size in the profile section of participant 
+--- content margin-top was increased.
+/* commented out on sept9 2021  */
+/* @media only screen and (min-width: 535px) and (max-width: 990px) { 
+    .user-profile .card {
+        margin-top: 2rem !important;
+    }
+} */
+
+======================================================
+------terms and conditions content 
+----- actually for smaller screen size devices
+-- line no: 10521
+-- /* added on sept9 2021 */
+.main {
+    margin-top: 10rem;
+}
+===============================================
+--- Terms and Conditions logo height
+-- line no: 12147 
+/* commented out on sept 9 2021 */
+            /* .header .logo img {
+                height: 60px
+            } */
+            
+===================================================
+--- Terms and Conditions logo height
+-- line no: 2052
+/* commented out on spet 9 2021 */
+/* 
+    .header .logo img {
+        height: 72px;
+        margin: 0.5rem 0;
+    } */
+    
+================ for terms and conditions Account nav section===
+---line no: 2227 
+.nav-desktop {
+    list-style: none;
+    /* padding updated on sept9 2021 */
+    padding:1.5rem;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    z-index: 99999;
+    text-align: right;
+} 
+=============================================================
+- line no: 2388
+nav-desktop ul ul li a {
+    display: block;
+    line-height: 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+    }
+==================================================================
+-line no: 2068 to line no 2077 commented out!
+/* updated on sept 8 2021 */
+@media (min-width: 800px) {
+    .header.header-stick {
+        background-color: #000000 !important;
+    }
+       
+      /* commented out on sept9 2021
+        .header.header-stick a {
+            color: rgb(255, 255, 255);
+        } */
+}
+-- line no: 2074
+/*
+@media (min-width: 800px){
+.header.header-stick a {
+    color: rgb(0, 0, 0);
+} }
+*/
+       
