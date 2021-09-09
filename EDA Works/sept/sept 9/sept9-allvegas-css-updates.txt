@@ -1,0 +1,118 @@
+
+---C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+--------- style.css------
+-- line no: 14319
+--- whole block commented out
+@media only screen and (max-width: 767px)
+.form-search .form-field {
+    /* border: 1px solid red; */
+    line-height: 50px !important;
+    padding: 2rem !important;
+}
+- line no: 374
+.main-cn {
+    /* updated on sept9 2021 */
+    margin-top: 5rem;
+}
+-- line no: 380
+
+@media only screen and (max-width: 1200px) {
+    .main-cn {
+        /* updated on sept9 2021 */
+        margin-top: 11rem;
+        padding-bottom: 2rem;
+    }
+} 
+--- line no: 14313
+-commented out all-
+@media only screen and (min-width: 535px) and (max-width: 990px)
+.user-profile .card {
+    /* margin-top: 4rem !important; */
+}  
+
+  
+
+
+
+
+**************************************************************
+--C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Shared
+------- _LayoutJaunt2.cshtml------
+--- line no: 586
+  /* added on sept2 2021 */
+        @@media only screen and (max-width: 1200px) {
+            .item-container {
+                /* updated margin on sept9 2021 */
+                margin-top: 6rem !important;
+            }
+        }
+
+-- line no :695
+/* sept9 2021 for main-cn for this template only */
+    @media only screen and (max-width: 1200px){
+        .main-cn {
+             margin-top: 5rem;
+              padding-bottom: 2rem;
+              }
+
+*****************************************************************
+
+
+
+
+
+
+
+******************************************************************************
+--C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Areas\Jaunt2\Views\Hotel
+-----Index.cshtml-----
+-- line no: 309
+  .overlay a {
+      /* updated font-family for other browsers too on sept2 2021 */
+    font-family: lato,Arial, Helvetica, sans-serif;
+    padding: 8px;
+    text-decoration: none;
+    font-size: 20px;
+    @* color: #818181; *@
+    /* updated color on sept 2 2021 **/
+    color: #ffff;
+    display: block;
+     transition: 0.3s;
+     /* commented out on sept9 2021 */
+    /* font-weight: 600; */
+  }
+
+- line no: 446
+-- button#account-btn{
+            margin-left: 3rem;
+            border: none;  background: none;
+            color: #fff;
+            /* font-weight: 600; */
+            /* commented out and updated font-size on sept9 2021 */
+            font-size: 2.3rem;
+        }
+--- line no: 285
+      /* added css */
+       .overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    /* updated z-index on sept9 2021 */
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    overflow-y: hidden;
+     transition: 0.3s;
+    background-color: rgb(16 33 58);
+  }
+
+****************************************************
+--- _LayoutJaunt2.cshtml---
+--- C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Shared
+--- line no: 688
+
+       /* added onsept 9 2021 */
+       .search-area #acselector .input-group-text {
+    height: 38px;
+    margin-top: .3rem;
+    }

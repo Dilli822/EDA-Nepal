@@ -1,0 +1,1128 @@
+@model NGX.Web.Models.LandingModel
+@using guestACCESS.Kernel.DMCManagement;
+@using guestACCESS.Kernel.HotelBeds.ContentAPI;
+@using NGX.Web.Areas.RefDataManageDomain.Models;
+@using guestACCESS.WebCommon;
+@using guestACCESS.eCommerce.StandardSource;
+@using guestACCESS.eCommerce;
+@using SharedLib;
+@using System.Linq;
+@using guestACCESS.Kernel.SortDataDashboard
+
+@{
+    Layout = null;
+    var landingModel = (LandigModel)ViewData["LandingModel"];
+
+    var isCustomize = landingModel.IsCustomize;
+    var dmcInfo = (DMC)ViewData["DMCInfo"];
+    ViewBag.Title = "Index";
+    var currentUser = SharedLib.Authenticator.MemberTicketManager.Instance.CurrentUserTicket;
+    var currentDMC = DMCProfileModel.GetProfileForDMC(dmcInfo.DMCId);
+    var clientOptions = DMCHelper.GetOptionByDmc(dmcInfo.ParentDMCId > 0 ? dmcInfo.ParentDMCId.Value : dmcInfo.DMCId);
+    int[] flightOptions = clientOptions.SelectedFlightBookingType == null ? new int[] { } : clientOptions.SelectedFlightBookingType.Split(',').Select(b => Convert.ToInt32(b)).ToArray();
+    int[] hoteloptions = clientOptions.SelectedHotelType == null ? new int[] { } : clientOptions.SelectedHotelType.Split(',').Select(a => Convert.ToInt32(a)).ToArray();
+    var eventTypes = new string[] { "Attractions", "Entertainment", "Walking tour" };
+    var dmcId = dmcInfo.ParentDMCId > 0 ? dmcInfo.ParentDMCId.Value : dmcInfo.DMCId;
+    var dmcCustomDashboard = guestACCESS.Kernel.DashboardCustomization.DashboardCustomization.GetList(dmcId);
+    var customDashboard = dmcCustomDashboard != null ? dmcCustomDashboard : guestACCESS.Kernel.DashboardCustomization.DashboardCustomization.GetList();
+    var groupDashboard = new guestACCESS.Kernel.DMCManagement.DMCGroupDashboard(dmcInfo.ParentDMCId > 0 ? dmcInfo.ParentDMCId.Value : dmcInfo.DMCId);
+    var customizationList = SortDataDashboard.GetList(dmcId).ToList();
+    if (customizationList.Count != 0)
+    {
+        customizationList = customizationList.OrderBy(x => x.SortBy).ToList();
+    }
+    List<guestACCESS.Kernel.SortDataDashboard.SortDataDashboard> customized = customizationList;
+    var landingBackgroundImagePath = currentDMC != null && currentDMC.Profile != null ? currentDMC.Profile.LandingImagePath : string.Empty;
+    var fullPathBackgroundImg = @NGX.Web.WebConfigValues.StaticContentSiteUrl + "/uploadfiles/" + landingBackgroundImagePath;
+}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vegas Website</title>
+
+    <!--All CSS File Link Here-->
+    @*<link href="~/Content/assets/HotelBed/css/fontawesome.all.min.css" rel="stylesheet" />*@
+    @*<link href="~/Content/assets/HotelBed/css/bootstrap.css" rel="stylesheet" />*@
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" data-type="keditor-style">
+
+    @*<link href="~/Content/assets/HotelBed/css/bootstrap.css" rel="stylesheet" data-type="keditor-style" />*@
+
+    @*<link href="~/Content/assets/DIYSignUp/css/fontawesome-all.min.css" rel="stylesheet" data-type="keditor-style" />*@
+    <link rel="stylesheet" href="~/Content/assets/plugins/select2/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="~/Content/assets/jaunt2/css/library/font-awesome.min.css">
+    <link href="~/Content/assets/plugins/intlTelInput/intlTelInput.css" rel="stylesheet" />
+
+    @if (isCustomize)
+    {
+        <link href="~/Content/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" data-type="keditor-style" />
+        <link href="~/Content/assets/plugins/keditor/dist/css/keditor.css" rel="stylesheet" data-type="keditor-style" />
+        <link href="~/Content/assets/plugins/keditor/dist/css/keditor-components.css" rel="stylesheet" data-type="keditor-style" />
+
+        <link href="~/Content/assets/HotelBed/css/fontawesome.all.min.css" rel="stylesheet" data-type="keditor-style" />
+        <link href="~/Content/assets/HotelBed/css/media.css" rel="stylesheet" data-type="keditor-style" />
+        <link href="~/Content/assets/HotelBed/css/style.css" rel="stylesheet" data-type="keditor-style" />
+        <!-- css links
+        ======================================== -->
+        <!-- Bootstrap link -->
+        @*<link href="~/Content/assets/HotelBed/css/bootstrap.css" rel="stylesheet" data-type="keditor-style" />*@
+    }
+    else
+    {
+        <link href="~/Content/assets/HotelBed/css/fontawesome.all.min.css" rel="stylesheet" />
+        <link href="~/Content/assets/HotelBed/css/media.css" rel="stylesheet" />
+        <link href="~/Content/assets/HotelBed/css/style.css" rel="stylesheet" />
+        <link href="/Content/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+        @*<link href="~/Content/assets/Tucson/css/bootstrap.min.css" rel="stylesheet" />*@
+    }
+    @*<link href="~/Content/assets/HotelBed/css/media.css" rel="stylesheet" data-type="keditor-style" />
+        <link href="~/Content/assets/HotelBed/css/style.css" rel="stylesheet" data-type="keditor-style" />*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">*@
+    <link href="~/Content/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+    <link href="~/Content/assets/HotelBed/css/themeForest.css" rel="stylesheet" />
+
+
+    <style>
+
+        /* added custom vegas logos css on aug 19 2021 */
+
+        *{
+              list-style-type: none;
+        }
+
+        img.vegas-logo {
+            width: 80%;
+            height: 90%;
+            padding: .5rem;
+        }
+
+
+        .no-bullets {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #adultList {
+            position: absolute;
+            margin-left: 30%;
+            margin-top: 8%;
+            width: 120px;
+            z-index: 1;
+        }
+
+        #childList {
+            position: absolute;
+            margin-left: 45%;
+            margin-top: 8%;
+            z-index: 1;
+            width: 120px;
+        }
+
+
+        .landingSearchForm .dateCheckInOutContainer {
+            height: 37px;
+            font-size: 16px;
+            padding-top: 4px;
+        }
+
+        .landingSearchForm .hotelDates {
+            text-align: center;
+        }
+
+        .landingSearchForm .participant-Cotainer {
+            padding: 20px 10px;
+            cursor: pointer;
+        }
+
+        .search-form form.landingSearchForm .search-area input {
+            border-right: none;
+            background-color: #fff;
+        }
+
+        .search-form form.landingSearchForm .input-group span > i, .search-form form.landingSearchForm .input-group input {
+            font-size: 16px;
+            margin-top: -5px;
+        }
+
+        .landingSearchForm .search-Containerbtn {
+            padding: 25px 0px;
+        }
+
+        .landingSearchForm .select-Participant {
+            color: white;
+            list-style: none;
+            background: black;
+            display: inline-block;
+            padding: 0;
+            border-radius: 4px;
+            position: relative;
+        }
+
+            .landingSearchForm .select-Participant li {
+                cursor: pointer;
+                padding: 5px 10px;
+                border-top: 1px solid black;
+            }
+
+                .landingSearchForm .select-Participant li:first-child {
+                    display: block;
+                    border-top: 0px;
+                }
+
+                .landingSearchForm .select-Participant li:hover {
+                    background: red;
+                }
+
+        #priceAdjuster label {
+            color: black;
+        }
+
+        .search-form .search-area #priceAdjuster input {
+            border: 1px solid #c0c0c0;
+        }
+
+        .search-area .pax-Selector .price-div {
+            margin-left: -1px;
+            display: inherit;
+            margin-bottom: 10px;
+        }
+
+        .search-area .price-form .price-div .valuebtn {
+            display: inline-block;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin: 5px 0px 10px 0px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 3px 3px 5px 3px;
+        }
+
+        .search-area .price-form .label {
+            width: 50px;
+            font-size: 14px;
+            color: #8c8989;
+        }
+
+        .search-area .price-form .price-div .num {
+            text-align: center;
+            border: none !important;
+            border-bottom: 2px solid #ddd !important;
+            margin: 0px;
+            width: 36px;
+            height: 36px;
+        }
+
+        label #totalPerson {
+            cursor: pointer;
+        }
+
+        .search-area .price-form {
+            min-width: 230px;
+            padding-top: 5px;
+            z-index: 1;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            position: absolute;
+            margin-left: 20px;
+            height: 220px;
+            overflow: auto;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        .search-area #priceAdjuster input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        .search-area #priceAdjuster input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .search-area .input-group .input-group-text {
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+
+        .in {
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        .pac-container {
+            z-index: 999999 !important;
+        }
+
+        header nav ul li a {
+            color: #cd2b2b;
+        }
+
+        header nav ul li#s-drop > ul li {
+            background: transparent !important;
+        }
+
+        /* added flexbox with space between proper alignment of sign in and sign up */
+        @* .navbar {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            /* padding added 5rem removed faulty padding on aug 19 2021 */
+            padding: 5rem;
+        } *@
+
+        /* added css */
+       .overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    /* updated z-index on sept9 2021 */
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    overflow-y: hidden;
+     transition: 0.3s;
+    background-color: rgb(16 33 58);
+  }
+
+  .overlay-content {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    width: 100%;
+
+  }
+
+  .overlay a {
+      /* updated font-family for other browsers too on sept2 2021 */
+    font-family: lato,Arial, Helvetica, sans-serif;
+    padding: 8px;
+    text-decoration: none;
+    font-size: 20px;
+    @* color: #818181; *@
+    /* updated color on sept 2 2021 **/
+    color: #ffff;
+    display: block;
+     transition: 0.3s;
+     /* commented out on sept9 2021 */
+    /* font-weight: 600; */
+  }
+
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+
+  .overlay .closebtn {
+    position: absolute;
+    right: 10;
+    font-size: 4rem;
+    color:#fff;
+  }
+
+  @@media only screen and (min-width: 990px){
+      .overlay{
+          display: none;
+      }
+  }
+
+ /*  ======================== */
+
+
+        header nav ul li#s-drop > ul li {
+            margin-left: 8px;
+            background: #303030;
+            /* padding: 4px; */
+            height: 20px;
+        }
+
+        .card {
+            padding: 12px;
+        }
+
+        .tiqetBox {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+
+        /** added custom css for menu bar on aug 21 2021 **/
+        button#open-btn {
+            display: none;
+        }
+
+
+    /* added on sept 2 2021 **/
+    nav#nav-ul li a {
+    color: #fff;
+    /* padding: 1rem 0; */
+    background-color: #02020282!important;
+    }
+
+        @@media only screen and (max-width: 990px) {
+            header nav a img {
+                width: 200px;
+                margin: 1rem 0;
+            }
+
+            button#open-btn {
+                display: block;
+                float: right;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+                padding: 2rem;
+                color: #fff;
+                font-size: 3rem;
+                border: none;
+                background: none;
+                /* added on aug 24 2021 */
+                margin: 1.5rem;
+            }
+        }
+
+        #lists {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(13, 36, 70, 0.9);
+            position: fixed;
+        }
+
+        nav#nav-ul {
+            font-size: 2rem;
+            padding: 5rem;
+        }
+
+            nav#nav-ul li a {
+                color: #fff;
+              /*  padding: 1rem 0; */
+            }
+
+        button#close-btn {
+            border: none;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            color: #fff;
+            -webkit-transition: none;
+            transition: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            padding: .85rem;
+            font-size: 1.5rem;
+            -webkit-box-pack: end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+            outline: none !important;
+        }
+
+        #secondary-nav li a.dropdown-item {
+            font-size: 1.55rem;
+            text-align: center;
+            width: 100%;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.dropdown-menu {
+            border: none;
+            background-color: inherit;
+        }
+
+            ul.dropdown-menu li a:hover {
+                background-color: inherit;
+            }
+        /*# sourceMappingURL=bars.css.map */
+
+        button#account-btn{
+            margin-left: 3rem;
+            border: none;  background: none;
+            color: #fff;
+            /* font-weight: 600; */
+            /* commented out and updated font-size on sept9 2021 */
+            font-size: 2.3rem;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+
+        .iti--allow-dropdown.iti--separate-dial-code
+        {
+            width:100%;
+        }
+
+
+    </style>
+    @if (!string.IsNullOrEmpty(landingBackgroundImagePath))
+    {
+        <style>
+            header#homepage-header {
+                background-image: linear-gradient( 0deg, rgb(19 17 17 / 48%), rgb(20 0 21 / 43%)), url('@fullPathBackgroundImg');
+            }
+        </style>
+    }
+</head>
+
+<body>
+
+    <!--====|| Header Section Start ||====-->
+    @{
+        var cacheEventType = guestACCESS.DataAccess.CacheRepository.Cache_EventType.Instance.GetCache();
+    }
+    <header id="homepage-header">
+
+        <div class="container p-0">
+
+            <input type="hidden" id="tId" name="tId" value="@landingModel.tId" />
+
+            <!--Navigation Start-->
+            <!--<nav class="navbar navbar-expand-lg pl-0 pr-0">-->
+            <button id="open-btn" onclick="openNav()">
+                <span>
+                    <i class="fa fa-bars"></i>
+                </span>
+            </button>
+
+            <nav id="nav-ul" class="navbar navbar-expand-lg">
+                <div class="logo" data-aos-delay='1500'
+                     data-aos='zoom-in-left'
+                     data-aos-once='true'>
+                    <a class="navbar-brand" href="/">
+
+                        @if (dmcInfo.DMCId > 0)
+                        {
+
+                            <img src='@(NGX.Web.WebConfigValues.StaticContentSiteUrl+"/uploadfiles/"+currentDMC.Profile.LogoPath)' class="light-logo" alt="homepage" />
+                        }
+                        else
+                        {
+                            <img class="vegas-logo" src="/Content/assets/HotelBed/images/homepage/ALL-VEGAS-LOGO.png" class="" alt="All Vegas" />
+
+                        }
+
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse " id="account-dashboard">
+
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav ml-auto" data-aos-delay='2400'
+                            data-aos='zoom-in-up'
+                            data-aos-once='true'>
+
+                            @if (currentUser == null)
+                            {
+
+                                <li class="nav-item" id="b-drop">
+                                    @Html.ActionLink("Sign Up", "SignUp", "UserRegisterJaunt2", new { Area = "", url = Request.Url.AbsoluteUri }, new { })
+
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Sign In", "LogOn", "UserAuthJaunt2", new { Area = "", url = Request.Url.AbsoluteUri }, new { })
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" style="text-align:center;font-size: 1.85rem;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        ACCOUNT
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="secondary-nav">
+                                        <li><a class="dropdown-item" href="/Jaunt2/Profile/Index" style="font-size: 1.5rem">PROFILE</a></li>
+                                        <li><a class="dropdown-item" style="padding-left: 3.5rem;" href="/Jaunt2/UserDashboard/Index">DASHBOARD</a></li>
+                                        <li><a class="dropdown-item" href="/UserAuthJaunt2/LogOut" style="font-size: 1.5rem">LOGOUT</a></li>
+                                    </ul>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!------added html strucuture ---------->
+            <div class="overlay" id="myNav">
+                <div class="close-btn">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                </div>
+
+                <div class="overlay-content">
+                    <nav>
+                        @if (currentUser == null)
+                        {
+                            <ul style="background-color: #1c3650;">
+                                <li class="nav-item" id="b-drop">
+                                    @Html.ActionLink("Sign Up", "SignUp", "UserRegisterJaunt2", new { Area = "", url = Request.Url.AbsoluteUri }, new { })
+
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Sign In", "LogOn", "UserAuthJaunt2", new { Area = "", url = Request.Url.AbsoluteUri }, new { })
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <button id="account-btn" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ACCOUNT
+                            </button>
+                            <ul style="background-color: #1c3650;">
+                                <li>
+                                    <a href="/Jaunt2/Profile/Index" title="">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="/Jaunt2/UserDashboard/Index">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="/UserAuthJaunt2/LogOut">LogOut</a>
+                                </li>
+
+                            </ul>
+                        }
+                    </nav>
+
+                </div>
+            </div>
+
+        </div>
+        <!-------------------------- Navigation Ends--------------- -->
+        <div class="container">
+            <div class="homepage-list" data-aos="fade-up">
+                @if (customized.Count != 0)
+                {
+                    <ul class="nav nav-homepage nav-pills mb-3" id="pills-tab" role="tablist">
+                        @if (hoteloptions.Contains((int)EnabledHotelType.HotelBeds))
+                        {
+                            var customHotelBed = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.HotelPlanner.GetDescription()) : null;
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link " id="pills-hotelbed-tab" data-bs-toggle="pill" data-bs-target="#pills-hotelbed" type="button" role="tab" aria-controls="pills-hotelbed" aria-selected="true">@(customHotelBed != null && !string.IsNullOrEmpty(customHotelBed.APIText) ? customHotelBed.APIText : "Hotel")</button>
+                                <img src="@(customHotelBed != null && !string.IsNullOrEmpty(customHotelBed.IconPath) ? HelperExtensions.ParseImagePath(customHotelBed.IconPath) : "/Content/assets/jaunt2/images/icon-hotel.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotelbed" type="button" role="tab" aria-controls="pills-hotelbed" aria-selected="false">
+                            </li>
+                        }
+
+                        @foreach (var custom in customized)
+                        {
+                            if (custom.Name.ToLower() == "FlyUs".ToLower())
+                            {
+                                if (flightOptions.Contains((int)EnableFlightBookingType.FlyUs))
+                                {
+                                    var customflyus = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Flyus.GetDescription()) : null;
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-flight-tab" data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="true">@(customflyus != null && !string.IsNullOrEmpty(customflyus.APIText) ? customflyus.APIText : "Flights")</button>
+                                        <img src="@(customflyus != null && !string.IsNullOrEmpty(customflyus.IconPath) ? HelperExtensions.ParseImagePath(customflyus.IconPath) : "/Content/assets/jaunt2/images/icon-flight.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="false">
+                                    </li>
+                                }
+                            }
+                            if (custom.Name == "HotelPlanner")
+                            {
+                                if (hoteloptions.Contains((int)EnabledHotelType.HotelPlanner))
+                                {
+
+                                    var customHotelPlanner = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.HotelPlanner.GetDescription()) : null;
+                                    <li class="nav-item jaunt2TabActive" role="presentation">
+                                        <button class="nav-link active" id="pills-hotels-tab" data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="true">@(customHotelPlanner != null && !string.IsNullOrEmpty(customHotelPlanner.APIText) ? customHotelPlanner.APIText : "Hotel")</button>
+                                        <img src="@(customHotelPlanner != null && !string.IsNullOrEmpty(customHotelPlanner.IconPath) ? HelperExtensions.ParseImagePath(customHotelPlanner.IconPath) : "/Content/assets/jaunt2/images/icon-hotel.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="true">
+                                    </li>
+                                }
+                            }
+                            if (custom.Name == "Catalog")
+                            {
+                                if (groupDashboard.EnableCatalog)
+                                {
+                                    var customCatalog = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.CatalogActivities.GetDescription()) : null;
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-specialEvent-tab" data-bs-toggle="pill" data-bs-target="#pills-specialEvent" type="button" role="tab" aria-controls="pills-specialEvent" aria-selected="true">@(customCatalog != null && !string.IsNullOrEmpty(customCatalog.APIText) ? customCatalog.APIText : "Special Event")</button>
+                                        <img src="@(customCatalog != null && !string.IsNullOrEmpty(customCatalog.IconPath) ? HelperExtensions.ParseImagePath(customCatalog.IconPath) : "/Content/assets/jaunt2/images/icon-vacation.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-specialEvent" type="button" role="tab" aria-controls="pills-specialEvent" aria-selected="false">
+                                    </li>
+                                }
+                            }
+                            if (custom.Name == "Carey")
+                            {
+                                if (clientOptions.EnableHomePickDrop)
+                                {
+                                    var customCarey = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Carey.GetDescription()) : null;
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-carey-tab" data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="true">@(customCarey != null && !string.IsNullOrEmpty(customCarey.APIText) ? customCarey.APIText : "Airport Home PickUp/DropOff")</button>
+                                        <img src="@(customCarey != null && !string.IsNullOrEmpty(customCarey.IconPath) ? HelperExtensions.ParseImagePath(customCarey.IconPath) : "/Content/assets/jaunt2/images/icon-car.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="false">
+                                    </li>
+                                }
+
+                            }
+                            if (custom.Name == "Tiqets")
+                            {
+                                if (clientOptions.EnableTiqets)
+                                {
+                                    var customTiqet = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.TiqetBooking.GetDescription()) : null;
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-activities-tab" data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="true">@(customTiqet != null && !string.IsNullOrEmpty(customTiqet.APIText) ? customTiqet.APIText : "Activities")</button>
+                                        <img src="@(customTiqet != null && !string.IsNullOrEmpty(customTiqet.IconPath) ? HelperExtensions.ParseImagePath(customTiqet.IconPath) : "/Content/assets/jaunt2/images/icon-vacation.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="false">
+                                    </li>
+                                }
+
+                            }
+                        }
+                    </ul>
+
+                }
+                else
+                {
+
+                    <ul class="nav nav-homepage nav-pills mb-3" id="pills-tab" role="tablist">
+                        @if (hoteloptions.Contains((int)EnabledHotelType.HotelBeds))
+                        {
+                            var customHotelBed = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.HotelPlanner.GetDescription()) : null;
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link " id="pills-hotelbed-tab" data-bs-toggle="pill" data-bs-target="#pills-hotelbed" type="button" role="tab" aria-controls="pills-hotelbed" aria-selected="true">@(customHotelBed != null && !string.IsNullOrEmpty(customHotelBed.APIText) ? customHotelBed.APIText : "Hotel")</button>
+                                <img src="@(customHotelBed != null && !string.IsNullOrEmpty(customHotelBed.IconPath) ? HelperExtensions.ParseImagePath(customHotelBed.IconPath) : "/Content/assets/jaunt2/images/icon-hotel.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotelbed" type="button" role="tab" aria-controls="pills-hotelbed" aria-selected="false">
+                            </li>
+                        }
+                        @if (hoteloptions.Contains((int)EnabledHotelType.HotelPlanner))
+                        {
+
+                            var customHotelPlanner = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.HotelPlanner.GetDescription()) : null;
+                            <li class="nav-item jaunt2TabActive" role="presentation">
+                                <button class="nav-link active" id="pills-hotels-tab" data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="true">@(customHotelPlanner != null && !string.IsNullOrEmpty(customHotelPlanner.APIText) ? customHotelPlanner.APIText : "Hotel")</button>
+                                <img src="@(customHotelPlanner != null && !string.IsNullOrEmpty(customHotelPlanner.IconPath) ? HelperExtensions.ParseImagePath(customHotelPlanner.IconPath) : "/Content/assets/jaunt2/images/icon-hotel.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" type="button" role="tab" aria-controls="pills-hotels" aria-selected="true">
+                            </li>
+                        }
+                        @if (flightOptions.Contains((int)EnableFlightBookingType.FlyUs))
+                        {
+                            var customflyus = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Flyus.GetDescription()) : null;
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-flight-tab" data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="true">@(customflyus != null && !string.IsNullOrEmpty(customflyus.APIText) ? customflyus.APIText : "Flights")</button>
+                                <img src="@(customflyus != null && !string.IsNullOrEmpty(customflyus.IconPath) ? HelperExtensions.ParseImagePath(customflyus.IconPath) : "/Content/assets/jaunt2/images/icon-flight.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="false">
+                            </li>
+                        }
+
+                        @if (clientOptions.EnableTiqets)
+                        {
+                            var customTiqet = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.TiqetBooking.GetDescription()) : null;
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-activities-tab" data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="true">@(customTiqet != null && !string.IsNullOrEmpty(customTiqet.APIText) ? customTiqet.APIText : "Activities")</button>
+                                <img src="@(customTiqet != null && !string.IsNullOrEmpty(customTiqet.IconPath) ? HelperExtensions.ParseImagePath(customTiqet.IconPath) : "/Content/assets/jaunt2/images/icon-vacation.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-activities" type="button" role="tab" aria-controls="pills-activities" aria-selected="false">
+                            </li>
+                        }
+                        @if (clientOptions.EnableHomePickDrop)
+                        {
+                            var customCarey = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Carey.GetDescription()) : null;
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-carey-tab" data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="true">@(customCarey != null && !string.IsNullOrEmpty(customCarey.APIText) ? customCarey.APIText : "Airport Home PickUp/DropOff")</button>
+                                <img src="@(customCarey != null && !string.IsNullOrEmpty(customCarey.IconPath) ? HelperExtensions.ParseImagePath(customCarey.IconPath) : "/Content/assets/jaunt2/images/icon-car.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="false">
+                            </li>
+                        }
+
+                        @if (groupDashboard.EnableCatalog)
+                        {
+                            var customCatalog = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.CatalogActivities.GetDescription()) : null;
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-specialEvent-tab" data-bs-toggle="pill" data-bs-target="#pills-specialEvent" type="button" role="tab" aria-controls="pills-specialEvent" aria-selected="true">@(customCatalog != null && !string.IsNullOrEmpty(customCatalog.APIText) ? customCatalog.APIText : "Special Event")</button>
+                                <img src="@(customCatalog != null && !string.IsNullOrEmpty(customCatalog.IconPath) ? HelperExtensions.ParseImagePath(customCatalog.IconPath) : "/Content/assets/jaunt2/images/icon-vacation.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-specialEvent" type="button" role="tab" aria-controls="pills-specialEvent" aria-selected="false">
+                            </li>
+                        }
+                    </ul>
+                }
+
+
+                <div>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane" id="pills-hotelbed" role="tabpanel" aria-labelledby="pills-hotelbed-tab">
+
+                            <div class="banner-content">
+
+                                @using (Html.BeginForm("SearchHotelBed", "Jaunt2Landing", new { area = "" }, FormMethod.Get, new { id = "hotelBedForm" }))
+                                {
+
+                                    if (Model.IsAuthenticated && Model.EnableTripTag)
+                                    {
+                                        { Html.RenderPartial("_SelectTripHotelBed"); }
+                                        <br />
+                                        { Html.RenderPartial("_CreateTripHotelBed"); }
+                                        <div class="row" id="tripListHotelBed">
+                                            <div class="col-11 mb-3">
+                                                <label>Trips</label><br>
+                                                <select id="TripListHotelBed" class="select2" style="width: 100%" name="TripListHotelBed" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    }
+                                    <br />
+
+                                    <h1 data-aos="fade-up">Explore Las Vegas</h1>
+                                    <p data-aos="fade-up">THE TOP SITE FOR LAS VEGAS TRAVEL DEALS ON HOTELS</p>
+
+                                    <div class="row">
+                                        <div class="col-lg-1 col-md-1 col-sm-1 col-0"></div>
+                                        <div class="col-lg-10 col-md-12 col-sm-12 col-12 " data-aos-delay='1400' data-aos='fade-up' data-aos-once='true'>
+                                            <!--Search Form Start-->
+                                            <div class="search-form">
+                                                @*<form action="#" class="landingSearchForm">*@
+
+                                                <div class="search-area">
+                                                    <!-- <i class="fas fa-search"></i> -->
+
+
+                                                    <div class="row">
+                                                        <div class="col-lg-5 col-md-5 col-xs-12">
+                                                            <a href="#" class="check-io">
+                                                                <div id="datecheckInOut" class="dateCheckInOutContainer">
+                                                                    <img src="/Content/assets/HotelBed/images/homepage/date.png" alt="Date"><span id="checkInText">Check In</span>
+                                                                    <span><i class="fas fa-chevron-right"></i></span><span id="checkOutText">Check Out</span>
+                                                                </div>
+                                                                <div>
+                                                                    <input style="width:100%" class="hotelDates" type="text" id="Dates" name="Dates" />
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-xs-12">
+                                                            <div class="input-group mb-3" id="acselector">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text" id="basic-addon1"> <i class="fas fa-user"></i></span>
+                                                                </div>
+                                                                <input class="input-field form-control" type="text" id="totalPerson" name="person" readonly="readonly" value="@("2 Adult(s) " + "0 Child(s)")">
+
+                                                            </div>
+                                                            @{Html.RenderPartial("_ParticipantSelector"); }
+                                                        </div>
+                                                        <div class="col-md-3 col-lg-3 col-xs-12 search-Containerbtn">
+                                                            @*<a href="#" id="btn-Search" class="search-btn">Search</a>*@
+                                                            <button type="submit" class="search-btn">Search</button>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                @*</form>*@
+                                            </div>
+                                            <!--Search Form End-->
+                                            <!--Form- Bottom Content Start-->
+                                            <div class="row ">
+                                                <div class="col-xl-3 col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
+                                                <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10 col-xs-10">
+                                                    <div class="your-qus text-center">
+                                                        <p>
+                                                            Just looking around? Let us suggest you something
+                                                            hot & happening!
+                                                        </p>
+                                                        <div class="qus-img">
+                                                            <img src="/Content/assets/HotelBed/images/homepage/banner-arrow.png" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-3 col-lg-3 col-md-2 col-sm-1 col-xs-1"></div>
+                                            </div>
+                                            <!--Form- Bottom Content End-->
+                                        </div>
+                                        <!--Banner content End-->
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                        <div class="tab-pane show form-cn form-hotel active" id="pills-hotels" role="tabpanel" aria-labelledby="pills-hotels-tab">
+
+                            @{ Html.RenderPartial("/Views/Jaunt2Landing/_FormHotel.cshtml", Model);}
+
+
+                        </div>
+
+                        <div class="tab-pane" id="pills-flight" role="tabpanel" aria-labelledby="pills-flight-tab">
+                            <!-- Search Flight-->
+                            @{ Html.RenderPartial("/Views/Jaunt2Landing/_FormFlight.cshtml");}
+
+                            <!-- End Search Flight -->
+                        </div>
+
+
+
+                        <div class="tab-pane form-cn form-tiqetbooking" id="pills-activities" role="tabpanel" aria-labelledby="pills-activities-tab">
+
+                            @{ Html.RenderPartial("/Views/Jaunt2Landing/_FormActivities.cshtml");}
+
+                        </div>
+
+
+                        <div class="tab-pane form-cn" id="pills-carey" role="tabpanel" aria-labelledby="pills-carey-tab">
+
+                            @{
+                                guestACCESS.Kernel.CarBooking.CarBookingModels carModel = new guestACCESS.Kernel.CarBooking.CarBookingModels();
+                                //carModel.OrderId = Model.AccessCode;
+                                //carModel.PickDropDate = Model.StartDate;
+                                //carModel.Trip = Model;
+                                carModel.DmcId = Model.DmcId ?? 0;
+                                carModel.IsAuthenticated = Model.IsAuthenticated;
+                                carModel.EnableTripTag = Model.EnableTripTag;
+
+                                Html.RenderPartial("/Views/Jaunt2Landing/_FormHomePickDrop.cshtml", carModel);
+                                <input type="hidden" id="TripId" />
+                                <input type="hidden" id="OrderId" />
+
+                            }
+
+                        </div>
+
+                        <div class="tab-pane form-cn form-catalog-activities" id="pills-specialEvent" role="tabpanel" aria-labelledby="pills-specialEvent-tab">
+
+                            @{ Html.RenderPartial("/Views/Jaunt2Landing/_FormSpecialEvent.cshtml");}
+
+                        </div>
+                    </div>
+
+
+                    <!--Banner content Start-->
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--====|| Header Section End ||====-->
+    @foreach (var eType in eventTypes)
+    {
+        var eventType = cacheEventType.FirstOrDefault(a => a.Value.TypeName == eType);
+        if (eventType.Value == null)
+        { continue; }
+        StandardEventSource ss = new StandardEventSource();
+        ss.DMCId = dmcInfo.DMCId;
+        ss.PageNum = 1;
+        ss.PageSize = 3;
+        ss.CityId = clientOptions.CityId;
+        ss.EventSource = ApiNames.Tiqets;
+        ss.EventTypeId = eventType.Key;
+        var events = ss.GetEvents() as guestACCESS.DataAccess.Common.PaginatedCollection<EventBase>;
+        if (events.Count > 0)
+        {
+
+            <div class="container mb-3">
+                <div class="feature-section">
+
+                    <!--Feature Content Start-->
+                    <div class="feature-content">
+
+                        <div class="" data-type="container-content">
+                            <div data-type="component-text">
+                                <h2>@eType in Las Vegas</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Feature Content End-->
+
+                    <div class="row">
+                        @foreach (StandardEvent i in events)
+                        {
+
+                            if (!string.IsNullOrEmpty(i.MediaContent.Image) && !string.IsNullOrEmpty(i.MediaContent.HtmlDescription))
+                            {
+                                var htmlDes = string.Empty;
+                                if (string.IsNullOrEmpty(i.MediaContent.HtmlDescription))
+                                {
+                                    htmlDes = string.Empty;
+                                }
+                                else
+                                {
+                                    htmlDes = i.MediaContent.HtmlDescription.Substring(0, Math.Min(i.MediaContent.HtmlDescription.Length, 200)) + "...";
+                                }
+
+                                var textDes = string.Empty;
+                                if (string.IsNullOrEmpty(i.MediaContent.PlainTextDescription))
+                                {
+                                    textDes = string.Empty;
+                                }
+                                else
+                                {
+                                    textDes = i.MediaContent.PlainTextDescription.Substring(0, Math.Min(i.MediaContent.PlainTextDescription.Length, 200)) + "...";
+                                }
+
+
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 tiqetBox">
+                                    <div class="card h-100">
+                                        @*<img class="card-img-top" src="img_avatar1.png" alt="Card image" style="width:100%">*@
+                                        @Html.Image(i.MediaContent.Image, "Photo", "event-img")
+                                        <div class="card-body">
+                                            <h4 class="card-title">@i.EventName</h4>
+                                            @*<p class="card-text">@(Html.Raw(i.Source != null && i.Source.Trim() == ApiNames.Tiqets ? htmlDes : textDes))</p>*@
+                                            <p class="card-text">Price: @CurrencyConverter.ToPriceString(i.TotalSellPrice)</p>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+
+                        }
+                        <div class="col-md-12">
+                            @{
+                                string redirectUrl = Model.ClientUrl + "/Catalog/?dmcId=" + @dmcInfo.DMCId + "&cityId=" + clientOptions.CityId + "&source=Tiqets&eventTypeId=" + eventType.Key;
+                            }
+                            <div class="pull-right">
+                                <a href="@redirectUrl" target="_blank" class="btn btn-lg btn-primary">View More Events</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+
+    @if (isCustomize)
+    {
+        <div data-keditor="html" id="featureHotels-section">
+            <div id="content-area">
+
+            </div>
+            @Html.Hidden("landingTemplateId")
+        </div>
+    }
+    else
+    {
+        <div id="feature-Hotels">
+
+
+        </div>
+    }
+    @*@Html.Partial("_PicoChat")*@
+    @if (isCustomize)
+    {
+        <div data-keditor="html" id="footerHotels-section">
+            <div id="content-footer">
+
+            </div>
+            @Html.Hidden("landingTemplateId")
+        </div>
+    }
+    else
+    {
+        <div id="footer-Hotels">
+
+
+        </div>
+    }
+
+
+    @*<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>*@
+    <script src="~/Content/assets/Tucson/js/jquery.min.js"></script>
+
+    <!--js library of bootstrap-->
+    @*<script src="~/Content/assets/Tucson/js/bootstrap.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+    <script src="~/Content/assets/plugins/toast-master/js/jquery.toast.js"></script>
+    <script src="~/Content/Scripts/Shared.js"></script>
+    <script src="~/Content/assets/plugins/jqueryui/jquery-ui.min.js"></script>
+    <!-- Google maps -->
+    <!--k-editor-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="/Content/assets/plugins/sweetalert/sweetalert.min.js"></script>
+    @if (isCustomize)
+    {
+        <script src="~/Content/assets/plugins/ckeditor/ckeditor.js"></script>
+        <script src="~/Content/assets/plugins/keditor/dist/js/keditor.js"></script>
+        <script src="~/Content/assets/plugins/keditor/dist/js/keditor-components.js"></script>
+    }
+    @*<script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var s = new Landing();
+            s.dmcId = '@dmcInfo.DMCId';
+            s.userDmcId = '@Model.DmcId';
+            s.userId = '@landingModel.UserId ';
+            s.isCustomize = '@isCustomize'
+            s.saveLandingTemplateUrl = '@Url.Action("SaveLandingTemplate", "Hotel",new { area = "Jaunt2" })';
+            s.getlistOfTemplate = '@Url.Action("GetLandingTemplate", "Hotel", new { area = "Jaunt2" })';
+            s.uploadImageUrl = '@Url.Action("UploadImage", "ImageMedia", new { area = "" })';
+            s.staticSiteUrl = '@WebConfigValues.StaticContentSiteUrl';
+            s.init();
+
+            var landingPage = new LandingPage();
+            landingPage.DMCId = '@dmcInfo.DMCId';
+            landingPage.userDmcId = '@Model.DmcId';
+            landingPage.UserId = '@Model.UserId';
+            landingPage.SourceTiqets = '@EventTemplateInternalType.Tiqets.ToString()';
+            landingPage.IsAuthenticated = '@Model.IsAuthenticated';
+            landingPage.EnableLogOn = '@Model.EnableLogOn';
+            landingPage.EnableTripTag = '@Model.EnableTripTag';
+            landingPage.EnableTripCreate = '@Model.EnableTripCreate';
+            landingPage.loadTiqetsCityBasedOnTiqetCountry = '@Url.Action("GetTiqetsCity", "CacheData", new { area = "" })';
+            landingPage.loadCityUrl = '@Url.Action("GetCity", "CacheData", new { area = "" })';
+            landingPage.loadTiqetEventType = '@Url.Action("GetTiqetEventBasedOnCity", "CacheData", new { area = "" })';
+            landingPage.loadCityWithDMCUrl = '@Url.Action("GetCityBasedOnEvent", "CacheData", new { area = "" })';
+            landingPage.loadCountryUrl = '@Url.Action("GetCountry", "CacheData", new { area = "" })';
+            landingPage.loadCountryWithDMCUrl = '@Url.Action("GetTiqetsCountry", "CacheData", new { area = "" })';
+            landingPage.ClientUrl = '@Model.ClientUrl';
+            landingPage.loadEventTypeUrl = '@Url.Action("GetEventType", "CacheData", new { area = "" })';
+            landingPage.loadEventTypeWithDMCUrl = '@Url.Action("GetEventBasedOnCity", "CacheData", new { area = "" })';
+            landingPage.hotelPlannerUrl = '@Model.HotelPlannerUrl';
+            landingPage.init();
+
+            $(document).on('click', '.homepage-list li.nav-item', function () {
+
+                $('.homepage-list li.nav-item').each(function (i, obj)
+                {
+                    $(obj).removeClass('jaunt2TabActive');
+                })
+                $(this).addClass('jaunt2TabActive');
+            });
+        });
+    </script>
+    <script src="~/Content/assets/plugins/intlTelInput/intlTelInput-jquery.min.js"></script>
+    <script src="~/Content/assets/plugins/select2/dist/js/select2.min.js"></script>
+    @*<script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>*@
+    <script type="text/javascript" src="~/Content/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/Content/PageScripts/Jaunt2/Hotel/HotelBedLanding.js"></script>
+    <script src="~/Content/PageScripts/Jaunt2/Hotel/ParticipantSelector.js"></script>
+    <script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=@WebConfigValues.GoogleApiKey&libraries=places"></script>
+    <script src="~/Content/PageScripts/Jaunt2/GoogleMap/ec_GoogleMap.js"></script>
+    <script src="~/Content/Scripts/Jaunt2.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ delay: 450, offset: 60, duration: 800 });
+    </script>
+
+    @if (isCustomize)
+    {
+        <script>
+            $(".keditor-iframe-width-switcher").css("min-width", "100%");
+        </script>
+    }
+
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.height = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.height = "0%";
+        }
+    </script>
+
+    <!-- <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script> -->
+</body>
+</html>
+
