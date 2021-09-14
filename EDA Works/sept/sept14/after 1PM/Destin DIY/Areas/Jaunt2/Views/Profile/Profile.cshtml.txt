@@ -1,0 +1,69 @@
+@model NGX.Web.Areas.Jaunt2.Models.CustomerProfileModel
+<!--- added on sept14 2021--->
+<style>
+#account-box{
+    margin: 0!important;
+}
+</style>
+    <div class="card card-body" id="account-box">
+        <h4 class="card-title">Contact Information</h4>
+        @using (Html.BeginForm("UpdateProfile", "Profile", FormMethod.Post, new { id = "ProfileForm", enctype = "multipart/form-data" }))
+        {
+    <div class="user-form">
+        <div class="row">
+            <div class="form-group col-md-6 col-xs-6">
+                <label><span class="red">*</span> First Name</label>
+                @Html.TextBoxFor(t => t.FirstName, new { @class = "form-control input-sm" })
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label><span class="red">*</span> Last Name</label>
+                @Html.TextBoxFor(t => t.LastName, new { @class = "form-control input-sm" })
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label><span class="red">*</span> Mobile Phone</label>
+                @Html.TextBoxFor(t => t.Phone, new { @class = "form-control input-sm" })
+            </div>
+            <div class="form-group col-md-12 col-xs-12">
+                <label>Address</label>
+                @Html.TextAreaFor(t => t.Address, new { @class = "form-control input-sm", rows = 3 })
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label>City</label>
+                @Html.TextBoxFor(t => t.City, new { @class = "form-control input-sm" })
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label>State</label>
+                @Html.TextBoxFor(t => t.State, new { @class = "form-control input-sm" })
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label>Country</label>
+                @Html.TextBoxFor(t => t.Country, new { @class = "form-control input-sm" })
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label>ZIP</label>
+                @Html.TextBoxFor(t => t.Zip, new { @class = "form-control input-sm" })
+            </div>
+            <div class="form-group col-md-12 col-xs-12">
+                <label>User Image</label>
+                <div id="thumbnail-preview" class="thumbnail-preview">
+                    <div class="image">
+                    </div>
+                    <div class="buttons">
+                        <input type="file" name="ThumbnailFile" class="pull-left" style="display:none;" />
+                        <div class="btn-group">
+                            <button type="button" name="btnSelectThumbnail" class="btn btn-default btn-xs pull-left">Select</button>
+                            <button type="button" name="btnRemoveThumbnail" class="btn btn-default btn-xs pull-left">Delete</button>
+                            <button type="button" name="btnResetThumbnail" class="btn btn-default btn-xs pull-left">Reset</button>
+                        </div>
+                        @Html.Hidden("Avatar", Model.Avatar)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12 text-center">
+                @Html.Hidden("Email", ViewData["UserName"])
+                <button type="submit" class="btn btn-info">Save Profile</button>
+            </div>
+        </div>
+    </div>
+                }
+            </div>

@@ -1,0 +1,89 @@
+@model SharedLib.MemberAccount.MemberAccount
+    @{ 
+
+        var mt = SharedLib.Authenticator.MemberTicketManager.Instance.CurrentUserTicket;
+        var userRoles = mt.Role.ToList();
+    }
+
+
+<style>
+#account-box{
+    margin: 0!important;
+}
+</style>
+
+<div class="card" id="account-box">
+    <div class="card-header card-header-primary" >
+        <h4 class="card-title">Account Information</h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("UpdateAccount", "Profile", FormMethod.Post, new { id = "AccountForm", @class = "form-horizontal m-t-20" }))
+        {
+        <div class="user-form">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="col-md-12">
+                            <dl>
+                                <dt>User Name</dt>
+                                <dd style="line-height: 2em;">@Model.UserName</dd>
+                            </dl>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            @if (userRoles.Contains(SharedLib.MemberRole.Role.FixedRole_Jaunt2User.Name) && userRoles.Contains(SharedLib.MemberRole.Role.FixedRole_Planner.Name))
+                            {
+                                var dmc = new guestACCESS.Kernel.DMCManagement.DMC(mt.LoginDMC);
+                                <dl>
+                                    <dt>Access Code</dt>
+                                    <dd style="line-height: 2em;">@dmc.AccessCode</dd>
+                                </dl>
+                            }
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-md-12 mb-3">
+                        <div class="field-input">
+                            <label class="control-label mb-2">Current Password <span class="text-danger">*</span> </label>
+                            <input type="password" name="oldPwd" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="field-input">
+                            <label class="control-label mb-2">New Password <span class="text-danger">*</span> </label>
+                            <input type="password" name="newPwd" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center mb-3">
+                        @Html.HiddenFor(t => t.UserName)
+                        <p style="color: red;">Your new password will be effective next time you login</p>
+                        <button type="submit" class="awe-btn awe-btn-1 awe-btn-small" id="cp-btn">Change Password</button>
+                    </div>
+                    @*<div class="form-group col-md-6 col-xs-6">
+                <label><span class="text-danger">*</span> Current Password</label>
+                <input type="password" name="oldPwd" class="form-control input-sm">
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label><span class="text-danger">*</span> New Password</label>
+                <input type="password" name="newPwd" class="form-control input-sm">
+            </div>
+            <div class="col-md-12 col-xs-12 text-center">
+                @Html.HiddenFor(t => t.UserName)
+                <p style="color: red;">Your new password will be effective next time you login</p>
+                <button type="submit" class="btn btn-primary>Change Password</button>
+            </div>*@
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+

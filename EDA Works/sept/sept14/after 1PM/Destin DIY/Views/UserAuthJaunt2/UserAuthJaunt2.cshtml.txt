@@ -1,0 +1,256 @@
+@model NGX.Web.Models.LogOnModel
+
+@{
+    ViewBag.Title = "SignIn";
+    Layout = "~/Views/shared/_LandingJaunt2.cshtml";
+    var landingMediaModel = guestACCESS.Kernel.ReferenceData.LandingMedia.LandingMedia.GetData();
+    string Favicon = string.IsNullOrEmpty(landingMediaModel.FaviconPath) ? "/Content/assets/images/logoFairmont.jpg" : (NGX.Web.WebConfigValues.StaticContentSiteUrl + "/uploadfiles/" + landingMediaModel.FaviconPath);
+    var dmc = guestACCESS.Kernel.DMCManagement.DMC.GetDMCListByParentUrl(Request.Url.Authority).FirstOrDefault();
+    var company = guestACCESS.Kernel.DMCManagement.CompanyProfile.GetDMCProfile(dmc.DMCId);
+
+
+}
+
+<style>
+
+.main{
+    padding: 3rem;
+    margin-top: 3rem;
+    @* border: 1px solid red; *@
+
+}
+
+@@media screen and (max-width: 767px){
+    .main{
+    padding: 1.5rem;
+    margin-top: 11rem;}
+
+    #signin{
+          margin-top: -5rem;
+     } 
+     .footer-wrapper .selection{
+         margin-top: 0rem;
+     }
+ }
+
+@@media only screen and (min-width: 767px) and (max-width: 1024px){
+    .main{
+        padding: 1rem;
+        margin-top: -1.5rem;
+        /* border: 1px solid limegreen; */
+    }
+}
+
+@@media only screen and (min-width: 767px) and (max-width: 1024px) and (orientation: Portrait) {
+    .main{
+        padding: 2em;
+        margin-top: 4rem;
+        /* border: 3px solid pink; */
+    }
+}
+
+@@media only screen and (min-width: 1024px) and (max-width: 1440px){
+.main{
+    margin-top: -3rem;
+    /* border: 2px solid black; */
+}
+}
+
+.goog-te-gadget .goog-te-combo,
+.select2-container--default .select2-selection--single {
+    height: 35px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    padding: .2rem;
+    margin: 0 0.4rem;
+}
+</style>
+
+<!-- section class name change from sub-banner to sub-banner2 and inline style added for nav padding for this page only on aug19 2021 -->
+<div class="main">
+    <div class="container">
+        <div class="main-cn element-page bg-white clearfix">
+            <!--Breakcrumb-->
+            <section class="breakcrumb-sc">
+                <ul class="breadcrumb arrow">
+                    <li><a href="/"><i class="fa fa-home"></i></a></li>
+                    <li> </li>
+                </ul>
+
+                <div class="support float-right">
+
+                    <small>Got a question?</small> @company.Phone
+                </div>
+            </section>
+            <!--End Breakcrumb-->
+
+            <section class="user-profile">
+                <div class="user-form user-signup">
+                    @using (Html.BeginForm("SelectDMC", "UserAuthJaunt2", FormMethod.Post, new { id = "SelectDMCForm", @class = "form-horizontal" }))
+                    {
+                        <div class="row">
+                            <div class="col-md-5" id="signin">
+                                <h2 class="user-profile__title">Sign in</h2>
+                                <p>Access your account information and manage your bookings.</p>
+                                <p>
+                                    @if (ViewData["Registered"] != null)
+                                    {
+                                        <small><strong>Your account has been activated. Please Login!</strong></small>
+                                    }
+                                </p>
+                                <div class="field-input mb-3">
+                                    @Html.TextBoxFor(t => t.UserName, new { @class = "input-text text-danger", placeholder = "Username" })
+                                </div>
+                                <div class="field-input mb-3">
+                                    @Html.PasswordFor(t => t.Password, new { @class = "input-text text-danger", placeholder = "Password" })
+                                </div>
+
+                                <div class="field-input mb-2">
+                                    <div class="check-box">
+                                        @Html.BuildCheckBox("IsPersistent", "true", Model != null ? Model.IsPersistent : false, new { id = "IsPersistent" })
+                                        <label for="IsPersistent">
+                                            Keep me logged in
+                                        </label>
+                                    </div>
+                                 <a href="/UserRegisterJaunt2/Index">Forget Password</a>
+                                </div>
+                                <div class="field-input">
+                                    @Html.Hidden("url", ViewData["redirect_url"])
+                                    <button type="submit" class="awe-btn awe-btn-1 awe-btn-medium">
+                                        Sign in
+                                    </button>
+                                </div>
+                                <div class="field-input" style="display:block; height:40px">
+                                </div>
+                            </div>
+                            @Html.Partial("_WhyJaunt")
+                        </div>
+                    }
+                </div>
+
+
+
+                @if (ViewData["ErrMsg"] != null)
+                {
+                    Html.RenderPartial("AlertControl", ViewData["ErrMsg"]);
+                }
+
+                @*@if (ViewData["Registered"] != null)
+                {
+                    Html.RenderPartial("AlertControl", ViewData["Registered"]);
+                }*@
+            </section>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    @*<script src="/Content/assets/plugins/jquery/jquery.min.js"></script>*@
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/Content/assets/plugins/popper/popper.min.js"></script>
+    @*<script src="/Content/assets/plugins/bootstrap/js/bootstrap.min.js"></script>*@
+    <!-- slimscrollbar scrollbar JavaScript -->
+    @*<script src="/Content/material/js/jquery.slimscroll.js"></script>*@
+    <!--Wave Effects -->
+    @*<script src="/Content/material/js/waves.js"></script>*@
+    <!--Menu sidebar -->
+    @*<script src="/Content/material/js/sidebarmenu.js"></script>*@
+    <!--stickey kit -->
+    @*<script src="/Content/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+        <script src="/Content/assets/plugins/sparkline/jquery.sparkline.min.js"></script>*@
+    <!-- Toast -->
+    <script src="/Content/assets/plugins/toast-master/js/jquery.toast.js"></script>
+    <!--Custom JavaScript -->
+    @*<script src="/Content/assets/plugins/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+        <script src="/Content/material/js/custom.min.js"></script>*@
+    <!-- Jquery Validate -->
+    <script src="/Content/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Shared -->
+    @*<script src="/Content/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>*@
+    <script src="/Content/Scripts/Shared.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#SelectDMCForm").validate({
+                rules: {
+                    "UserName": { required: true },
+                    "Password": { required: true }
+                },
+                messages: {
+                    "UserName": "User name is required",
+                    "Password": "Password is required"
+                },
+                submitHandler: function (form) {
+                    var f = $(form);
+                    $.ajax({
+                        type: form.method,
+                        url: form.action,
+                        data: f.serializeArray(),
+                        dataType: 'html',
+                        global: false,
+                        success: function (r, strStatus) {
+                        
+                            $("body").append(r);
+                            var autoSubmit = $("#LogonForm input[name='AutoSubmit']").val();
+                            if (autoSubmit == 'True') {
+                                var dmcSelect = $("#LogonForm select[name='LoginDMC']");
+                                var option = dmcSelect.find("option[value!='']:first");
+                                dmcSelect.val(option.val());
+
+                                $("#LogonForm").submit();
+                            } else {
+                               
+                                $(".select2").select2();
+                                $("#modal-select-dmc").modal('show');
+                            }
+
+                            $("#btnProceed").click(function ()
+                            {
+                                var dmcId = $("#LoginDMC").val();
+                                if (dmcId == "")
+                                {
+                                    document.getElementById("dmcSelect").innerHTML = "You must select DMC";
+                                    //alert("you must select dmc");
+                                    return false;
+                                }
+                                $("#LogonForm").submit();
+                            })
+
+                            $("#LoginDMC").change(function () {
+                                var dmcId = $("#LoginDMC").val();
+                                if (dmcId != "") {
+                                    $("#dmcSelect").hide();
+                                } else {
+                                    $("#dmcSelect").show();
+                                }
+                            })
+
+                        },
+                        error: handleAjaxError()
+                    });
+                }
+            });
+
+            var msg = $("#msg");
+            if (msg.length > 0) {
+                showMessage(msg.data('message'), msg.html(), msg.data('type'));
+            }
+
+            $('#preloader').fadeOut(1000);
+
+        });
+    </script>
+
+
+
+}
+
+
+
+
+

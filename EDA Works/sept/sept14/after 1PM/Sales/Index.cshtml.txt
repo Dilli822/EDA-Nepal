@@ -1,0 +1,1227 @@
+@model guestACCESS.Kernel.TripManagement.Trip
+@using guestACCESS.DataAccess.CacheRepository;
+@using guestACCESS.ClientWeb
+@{
+    ViewBag.Title = "Order Dashboard";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+@section HeadContent {
+    <link rel="manifest" href="@("/Content/ManifestImage/manifest_"+Model.TripId+".json")">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="@Model.ImageUrl">
+
+    @*<link href="~/Content/assets/jaunt2/css/style.css" rel="stylesheet" />*@
+    <style type="text/css">
+        .modal-header {
+            background-color: black;
+            color: white;
+        }
+
+            .modal-header .close {
+                color: #fff;
+            }
+
+        body {
+            background-size: auto !important;
+        }
+
+        .pac-container {
+            z-index: 9999;
+        }
+
+        .ui-tooltip-content {
+            display: none !important;
+        }
+
+        .ios-prompt {
+            background-color: #fcfcfc;
+            border: 1px solid #666;
+            display: none;
+            padding: 0.8rem 1rem 0 0.5rem;
+            text-decoration: none;
+            font-size: 16px;
+            color: #555;
+            position: absolute;
+            margin: 0 auto 1rem;
+            left: 1rem;
+            right: 1rem;
+            bottom: 0;
+        }
+
+        .android-prompt {
+            background-color: #fcfcfc;
+            border: 1px solid #666;
+            display: none;
+            padding: 0.8rem 1rem 0 0.5rem;
+            text-decoration: none;
+            font-size: 16px;
+            color: #555;
+            position: absolute;
+            margin: 0 auto 1rem;
+            left: 1rem;
+            right: 1rem;
+            bottom: 0;
+        }
+
+        iframe {
+            border: none;
+        }
+
+        @@media(max-width:768px) {
+            div#HomePickUpDropOffModal form#HomePickDropForm .row .col-md-4 {
+                width: 100%;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm .form-group.col-md-10.col-xs-6 {
+                width: 100%;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm .form-group.col-md-6.col-xs-6 {
+                width: 100%;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm div#departFromAirport {
+                padding: 0;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm button#btnMapLocation {
+                white-space: normal;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm .col-md-12.text-center {
+                padding: 0;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm h5.box-title b {
+                font-size: 15px;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm h5.box-title {
+                margin: 0;
+                padding: 0;
+            }
+
+            div#HomePickUpDropOffModal form#HomePickDropForm .box-header.with.border {
+                margin: 0;
+                padding: 0;
+            }
+
+            .btns .button {
+                padding: 0;
+            }
+
+            .contact-infocontainer .col-xs-6 {
+                width: 100%;
+            }
+
+            .proceed-btn-contain {
+                padding-bottom: 13px;
+                text-align: center;
+            }
+
+                .proceed-btn-contain .proceed-btn {
+                    margin-top: 10px;
+                }
+
+            .cancel-btn-contain {
+                text-align: center;
+            }
+
+            .contact-infocontainer .col-xs-6 {
+                width: 100%;
+            }
+        }
+
+        .android-prompt,
+        .ios-prompt {
+            position: fixed;
+            padding: 6px !important;
+            line-height: 20px;
+            z-index: 9999;
+            border-radius: 5px;
+            border: 1px solid #ddd !important;
+        }
+
+            .android-prompt p,
+            .ios-prompt p {
+                line-height: normal !important;
+                font-size: 12px;
+                margin: 0;
+                padding: 6px;
+            }
+
+            .android-prompt span,
+            .ios-prompt span {
+                margin-right: 0px !important;
+                margin-top: -3px !important;
+                color: #333 !important;
+                font-size: 20px;
+            }
+
+        @@media(max-width:768px) {
+            .pad-b70 {
+                padding-bottom: 70px;
+            }
+            /* added footer wrapper selection */
+              .footer-wrapper .selection{
+                margin-top: 0rem;
+            }    
+
+        }
+
+        /* added on sept 14 2021**/
+         .select2-container--default.select2-container--disabled .select2-selection--single {
+            /* background-color: #eee; */
+            cursor: default;
+            }
+            span.select2-selection.select2-selection--single, span.select2-selection.select2-selection--single:active {
+                border: 0;
+                border-bottom: 2px dotted;
+            }
+            
+           
+    </style>
+
+@section FootContent {
+    <script src="/Content/Fairmont/js/jquery.form.min.js"></script>
+
+    <script src="~/Content/plugins/jQuery-cookie/jquery.cookie.js"></script>
+    @*<script src="~/Content/plugins/intlTelInput/intlTelInput-jquery.min.js"></script>*@
+    @*<script src="/Content/assets/jaunt2/js/library/jquery-ui.min.js"></script>*@
+    <script src="/Content/pageScripts/ec_GoogleMap.js"></script>
+    <script src="/Content/pageScripts/ec_OpenMeeting.js"></script>
+    <script src="/Content/plugins/tinymce/tinymce.min.js"></script>
+    <script src="../../Content/Fairmont/js/Shared.js"></script>
+
+
+    <script type="text/javascript">
+       $(document).ready(function () {
+
+
+            var om = new OpenMeeting();
+            om.mapUrl = '@Url.Action("Map", "OpenMeeting")';
+           // om.init();
+
+
+           $("#btnFlight").click(function () {
+
+                $("#modal-flight").modal('show');
+            });
+
+        });
+        if ('serviceWorker' in navigator) {
+
+            console.log("Will the service worker register?");
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function (reg) {
+                    console.log("Yes, it did.");
+
+                }).catch(function (err) {
+                    console.log("No it didn't. This happened:", err)
+                });
+        }
+         //Detects if device is on iOS
+        const isIos = () => {
+
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /iphone|ipad|ipod/.test(userAgent);
+        }
+        ////Detects if device is on iOS
+        const isAndroid = () => {
+
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /android/.test(userAgent);
+        }
+        // Detects if device is in standalone mode
+        const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+        // Checks if should display install popup notification:
+        if ((isIos() && !isInStandaloneMode())) {
+            showInstall(".ios-prompt");
+        }
+        if (isAndroid()) {
+
+            showInstall(".android-prompt");
+        }
+        function showInstall(sel) {
+
+            let prompt = document.querySelector(sel);
+            prompt.style.display = "block";
+            prompt.addEventListener("click", () => {
+                prompt.style.display = "none";
+            });
+        }
+        $('#btn-send-itinerary-email').click(function () {
+            ecCommon.showConfirm('Confirm', 'Itinerary will be sent to your email specified when submitting the order. Continue?', function (result) {
+                if (result) {
+                    var accessCode = $('#btn-send-itinerary-email').data('accesscode');
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("SendByEmail", "ReservationDetail")',
+                        data: { id: accessCode },
+                        dataType: 'json',
+                        success: function (data, strStatus) {
+                            if (data.success) {
+                                ecCommon.showMessage("Done!", data.Message, data.Type);
+                            }
+                            else {
+                                ecCommon.showMessage("Failed!", data.Message, data.Type);
+                            }
+                        },
+                        error: ecCommon.handleAjaxError()
+                    });
+                }
+            });
+        });
+
+        $('#btn-send-departure-email').click(function () {
+            ecCommon.showConfirm('Confirm', 'Departure Notice will be sent to your email specified. Continue?', function (result) {
+                if (result) {
+                    var tripId = $('#btn-send-departure-email').data('tripid');
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("SendDepartureNotice", "ReservationDetail")',
+                        data: { id: tripId },
+                        dataType: 'json',
+                        success: function (data, strStatus) {
+                            ecCommon.showMessage(data.Message, data.Data, data.Type);
+                        },
+                        error: ecCommon.handleAjaxError()
+                    });
+                }
+            });
+        });
+
+        var communicationChange = function (tripId) {
+            $('#SendMethod').change(function () {
+                var sendMethod = $("#SendMethod option:selected").val();
+                if (sendMethod == 1) { //sms
+                    loadContent(false, tripId);
+
+                } else {
+                    loadContent(true, tripId);
+                }
+            });
+        }
+
+        var loadContent = function (type, tripId) {
+            
+            $.ajax({
+                url: '@Url.Action("GetContent", "Dashboard")',
+                type: 'GET',
+                data: { emailType: type, tripId: tripId },
+                success: function (node) {
+                    $("#ContentSection").empty().html(node);
+                    if (type) {
+                        tinymce.remove();
+                        tinymce.init({
+                            selector: '#Content',
+                            init_instance_callback: function (editor) {
+                                editor.on('Change', function (e) {
+                                    $("#Content").val(tinymce.get("Content").getContent());
+                                });
+                            }
+                        });
+                    }
+                    //buyCredit();
+                    getCreditPoint(tripId, type);
+                }
+            });
+        };
+
+        var getCreditPoint = function (tripId, isEmail) {
+            
+            $.ajax({
+                url: '@Url.Action("GetCreditPoint", "Dashboard")',
+                type: 'GET',
+                data: { tripId: tripId },
+                dataType: 'json',
+                success: function (creditPoint) {
+                    
+
+                    $("#creditPointHolder").text("Credit Points : " + creditPoint + "");
+                    $("#creditPointHolder").val(creditPoint);
+                    
+                    if (!isEmail) {
+                        if (creditPoint == 0) {
+                            $('#PaxCommunication #submitSmsAndEmail').hide();
+                            $('#isCreditEnough').show();
+                        } else {
+                            $('#PaxCommunication #submitSmsAndEmail').show();
+                        }
+                    }
+
+                }
+
+            });
+        };
+
+        $("#btn-communication").click(function () {
+            var tripId = $(this).attr('data-tripid');
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("PaxCommunication", "Dashboard")',
+                data: { tripId: tripId },
+                dataType: 'Html',
+                success: function (data, strStatus) {
+                    $("#modal-communication").remove();
+                    $("body").append(data);
+                    $("#modal-communication").modal({ show: true, backdrop: false });
+                    tinymce.remove();
+                    tinymce.init({
+                        selector: '#Content',
+                        init_instance_callback: function (editor) {
+                            editor.on('Change', function (e) {
+                                $("#Content").val(tinymce.get("Content").getContent());
+                            });
+                        }
+                    });
+                    loadContent(true, tripId);
+                    communicationChange(tripId);
+                    $('#PaxCommunication').keydown(function (event) {
+                        if (event.target.tagName != 'TEXTAREA') {
+                            var keyCode = event.keyCode || event.which;
+                            if (keyCode == 13) {
+                                event.preventDefault();
+                                return false;
+                            }
+                        }
+                    });
+                    $("#submitSmsAndEmail").click(function () {
+                        var isSMS = $("#SendMethod option:selected").val() == 1;
+                        if (!isSMS) {
+                            $('#Content').val(tinyMCE.get('Content').getContent());
+                        }
+                        $("#PaxCommunication").validate({
+                            rules: {
+                                Content: {
+                                    required: isSMS,
+                                    //maxlength: participant.characterLimit
+                                }
+                            }
+                        });
+                        var options = {
+                            beforeSend: function (arr, form, options) {
+
+                            },
+                            success: function (data) {
+                                ecCommon.showMessage(data.Message, data.Data, "success");
+                                $("#modal-communication").modal('hide');
+                                getCreditPoint(tripId);
+                            },
+                            error: function (data) {
+                                ecCommon.showMessage(data.responseJSON.Message, data.responseJSON.Data, "error");
+                            }
+                        };
+                        $('#PaxCommunication').ajaxForm(options);
+                    });
+                },
+                error: ecCommon.handleAjaxError()
+            });
+        });
+
+
+        var loadCity = function (countryId, targetSelect, loaded) {
+
+            if (countryId == '' || isNaN(parseInt(countryId))) {
+                BuildSelect(targetSelect, null, "this.Key", "this.Value");
+                return;
+            }
+
+            var url, data;
+
+            url = '@Url.Action("GetCity", "CacheData", new { area = "" })';
+            data = { countryId: countryId };
+
+
+            $.post(
+                url,
+                data,
+                function (data) {
+                    BuildSelect(targetSelect, data, "this.Key", "this.Value");
+                    if (loaded != null) loaded();
+                },
+                "json");
+        }
+
+        var calTravelTime = function () {
+
+            var address = $("#Address").val();
+            var airport = $("#PickDropLocation").val();
+            if (address != "" && airport != "") {
+                $.ajax({
+                    url: '/Dashboard/GetTravelTime',
+                    data: { airportCode: airport, address: address },
+                    type: 'GET',
+                    dataType: 'Json',
+                    success: function (data, strStatus) {
+
+                        if (data >= 0) {
+                            $("#calTravelTime").val(data);
+                        } else {
+                            ecCommon.showMessage('Error', 'Home location is far from airpot', 'error')
+                            $("#travelTimeText").html("Home location is far from airpot.Please select another home location and try again.");
+                            $('#PickDropDate').val('');
+                            return;
+                        }
+                        $("#travelTimeText").html("The estimated travel time from your home address to airport is " + convertMinsToHrsMins(data) );
+                        var defaultTime;
+                        var serviceType = $('input[name="HomePickDropSelect"]:checked').val();
+
+                        var flightTime = $("#paxFlightTime").val();
+                        if (flightTime != "") {
+                            var d = new Date(flightTime);
+                            if (serviceType == "HomePickUp") {
+                                defaultTime = $('#ReachAirportTime').val();
+                                d.setMinutes(d.getMinutes() - data - defaultTime);
+                            }
+                            else {
+                                defaultTime = $('#DepartureFromAirport').val();
+                                d.setMinutes(d.getMinutes() + parseInt(defaultTime));
+                            }
+                            $('#PickDropDate').data("DateTimePicker").date(d);
+                        }
+                    }
+                })
+            }
+            if (address == '') {
+                ecCommon.showMessage('Warning', 'Please enter home city address for time estimation.', 'warning');
+            }
+        }
+
+        var convertMinsToHrsMins = function (minutes) {
+            var h = Math.floor(minutes / 60);
+            var m = minutes % 60;
+            h = h < 10 ? '0' + h : h;
+            m = m < 10 ? '0' + m : m;
+            return h + ' hrs' + ':' + m + ' mins';
+        }
+
+        $('#btn-homePickDrop').click(function () {
+            var accessCode = $('#btn-homePickDrop').data('accesscode');
+            var paxPickUpDates = [];
+            var paxDropDates = [];
+            var paxNoFlightInfo = [];
+            var pickUpPaxModel = [];
+            var dropOffPaxModel = [];
+
+            var masterPax = {};
+            $.ajax({
+                type: 'get',
+                url: '@Url.Action("HomePickUpDropOffSelect", "Dashboard")',
+                data: { id: accessCode },
+                dataType: 'html',
+                success: function (data, strStatus) {
+                    $("#HomePickUpDropOffModal").remove();
+                    $('body').append(data);
+                    $("#HomePickUpDropOffModal").modal({ show: true, backdrop: false });
+
+                    $('#HomePickDropForm .datepicker').datetimepicker();
+                    //$('#HomePickDropForm .datepicker').datetimepicker({
+                    //    format: "MM/DD/YYYY HH:mm",
+                    //    icons: {
+                    //        time: "fa fa-clock-o",
+                    //        date: "fa fa-calendar",
+                    //        up: "fa fa-arrow-up",
+                    //        down: "fa fa-arrow-down"
+                    //    }
+                    //});
+                    $("#HomePickDropForm select[name='CountryId']").change(function () {
+
+                        $("#HomePickDropForm select[name='CityId']").prop("disabled", false);
+                        loadCity($(this).val(), $("#HomePickDropForm select[name='CityId']"));
+                    });
+                    var val = $("#HomePickDropForm select[name='CountryId']").val();
+                    if (val == "") {
+                        $("#HomePickDropForm select[name='CityId']").prop("disabled", true);
+                    }
+
+                    $('#HomePickUpDropOffModal .select2').select2();
+                    var formId = "#HomePickDropForm";
+                    var autocomplete = new google.maps.places.Autocomplete('', {});
+                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                        var place = autocomplete.getPlace();
+                        var lat = place.geometry.location.lat();
+                        var lng = place.geometry.location.lng();
+
+                        var Code = new google.maps.Geocoder;
+                        var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+                        var LatLng = parseFloat(lat) + ',' + parseFloat(lng);
+                        $('#HomeCityGeoLocation').val(LatLng);
+                        Code.geocode({ 'location': latlng }, function (results, status) {
+
+                            if (status === 'OK') {
+                                if (results[0]) {
+
+                                    address = results[0].formatted_address;
+                                    var splitedAddress = address.split(',');
+                                    //var newAddress = splitedAddress[0] + ',' + splitedAddress[1];
+                                    var newAddress = splitedAddress[0];
+                                    //$('#PaxModal #Address').val(newAddress);
+                                    //$('#Address').val(address);
+                                    //$('#HomeAddress').val(newAddress);
+
+
+                                    // Get each component of the address from the place details,
+                                    // and then fill-in the corresponding field on the form.
+
+                                    $('#HomeCity').val('');
+                                    $('#HomeCity').val(splitedAddress[1].replace(/\s/g, ''));
+                                    $('#City').val(splitedAddress[1].replace(/\s/g, ''));
+                                    $('#HomeCountry').val('');
+                                    $('#HomeCountry').val(splitedAddress[3].replace(/\s/g, ''));
+                                    $('#Country').val(splitedAddress[3].replace(/\s/g, ''));
+                                    $('#HomeAddress').val('');
+                                    $('#HomeAddress').val(newAddress);
+                                    $('#Address').val('');
+                                    $('#Address').val(newAddress);
+                                    var postalCodeSplit = splitedAddress[2].split(' ');
+                                    $('#HomePostalCode').val('');
+                                    $('#HomePostalCode').val(postalCodeSplit[2]);
+                                    $('#ZipCode').val('');
+                                    $('#ZipCode ').val(postalCodeSplit[2]);
+
+                                }
+                            }
+                        });
+                        var componentForm = {
+                            locality: 'long_name',
+                            administrative_area_level_1: 'long_name',
+                            country: 'long_name'
+                        };
+                        for (var i = 0; i < place.address_components.length; i++) {
+
+                            var addressType = place.address_components[i].types[0];
+                            if (componentForm[addressType]) {
+                                var val = place.address_components[i][componentForm[addressType]];
+
+                                var country, state, city;
+                                switch (addressType) {
+                                    case "country":
+                                        country = val;
+                                        break;
+                                    case "locality":
+                                        city = val;
+                                        break;
+                                    case "administrative_area_level_1":
+                                        state = val;
+                                }
+                            }
+                        }
+
+                        $(formId + " #CountryId").val(null).trigger('change');
+                        var options = $(formId + " #CountryId option:contains(" + country + ")");
+
+                        if (options.length > 0) {
+
+                            $(formId + " #CountryId").val(options[0].value).trigger('change');
+
+                        }
+                        $(formId + ' #CityId').val(null).trigger('change');
+                        setTimeout(function () {
+                            $(formId + " #CityId option:contains(" + city + ")").attr('selected', 'selected').trigger('change');
+                        }, 1000);
+
+                    });
+
+                    $("#ReachAirportTime").val(60);
+                    $("#DepartureFromAirport").val(60);
+                    var tblRow = $('#PaxTbl>tbody');
+
+                    var serviceType = $('input[name="HomePickDropSelect"]:checked').val();
+                    if (serviceType == "HomePickUp") {
+                        tblRow.empty();
+                        $("#arrivaltoAirport").show();
+                        $("#departFromAirport").hide();
+                    }
+                    else {
+                        tblRow.empty();
+                        $("#departFromAirport").show();
+                        $("#arrivaltoAirport").hide();
+                    }
+
+                    $('input[type=radio][name=HomePickDropSelect]').change(function () {
+
+                        var serviceType = $('input[name="HomePickDropSelect"]:checked').val();
+                        if (serviceType == "HomePickUp") {
+                            tblRow.empty();
+                            $("#arrivaltoAirport").show();
+                            $("#departFromAirport").hide();
+                        }
+                        else {
+                            tblRow.empty();
+                            $("#departFromAirport").show();
+                            $("#arrivaltoAirport").hide();
+                        }
+
+                        $("#PaxList").val(null).trigger('change');
+                        $("#ReachAirportTime").val(60);
+                        $("#DepartureFromAirport").val(60);
+                        $("#PickDropDate").val('');
+                        $("#PickDropLocation").val(null).trigger('change');
+                        $("#travelTimeText").html('');
+                    });
+
+                    $("#PickDropLocation, #HomeAddress, #Address").change(function () {
+
+                        calTravelTime();
+                    });
+
+                    $("#PickDropDate").on("dp.show", function (e) {
+                        $(".day").on('click', function () {
+                            $("a[data-action='togglePicker']").trigger('click');
+                        });
+                    });
+
+                    $("#PickDropDate").on("dp.change", function (e) {
+                            var val = $(this).val();
+                            var homePickDrop = $("input[name='HomePickDropSelect']:checked").val();
+                            TimeBeforePickDrop(val, homePickDrop)
+                    });
+
+                    $('#ReachAirportTime').on('input', function () {
+                        var time = $(this).val();
+                        var homePickDrop = $("input[name='HomePickDropSelect']:checked").val();
+                        timeToPickDrop(time, homePickDrop);
+
+                    });
+                    $('#DepartureFromAirport').on('input', function () {
+                        var time = $(this).val();
+                        var homePickDrop = $("input[name='HomePickDropSelect']:checked").val();
+                        timeToPickDrop(time, homePickDrop);
+                    });
+
+                    $("#PaxList").on('select2:unselect', function (e) {
+                        var selItem = e.params.data.id;
+                        var masterId = $('#masterPaxId').val();
+                        if (parseInt(masterId) == parseInt(selItem))
+                        {
+                            $("#masterPaxInfo").html('');
+                        }
+
+                        var tr = tblRow.find('tr#' + selItem + '');
+
+                        var trAirport = tr.find('td[data-id="paxAirport"]').html().trimStart();
+                        var trDate = tr.find('td[data-id="paxDate"]').html().trimStart();
+                        tr.remove();
+                        var newRows = tblRow.find('tr');
+
+                        if (newRows.length == 0) {
+                            $("#PickDropLocation").val('').trigger('change');
+                            $("#paxFlightTime").val('');
+                            $("#PickDropDate").val('');
+                        }
+                        if (trAirport == $("#PickDropLocation").val() && trDate == $("#paxFlightTime").val()) {
+
+                            var newMinDate = '';
+                            var selAirport;
+                            $.each(newRows, function () {
+                                var ddate = $(this).find('td[data-id="paxDate"]').html().trimStart();
+                                if ($("input[name='HomePickDropSelect']:checked").val() == "HomePickUp" && (newMinDate == '' || new Date(newMinDate) > new Date(ddate))) {
+                                    newMinDate = ddate;
+                                    selAirport = $(this).find('td[data-id="paxAirport"]').html().trimStart();
+                                }
+
+                                if ($("input[name='HomePickDropSelect']:checked").val() == "HomeDropOff" && (newMinDate == '' || new Date(newMinDate) < new Date(ddate))) {
+                                    newMinDate = ddate;
+                                    selAirport = $(this).find('td[data-id="paxAirport"]').html().trimStart();
+                                }
+                            });
+                            $("#PickDropLocation").val(selAirport).trigger('change');
+                            $("#paxFlightTime").val(newMinDate);
+                            var homePickDrop = $("input[name='HomePickDropSelect']:checked").val();
+                            if (homePickDrop == "HomePickUp") {
+                                timeToPickDrop($("#ReachAirportTime").val(), homePickDrop);
+                            } else {
+                                timeToPickDrop($("#DepartureFromAirport").val(), homePickDrop);
+                            }
+
+                        }
+                    });
+
+                    $("#PaxList").on('select2:select', function (e) {
+
+                        var serviceType = $('input[name="HomePickDropSelect"]:checked').val()
+                        var selectedPax = $(this).val();
+                        var lastSelectedItem = e.params.data.id;
+                        if (selectedPax.length > 0) {
+                            $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("GetPickDropLocation", "Dashboard")',
+                            data: JSON.stringify({ paxIds: lastSelectedItem, serviceType: serviceType }),
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                                success: function (data, strStatus) {
+
+                                var selectedAirport = $("#PickDropLocation").val();
+                                var minDate;
+                                if (serviceType == "HomePickUp") {
+                                    if (data.PickAirportCode != null && data.PickUpDate != null) {
+                                        //var newtr = '<tr id=' + lastSelectedItem +'>' +
+                                        //    '<td> ' + data.PaxName + '</td>' +
+                                        //    '<td data-id="paxAirport"> ' + data.PickAirportCode + '</td>' +
+                                        //    '<td data-id="paxDate"> ' + data.PickUpDate + '</td>' +
+                                        //    '</tr>';
+
+                                        var newtr = '';
+                                        if (selectedAirport == '') {
+
+                                            newtr = '<tr class="homePickUp" data-masterpax ="true"  id=' + lastSelectedItem + '>' +
+
+                                                '<td> ' + data.PaxName + '</td>' +
+                                                '<td data-id="paxAirport"> ' + data.PickAirportCode + '</td>' +
+                                                '<td data-id="paxDate"> ' + data.PickUpDate + '</td>' +
+                                                '<td data-id="flightInfo"> '  + '</td>' +
+                                                '<td data-id="homeAddress"> ' + '</td>' +
+                                                '</tr>';
+
+                                        } else
+                                        {
+
+                                            newtr = '<tr class="homePickUp" data-masterpax ="false" id=' + lastSelectedItem + '>' +
+                                                '<td> ' + data.PaxName + '</td>' +
+                                                '<td data-id="paxAirport"> ' + data.PickAirportCode + '</td>' +
+                                                '<td data-id="paxDate"> ' + data.PickUpDate + '</td>' +
+                                                '<td data-id="flightInfo"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                '<td data-id="homeAddress"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                '</tr>';
+
+                                        }
+
+
+                                        if (selectedAirport == '') {
+
+                                            tblRow.append(newtr);
+                                            paxPickUpDates.push(new Date(data.PickUpDate));
+                                            minDate = Math.min.apply(null, paxPickUpDates);
+                                            minDate = new Date(minDate);
+                                            minDate = moment(minDate).format("MM/DD/YYYY HH:mm");
+                                            $("#paxFlightTime").val(minDate);
+                                            masterPax["name"] = data.PaxName;
+                                            masterPax["paxAirport"] = data.PickAirportCode;
+                                            masterPax["paxDate"] = data.PickUpDate;
+
+                                            $("#HomeAddress").val(data.Address);
+                                            $("#Address").val(data.Address);
+                                            $("#City").val(data.City);
+                                            $("#Country").val(data.Country);
+                                            $("#ZipCode").val(data.ZipCode);
+                                            $('#HomeCityGeoLocation').val(data.HomeCityGeoLocation);
+
+                                            $("#PickDropLocation").val(data.PickAirportCode).trigger('change');
+
+                                            $('#PickDropDate').data("DateTimePicker").maxDate(minDate);
+                                            $('#PickDropDate').data("DateTimePicker").minDate("-3Y");
+
+                                            $("#masterPaxId").val(data.PaxId);
+                                            $("div#masterPaxInfo").html('');
+                                            $("div#masterPaxInfo").append('<span> Note </span> </br> <span>Master Pax:' + masterPax["name"] + '</span> </br> <span> The home city address information belongs to ' + masterPax["name"] +' <span>');
+
+                                        } else if (selectedAirport != data.PickAirportCode) {
+                                            $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                            ecCommon.showMessage("Failed!", "The flight information of selected paxs are different. Only pax with same flight information can book the vehicle.", 'error');
+
+                                        } else {
+
+                                            var masterPaxDate = new Date(masterPax["paxDate"]);
+                                            var newPaxDate = new Date(data.PickUpDate);
+                                            if (newPaxDate < masterPaxDate)
+                                            {
+                                                ecCommon.showMessage("Failed!", "The flight information of " + data.PaxName + " is earlier than" + masterPax["name"] + " You will be late to catch up flight", 'error');
+                                                $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                                return;
+                                            }
+
+                                            ecCommon.showConfirm('Confirm', ' You have flight in ' + data.PickUpDate + ' date ' + masterPax["name"] + ' have flight in ' + masterPax["paxDate"] + ' date.Do you want  want to travel with ' + masterPax["name"] + ' .Continue?', function (result) {
+                                                if (result) {
+                                                    paxPickUpDates.push(new Date(data.PickUpDate));
+                                                    tblRow.append(newtr);
+                                                    minDate = Math.min.apply(null, paxPickUpDates);
+                                                    minDate = new Date(minDate);
+                                                    minDate = moment(minDate).format("MM/DD/YYYY HH:mm");
+                                                    $("#paxFlightTime").val(minDate);
+                                                    calTravelTime();
+                                                    $('#PickDropDate').data("DateTimePicker").maxDate(minDate);
+                                                    $('#PickDropDate').data("DateTimePicker").minDate("-3Y");
+                                                } else
+                                                {
+                                                    $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                                }
+                                            });
+
+                                        }
+
+                                    }
+                                    else {
+                                        if (selectedAirport != '') {
+                                            paxNoFlightInfo.push(data.PaxName);
+
+                                            ecCommon.showConfirm('Confirm', data.PaxName + ' does not have flight information.Do you want to add flight same as ' + masterPax["name"] + ' Continue?', function (result) {
+                                                if (result) {
+                                                    var newtr = '<tr class="homePickUp" data-masterpax ="false" id=' + lastSelectedItem + '>' +
+                                                        '<td> ' + data.PaxName + '</td>' +
+                                                        '<td data-id="paxAirport"> ' + masterPax["paxAirport"] + '</td>' +
+                                                        '<td data-id="paxDate"> ' + masterPax["paxDate"] + '</td>' +
+                                                        '<td data-id="flightInfo"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                        '<td data-id="homeAddress"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                        '</tr>';
+                                                    tblRow.append(newtr);
+                                                }
+                                            });
+                                        } else
+                                        {
+                                            $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                            ecCommon.showMessage("Failed!", "The flight information of " + data.PaxName + " is missing.Please try again by filling flight infos.", 'error');
+                                        }
+
+                                    }
+
+                                } else {
+                                    if (data.DropAirportCode != null && data.DropUpDate != null) {
+
+
+                                        var newtr = '';
+                                        if (selectedAirport == '') {
+
+                                            newtr = '<tr class="dropOff" data-masterpax ="true"  id=' + lastSelectedItem + '>' +
+
+                                                '<td> ' + data.PaxName + '</td>' +
+                                                '<td data-id="paxAirport"> ' + data.DropAirportCode + '</td>' +
+                                                '<td data-id="paxDate"> ' + data.DropUpDate + '</td>' +
+                                                '<td data-id="flightInfo"> ' + '</td>' +
+                                                '<td data-id="homeAddress"> ' + '</td>' +
+                                                '</tr>';
+
+                                        } else {
+
+                                            newtr = '<tr class="dropOff" data-masterpax ="false" id=' + lastSelectedItem + '>' +
+                                                '<td> ' + data.PaxName + '</td>' +
+                                                '<td data-id="paxAirport"> ' + data.DropAirportCode + '</td>' +
+                                                '<td data-id="paxDate"> ' + data.DropUpDate + '</td>' +
+                                                '<td data-id="flightInfo"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                '<td data-id="homeAddress"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                '</tr>';
+
+                                        }
+
+
+
+
+                                        if (selectedAirport == '') {
+
+                                            tblRow.append(newtr);
+                                            paxDropDates.push(new Date(data.DropUpDate));
+                                            minDate = Math.min.apply(null, paxDropDates);
+                                            minDate = new Date(minDate);
+                                            minDate = moment(minDate).format("MM/DD/YYYY HH:mm");
+                                            $("#paxFlightTime").val(minDate);
+
+                                            masterPax["name"] = data.PaxName;
+                                            masterPax["paxAirport"] = data.DropAirportCode;
+                                            masterPax["paxDate"] = data.DropUpDate;
+
+                                            $("#HomeAddress").val(data.Address);
+                                            $("#Address").val(data.Address);
+                                            $("#City").val(data.City);
+                                            $("#Country").val(data.Country);
+                                            $("#ZipCode").val(data.ZipCode);
+                                            $('#HomeCityGeoLocation').val(data.HomeCityGeoLocation);
+                                            $("#masterPaxId").val(data.PaxId);
+                                            $("#PickDropLocation").val(data.DropAirportCode).trigger('change');
+
+                                            var newYears = new Date();
+                                            newYears.setFullYear(newYears.getFullYear() + 3);
+                                            $('#PickDropDate').data("DateTimePicker").maxDate(newYears);
+                                            $('#PickDropDate').data("DateTimePicker").minDate(minDate);
+
+                                        } else if (selectedAirport != data.DropAirportCode) {
+                                            $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                            ecCommon.showMessage("Failed!", "The flight information of selected paxs are different. Only pax with same flight information can book the vehicle.", 'error');
+                                        } else {
+
+
+
+
+                                            var masterPaxDate = new Date(masterPax["paxDate"]);
+                                            var newPaxDate = new Date(data.DropUpDate);
+                                            if (newPaxDate < masterPaxDate) {
+                                                ecCommon.showMessage("Failed!", "The flight information of " + data.PaxName + " is earlier than" + masterPax["name"] + " You will be late to catch up flight", 'error');
+                                                $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                                return;
+                                            }
+
+                                            ecCommon.showConfirm('Confirm', ' You have flight in ' + data.DropUpDate + ' date ' + masterPax["name"] + ' have flight in ' + masterPax["paxDate"] + ' date.Do you want  want to travel with ' + masterPax["name"] + ' .Continue?', function (result) {
+                                                if (result) {
+                                                    paxDropDates.push(new Date(data.DropUpDate));
+                                                    tblRow.append(newtr);
+                                                    minDate = Math.min.apply(null, paxDropDates);
+                                                    minDate = new Date(minDate);
+                                                    minDate = moment(minDate).format("MM/DD/YYYY HH:mm");
+                                                    $("#paxFlightTime").val(minDate);
+                                                    calTravelTime();
+
+                                                    var newYears = new Date();
+                                                    newYears.setFullYear(newYears.getFullYear() + 3);
+                                                    $('#PickDropDate').data("DateTimePicker").maxDate(newYears);
+                                                    $('#PickDropDate').data("DateTimePicker").minDate(minDate);
+
+                                                } else {
+                                                    $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                                }
+                                            });
+
+                                        }
+
+
+                                    } else {
+
+
+                                        if (selectedAirport != '') {
+                                            paxNoFlightInfo.push(data.PaxName);
+
+                                            ecCommon.showConfirm('Confirm', data.PaxName + ' does not have flight information.Do you want to add flight same as ' + masterPax["name"] + ' Continue?', function (result) {
+                                                if (result) {
+                                                    var newtr = '<tr class="dropOff" data-masterpax ="false" id=' + lastSelectedItem + '>' +
+                                                        '<td> ' + data.PaxName + '</td>' +
+                                                        '<td data-id="paxAirport"> ' + masterPax["paxAirport"] + '</td>' +
+                                                        '<td data-id="paxDate"> ' + masterPax["paxDate"] + '</td>' +
+                                                        '<td data-id="flightInfo"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                        '<td data-id="homeAddress"> ' + '<input type="checkbox"/>' + '</td>' +
+                                                        '</tr>';
+                                                    tblRow.append(newtr);
+                                                }
+                                            });
+                                        } else {
+                                            $("select[name='PaxList'] option[value='" + lastSelectedItem + "']").prop("selected", false).trigger('change');
+                                            ecCommon.showMessage("Failed!", "The flight information of " + data.PaxName + " is missing.Please try again by filling flight infos.", 'error');
+                                        }
+                                    }
+                                }
+                            },
+                            error: ecCommon.handleAjaxError()
+                        });
+                        }
+
+                    });
+
+                    $("#btnMapLocation").click(function () {
+                        onloadMap(function (data) {
+                            $("#HomePickUpDropOffModal").modal('hide');
+                            $('body').append(data);
+                            $('#modal-map').modal({ show: true, backdrop: false });
+                            $("#modal-map").on('hidden.bs.modal', function (e) {
+                                setTimeout(function () {
+                                    $("#HomePickUpDropOffModal").modal('show');
+                                    calTravelTime();
+                                }, 1000);
+                            });
+                            InitializeMap("#HomePickDropForm");
+                        });
+                    });
+
+                    $("#HomePickDropForm").validate({
+                        Address: { required: true },
+                        Country: { required: true },
+                        City: { required: true },
+                    });
+
+
+                    $("#btnProceed").click(function () {
+                        console.log("btnSave Triggered!");
+
+                        var pickUpPaxs = new Array();
+                        var dropOffPaxs = new Array();
+                        $("#PaxTbl tbody tr.homePickUp").each(function () {
+                            var row = $(this);
+                            var person = {};
+                            person.PaxId = row.attr('id');
+                            person.UpdateFlight = row.find('td:eq(3) input').is(':checked');
+                            person.UpdateHomeAddress = row.find('td:eq(4) input').is(':checked');
+                            person.IsMaster = row.data('masterpax');
+                            pickUpPaxs.push(person);
+                        });
+
+
+                        $("#PaxTbl tbody tr.dropOff").each(function () {
+                            var row = $(this);
+                            var person = {};
+                            person.PaxId = row.attr('id');
+                            person.UpdateFlight = row.find('td:eq(3) input').is(':checked');
+                            person.UpdateHomeAddress = row.find('td:eq(4) input').is(':checked');
+                            person.IsMaster = row.data('masterpax');
+                            dropOffPaxs.push(person);
+                        });
+
+                        var viewModel = {
+                            carModel: $("#HomePickDropForm").serialize(),
+                                accessCode: $("#accessCode").val(),
+                                pickUpPaxs: (pickUpPaxs),
+                                dropOffPaxs: (dropOffPaxs),
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Dashboard/HomePickUpDropOffSelect",
+                            data: JSON.stringify(viewModel),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data != '')
+                                {
+                                    window.location.href = data;
+                                    //window.open(data, '_blank');
+                                }
+
+                            }
+                        });
+                    });
+
+                },
+                error: ecCommon.handleAjaxError()
+            });
+        });
+
+        var timeToPickDrop = function (time, homePickDrop) {
+
+            var pickDropTime = new Date($('#PickDropDate').val())
+            var calTravelTime = $("#calTravelTime").val();
+
+            if (homePickDrop == "HomePickUp") {
+                var PickDate = $("#paxFlightTime").val();
+
+                if (PickDate != "") {
+                    var pd = new Date($("#paxFlightTime").val());
+                    pd.setMinutes(pd.getMinutes() - calTravelTime - time);
+                    $('#PickDropDate').data("DateTimePicker").date(pd);
+                }
+            }
+            else {
+                var DropDate = $("#paxFlightTime").val();
+                if (DropDate != "") {
+                    var dd = new Date($("#paxFlightTime").val());
+                    dd.setMinutes(dd.getMinutes() + parseInt(time));
+                    $('#PickDropDate').data("DateTimePicker").date(dd);
+                }
+            }
+        }
+
+        var TimeBeforePickDrop = function (dtime, homePickDrop) {
+            var minutesToAdd = $("#calTravelTime").val();
+
+            if (minutesToAdd == '' && $("#Address").val() == '') {
+                ecCommon.showMessage("Failed !", "Please select home address for time estimation. ", "error");
+            }
+
+            var currentDate = new Date(dtime);
+
+            var timeStart = new Date($("#paxFlightTime").val());
+            var timeEnd = currentDate.getTime();
+            var hourDiff = timeEnd - timeStart; //in ms
+            var minDiff = hourDiff / 60 / 1000; //in minutes
+
+            var pickDropLocation = $("#PickDropLocation").val();
+            if (pickDropLocation != "") {
+                if (homePickDrop == "HomePickUp") {
+                    var mins = minDiff + parseInt(minutesToAdd);
+                    $('#ReachAirportTime').val(Math.abs(mins));
+                }
+                else {
+                    var mins = minDiff;
+                    $('#DepartureFromAirport').val(Math.abs(mins));
+                }
+            } else {
+                ecCommon.showMessage("Failed !", "Pickup and Drop location is not selected ", "error");
+            }
+        }
+
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCE5D8hJIjeT3f5GYZh2NMJ6TtDcPkpQsA"></script>
+}
+@{
+    var vehicleSchedule = (bool)ViewBag.IsVehicleScheduled;
+    var dmcInfo = new guestACCESS.Kernel.DMCManagement.DMC(Model.DMCId);
+    var parentDmcInfo = new guestACCESS.Kernel.DMCManagement.DMC(dmcInfo.ParentDMCId ?? dmcInfo.DMCId);
+    var groupDashboard = new guestACCESS.Kernel.DMCManagement.DMCGroupDashboard(dmcInfo.ParentDMCId > 0 ? dmcInfo.ParentDMCId.Value : Model.DMCId);
+    var sectioncounter = 0;
+    var MasterTripInfo = new guestACCESS.Kernel.TripManagement.Trip((Model.MasterTripId > 0) ? Model.MasterTripId.Value : Model.TripId);
+    var eventList = guestACCESS.Kernel.TripManagement.Event.GetListByTripId(Model.TripId);
+    var dmcOption = guestACCESS.WebCommon.DMCHelper.GetOptionByDmc(parentDmcInfo.DMCId);
+    var tripInfo = new guestACCESS.Kernel.TripManagement.Trip(Model.TripId);
+    var tripCity = Cache_City.Instance.GetCache().FirstOrDefault(a => a.Key == tripInfo.CityId);
+    var customDashboard = guestACCESS.Kernel.DashboardCustomization.DashboardCustomization.GetList();
+    var customOpenToweb = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Summary.GetDescription()) : null;
+}
+
+<div class="ios-prompt">
+    <span style="color: rgb(187, 187, 187); float: right; margin-top: -14px; margin-right: -11px;">&times;</span>
+    @*<img src="assets/imgs/add2home.svg" style="float: left; height: 80px; width: auto; margin-top: -8px; margin-right: 1rem;">*@
+    <p style="margin-top: -3px; line-height: 1.3rem;">To install this Web App in your phone press <img src="/Content/assets/IphoneImg/Share.svg" style="display: inline-block; margin-top: 4px; margin-bottom: -4px; height: 20px; width: auto;"> and then Add to Home Screen.</p>
+</div>
+<div class="android-prompt">
+    <span style="color: rgb(187, 187, 187); float: right; margin-top: -14px; margin-right: -11px;">&times;</span>
+    @*<img src="assets/imgs/add2home.svg" style="float: left; height: 80px; width: auto; margin-top: -8px; margin-right: 1rem;">*@
+    <p style="margin-top: -3px; line-height: 1.3rem;">To install this Web App in your phone press Browser Setting in top right corner and then click Install app.</p>
+</div>
+<!--BEGIN ORDER SUMMARY SECTION-->
+<div class="row order-summary-contain">
+    <button class="col-xs-12 order-summary-title">@(customOpenToweb != null ? customOpenToweb.APIText : "YOUR SUMMARY")<i class="dropdown fas fa-chevron-down"></i></button>
+</div>
+
+<div class="row order-summary">
+    <div class="col-xs-12 order-summary-content">
+        <div class="title">Order Number</div>
+        <div>@Model.AccessCode</div>
+    </div>
+    <div class="col-xs-12 order-summary-content">
+        <div class="title">Order</div>
+        <div>@Model.TripName</div>
+    </div>
+    <div class="col-xs-12 order-summary-content">
+        <div class="title">Order Status</div>
+        <div>@Model.ProcessingStatus.ToString()</div>
+    </div>
+</div>
+<!--END ORDER SUMMARY SECTION-->
+<!--BEGIN BUTTON/LINK SECTION-->
+<!--BEGIN ROW-->
+@{ Html.RenderPartial("_dashboardContent", Model);}
+
+
+<!--END BUTTON/LINK SECTION-->
+<div id="modal-flight" class="modal" style="display: none; padding-right: 17px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: black; color: white;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-weight: 900; color: white;">X</span>
+                </button>
+                <h4 class="modal-title">Book your flight</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <iframe src="@Model.FlightLink" width="100%" style="min-height: 400px;"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
