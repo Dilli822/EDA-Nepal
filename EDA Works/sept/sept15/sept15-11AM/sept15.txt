@@ -1,0 +1,11 @@
+
+---- changes done on following urls
+1.view-more_events button
+-- https://jaunt2sales.qa.nexgenmtgs.com/Catalog/?dmcId=39330&cityId=37789&source=Tiqets&eventTypeId=1119
+
+
+2. Participants
+-- http://demojaunt2.qa.destindiy.com/Jaunt/Participant/3827
+
+3. Action Dashboard
+--https://jaunt2sales.qa.nexgenmtgs.com/Dashboard/Index?id=T719392YB

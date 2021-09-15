@@ -1,0 +1,119 @@
+@using guestACCESS.Kernel.Invitation
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/shared/_LandingJaunt2.cshtml";
+    var dmc = guestACCESS.Kernel.DMCManagement.DMC.GetDMCListByParentUrl(Request.Url.Authority).FirstOrDefault();
+    var company = guestACCESS.Kernel.DMCManagement.CompanyProfile.GetDMCProfile(dmc.DMCId);
+    var accessCode = ViewBag.AccessCode;
+    int logid = ViewBag.LogId;
+    var invLog = logid == 0 ? new InvitationLog() : new InvitationLog(logid);
+}
+
+@section styles{
+    <link href="~/Content/assets/plugins/intlTelInput/intlTelInput.css" rel="stylesheet" />
+    <style>
+        .accountType input[type=radio] {
+            margin-left: 3px;
+        }
+
+        .accountType label {
+            margin-left: 5px;
+        }
+        .iti--allow-dropdown{
+            width:100%;
+        }
+
+        .goog-te-gadget .goog-te-combo,
+        .select2-container--default .select2-selection--single {
+         height: 35px;
+        }
+
+       .select2-container--default .select2-selection--single .select2-selection__rendered{
+           padding: .2rem;
+           margin: 0 0.4rem;
+        }
+
+
+     .main{
+        margin-bottom: 4rem;
+     } 
+
+    @@media screen and (max-width: 767px){
+    .main{
+    padding: 1.5rem;
+    margin-top: 7rem;
+    } }
+
+     @@media screen and (max-width: 767px) and (min-width: 520px){
+    .main{
+    padding: 3.5rem;
+    margin-top: 6rem;
+    } }
+
+    @@media only screen and (min-width: 1440px){
+    .main{
+        margin-top: 11.5rem!important;
+    } }
+
+    </style>
+
+}
+
+<!-- section class name change from sub-banner to sub-banner2 and inline style added for nav padding for this page only on aug19 2021 -->
+
+<div class="main">
+    <div class="container">
+        <div class="main-cn element-page bg-white clearfix">
+            <!--Breakcrumb-->
+            <section class="breakcrumb-sc">
+                <ul class="breadcrumb arrow">
+                    <li><a href="/"><i class="fa fa-home"></i></a></li>
+                    <li> </li>
+                </ul>
+                <div class="support float-right">
+                    <small>Got a question?</small> @company.Phone
+                </div>
+            </section>
+            <!--End Breakcrumb-->
+
+            <section class="user-profile">
+                <div class="user-form user-signup">
+                    @using (Html.BeginForm("SignUp", "UserRegisterJaunt2", FormMethod.Post, new { id = "frmSignUp", @class = "form-horizontal" }))
+                    {
+                        @Html.Hidden("url", ViewData["redirect_url"])
+                        <div class="row">
+                            <div class="col-md-5 mb-5">
+                                <h2 class="user-profile__title mb-3">Sign up</h2>
+
+                                @Html.Partial("_signUp")
+                                <div class="field-input">
+                                    @Html.Hidden("InvitationId", invLog.InvitationId)
+                                    <button class="awe-btn awe-btn-1 awe-btn-medium" type="button" id="signUpBtn">Sign up</button>
+                                </div>
+                            </div>
+                            @Html.Partial("_WhyJaunt", new ViewDataDictionary { { "isSignUp", true } })
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Content/assets/plugins/intlTelInput/intlTelInput-jquery.min.js"></script>
+    <script src="~/Content/Scripts/Jaunt2.js"></script>
+    <script src="~/Content/Scripts/Jaunt2SignUp.js"></script>
+
+    <script>
+
+        $(function () {
+            var signUp = new SignUp();
+            signUp.init();
+        });
+    </script>
+}
+
+
+

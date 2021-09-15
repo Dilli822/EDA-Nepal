@@ -1,0 +1,516 @@
+@using guestACCESS.Kernel.TripManagement
+@using guestACCESS.Kernel.ReferenceData
+@using SharedLib.Authenticator
+@using guestACCESS.Kernel.UserPayment
+@using SharedLib
+
+@{ Layout = "~/Views/Shared/_LayoutJaunt2.cshtml";
+    ViewBag.Title = "Finish"; }
+
+@{
+    var user = new UserCustomer(MemberTicketManager.Instance.CurrentUserTicket.UserId);
+    var tripId = (int)ViewBag.TripId;
+    var paxDetails = new Participant().GetListByTripId(tripId).ToList();
+    //var paxxx = paxDetails.Select(t => new Participant(t));
+    var eventDetails = Event.GetListByTripId(tripId).ToList();
+
+    var arrivalEvents = eventDetails.Where(t => t.InternalType == (byte)EventTemplateInternalType.Arrival);
+    var departureEvents = eventDetails.Where(t => t.InternalType == (byte)EventTemplateInternalType.Departure);
+
+    var arrivalEventsId = arrivalEvents.Select(t => t.EventId);
+    var depadrtureEventId = departureEvents.Select(t => t.EventId);
+
+    var arrivalActivity = Activity.GetListByEventId(arrivalEventsId.ToArray());
+    var departureActivity = Activity.GetListByEventId(depadrtureEventId.ToArray());
+
+
+    var trip = new Trip(tripId);
+    var trippo = trip.PO;
+    //var trippolist = trippo.Select(t => t.GetItems()).ToList();
+
+    var trippolist = new List<TripPOItem>();
+    foreach (var item in trippo)
+    {
+        var po = item.GetItems();
+        foreach (var p in po)
+        {
+            trippolist.Add(p);
+        }
+    }
+    var isPending = trippolist.Any(t => t.POStatus == POItemStatus.Pending);
+    var dmcOption = new guestACCESS.Kernel.DMCManagement.DMCOption(trip.DMCId);
+    List<string> PnR = new List<string>();
+    if (5 ==5) 
+    {
+    }
+}
+
+
+@section scripts{
+    @*<script src="~/Content/PageScripts/AdminDomain/Trip/Finish.js"></script>*@
+    <script src="~/Content/PageScripts/Jaunt2/Trip/Finish.js"></script>
+    <script src="~/Content/PageScripts/Jaunt2/Trip/Details.js"></script>
+    <script src="~/Content/PageScripts/Jaunt2/TripContract/ShowPrintOptions.js"></script>
+    <script src="~/Content/PageScripts/Jaunt2/eProposal/ShowPrintOptions.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        $(function () {
+            Finish.Apikey = "@WebConfigValues.StripeApiKey";
+            Finish.CreateStripUrl = '@Url.Action("CreateCardInformation","Profile",new { area=""})';
+            Finish.ConfirmPaymentUrl = '@Url.Action("ConfirmPayment", "Trip")';
+            Finish.NotifySupplierUrl = '@Url.Action("NotifySupplier","Trip")';
+            Finish.HasCustomerId = '@user.CustomerId';
+            Finish.IsPending = '@isPending.ToString().ToLower()';
+            Finish.Init();
+             var pep = new printeProposal();
+            pep.triggerBtn = "#btn-show-eproposal";
+            @*pep.tripId = "@Model.TripId";*@
+            pep.tripId = @ViewBag.TripId;
+            pep.showPrintOptionsUrl = "@Url.Action("PrintOptions", "eProposal")";
+            pep.eProposalUrl = "@Url.Action("Index", "eProposal",new { area="Jaunt2"})";
+            pep.init();
+
+            $('#reportSection').on('click', function () {
+                $('div.ReportArticle').articulate('speak');
+            })
+
+            $("#btn-show-eproposal").mouseover(function () {
+                $('div.proposal').articulate('speak');
+            });
+        });
+
+    </script>
+}
+
+@section styles{
+    <link href="~/Content/assets/Pages/jaunt2/Finish.css" rel="stylesheet" />
+}
+
+<style>
+/* added on sept 13 2021 */
+@@media only screen and (max-width: 1200px){
+#user-content{
+    margin-top: -9rem!important;
+}}
+/* updated on sept 13 2021 **/
+.child-btn {
+    font-family: lato,Arial, Helvetica, sans-serif;
+    margin: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    color: #fff;
+    background-color: inherit;
+    border: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+@@media (max-width: 1200px) and (min-width: 767px){
+    #report-box{
+    width: 40%!important;
+
+}}
+
+#acselector {
+    margin-top: 15px !important;
+}
+
+.search-area #acselector .input-group-text {
+    height: 38px;
+    margin-top: .3rem;
+}
+
+</style>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    @{ Html.RenderPartial("_StepNavigation"); }
+
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <ul class="tabs-head nav-tabs-two nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a data-toggle="tab" class="active" data-bs-toggle="tab" data-bs-target="#Summary" role="tab" aria-controls="Summary" aria-selected="true">Summary</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" data-bs-toggle="tab" data-bs-target="#SummaryReport" role="tab" aria-controls="SummaryReport" id="Events" aria-selected="true">Report Event</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="Summary" class="tab-pane show active">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-md-12">
+                                        <div class="db-bottom">
+                                            <div class="card-body ">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="accordion" id="participantData">
+                                                            <div class="card">
+                                                                <div class="card-header">
+                                                                    <a class="" data-bs-toggle="collapse" href="#coll1" role="button" aria-expanded="false" aria-controls="coll1">
+                                                                        Added Passengers
+                                                                    </a>
+                                                                    <button type="button" class="awe-btn awe-btn-1 btn closebtn pull-right" data-bs-toggle="collapse" href="#coll1" role="button" aria-expanded="false" aria-controls="coll1"><i class="material-icons"> keyboard_arrow_down </i></button>
+                                                                </div>
+                                                                <div id="coll1" class=" collapse card-body" data-parent="#participantData">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-striped table-hover color-table info-table customtable">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>
+                                                                                                First Name
+                                                                                            </th>
+                                                                                            <th>Last Name</th>
+                                                                                            <th>Email</th>
+                                                                                            <th>Telephone</th>
+                                                                                            <th>Mobile Phone</th>
+                                                                                            <th>PNR</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        @if (paxDetails.Count > 0)
+                                                                                        {
+                                                                                            foreach (var pax in paxDetails)
+                                                                                            {
+                                                                                                var paxInfo = guestACCESS.Kernel.FlyUs.PaxFlightInfoResponse.GetByPaxId(pax.PaxId);
+                                                                                                var flyusPnrNo = paxInfo != null && paxInfo.PaxFlightResponseId > 0 ? paxInfo.PNR : string.Empty;
+                                                                                        <tr>
+                                                                                            <td>@pax.FirstName</td>
+                                                                                            <td>@pax.LastName</td>
+                                                                                            <td>@pax.Email</td>
+                                                                                            <td>@pax.TelephoneNumber</td>
+                                                                                            <td>@pax.Phone</td>
+                                                                                            <td>@flyusPnrNo</td>
+                                                                                        </tr>
+                                                                                            }
+                                                                                        }
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="card-body">
+                                                <div class="col-sm-12">
+                                                    <div class="accordion" id="participantData">
+                                                        <div class="card">
+                                                            <div class="card-header pax-list-title" id="headingOne">
+                                                                <div class="add-pax-title">
+                                                                    <a class="" data-bs-toggle="collapse" href="#collapse_event" role="button" aria-expanded="false" aria-controls="collapse_event">
+                                                                        Event Details
+                                                                    </a>
+                                                                    <button type="button" class="awe-btn awe-btn-1 btn closebtn pull-right" data-bs-toggle="collapse" href="#collapse_event" role="button" aria-expanded="false" aria-controls="collapse_event"><i class="material-icons"> keyboard_arrow_down </i></button>
+                                                                </div>
+
+                                                                @*</div>*@
+                                                            </div>
+                                                            <div id="collapse_event" class="table-responsive collapse card-body">
+                                                                @{ var ignoreList = new List<int>();
+                                                                    ignoreList.AddRange(arrivalEventsId.ToArray());
+                                                                    ignoreList.AddRange(depadrtureEventId.ToArray());
+                                                                    var filteredList = eventDetails.Where(x => !ignoreList.Contains(x.EventId)); }
+                                                                <table class="table color-table info-table customtable">
+                                                                    <thead></thead>
+                                                                    <tbody>
+                                                                        @if (filteredList.Count() > 0)
+                                                                        {
+                                                                            foreach (var eve in filteredList)
+                                                                            {
+                                                                                var eveLId = eve.EventLocation.HasValue ? eve.EventLocation : 0;
+                                                                                var eveLocation = eveLId > 0 ? new EventLocation(eveLId.Value) : new EventLocation();
+                                                                                var locationName = string.IsNullOrEmpty(eveLocation.LocationName) ? "" : eveLocation.LocationName + ",";
+                                                                                var eventacts = Activity.GetListByEventId(eve.EventId);
+
+                                                                                <tr class="trParent">
+                                                                                    <th>
+                                                                                        @eve.EventName (@locationName start at @eve.EventDate.Value.ToShortDateString())
+                                                                                    </th>
+                                                                                </tr>
+                                                                                <tr class="trChild">
+                                                                                    <td colspan="6">
+                                                                                        <table class="table color-table info-table customtable">
+                                                                                            <thead>
+                                                                                                <tr>
+                                                                                                    <th>
+                                                                                                        Event
+                                                                                                    </th>
+                                                                                                    <th>Quantity</th>
+                                                                                                    <th>Price/Pax</th>
+                                                                                                    <th>Sub Total Price Per Event</th>
+                                                                                                </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <tr class="trParent">
+                                                                                                    <td>@eve.EventName </td>
+                                                                                                    <td>@eve.PaxCount</td>
+                                                                                                    <td>@(CurrencyConverter.ToPriceString(eve.EventSellTotal/ (eve.PaxCount==0?1: eve.PaxCount)))</td>
+                                                                                                    <td>@CurrencyConverter.ToPriceString(eve.EventSellTotal)</td>
+                                                                                                </tr>
+                                                                                                <tr class="trChild">
+                                                                                                    <td colspan="6">
+                                                                                                        <table class="table color-table info-table customtable">
+                                                                                                            <thead>
+                                                                                                                <tr>
+                                                                                                                    <th>Type</th>
+                                                                                                                    <th>
+                                                                                                                        Activity
+                                                                                                                    </th>
+                                                                                                                    <th>Supplier Name</th>
+                                                                                                                    <th>Date</th>
+                                                                                                                    <th>Time</th>
+                                                                                                                    <th>Quantity</th>
+                                                                                                                    <th>ConfirmationId</th>
+                                                                                                                    <th>Status</th>
+                                                                                                                    <th>Unit Price</th>
+                                                                                                                </tr>
+                                                                                                            </thead>
+                                                                                                            <tbody>
+                                                                                                                @foreach (var eventact in eventacts)
+                                                                                                                {
+                                                                                                                    var actType = new ActivityType(eventact.TypeId);
+                                                                                                                    var supplier = new Supplier(eventact.SupplierId);
+                                                                                                                    var polist = trippolist.Where(x => x.ActivityId == eventact.ActivityId).FirstOrDefault();
+                                                                                                                    var startdate = eventact.StartTime != null ? eventact.StartTime.Value.ToShortTimeString() : null;
+
+
+                                                                                                                    var item = TripPOItem.Get(eventact.ActivityId);
+                                                                                                                    var eventModel = new guestACCESS.Kernel.TripManagement.Event(eventact.EventId);
+                                                                                                                    var hotelPlannerInfo = new NGX.Web.Models.HotelPlannerLogHelper().GetReservationByEvent(eventact.EventId);
+                                                                                                                    bool isFromHotelPlanner = hotelPlannerInfo != null && hotelPlannerInfo.HotelPlannerLogId > 0;
+                                                                                                                    var hotelPlannerConfirmationId = hotelPlannerInfo != null && hotelPlannerInfo.HotelPlannerLogId > 0 ? hotelPlannerInfo.ItineraryNumber : string.Empty;
+
+                                                                                                                    var confirmationId = string.Empty;
+
+
+                                                                                                                    if (eventModel.EventName == "Flight Booking")
+                                                                                                                    {
+                                                                                                                        var paxIds = eventModel.Participants;
+
+                                                                                                                        if (paxIds.Count() > 0)
+                                                                                                                        {
+                                                                                                                            var PNR = guestACCESS.Kernel.FlyUs.PaxFlightInfoResponse.GetPNR(paxIds.ToArray());
+
+                                                                                                                            foreach (var p in PNR)
+                                                                                                                            {
+                                                                                                                                PnR.Add(p.PNR + " (" + p.FullName + ")");
+                                                                                                                            }
+                                                                                                                        }
+
+                                                                                                                    }
+
+                                                                                                                    if (item != null)
+                                                                                                                    {
+                                                                                                                        var scheduledVehicle = guestACCESS.Kernel.Carey.CareyVehicleBookInfo.GetByActivityIds(item.ActivityId).FirstOrDefault();
+                                                                                                                        bool isCareyScheduling = scheduledVehicle != null && scheduledVehicle.CareVehicleBookInfoId > 0;
+                                                                                                                        if (isCareyScheduling || eventModel.InternalType == EventTemplateInternalType.Carey)
+                                                                                                                        {
+                                                                                                                            confirmationId = item.ConfirmationId;
+
+
+                                                                                                                        }
+                                                                                                                    }
+
+
+                                                                                                                    if (eventModel.InternalType == EventTemplateInternalType.Hotel && isFromHotelPlanner)
+                                                                                                                    {
+                                                                                                                        confirmationId = hotelPlannerConfirmationId;
+                                                                                                                    }
+                                                                                                                    if (eventModel.EventName == "Flight Booking")
+                                                                                                                    {
+                                                                                                                        var pnr = PnR.Count > 0 ? string.Join(", ", PnR.ToArray()) : "N/A";
+                                                                                                                    }
+
+
+
+                                                                                                                <tr>
+                                                                                                                    <td>@actType.TypeName</td>
+                                                                                                                    <td>@eventact.ActivityName </td>
+                                                                                                                    <td> @supplier.SupplierName</td>
+                                                                                                                    <td>@eventact.Date.Value.ToShortDateString() </td>
+                                                                                                                    <td> @startdate</td>
+                                                                                                                    <td>@eventact.Quantity </td>
+                                                                                                                    @if (eventModel.EventName == "Flight Booking")
+                                                                                                                    {
+                                                                                                                        var pnr = PnR.Count > 0 ? string.Join(", ", PnR.ToArray()) : "N/A";
+                                                                                                                        <td>PNR No: @pnr</td>
+
+                                                                                                                    }
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                        <td>@confirmationId</td>
+
+                                                                                                                    }
+
+                                                                                                                    <td>@(polist==null?"":polist.POStatus.ToString())</td>
+                                                                                                                    <td>@(CurrencyConverter.ToPriceString(eventact.SellPrice))</td>
+                                                                                                                </tr>
+                                                                                                                }
+
+                                                                                                                @{ var esubtotal = eventacts.Sum(t => t.SellPrice * t.Quantity); }
+                                                                                                                @if (esubtotal > 0)
+                                                                                                                {
+                                                                                                            <tr>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td></td>
+                                                                                                                <td colspan="2"><strong>Sub Total :</strong></td>
+                                                                                                                <td>@(CurrencyConverter.ToPriceString(esubtotal)) </td>
+                                                                                                            </tr>
+                                                                                                                }
+                                                                                                            </tbody>
+
+                                                                                                        </table>
+                                                                                                    </td>
+
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+
+                                                                                </tr>
+
+                                                                                @*<tr>
+                                                                                    @{ //var acts = Activity.GetListByEventId(eve.EventId);
+                                                                                        var unpaideEvents = eventacts.Where(t => (t.SellPrice * t.Quantity) != t.Deposit).Count();
+                                                                                        var isUnpaid = eventacts.Count() == unpaideEvents;
+                                                                                        var ispartiallyPaid = eventacts.Any(t => t.Deposit > 0); }
+                                                                                    <td>
+                                                                                        @if (eventacts.Count() <= 0)
+                                                                                        {
+                                                                                            <strong>Activities doesn't exits for this event.</strong> }
+                                                                                        else if (isUnpaid)
+                                                                                        {
+                                                                                            <p>This event has not been paid yet</p> }
+                                                                                        else if (ispartiallyPaid && unpaideEvents != 0)
+                                                                                        {
+                                                                                            <p>This event has been partially paid</p> }
+                                                                                        else
+                                                                                        {
+                                                                                            <p>This event has been paid </p>}
+                                                                                    </td>
+                                                                                </tr>*@
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <tr class="text-center"><th>No Events Selected</th></tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="card-body">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6" style="float:right;">
+                                                        <div style="text-align:right">
+                                                            @{ var arrivalSubtotal = arrivalActivity.Sum(t => t.SellPrice);
+                                                                var departureSubtotal = departureActivity.Sum(t => t.SellPrice); }
+                                                            <h4>Total Payment</h4>
+                                                            @{ var eventTotal = filteredList.Sum(t => t.EventSellTotal);
+                                                                var filteredActivity = Activity.GetListByEventId(filteredList.Select(t => t.EventId).ToArray());
+                                                                var filteredDepositSum = filteredActivity.Sum(t => t.Deposit);
+                                                                var filteredActvitySubTotal = filteredActivity.Sum(t => t.SellPrice * t.Quantity);
+
+                                                                var arrivalDeopsitSum = arrivalActivity.Sum(t => t.Deposit);
+                                                                var departureDeopsitSum = departureActivity.Sum(t => t.Deposit);
+
+                                                                var paidTotal = arrivalDeopsitSum + departureDeopsitSum + filteredDepositSum;
+                                                                var unpaidTotal = filteredActvitySubTotal + arrivalSubtotal + departureSubtotal - filteredDepositSum - arrivalDeopsitSum - departureDeopsitSum;
+
+
+                                                                var unpaidEventActs = filteredActivity.Where(t => (t.SellPrice * t.Quantity) != t.Deposit).Select(x => x.ActivityId).ToArray();
+                                                                var unpaidArrivalActs = arrivalActivity.Where(t => (t.SellPrice * t.Quantity) != t.Deposit).Select(x => x.ActivityId).ToArray();
+                                                                var unpaidDepartureActs = departureActivity.Where(t => (t.SellPrice * t.Quantity) != t.Deposit).Select(x => x.ActivityId).ToArray();
+
+                                                                var unpaidActLists = new List<int>();
+                                                                unpaidActLists.AddRange(unpaidEventActs.ToArray());
+                                                                unpaidActLists.AddRange(unpaidArrivalActs.ToArray());
+                                                                unpaidActLists.AddRange(unpaidDepartureActs.ToArray());
+
+                                                            }
+                                                            <h4> @(CurrencyConverter.ToPriceString(arrivalSubtotal + departureSubtotal + eventTotal))</h4>
+                                                            @Html.Hidden("amountDues", unpaidTotal)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="SummaryReport" class="tab-pane">
+                                <div class="row" >
+                                    <div class="col-lg-12 col-sm-12 col-md-12">
+                                        <div class="db-bottom">
+                                            <div class="finish-text">
+                                                <h3>Would you like to see or do?</h3>
+                                            </div>
+                                            <div class="row">
+                                               <!--- id added on div sept13 2021 -->
+                                                <div class="col-md-3" id="report-box">
+                                                    <div class="db-bx">
+                                                        <a href="javascript:void(0);" id="btn-show-eproposal" title="Your scheduled activities can be presented as a proposal">
+                                                            <h3>Proposal</h3>
+
+                                                            <p>&nbsp;</p>
+                                                            <img src="~/Content/assets/images/eproposal.svg" />
+                                                        </a>
+                                                    </div><!--end db-box-->
+                                                    <div class="finish-text">
+                                                        Your scheduled activities can be presented as a proposal. Changes? Simply refresh the URL
+                                                    </div>
+                                                </div>
+
+                                                <!--- id added on div sept13 2021 -->
+                                                <div class="col-md-3" id="report-box">
+                                                    <div class="db-bx">
+                                                        <a href="@Url.Action("Index","TripReport",new { id = ViewBag.TripId,area = "Jaunt2" })" title="All your necessary reports automatically created and easily accessed">
+                                                            <h3>Reports</h3>
+                                                            <p>&nbsp;</p>
+                                                            <img src="~/Content/assets/images/reports.svg" />
+                                                        </a>
+                                                    </div><!--end db-box-->
+                                                    <div class="finish-text">
+                                                        All your necessary reports automatically created and easily accessed
+                                                    </div>
+                                                </div>
+                                            </div><!--end row-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-card-pay" class="modal diy-modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        @using (Html.BeginForm("CreateCardInformation", "Profile", FormMethod.Post, new { id = "payment-form" }))
+        {
+            @Html.Partial("StripePayment")}
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,37 @@
+@media only screen and (min-width: 767px){
+    #header-utility{
+      margin-top: 3rem; 
+    } 
+}
+.donate-btn{
+    background-color: #e10909;
+    padding: .5rem;
+    margin-left: .8rem;
+    -webkit-box-shadow: 7px 7px 3px -1px rgb(255 26 26 / 9%);
+    box-shadow: 7px 7px 3px -1px rgb(255 26 26 / 9%);
+   }
+.donate-btn a{
+     color: #fffff;
+   }
+.donate-btn:hover{
+background-color: #005098 !important;
+transition: all 0.2s linear;
+-webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+}
+
+
+<div class="col-sm-12 col-md-12 cart-btn-contain" id="header-utility>
+                       
+                        <a href="/Summary/Index?orderId=4376" class="cart-btn">
+                            <span style="font-size: 15px;font-style: unset;margin-right: 6px;">CheckOut</span>
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-amount">0</span>
+                        </a>
+   
+   <button class="donate-btn">
+         <a href="#">Donate Now</a>
+    </button>
+                    </div>
