@@ -1,0 +1,279 @@
+@model guestACCESS.Kernel.TripManagement.Trip
+@{
+    ViewBag.Title = "Reports";
+}
+@{ var city_cache = guestACCESS.DataAccess.CacheRepository.Cache_City.Instance;}
+
+@section styles{
+
+    <style type="text/css">
+        .icheck-list {
+            border: 1px solid #EEE;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+}
+
+@section scripts{
+    <script src="/Content/PageScripts/AdminDomain/TripReport/Index.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var rm = new report();
+            rm.participantStatusQueryUrl = "@Url.Action("ParticipantStatus", "TripReport")";
+            rm.eventParticipantQueryUrl= "@Url.Action("EventParticipant", "TripReport")";
+            rm.init();
+        });
+    </script>
+}
+<style>
+/* overrided on sept 17 2021 */
+@media only screen and (max-width: 667px){
+  .header{
+  height: 80px;
+  border: px solid red;
+} }
+</style>
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-12 col-8 align-self-center">
+            <h3 class="text-themecolor">Reports</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    @Html.ActionLink("Home", "Index", "UserDashboard")
+                </li>
+                <li class="breadcrumb-item">
+                    @Html.ActionLink("Groups", "Index", new { controller = "Trip" })
+                </li>
+                <li class="breadcrumb-item">
+                    @Html.ActionLink("Group Dashboard", "Details", new { controller = "Trip", id = Model.TripId })
+                </li>
+                <li class="breadcrumb-item">
+                    Reports
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="MyGroup">
+        <!-- Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <h3 class="card-title"> @Model.TripName</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="icon-list-demo custom">
+                                            <i class="fa fa-calendar"></i>&nbsp;Start date: @SharedLib.Misc.DateTimeFormatter.ConvertToString(Model.StartDate)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="icon-list-demo custom">
+                                            <i class="fa fa-calendar"></i>&nbsp;End date: @SharedLib.Misc.DateTimeFormatter.ConvertToString(Model.EndDate)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="icon-list-demo custom">
+                                            <i class="fa fa-map-marker"></i>&nbsp;Location:&nbsp; @city_cache.GetCityName(Model.CityId)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        @using (Html.BeginForm("ManipulateReport", "TripReport", FormMethod.Post, new { id = "SelectedReportForm", target = "_blank", @class = "form-group row" }))
+                        {
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+
+                                    <table class="table color-table info-table customtable">
+                                        <thead>
+                                            <tr>
+                                                <th>Report name</th>
+                                                <th>
+                                                    <input id="checkbox0" type="checkbox" checked onclick="SelectAllOrNone('SelectedReportForm', this);">
+                                                    <label for="checkbox0">Check/Uncheck all</label>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Itinerary</td>
+                                                <td>
+                                                    <input id="checkbox1" name="ReportManp" value="1" type="checkbox" checked>
+                                                    <label for="checkbox1">
+                                                        <a href="/AdminDomain/TripReport/ProgramItineraryReport?tripId=@Model.TripId&hidePrice=0"
+                                                           target="_blank">View /W Cost</a>
+                                                    </label>
+                                                    <br />
+                                                    <input id="checkbox2" name="ReportManp" value="2" type="checkbox" checked>
+                                                    <label for="checkbox2">
+                                                        <a href="/AdminDomain/TripReport/ProgramItineraryReport?tripId=@Model.TripId&hidePrice=1"
+                                                           target="_blank">View/ Without Cost</a>
+                                                    </label>
+                                                    <br />
+                                                    <input id="itinerarywops" name="ReportManp" value="2" type="checkbox" checked>
+                                                    <label for="itinerarywops">
+                                                        <a href="/AdminDomain/TripReport/ProgramItineraryReport?tripId=@Model.TripId&hidePrice=2"
+                                                           target="_blank">View /Without Price and Supplier</a>
+                                                    </label>
+                                                    <br />
+                                                    <input id="itinerarywopws" name="ReportManp" value="2" type="checkbox" checked>
+                                                    <label for="itinerarywopws">
+                                                        <a href="/AdminDomain/TripReport/ProgramItineraryReport?tripId=@Model.TripId&hidePrice=3"
+                                                           target="_blank">View Without Price and With Supplier</a>
+                                                    </label>
+
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="example-text-input" class="col-form-label">Program Spreadsheet</label>
+                                                </td>
+                                                <td>
+                                                        <input id="checkbox3" type="checkbox" name="ReportManp" value="3" checked>
+                                                        <label for="checkbox3">
+                                                            <a href="/AdminDomain/TripReport/ProgramSpreadSheetReport/?tripid=@Model.TripId&hidePrice=0"
+                                                               target="_blank">View Cost</a>
+                                                        </label>
+                                                        <br />
+                                                        <input id="checkbox4" type="checkbox" name="ReportManp" value="4" checked>
+                                                        <label for="checkbox4">
+                                                            <a href="/AdminDomain/TripReport/ProgramSpreadSheetReport/?tripid=@Model.TripId&hidePrice=1"
+                                                               target="_blank">View Without Cost</a>
+                                                        </label>
+                                                    </td>
+                                                @*<td>
+                                                        <input id="checkbox3" type="checkbox" name="ReportManp" value="3" checked>
+                                                        <label for="checkbox3">
+                                                            <a href="/Reporting/Financial/ProgramSpreadSheet.aspx?tId=@Model.TripId&hidePrice=0"
+                                                               target="_blank">View Cost</a>
+                                                        </label>
+                                                        <br />
+                                                        <input id="checkbox4" type="checkbox" name="ReportManp" value="4" checked>
+                                                        <label for="checkbox4">
+                                                            <a href="/Reporting/Financial/ProgramSpreadSheet.aspx?tId=@Model.TripId&hidePrice=1"
+                                                               target="_blank">View Without Cost</a>
+                                                        </label>
+                                                    </td>*@
+                                            </tr>
+                                            <tr>
+                                                <td>Departure Notice</td>
+                                                <td>
+                                                    <input id="checkbox5" type="checkbox" name="ReportManp" value="5" checked>
+                                                    <label for="checkbox5"> <a href="/AdminDomain/TripReport/DepartureNoticeReport/?tripId=@Model.TripId" target="_blank">View</a></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>PAX List</td>
+                                                <td>
+                                                    <input id="checkbox6" type="checkbox" name="ReportManp" value="6" checked>
+                                                    <label for="checkbox6">
+                                                        <a href="/Reporting/Operation/PAXList.aspx?tId=@Model.TripId" target="_blank">
+                                                            View All
+                                                        </a>
+                                                    </label>
+                                                    <br />
+                                                    <input id="checkbox7" type="checkbox" name="ReportManp" value="7" checked>
+                                                    <label for="checkbox7">
+                                                        <a href="/Reporting/Operation/PAXList.aspx?tId=@Model.TripId&FetchType=1" target="_blank">View Arrival</a><br />
+                                                    </label>
+                                                    <br />
+                                                    <input id="checkbox8" type="checkbox" name="ReportManp" value="8" checked>
+                                                    <label for="checkbox8">
+                                                        <a href="/Reporting/Operation/PAXList.aspx?tId=@Model.TripId&FetchType=2" target="_blank">View Departure</a><br />
+                                                    </label>
+                                                    <br />
+                                                    @{
+                                                        var arrivalEventId = (int)ViewBag.ArrivalEventId;
+                                                        var departureEventId = (int)ViewBag.DepartureEventId;
+                                                    }
+                                                    @if (arrivalEventId > 0)
+                                                    {
+                                                        <input type="checkbox" id="chkArrivalSchedule" />
+                                                        <label for="chkArrivalSchedule">
+                                                            <a href="/AdminDomain/Transportation/ScheduleArrivalReport?eId=@arrivalEventId&showName=true" target="_blank">Arrival Schedule</a>
+                                                            /
+                                                            <a href="/AdminDomain/EventDetail/@arrivalEventId">Reschedule</a>
+                                                        </label>
+                                                        <br />
+                                                    }
+                                                    @if (departureEventId > 0)
+                                                    {
+                                                        <input type="checkbox" id="chkDepartureSchedule" />
+                                                        <label for="chkDepartureSchedule">
+                                                            <a href="/AdminDomain/Transportation/ScheduleDepartureReport?eId=@departureEventId&showName=true" target="_blank">Departure Schedule</a>
+                                                            /
+                                                            <a href="/AdminDomain/EventDetail/@departureEventId">Reschedule</a>
+                                                        </label>
+                                                        <br />
+                                                    }
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Reservation Detail</td>
+                                                <td>
+                                                    <input id="checkbox9" type="checkbox" name="ReportManp" value="9" checked>
+                                                    <label for="checkbox9"> <a href="/Reporting/Operation/ReservationDetail.aspx?tripId=@Model.TripId" target="_blank">View</a></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event Participant</td>
+                                                <td>
+                                                    <a href="javascript:void(0);" data-action="query-event-participant" data-id="@Model.TripId">Query</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Participant Status</td>
+                                                <td>
+                                                    <a href="javascript:void(0);" data-action="query-participant-status" data-id="@Model.TripId">Query</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-12  text-center">
+                                <button type="submit" class="btn btn-info"><i class="fa fa-cloud-download" style="margin-top: 3px;"></i>&nbsp;Download as PDF</button>
+                                <input type="hidden" id="act" name="act" value="DownloadPDF" />
+                                <input type="hidden" id="id" name="id" value="@Model.TripId" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Row -->
+        </div>
+        <!-- Row -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-inverse" onclick="window.history.back();">Back to Previous Page</button>
+            </div>
+        </div>
+    </div>
+</div>

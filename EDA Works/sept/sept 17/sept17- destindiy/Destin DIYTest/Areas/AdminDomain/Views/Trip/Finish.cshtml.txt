@@ -1,0 +1,135 @@
+
+@{
+    Layout = "~/Views/Shared/_LayoutDIY.cshtml";
+    ViewBag.Title = "Finish";
+}
+
+@section scripts{
+    <script src="/Content/PageScripts/AdminDomain/Trip/Details.js"></script>
+    <script src="/Content/PageScripts/AdminDomain/TripContract/ShowPrintOptions.js"></script>
+    <script src="/Content/PageScripts/AdminDomain/eProposal/ShowPrintOptions.js"></script>
+    <script type="text/javascript">
+        $(function () {
+             var pep = new printeProposal();
+            pep.triggerBtn = "#btn-show-eproposal";
+            @*pep.tripId = "@Model.TripId";*@
+            pep.tripId = @ViewBag.TripId;
+            pep.showPrintOptionsUrl = "@Url.Action("PrintOptions", "eProposal")";
+            pep.eProposalUrl = "@Url.Action("Index", "eProposal")";
+            pep.init();
+        });
+        $('#reportSection').on('click', function () {
+            $('div.ReportArticle').articulate('speak');
+        })
+        //$("btn-show-eproposal").mouseover(function () {
+        //    
+               
+        //    $('div.proposal').articulate('speak');
+        //    })
+        //    .mouseout(function () {
+        //        $(this).find("span").text("mouse out ");
+        //    });
+        $("#btn-show-eproposal").mouseover(function () {
+            $('div.proposal').articulate('speak');
+        });
+
+    </script>
+}
+
+<style>
+/** overided and added on sept 17 2021 **/
+.group-menu.diy-wizards {
+    width: auto!important;
+    transition: all 0.4s ease-in-out 0s;
+}
+</style>
+<article hidden>
+    <div class="article">
+        <p>
+            This page is your dashboard for your important functions and documents. Proposal, Contract, Invoice & Reports. Everything you will need.
+        </p>
+    </div>
+
+</article>
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2 col-sm-3 col-md-3">   @Html.Partial("DIYNav", (int)ViewBag.TripId)</div>
+                    <div class="col-lg-10 col-sm-9 col-md-9">
+                        <div class="tab-pane" id="link8">
+                            <div class="db-bottom">
+                                <div class="alert alert-success">You have completed your Group successfully!</div>
+                                <div class="finish-text">
+                                    Would you like to see or do?
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="db-bx">
+                                            <a href="javascript:void(0);"  id="btn-show-eproposal" title="Your scheduled activities can be presented as a proposal">
+                                                <h3>Proposal</h3>
+
+                                                <p>&nbsp;</p>
+                                                <img src="~/Content/assets/images/eproposal.svg" />
+                                            </a>
+                                        </div><!--end db-box-->
+                                        <div class="finish-text">
+                                            Your scheduled activities can be presented as a proposal. Changes? Simply refresh the URL
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="db-bx">
+                                            <a href="@Url.Action("Index","ContractGeneration",new {tripId= ViewBag.TripId, area = "admindomain" })" id="" title="Everything you scheduled is automatically added to your contract">
+                                                <h3>Contract</h3>
+                                                <p>&nbsp;</p>
+                                                <img src="~/Content/assets/images/contract.svg" />
+                                            </a>
+                                        </div><!--end db-box-->
+                                        <div class="finish-text">
+                                            Everything you scheduled is automatically added to your contract
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="db-bx">
+                                            <a href="@Url.Action("Index","Invoicing",new { id = ViewBag.TripId, area = "FinancialDomain" })" title="Everything you scheduled is automatically added to your invoice">
+                                                <h3>Invoicing</h3>
+                                                <p>&nbsp;</p>
+                                                <img src="~/Content/assets/images/invoicing.svg" />
+                                            </a>
+                                        </div><!--end db-box-->
+                                        <div class="finish-text">
+                                            Everything you scheduled is automatically added to your invoice
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="db-bx">
+                                            <a href="@Url.Action("Index","TripReport",new { id = ViewBag.TripId })" title="All your necessary reports automatically created and easily accessed">
+                                                <h3>Reports</h3>
+                                                <p>&nbsp;</p>
+                                                <img src="~/Content/assets/images/reports.svg" />
+                                            </a>
+                                        </div><!--end db-box-->
+                                        <div class="finish-text">
+                                            All your necessary reports automatically created and easily accessed
+                                        </div>
+                                    </div>
+                                </div><!--end row-->
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-left">
+                            <button type="button" class="btn btn-inverse pull-left" onclick="window.history.back();">Back to Previous Page</button>
+                        </div>
+                    </div>
+                 
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+

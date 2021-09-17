@@ -1,0 +1,66 @@
+@model guestACCESS.Kernel.CarRental.CarListResponse
+
+@{
+    ViewBag.Title = "Car Rental List";
+    Layout = "~/Views/Shared/_LayoutBooking.cshtml";
+    var carRentalSearchInfo = Model.RequestModel;
+    var carTypes = Enum.GetNames(typeof(CarTypes)).Select(a => new SelectListItem()
+    {
+        Text = string.IsNullOrEmpty(a.GetDescription()) ? a : a.GetDescription(),
+        Value = a
+    });
+    var carCompanies = (IEnumerable<SelectListItem>)ViewData["Supplier"];
+    var cache_airport = guestACCESS.DataAccess.CacheRepository.Cache_Airport.Instance.GetCache();
+    var cache_city = guestACCESS.DataAccess.CacheRepository.Cache_CityEntity.Instance;
+}
+@section HeadContent{
+    <style>
+        .timepicker-picker tbody tr td  {
+            text-align:center;
+        }
+      .float-right {
+          margin: .5rem;
+          }
+    
+
+@@media (max-width: 991px){
+.hotel-item .hotel-text {
+    text-align: center;
+} }
+    </style>
+    <link href="~/Content/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+}
+<!--Banner-->
+<section class="sub-banner">
+    <!--Background-->
+    <div class="bg-parallax bg-1"></div>
+    <!--End Background-->
+    <!-- Logo -->
+    @{ Html.Partial("BannerLogo", "");}
+    <!-- Logo -->
+</section>
+<!--End Banner-->
+<div class="main">
+    <div class="container">
+        <div class="main-cn car-page bg-white">
+            @{ Html.RenderPartial("List");}
+
+        </div>
+    </div>
+</div>
+
+@section FootContent{
+    <script src="~/Content/plugins/moment/min/moment.min.js"></script>
+    <script src="~/Content/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/pageScripts/ec_CarRent.js"></script>
+    <script>
+
+        $(function () {
+            var carRent = new CarRent();
+            carRent.loadAirportUrl = '@Url.Action("SearchAirports", "CacheData", new { area = "" })';
+            carRent.loadCityAirportUrl = '@Url.Action("SearchCityAndAirport", "CacheData", new { area = "" })';
+            carRent.loadDropOffairport = '@Url.Action("SearchAirportsWithId", "CacheData", new { area = "" })';
+            carRent.init();
+        });
+    </script>
+}

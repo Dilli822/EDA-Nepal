@@ -1,0 +1,73 @@
+<style>
+ /* added on sept 17 2021 **/
+#text-field{
+    border: 0px solid red;
+    height: 35px!important;
+}
+</style>
+
+<div id="modal-DMCRebate" class="modal fade" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        @using (Html.BeginForm("DMCRebateCreate", "DIYCustomField", FormMethod.Post, new { id = "DMCRebateForm" }))
+        {
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-title">Create Field</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="tblDMCRebate">
+                            <thead>
+                                <tr>
+                                    <th>Column Name</th>
+                                    @*<th>Field Show In</th>
+        <th>Field Type</th>*@
+                                    <th>Field Options (Options separated by comma)</th>
+                                    <th>Required</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <input type="text" name="AC.ColumnName" class="form-control" />
+                                        <input data-copy type="hidden" name="AC.DMCId" class="form-control" />
+                                        <input data-copy type="hidden" name="AC.FieldShowIn" value="@FieldShowIn.OpenMeeting.GetDescription()" />
+                                        <input data-copy type="hidden" name="AC.FieldType" value="@FieldTye.CRM.GetDescription()" />
+                                    </td>
+                             
+                                  
+                                    <td>
+                                        <textarea id="text-field" type="text" name="AC.FieldOptions" class="form-control" />
+                                        <input type="hidden" name="AC.DMCId" class="form-control" />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="AC.Required" id="AC.Required" value="true" />
+                                        <label for="AC.Required"></label>
+
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm" data-action="add-row">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" data-action="delete-row" style="display:none;">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        }
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

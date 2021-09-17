@@ -1,0 +1,93 @@
+@model  NGX.Web.Areas.AdminDomain.Models.DIYEventList
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Shared/_LayoutDIY.cshtml";
+}
+
+@section styles {
+    @*<link href="/Content/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/assets/plugins/cropper/cropper.min.css" rel="stylesheet" />
+    <link href="/Content/assets/plugins/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+
+}
+@section scripts{
+    <script src="/Content/Scripts/paginationObject.js"></script>
+    @*<script src="/Content/assets/plugins/dropzone-master/dist/dropzone.js"></script>*@
+    <script src="~/Content/PageScripts/AdminDomain/EventData/Index.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var manager = new diyEventDataList();
+            manager.DMCId = '@Model.DMCId';
+            manager.createEventUrl = '@Url.Action("Create","DIYEventData")';
+            manager.scheduleEventUrl = '@Url.Action("Index", "DIYEventData")';
+            manager.deleteUrl = '@Url.Action("Delete", "DIYEventData")';
+            manager.loadCityUrl = '@Url.Action("GetCity", "CacheData", new { area = "" })';
+            manager.loadCityWithDMCUrl = '@Url.Action("GetCityBasedOnDMCAndCountry", "CacheData", new { area = "" })';
+            manager.uploadImageUrl = '@Url.Action("UploadImage", "ImageMedia", new { area = "" })';
+
+            manager.init();
+        })
+    </script>
+
+}
+
+<style>
+@@media only screen and (max-width: 768px){
+.card .card-body .select2-container--default .select2-selection--single .select2-selection__rendered {   
+    border: px solid red;
+    font-size: 0.8rem;
+} }
+
+@@media only screen and (min-width: 767px){
+    .btn:not(:disabled):not(.disabled) {
+    border: px solid red;
+    margin-top: -.3rem;
+}
+}
+
+</style>
+<div class="container-fluid">
+    @*@if (ViewData["DMCInfo"] != null)
+    {
+        Html.RenderPartial("DMCInfo", ViewData["DMCInfo"]);
+    }*@
+    <div id="Container">
+        @using (Html.BeginForm("Index", "DIYEventData", FormMethod.Post, new { id = "SearchForm" }))
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--Trip filter Begin-->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(t => t.TypeId, (IEnumerable<SelectListItem>)ViewData["EventTypes"], "All Types", new { @class = "form-control select2", style = "width:100%" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(t => t.CountryId, (IEnumerable<SelectListItem>)ViewData["Countries"], "All Countries", new { @class = "form-control select2", style = "width:100%" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(t => t.CityId, (IEnumerable<SelectListItem>)ViewData["Cities"], "All Cities", new { @class = "form-control select2", style = "width:100%" })
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(t => t.EventName, new { @class = "form-control", placeholder = "Event name keyword" })
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" id="btn-search" class="btn btn-success">
+                                        <i class="fa fa-search"></i>
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div id="List">
+            @Html.Partial("List", Model)
+        </div>
+    </div>
+
+</div>
