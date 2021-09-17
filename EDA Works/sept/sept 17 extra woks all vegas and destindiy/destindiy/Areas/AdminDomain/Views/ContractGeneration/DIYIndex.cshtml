@@ -1,0 +1,176 @@
+@model IEnumerable<NGX.Web.Areas.AdminDomain.Models.TripProposalItemOrderModel>
+@{
+    Layout = "~/Views/Shared/_LayoutDIY.cshtml";
+    ViewBag.Title = "Contract";
+}
+
+<style>
+   /** overided and added on sept 17 2021 **/
+       .group-menu.diy-wizards {
+           width: auto!important;
+           transition: all 0.4s ease-in-out 0s;
+        }
+    @@media (max-width: 480px){
+        ul.nav.nav-pills.nav-pills-rose.diy-wizards.flex-column {
+            width: 30px;
+            padding: 0 5px;
+            margin-top: -8rem;
+            } }
+    </style> 
+
+<div id="contractContainer" class="content">
+    <div class="action-bottom-wrap">
+        <a href="@Url.Action("Preview","ContractGeneration",new { area = "admindomain" ,tripId=(int)ViewBag.TripId})" class="add btn btn-default gp-button">
+            Preview <i class="material-icons" title="" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="You can preview the contract here.">info</i>
+        </a>
+        <a href="javascript:void(0);" id="btnAdd" data-action="AddContent" class="add btn btn-primary">
+            Add <i class="material-icons" title="" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="You can add new clause content for the contract.">info</i>
+        </a>
+        <a href="@Url.Action("PrintContract","ContractGeneration",new { area = "admindomain", tripId = (int)ViewBag.TripId })" class="add btn btn-default gp-button">
+            Generate PDF <i class="material-icons" title="" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="Generates the contract in pdf and you can download.">info</i>
+        </a>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-2 col-sm-3 col-md-3">
+                    @Html.Partial("DIYNav", (int)ViewBag.TripId)
+                </div>
+                <div class="col-lg-10 col-sm-9 col-md-9">
+                    <div class="custom_tab">
+                        <div class="btn_warp_pg">
+                            <ul class="nav nav-pills nav-pills-primary diy-wizards">
+                                <li class="nav-item">
+                                    <a class="nav-link show active" data-toggle="tab" href="#contract-options" role="tablist">
+                                        Contract
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#print-options" role="tab">
+                                        Print Options
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#contract-media" role="tab">
+                                        Group Particular Documents <i class="material-icons"  data-container="body"  data-trigger="hover" data-toggle="popover" data-placement="top" title="Upload any documents for your group that you would like centralized access to (e.g. Supplier Contracts).">info</i>
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#contract-clientdocs" role="tab">
+                                        Client Documents <i class="material-icons"  data-container="body"  data-trigger="hover" data-toggle="popover" data-placement="top" title="Upload any documents that are specific to this Client that you would like centralized access to (e.g. Signed Contract).">info</i>
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="tab-content tab-space">
+                            <div class="tab-pane active show" id="contract-options">
+                                <div class="report-wrapper ui-sortable" id="draggablePanelList">
+                                    <div id="contract-options" class="tab-pane active show" role="tabpanel">
+                                        @{ Html.RenderPartial("_Proposal");}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="ns-btn-wrap">
+                                        <button type="button" class="btn btn-inverse pull-left" onclick="window.history.back();">Back to Previous Page</button>
+
+                                        <button type="button" class="btn btn-primary" data-action="SaveContractOrder">
+                                            Save
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="print-options">
+                                @{ Html.RenderPartial("_ContractPrintOptions", (guestACCESS.DataAccess.Entity.T_GASContractPrintOptions)TempData["PrintOptions"]);}
+
+                            </div>
+
+                            <div class="tab-pane" id="contract-media">
+                            </div>
+
+                            <div class="tab-pane" id="contract-clientdocs">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br />
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    @section styles{
+        <link href="~/Content/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="/Content/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/assets/plugins/cropper/cropper.min.css" rel="stylesheet" />
+        <link href="/Content/assets/plugins/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/assets/contract/report.css" rel="stylesheet" />
+        <style>
+            iframe {
+                width: 100% !important;
+            }
+
+            .modal img {
+                width: 100%;
+            }
+
+            .ms-container {
+                width: 100%;
+            }
+            /*.table-wraper {
+                overflow-x: auto;
+            }*/
+        </style>
+    }
+
+    @section scripts{
+        <script src="~/Content/assets/plugins/jqueryui/jquery-ui.min.js"></script>
+        <script src="/Content/assets/plugins/moment/moment.js"></script>
+        <script src="~/Content/PageScripts/AdminDomain/ContractGeneration/ContractGeneration.js"></script>
+        <script src="~/Content/assets/plugins/tinymce/jquery.tinymce.min.js"></script>
+        <script src="~/Content/assets/plugins/tinymce/tinymce.min.js"></script>
+        <script src="/Content/assets/plugins/dropzone-master/dist/dropzone.js"></script>
+        <script src="~/Content/assets/plugins/cropper/cropper.min.js"></script>
+
+        <script>
+        $(function () {
+            var cg = new contractGeneration();
+            cg.addContentUrl = '@Url.Action("AddContent", "ContractGeneration", new { area = "admindomain" })';
+            cg.editContentUrl = '@Url.Action("EditContent", "ContractGeneration", new { area="admindomain"})';
+            cg.editEventContentUrl = '@Url.Action("EditEvent", "ContractGeneration", new { area="admindomain"})';
+            cg.editActivityContentUrl = '@Url.Action("EditActivity", "ContractGeneration", new { area="admindomain"})';
+            cg.editProposalTemplateUrl='@Url.Action("ProposalTemplate", "ContractGeneration", new { area = "admindomain" })';
+            cg.saveContentUrl = '@Url.Action("SaveContent", "ContractGeneration", new { area="admindomain"})';
+            cg.getContentUrl = '@Url.Action("ProposalItem", "ContractGeneration", new { area="admindomain"})';
+            cg.getContractClauseDataUrl = '@Url.Action("GetClauseContent", "ContractGeneration", new { area="admindomain"})';
+            cg.saveContractOrderUrl = '@Url.Action("SaveContentOrder", "ContractGeneration", new { area="admindomain"})';
+            cg.deleteContentUrl = '@Url.Action("DeleteContent", "ContractGeneration", new { area="admindomain"})';
+            cg.uploadImageUrl = '@Url.Action("UploadImage", "ImageMedia", new { area = "" })';
+            cg.showPrintOptionsUrl = "@Url.Action("PrintOptions", "TripContract",new { area = "admindomain" })";
+            cg.proposalUrl = '@Url.Action("Proposal", "ContractGeneration", new { area="admindomain"})';
+            cg.uploadFileUrl = '@Url.Action("UploadContractFile", "TripContract")';
+            cg.contractMediaUrl='@Url.Action("ContractUploadList", "TripContract")';
+            cg.deleteContractMediaUrl = '@Url.Action("DeleteContractFile", "TripContract")';
+            cg.uploadClientFileUrl='@Url.Action("UploadClientDocument", "TripContract")';
+            cg.contractClientDocUrl='@Url.Action("ContractClientDocument", "TripContract")';
+            cg.deletecontractClientDocUrl='@Url.Action("DeleteClientDocument", "TripContract")';
+            cg.tripId = '@((int)ViewBag.TripId)';
+            cg.init();
+        });
+        </script>
+    }
+
+
