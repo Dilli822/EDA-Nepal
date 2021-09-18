@@ -10,3 +10,6 @@
  
  3. destindiy
  -- C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIYTest
+ 
+ 4. sales-jaunt2
+ -C:\inetpub\wwwroot\NexGen\Test\Sales\DIY\Views\Summary
