@@ -1,0 +1,152 @@
+@model IEnumerable<guestACCESS.Kernel.Subscriptions.DataSubscription>
+@{
+    var subTemplate = (guestACCESS.Kernel.Subscriptions.DataSubscriptionTemplate)ViewData["DataSubscription"];
+
+}
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+/* updated and added on sept 21 2021 **/
+@@media only screen and (max-width: 992px) and (min-width: 345px){
+#subscription-box{
+    justify-content: center;
+} 
+.pricing-plan.single-pbox {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    width: 300px;
+}
+}
+
+#text {
+    width: 100%!important;
+}
+}
+
+
+@@media only screen and (max-width: 345px){
+.pricing-plan.single-pbox {
+width: 230px!important;
+}}
+
+
+@@media only screen and (max-width: 767px){
+    *{
+    font-size: initial!important;
+    }
+    .modal .modal-content {
+    border: 1px solid #e6f2ff;
+    padding: 2rem;
+}
+}
+
+
+.pricing-plan.single-pbox {
+    margin-bottom: 2rem;
+}
+li{
+    list-style: disc!important;
+}
+
+#context{
+    text-align: justify!important;
+}
+.modal .modal-content .close {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem; 
+    color: #546182;
+    font-size: 2rem!important;
+}
+
+</style>
+<div class="modal diy-modal subscription" id="SignUpSubscriptionModal" role="dialog" aria-hidden="true" aria-labelledby="myLargeModalLabel" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div>
+            <img class="logo" src="@ViewBag.CompanyImageLogo">
+        </div>
+        <div class="modal-content">
+            <div class="modal-header center">
+                <div>
+                    @*<div class="pricing-area-top">*@
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="section-title text-center border-line" id="context">
+                                @Html.Raw(subTemplate == null ? "" : (subTemplate.Title ?? ""))
+                            </div>
+                        </div>
+                    </div>
+                    @*</div>*@
+                </div>
+                <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+                    @*<div class="pricing-area">*@
+                        <div class="" id="SubForm">
+                            <div class="row align-items-center" id="subscription-box">
+                                @foreach (var i in Model.Where(x => x.IsActive == true))
+                                {
+                                    <div class="col-md-4">
+                                        <div class="pricing-plan single-pbox">
+                                            <div class="pricing-plan-top">
+                                                <h3 class="plan-name">@i.SubscriptionName</h3>
+                                                @if (!string.IsNullOrEmpty(i.Image))
+                                                {
+                                                    var imgUrl = WebConfigValues.StaticContentSiteUrl + "/uploadfiles/" + i.Image;
+                                                    <img src="@imgUrl" alt="pricing">
+                                                }
+
+                                                @*<img src="img/pricing.png" alt="pricing">*@
+                                                <div class="plan-cycle">@i.Type</div>
+                                                @{
+                                                    var curr = SharedLib.CurrencyConverter.ToPriceString(i.Amount);
+                                                    var sp = curr.Split(' ');
+                                                }
+                                                <div class="plan-price" title="@curr">@sp[0]<sub>@sp[1]</sub></div>
+                                            </div>
+                                            <div class="pricing-plan-content" data-name="desc">
+                                                @Html.Raw(i.Description)
+                                            </div>
+                                            <div class="pricing-plan-footer">
+                                                <a href="#" class="pricing-btn btnSubscription" id="btnSubscription" data-id="@i.SubscriptionId" data-istrail="@(i.IsTrial)">Subscribe Now</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    @*</div>*@
+
+                    @* <div class="pricing-area-top bottom-term ">
+                        <div class=""> *@
+                            @* <div class="row align-items-center"> *@
+                                <div class="col-md-12">
+                                    <div class="section-title text-center privacy-title border-line">
+                                        @Html.Raw(subTemplate != null && subTemplate.DescriptionTitle != null ? subTemplate.DescriptionTitle : "")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-6" id="text">
+                                    <div class="text-terms" data-desc="description">
+                                        @Html.Raw(subTemplate != null && subTemplate.DetailDescription != null ? subTemplate.DetailDescription : "")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            @* </div>
+        </div>
+    </div> *@
+
+

@@ -1,0 +1,180 @@
+@model IEnumerable<guestACCESS.DataAccess.Entity.T_GASDataSubscription>
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutDIY.cshtml";
+    var customerId = (string)ViewBag.CustomerId;
+    var subTemplate = (guestACCESS.Kernel.Subscriptions.DataSubscriptionTemplate)ViewData["DataSubscription"];
+}
+
+@section styles{
+    <link href="~/Content/assets/Subscription/NewDesign/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/assets/Subscription/NewDesign/css/animate.css" rel="stylesheet" />
+    <link href="~/Content/assets/Subscription/NewDesign/style.css" rel="stylesheet" />
+}
+<style>
+    body.pnk {
+        background-color: #eee;
+    }
+
+    .single-pbox:hover {
+        margin-top: -20px;
+    }
+    /*.plan {
+        transition: all 0.5s ease-in-out 0s;
+    }*/
+    /**
+    * The CSS shown here will not be introduced in the Quickstart guide, but shows
+    * how you can use CSS to style your Element's container.
+    */
+    .StripeElement {
+        box-sizing: border-box;
+        height: 40px;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        border-radius: 25px;
+        background-color: white;
+        box-shadow: 0 1px 3px 0 #e6ebf1;
+        -webkit-transition: box-shadow 150ms ease;
+        transition: box-shadow 150ms ease;
+    }
+
+    .StripeElement--focus {
+        box-shadow: 0 1px 3px 0 #cfd7df;
+    }
+
+    .StripeElement--invalid {
+        border-color: #fa755a;
+    }
+
+    .StripeElement--webkit-autofill {
+        background-color: #fefde5 !important;
+    }
+
+    #card-element iframe {
+        width: 100% !important;
+    }
+    .border-line {
+        border-bottom: 1px solid #dfcff9;
+    }
+
+    /* updated and added on sept 21 2021 **/
+    .pricing-area-top{
+        text-transform: capitalize;
+    }
+    .text-center{
+        text-align: justify!important;
+    }
+
+    @@media only screen and (max-width: 767px){
+        *{
+            font-size: initial!important;
+        }
+    }
+    .pricing-plan.single-pbox{
+        margin-bottom: 2rem;
+    }
+
+    .plan-price{
+        font-size: 2rem!important;
+    }
+</style>
+
+
+<div class="pricing-area-top">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="section-title text-center border-line">
+                    @Html.Raw(subTemplate == null ? "" : (subTemplate.Title ?? ""))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pricing-area">
+    <div class="container" id="SubForm">
+        <div class="row align-items-center">
+            @foreach (var i in Model.Where(x => x.IsActive == true && x.IsTrial != true))
+            {
+                <div class="col-md-4" id="subscription-box">
+                    <div class="pricing-plan single-pbox">
+                        <div class="pricing-plan-top">
+                            <h3 class="plan-name">@i.SubscriptionName</h3>
+                            @if (!string.IsNullOrEmpty(i.Image))
+                            {
+                                var imgUrl = WebConfigValues.StaticContentSiteUrl + "/uploadfiles/" + i.Image;
+                                <img src="@imgUrl" alt="pricing">
+                            }
+
+                            @*<img src="img/pricing.png" alt="pricing">*@
+                            <div class="plan-cycle">@i.Type</div>
+                            @{
+                                var curr = SharedLib.CurrencyConverter.ToPriceString(i.Amount);
+                                var sp = curr.Split(' ');
+                            }
+                            <div class="plan-price" title="@curr">@sp[0]<sub>@sp[1]</sub></div>
+                        </div>
+                        <div class="pricing-plan-content" data-name="desc">
+                            @Html.Raw(i.Description)
+                        </div>
+                        <div class="pricing-plan-footer">
+                            <a href="#" class="pricing-btn customersub" id="btnSubscription" data-id="@i.SubscriptionId">Subscribe Now</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="pricing-area-top bottom-term">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="section-title text-center privacy-title border-line">
+                    @Html.Raw(subTemplate != null && subTemplate.DescriptionTitle != null ? subTemplate.DescriptionTitle : "")
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center ">
+            <div class="col-md-12">
+                <div class="text-terms" data-desc="description">
+                    @Html.Raw(subTemplate != null && subTemplate.DetailDescription != null ? subTemplate.DetailDescription : "")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="StripePayment"></div>
+
+@section Scripts{
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
+    <script src="~/Content/assets/Subscription/NewDesign/js/waypoints-min.js"></script>
+    <script src="~/Content/assets/Subscription/NewDesign/js/swiper-bundle.js"></script>
+    <script src="~/Content/assets/Subscription/NewDesign/js/main.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="~/Content/PageScripts/AdminDomain/Subscription/Index.js"></script>
+    <script>
+        $(document).ready(function () {
+            var list = $("div[data-name='desc']").find('ul');
+            if (list.length > 0) {
+                $.each(list, function () {
+                    $(this).addClass('features-list');
+                    var liItems = $(this).find('li');
+                    $.each(liItems, function () {
+                        $('<br/>').insertAfter($(this));
+                    });
+                });
+            }
+            var descList = $("div[data-desc='description']").find('ul');
+            if (descList.length > 0) {
+                $.each(descList, function () {
+                    $(this).addClass('features-list');
+                    var liItems = $(this).find('li');
+                    $.each(liItems, function () {
+                        $('<br/>').insertAfter($(this));
+                    });
+                });
+            }
+        })
+    </script>
+}
