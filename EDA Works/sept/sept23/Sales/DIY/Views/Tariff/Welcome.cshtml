@@ -1,0 +1,45 @@
+﻿@model guestACCESS.Kernel.TripManagement.Trip
+@using guestACCESS.ClientWeb
+@{ var hasVideo = !string.IsNullOrEmpty(Model.Media.Video); }
+
+<div class="modal welcome_modal" id="WelcomeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="slider_area">
+                    <div class="owl-carousel owl-theme">
+                        @foreach (var item in Model.Media.Where(s => s.MediaType == MediaType.Image))
+                        {
+                            <div class="item">
+                                @Html.Image(item.MediaContent, Model.TripName, "img-fluid event-img-pop")
+                            </div>
+                        }
+                        @if (hasVideo)
+                        {
+                            <div class="item-video" data-merge="1">
+                                <a class="owl-video" href="@HelperExtensions.GetVideoUrlFromIframe(Model.Media.Video)"></a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <h3>@Model.TripName</h3>
+                <div class="desc">
+                    @Html.Raw(Model.Media.HtmlDescription)
+                </div>
+                <div class="start_button">
+                    <span class="welcome-btn-section">
+                        @Html.BuildCheckBox("HideWelcome", false, false, new { id = "HideWelcome" })
+                        <label for="HideWelcome">Don't show this again</label>
+                    </span>
+                    <a href="javascript:void(0)" class="btn btn-info" id="getStarted">Get Started</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

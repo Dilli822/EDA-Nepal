@@ -1,0 +1,39 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Order has been Successfully Submitted";
+    Layout = "~/Views/Shared/_LayoutCatalog.cshtml";
+}
+@section HeadContent {
+}
+
+
+<div class="container">
+    <!-- Main content -->
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline"><i class="fa fa-check-circle text-green"></i></h2>
+            <div class="error-content">
+                <h3>Your Order has been submitted</h3>
+                <p>
+                    @* <%:ViewData["Message"]%>*@
+                </p>
+                <ul>
+                    @if (SharedLib.Authenticator.MemberTicketManager.Instance.HasIdentity)
+                    {
+                        string listUrl = Url.Action("Index", "MyOrder");
+
+                        <li>You can find your order with this link, <a href="@listUrl">@listUrl</a> .</li>
+                    }
+                    else
+                    {
+                        string dashboardUrl = Url.Action("Index", "Dashboard", new { id = ViewData["AccessCode"] });
+
+                        <li>You can find your order with this link, <a href="@dashboardUrl">@dashboardUrl</a> .</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.container -->

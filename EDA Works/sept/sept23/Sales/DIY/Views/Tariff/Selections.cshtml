@@ -1,0 +1,27 @@
+﻿@model guestACCESS.eCommerce.ProgramSource.ProgramEventSource
+@using guestACCESS.ClientWeb
+@using guestACCESS.eCommerce
+@using SharedLib
+@{
+    var cart = ShoppingCart.GetShoppingCartofCurrentUser();
+    var eventTypes = ViewData["EventTypes"] as Dictionary<int, guestACCESS.DataAccess.Entity.T_GASDataEventType>;
+}
+<div class="event container">
+    @if (cart.Count == 0)
+    {
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <p class="text-center"><strong>No event added yet.</strong></p>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var i in cart)
+        {
+            @Html.Partial("SelectedEvent", i)
+
+        }
+    }
+</div>
+

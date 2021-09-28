@@ -1,0 +1,24 @@
+﻿@model guestACCESS.eCommerce.ProgramSource.ProgramEventSource
+@using guestACCESS.ClientWeb
+@using guestACCESS.WebCommon
+@using SharedLib
+@using guestACCESS.eCommerce
+@using guestACCESS.eCommerce.ProgramSource
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link options-btn active" id="home-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="true">Options</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link selections-btn" id="profile-tab" data-toggle="tab" href="#selection" role="tab" aria-controls="selection" aria-selected="false">Your Selection</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="options" role="tabpanel" aria-labelledby="options-tab">
+          @Html.Partial("Options", Model)
+    </div>
+    <div class="tab-pane fade" id="selection" role="tabpanel" aria-labelledby="selection-tab">
+        @Html.Partial("Selections") 
+    </div>
+</div>
+

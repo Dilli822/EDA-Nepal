@@ -1,0 +1,381 @@
+﻿@model guestACCESS.eCommerce.StandardSource.StandardEventSource
+@using guestACCESS.ClientWeb
+@using guestACCESS.WebCommon
+@using guestACCESS.eCommerce
+@using SharedLib
+@using guestACCESS.eCommerce.StandardSource
+@using guestACCESS.Kernel.ReferenceData
+
+<div id="list-container" class="box-body">
+    @{
+        var eventTypes = ViewData["EventTypes"] as Dictionary<int, guestACCESS.DataAccess.Entity.T_GASDataEventType>;
+        var events = Model.GetEvents() as guestACCESS.DataAccess.Common.PaginatedCollection<EventBase>;
+        var cart = ShoppingCart.GetShoppingCartofCurrentUser();
+        string backurl = Convert.ToString(ViewData["backurl"]);
+        var companyProfile = guestACCESS.Kernel.DMCManagement.CompanyProfile.GetDMCProfile(Model.DMCId);
+        var workTimeZone = companyProfile.ConvertLocalTimeToWorkTimeZone(DateTime.Now);
+        var dmcOption = new guestACCESS.Kernel.DMCManagement.DMCOption(Model.DMCId);
+        int eventCountInPage = 0;
+        var bId = Request.QueryString["bId"];
+
+    }
+    @if (events.Count > 0)
+    {
+        foreach (StandardEvent i in events)
+        {
+            StandardEvent addedEvent = cart.FindFirstAddedEvent(i) as StandardEvent;
+
+            //Event available bal dateso
+            var dateList = i.AvailableDates.Where(a => a.StartDate.HasValue && a.EndDate.HasValue).OrderBy(a => a.StartDate).ThenBy(a => a.StartTime.Value.ToString("hh:mm tt")).ToList();
+            var eventDates = new List<guestACCESS.Kernel.ReferenceData.EventTemplateDates>();
+            foreach (var ed in dateList)
+            {
+                var combDate = new DateTime(ed.StartDate.Value.Year, ed.StartDate.Value.Month, ed.StartDate.Value.Day, ed.StartTime.Value.Hour, ed.StartTime.Value.Minute, ed.StartTime.Value.Second);
+                var maxBookingTime = ed.BookingTimeLimit.HasValue ? combDate.AddHours(-ed.BookingTimeLimit.Value) : combDate;
+
+                if (DateTime.Compare(workTimeZone, maxBookingTime) < 0)
+                {
+                    eventDates.Add(ed);
+                }
+
+            }
+            if (dmcOption.EnableStandardEventStock && eventDates.Count == 0 && Model.EventSource!=ApiNames.Tiqets.ToString())
+            {
+                continue;
+            }
+            eventCountInPage++;
+
+            var eventTypeName = eventTypes.ContainsKey(i.TypeId) ? eventTypes[i.TypeId].TypeName : "N/A";
+            if (Model.EventSource == ApiNames.Tiqets.ToString() && Model.EventTypeId > 0)
+            {
+                eventTypeName = eventTypes.ContainsKey(Model.EventTypeId ?? 0) ? eventTypes[Model.EventTypeId ?? 0].TypeName : "N/A";
+            }
+            var htmlDes = string.Empty;
+            if (string.IsNullOrEmpty(i.MediaContent.HtmlDescription))
+            {
+                htmlDes = string.Empty;
+            }
+            else
+            {
+                htmlDes = i.MediaContent.HtmlDescription.Substring(0, Math.Min(i.MediaContent.HtmlDescription.Length, 200)) + "...";
+            }
+
+            var textDes = string.Empty;
+            if (string.IsNullOrEmpty(i.MediaContent.PlainTextDescription))
+            {
+                textDes = string.Empty;
+            }
+            else
+            {
+                textDes = i.MediaContent.PlainTextDescription;
+            }
+            if (addedEvent != null)
+            {
+                <div class="package-item event-selected">
+                    <span><i class="fas fa-check-circle fa-2x checked"></i></span>
+                    <figure class="package-img">
+                        <a href="javascript:void(0);">
+                            @Html.Image(addedEvent.MediaContent.Image, "Photo", "event-img")
+                        </a>
+                    </figure>
+                    <div class="package-text">
+                        <div class="package-name">
+                            <div class="event-title"><span>@addedEvent.EventName</span></div>
+                        </div>
+                        <p>@Html.Raw(i.Source != null && i.Source.Trim() == ApiNames.Tiqets ? htmlDes : textDes)</p>
+                        <div class="price-box">
+
+                            <span class="price separately">
+                                EVENT CATEGORY:
+                                <ins>@eventTypeName</ins>
+                            </span>
+                            <span class="price separately">
+                                Selected GUEST #:
+                                <ins>@cart.Where(x => x.EventTemplateId == i.EventTemplateId).Select(x => x.PAXCount).FirstOrDefault()</ins>
+                            </span>
+                            @if (i.Source == null)
+                            {
+                                <span class="price separately">
+                                    Price/Guest:
+                                    <ins>@(i.HidePriceInTariff ? "T.B.D" : CurrencyConverter.ToPriceString(addedEvent.PricePerPAX))</ins>
+                                </span>
+                            }
+                            <span class="price separately">
+                                TOTAL PRICE:
+                                <ins>@(i.HidePriceInTariff ? "T.B.D" : CurrencyConverter.ToPriceString(addedEvent.TotalSellPrice))</ins>
+                            </span>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="text-right">
+                            <!--BEGIN ROW-->
+                            <!--View Details Button-->
+                            <div class="event-btns">
+
+                                @if (dmcOption.EnableStandardEventStock && Model.EventSource != ApiNames.Tiqets.ToString())
+                                {
+                                    <a class="eo-item eoi-btn btn btn-primary btn-sm " data-toggle="collapse" href="#collapseDates_@i.EventTemplateId " role="button" aria-expanded="false" aria-controls="collapseOne">Available Dates</a>
+                                    <a class="eo-item eoi-btn btn btn-danger btn-sm " data-toggle="collapse" href="#collapseDates_@i.EventTemplateId " role="button" aria-expanded="false" aria-controls="collapseOne">Quit</a>
+                                    <a class="eo-item eoi-btn btn btn-primary btn-sm " href="/Summary/Index?orderId=@cart.TempData["OrderId"]@(!string.IsNullOrEmpty(bId) ? "&bId=" + bId + "" : "")" role="button">Checkout<i class="fa fa-shopping-cart"></i><span class="cart-amount"> @cart.Count()</span></a>
+
+                                }
+                                else
+                                {
+                                    <!--Quit Event Button-->
+                                    <span class=" quit-btn-container">
+                                        <button type="button" class="awe-btn awe-btn-3 awe-btn-small btn-danger" data-identifier="@addedEvent.Identifier" onclick="Catalog.Remove(this);">Quit Event</button>
+                                    </span>
+                                    <!--Edit Event Button-->
+                                    <span class="edit-btn-container">
+                                        <button type="button" class="awe-btn awe-btn-1 awe-btn-small join-event-btn" data-identifier="@addedEvent.Identifier" onclick="Catalog.editEvent(this)">Edit</button>
+                                    </span>
+
+                                }
+                                <!--View Details Button-->
+                                <span class="view-details-btn-container">
+                                    <button type="button" class="awe-btn awe-btn-3 awe-btn-small" data-eventtemplateid="@addedEvent.EventTemplateId" onclick="Catalog.viewMoreEventTemplate('@Html.GenerateEventUrl(i)', this)">View Details</button>
+                                </span>
+
+                            </div>
+                            <div class="clearfix"></div>
+                            <!--END ROW-->
+                        </div>
+                    </div>
+
+                    @if (dmcOption.EnableStandardEventStock && Model.EventSource != ApiNames.Tiqets.ToString())
+                    {
+                        var addedEventList = cart.FindAllAddedEvent(i).Select(a => (int)((StandardEvent)a).EventTemplateDateId).ToList();
+                        var addedEventLists = cart.FindAllAddedEvent(i).Select(a => new { ((StandardEvent)a).EventTemplateDateId, ((StandardEvent)a).Identifier }).ToList();
+                        var eventTemplateId = addedEventLists.Select(x => x.EventTemplateDateId).ToList();
+                        var eventList = EventTemplateDates.GetWeeklyAvailableDates(i.EventTemplateId, null, workTimeZone).ToList();
+                        var selectEventList = EventTemplateDates.GetEventTemplateDate(addedEventList);
+                        var nonSelectedEventDates = eventList.Where(a => !addedEventList.Contains(a.EventTemplateDateId)).ToList();
+                        selectEventList.AddRange(nonSelectedEventDates.Take(7 - selectEventList.Count));
+
+                        <div class="availabe-dates">
+                            <div class="row" style="padding: 2px 0">
+                                <div class="options">
+                                    <div id="accordion">
+                                        <div class="card">
+                                            <div class="card-header" id="headingOption">
+                                                <h5 class="option_bar" style="padding:20px">
+                                                    <a class="" data-toggle="collapse" href="#collapseDates_@i.EventTemplateId" role="button" aria-expanded="false" aria-controls="collapseOne" style="color:white">Available Dates</a>
+                                                    <i class="fa fa-angle-down"></i>
+                                                </h5>
+                                            </div>
+
+                                            <div id="collapseDates_@i.EventTemplateId" class="collapse" data-parent="#accordion" style="max-height: 500px; overflow: auto;">
+                                                <div class="card-body">
+                                                    <div id="availableDatesSection_@i.EventTemplateId">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Dates</th>
+                                                                        <th>Quantity Available</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="availableDateList_@i.EventTemplateId">
+                                                                    @{Html.RenderPartial("_availableDatesListsViewMore", selectEventList);}
+                                                                </tbody>
+                                                            </table>
+                                                            @{
+                                                                var ld = selectEventList.Last();
+                                                                var lastCombDate = new DateTime(ld.StartDate.Value.Year, ld.StartDate.Value.Month, ld.StartDate.Value.Day, ld.StartTime.Value.Hour, ld.StartTime.Value.Minute, ld.StartTime.Value.Second);
+
+                                                            }
+                                                            @if (selectEventList.Count > 6)
+                                                            {
+                                                                <div class="row text-center ViewmoreDiv">
+                                                                    <a href="javascript:void(0);" name="viewmore" id="view_@ld.EventTemplateId" data-id="@ld.EventTemplateId" data-lastdate="@lastCombDate" data-name="ViewMore">View More</a>
+                                                                </div>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="package-item" id="@i.EventTemplateId">
+                    <figure class="package-img">
+                        <a href="javascript:void(0);">
+                            @Html.Image(i.MediaContent.Image, "Photo", "event-img")
+                        </a>
+                    </figure>
+                    <div class="package-text">
+                        <div class="package-name">
+                            <div class="event-title">
+                                <a href="javascript:void(0)">@i.EventName</a>
+                            </div>
+                        </div>
+                        <p>@(Html.Raw(i.Source != null && i.Source.Trim() == ApiNames.Tiqets ? htmlDes : textDes))</p>
+                        <div class="price-box">
+                            <span class="price separately">
+                                EVENT CATEGORY:
+                                <ins>@eventTypeName</ins>
+                            </span>
+                            <span class="price separately">
+                                Min GUEST #:
+                                <ins>@i.MinPAXCount</ins>
+                            </span>
+                            @*@if (i.Source == null)
+                                {
+                                    <span class="price separately">
+                                        Price/Guest:
+                                        <ins>@(i.HidePriceInTariff ? "T.B.D" : CurrencyConverter.ToPriceString(i.PricePerPAX)) </ins>
+                                    </span>
+                                }*@
+                            <span class="price separately">
+                                TOTAL PRICE:
+                                <ins>@(i.HidePriceInTariff ? "T.B.D" : CurrencyConverter.ToPriceString(i.TotalSellPrice))</ins>
+                            </span>
+
+                        </div>
+                        <!--BEGIN EVENT BUTTONS-->
+                        <!--END EVENT BUTTONS-->
+                        <div class="clearfix"></div>
+                        <div class="text-right">
+                            <!--BEGIN ROW-->
+                            <!--View Details Button-->
+                            <div class="event-btns">
+                                <!--View Details Button-->
+                                <span class="view-details-btn-container">
+                                    <button type="button" class="awe-btn awe-btn-3 awe-btn-small" data-eventtemplateid="@i.EventTemplateId" onclick="Catalog.viewMoreEventTemplate('@Html.GenerateEventUrl(i)', this)">Details</button>
+                                </span>
+                                <span class="join-event-btn-container">
+
+                                    @if (dmcOption.EnableStandardEventStock && Model.EventSource != ApiNames.Tiqets.ToString())
+                                    {
+                                        <a class="eo-item eoi-btn btn btn-primary btn-sm" data-toggle="collapse" href="#collapseDates_@i.EventTemplateId" role="button" aria-expanded="false" aria-controls="collapseOne">Available Dates</a>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="awe-btn awe-btn-1 awe-btn-small join-event-btn" onclick="Catalog.ScheduleEvent('@i.EventTemplateId',this)">
+                                            <span class="fa fa-edit"></span>
+                                            Schedule
+                                        </button>
+                                    }
+
+                                </span>
+                            </div>
+                            <!--END ROW-->
+                        </div>
+                    </div>
+
+
+                    @if (dmcOption.EnableStandardEventStock && Model.EventSource!=ApiNames.Tiqets.ToString())
+                    {
+                        var addedEventList = cart.FindAllAddedEvent(i).Select(a => (int)((StandardEvent)a).EventTemplateDateId).ToList();
+                        var addedEventLists = cart.FindAllAddedEvent(i).Select(a => new { ((StandardEvent)a).EventTemplateDateId, ((StandardEvent)a).Identifier }).ToList();
+                        var eventTemplateId = addedEventLists.Select(x => x.EventTemplateDateId).ToList();
+                        var eventList = EventTemplateDates.GetWeeklyAvailableDates(i.EventTemplateId, null, workTimeZone).ToList();
+                        var selectEventList = EventTemplateDates.GetEventTemplateDate(addedEventList);
+                        var nonSelectedEventDates = eventList.Where(a => !addedEventList.Contains(a.EventTemplateDateId)).ToList();
+                        selectEventList.AddRange(nonSelectedEventDates.Take(7 - selectEventList.Count));
+
+                        <div class="col-md-12 availabe-dates">
+                            <div class="row" style="padding: 2px 0">
+                                <div class="options">
+                                    <div id="accordion">
+                                        <div class="card">
+                                            <div class="card-header" id="headingOption">
+                                                <h5 class="option_bar" style="padding:20px">
+                                                    <a class="" data-toggle="collapse" href="#collapseDates_@i.EventTemplateId" role="button" aria-expanded="false" aria-controls="collapseOne" style="color:white">Available Dates</a>
+                                                    <i class="fa fa-angle-down"></i>
+                                                </h5>
+                                            </div>
+
+                                            <div id="collapseDates_@i.EventTemplateId" class="collapse" data-parent="#accordion" style="max-height: 500px; overflow: auto;">
+                                                <div class="card-body">
+                                                    <div id="availableDatesSection_@i.EventTemplateId">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Dates</th>
+                                                                        <th>Quantity Available</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="availableDateList_@i.EventTemplateId">
+                                                                    @{Html.RenderPartial("_availableDatesListsViewMore", selectEventList);}
+                                                                </tbody>
+                                                            </table>
+                                                            @{
+                                                                var ld = selectEventList.Last();
+                                                                var lastCombDate = new DateTime(ld.StartDate.Value.Year, ld.StartDate.Value.Month, ld.StartDate.Value.Day, ld.StartTime.Value.Hour, ld.StartTime.Value.Minute, ld.StartTime.Value.Second);
+
+                                                            }
+                                                            @if (selectEventList.Count > 6)
+                                                            {
+                                                                <div class="row text-center ViewmoreDiv">
+                                                                    <a href="javascript:void(0);" name="viewmore" id="view_@ld.EventTemplateId" data-id="@ld.EventTemplateId" data-lastdate="@lastCombDate" data-name="ViewMore">View More</a>
+                                                                </div>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+            }
+        }
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <p class="text-center"><strong>No event is available. Please change the search criteria.</strong></p>
+            </div>
+        </div>
+    }
+
+    @*<div class="clearfix"></div>*@
+    <!--Checkout Button-->
+    <div class="clearfix"></div>
+
+    <div class="page-navigation-cn">
+
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                @Html.RenderPageInfo(events.PageNum, events.PageSize, events.RecordCount)
+                @Html.Hidden("pageNum", events.PageNum)
+                @Html.Hidden("pageCount", events.PageCount)
+                @Html.Hidden("backurl")
+                @Html.Hidden("AddedEventCount", cart.Count)
+
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="catalog-pagination">
+                    @Html.RenderPager(events.PageNum, events.PageCount)
+                    <div class="form-group page-size-selector col-md-4 col-sm-4 col-xs-12">
+                        @Html.RenderPageSizeSelect("pageSize", events.PageSize)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <button type="button" class="proceed-btn checkout-btn btn-shoppingcart"><span>Proceed</span><i class="fas fa-chevron-right checkout-icon"></i></button>
+    </div>
+    
+</div>
+<!-- /.box-body -->

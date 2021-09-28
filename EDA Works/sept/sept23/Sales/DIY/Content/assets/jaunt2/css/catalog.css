@@ -1,0 +1,21 @@
+body {
+	position: relative !important;
+}
+/* updated on sept3 2021 */
+#wrap #header {
+	background-color: #303030 !important;
+	height: auto;
+	/* border: 0px solid red; */
+}
+
+#wrap footer {
+	background-color: #252525 !important;
+}
+
+#wrap .sub-banner .bg-parallax {
+	display: none !important;
+}
+
+.cart-btn {
+	color: #fff !important;
+}

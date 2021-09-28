@@ -1,0 +1,45 @@
+﻿@model guestACCESS.ClientWeb.Models.PaxEmailTemplateModel
+@{var isEmail = Model.EmailType; }
+
+<div class="col-md-12">
+    @if (isEmail == true)
+    {
+        <div class="row">
+            <label for="Subject" class="col-form-label col-md-2">Subject</label>
+            <div class="col-md-10">
+                <div class="form-group">
+                    @Html.TextBoxFor(a => a.Subject, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <label class="col-form-label col-md-2">Content</label>
+        <div class="col-md-10">
+            <div class="form-group">
+                @Html.TextAreaFor(a => a.Content, new { @class = "form-control", rows = "5" })
+            </div>
+        </div>
+    </div>
+</div>
+@if (isEmail == true)
+{
+    <div class="col-md-12">
+        <div class="row">
+            <label for="attachment" class="col-form-label col-md-4 paddingright0">Attachment</label>
+            <div class="col-md-7 ">
+                <input class="tempms" type="file" name="attachment" multiple />
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(t => t.EmailType)
+}
+@if (isEmail == false)
+{
+    <div class="text-center">
+        @*<button type="button" class="btn btn-danger text-left" id="creditBtn">Buy SMS Credit</button>*@
+        <strong id="creditPointHolder" style="float:right">Credit Points: @ViewBag.CreditPoint</strong>
+    </div>
+}
+
+

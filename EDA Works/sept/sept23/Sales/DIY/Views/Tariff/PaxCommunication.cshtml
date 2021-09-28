@@ -1,0 +1,56 @@
+﻿
+
+<div id="modal-communication" class="modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: black; color: white;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-weight: 900; color: white;">×</span>
+                </button>
+                <h4 class="modal-title">Communication</h4>
+            </div>
+            @using (Html.BeginForm("SendPaxEmailSms", "Tariff", FormMethod.Post, new { id = "PaxCommunication", autocomplete = "off", enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label class="col-md-2 col-form-label">Sender Type</label>
+                                        <div class="col-md-10">
+                                            @{
+                                                var communicationList = EnumHelper.GetSelectList(typeof(CommunicationType));
+                                            }
+                                            @Html.DropDownList("SendMethod", communicationList, new { @class = "form-control" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="col-md-12 text-center">
+                                    <p style="color: red">Note:- Please use {ContactName} for Group Contact</p>
+                                </div>
+                                <div class="form-body">
+                                    <div class="form-group row">
+                                        <div id="ContentSection"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    @Html.Hidden("TripId", (string)ViewData["TripId"])
+                    @Html.Hidden("SenderName")
+                    @Html.Hidden("SenderEmail")
+                    <button type="submit" class="btn btn-primary" id="submitSmsAndEmail">Send</button>
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
