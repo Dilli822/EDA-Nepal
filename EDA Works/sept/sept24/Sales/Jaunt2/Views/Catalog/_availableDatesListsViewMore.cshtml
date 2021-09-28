@@ -1,0 +1,90 @@
+﻿@model List<guestACCESS.Kernel.ReferenceData.EventTemplateDates>
+@using guestACCESS.ClientWeb
+@using guestACCESS.WebCommon
+@using guestACCESS.eCommerce
+@using guestACCESS.eCommerce.StandardSource
+@using guestACCESS.Kernel.ReferenceData
+@{
+    var cart = ShoppingCart.GetShoppingCartofCurrentUser();
+}
+
+@if (Model.Any())
+{
+    var ld = Model.Last();
+    var lastCombDate = new DateTime(ld.StartDate.Value.Year, ld.StartDate.Value.Month, ld.StartDate.Value.Day, ld.StartTime.Value.Hour, ld.StartTime.Value.Minute, ld.StartTime.Value.Second);
+    var se = new StandardEvent(new guestACCESS.Kernel.ReferenceData.EventTemplate(Model.First().EventTemplateId.Value));
+    StandardEvent addedEvent = cart.FindFirstAddedEvent(se) as StandardEvent;
+
+    var eventList = new List<EventTemplateDates>
+    ();
+
+    var addedEventList = cart.FindAllAddedEvent(se).Select(a => new { ((StandardEvent)a).EventTemplateDateId, ((StandardEvent)a).Identifier }).ToList();
+    var selectEventDates = Model.Where(a => addedEventList.Select(x => x.EventTemplateDateId).Contains(a.EventTemplateDateId)).ToList();
+    var nonSelectedEventDates = Model.Where(a => !addedEventList.Select(x => x.EventTemplateDateId).Contains(a.EventTemplateDateId)).ToList();
+
+
+    if (ViewData["IsAjaxReq"] != null)
+    {
+        eventList = nonSelectedEventDates;
+    }
+    else
+    {
+        selectEventDates.AddRange(nonSelectedEventDates.Take(7 - selectEventDates.Count));
+        eventList = selectEventDates;
+    }
+
+    foreach (var item in eventList)
+    {
+        item.Identifier = addedEventList.Where(x => x.EventTemplateDateId == item.EventTemplateDateId).Select(x => x.Identifier).FirstOrDefault();
+        var cls = string.Empty;
+        int datetimeComp = item.StartDate.HasValue && item.EndDate.HasValue ? DateTime.Compare(item.StartDate.Value, item.EndDate.Value) : 0;
+        if ((addedEvent != null && addedEventList.Select(x => x.EventTemplateDateId).Contains(item.EventTemplateDateId)))
+        {
+            cls = "event-selected";
+        }
+
+
+
+        if (item.AvailableStock > 0)
+        {
+            <tr class="@cls">
+                <td>
+                    @if (datetimeComp == 0)
+                    {
+                        @(item.StartDate.Value.ToString("dddd, MMMM dd yyyy") + " "+item.StartTime.Value.ToString("hh:mm tt") + " to" + item.EndTime.Value.ToString("hh:mm tt"));
+                    }
+                    else
+                    {
+                        @(item.StartDate.Value.Date.ToString("dddd, MMMM dd yyyy")+" "+ item.StartTime.Value.ToString("hh:mm tt")+"-"+ item.EndDate.Value.Date.ToString("dddd, MMMM dd yyyy")+" "+ item.EndTime.Value.ToString("hh:mm tt"));
+                    }
+                </td>
+                <td>@item.AvailableStock</td>
+                <td>
+                    @if (addedEvent != null && addedEventList.Select(x => x.EventTemplateDateId).Contains(item.EventTemplateDateId))
+                    {
+                        <div class="eo-item eoi-btn">
+                            <a class=" btn btn-primary btn-sm right" data-identifier="@item.Identifier" data-eventtemplatedateid="@item.EventTemplateDateId" onclick="Catalog.editEvent(this)" style="margin-left:5px">
+                                Edit
+                            </a>
+                            <a class="btn btn-danger btn-sm right" data-identifier="@item.Identifier" data-eventtemplatedateid="@item.EventTemplateDateId" onclick="Catalog.Remove(this)">
+                                Quit
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="eo-item eoi-btn btn btn-primary btn-sm right" data-eventtemplateid="@item.EventTemplateId" data-eventtemplatedateid="@item.EventTemplateDateId" onclick="Catalog.BookNow(this)">
+                            <span class="fas fa-shopping-cart"></span>
+                            Add to Cart
+                        </a>
+                    }
+
+                </td>
+            </tr>
+        }
+
+    }
+    <input type="hidden" data-id="lastCombDate_@Model.Last().EventTemplateId" value="@lastCombDate" />
+    <input type="hidden" data-id="dateCount_@Model.Last().EventTemplateId" value="@Model.Count" />
+}
+
