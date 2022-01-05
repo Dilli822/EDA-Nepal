@@ -1,0 +1,21 @@
+
+Conditionals
+Loops
+Arrow funtions 
+Functions
+Lexical structure
+Events
+Handling Events
+How lexical Strcuture works 
+Destructuring 
+Named and Default Imports.
+Callbacks functions
+Passing Functions
+Reference and Value
+Advanced Array methods
+Immutable and mutable objects in Js
+OOP in Js
+Asychronous JS code
+promises asynch
+Concept of Modules
+Concept of ES6.
