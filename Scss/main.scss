@@ -1,0 +1,57 @@
+
+
+
+// Default
+$default_padding: 0;
+$default_margin: 0;
+$default_box-sizing: border-box;
+
+// Variables in CSS 
+:root{
+    --primary-color: #000;
+    --accent-color: #ff4546;
+}
+
+// Variables in SCSS
+$primary-color: #000;
+$accent-color: #ff4546;
+$text-color: #fff;
+$font-weights: (
+    "regular": 400,
+    "medium": 500,
+    "bold": 700
+);
+
+$c_font-weights: (
+    "lighter": 300,
+    "lightiest": 100,
+    "boldest": 900,
+);
+
+// Nesting in SCSS
+.parent{
+    max-width: 800px;
+    background-color: $primary-color;
+    color: $text-color;
+
+    .child{
+        border: 1px solid red;
+        background-color: $accent-color;
+        width: 50%;
+        min-height: 200px;
+    }
+}
+
+
+*{
+    padding: $default_padding;
+    margin: $default_margin;
+    box-sizing: $default_box-sizing;
+}
+
+
+p{
+    background: $primary-color;
+    color: $text-color;
+    font-weight: map-get($c_font-weights, boldest);
+}

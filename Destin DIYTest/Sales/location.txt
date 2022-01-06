@@ -1,0 +1,5 @@
+Sales 
+C:\inetpub\wwwroot\NexGen\Test\Sales\DIY\Content\assets\jaunt2\css
+
+OpenToWeb
+C:\inetpub\wwwroot\NexGen\Test\Sales\DIY\Content\assets\openToWeb

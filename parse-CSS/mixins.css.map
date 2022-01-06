@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../learn/scrolling-effects/scss/mixins.scss"
+    ],
+    "names": [],
+    "file": "mixins.css"
+}
