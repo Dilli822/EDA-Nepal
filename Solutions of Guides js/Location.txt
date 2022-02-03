@@ -1,0 +1,4 @@
+-- _LayoutDIY.cshtml
+C:\inetpub\wwwroot\NexGen\Test\Admin\NFL DIY\Views\Shared
+--- UserDashboard
+C:\inetpub\wwwroot\NexGen\Test\Admin\NFL DIY\Areas\AdminDomain\Views

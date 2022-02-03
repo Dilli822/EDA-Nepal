@@ -1,0 +1,37 @@
+﻿@using NGX.Web.Areas.AdminDomain.Models
+@model UserDashboardMedia
+@using (Html.BeginForm("UploadMedia", "UserDashboard", FormMethod.Post, new { id = "DashboardMediaForm" }))
+{
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Documents</h3>
+            <br />
+            @if (Model.Medias != null)
+            {
+            <div class="row">
+                @foreach (var i in Model.Medias)
+                {
+                <div class="col-lg-2 col-md-2 text-center" style="margin-bottom:10px;">
+                    <a href="@(WebConfigValues.StaticContentSiteUrl + "//uploadfiles//" + @i.MediaContent)">@i.MediaContent</a>
+                    <br />
+                    <button type="button" class="btn btn-danger btn-xs" data-action="DeleteMedia" data-tmid="@i.MediaId">Delete</button>
+                </div>
+                }
+            </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="dashboardFileUploadContainer" class="dropzone">
+            </div>
+        </div>
+        <br />
+        <div class="col-md-12">
+            <button type="button" data-action="uploadFile" class="btn btn-info pull-right">Save</button>
+        </div>
+    </div>
+    <hr />
+
+}

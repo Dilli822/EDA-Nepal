@@ -1,0 +1,429 @@
+﻿@using NGX.Web.Areas.AdminDomain.Models
+@model UserDashboardModel
+@{
+    ViewBag.Title = "DIY Dashboard";
+    Layout = "~/Views/Shared/_LayoutDIY.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" />
+    <style type="text/css">
+        .fc-event {
+            background-color: #00bcd4 !important;
+        }
+
+        .dropdown-menu.dropdown-menu-right.show {
+            z-index: 1030;
+        }
+    </style>
+    @*<link href="~/Content/assets/plugins/calendar/dist/fullcalendar.min.css" rel="stylesheet" />*@
+    @*<style>
+        .fc-header td {
+            white-space: nowrap !important;
+            padding: 15px 10px 0px !important;
+        }
+
+        .fc-state-disabled {
+            cursor: default;
+            background-image: none;
+            background-color: #FFE3E3 !important;
+            filter: alpha(opacity=65);
+            box-shadow: none;
+            border: 1px solid #FFE3E3;
+            color: #ff3b30;
+        }
+
+        span.fc-button {
+            font-family: 'Roboto', sans-serif !important;
+            border-color: #9675ce !important;
+            color: #9675ce !important;
+        }
+
+        table.fc-header {
+            background-color: #FFFFFF !important;
+            border-radius: 6px 6px 0 0 !important;
+        }
+
+        .fc-widget-header th {
+            font-family: 'Roboto', sans-serif;
+            background: #9675ce !important;
+            color: #FFF;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            line-height: 30px;
+        }
+
+        .fc-title {
+            font-family: 'Roboto', sans-serif;
+            background: #03a9f3 !important;
+            color: #FFF !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            padding: 6px 12px 6px 7px !important;
+            line-height: 2 !important;
+        }
+        .fc-event {
+            border-radius: 0px;
+            border: none;
+            cursor: move;
+            color: #ffffff !important;
+            font-size: 13px;
+            margin: 1px -1px 0 -1px;
+            padding: 5px 5px;
+            text-align: center;
+            background: #1e88e5;
+        }
+
+        .fc-day-number {
+            font-size: 15px !important;
+            margin: 2px !important;
+            min-width: 19px !important;
+            padding: 6px !important;
+            text-align: center !important;
+            width: 30px !important;
+            height: 30px !important;
+            display: inline-block;
+        }
+
+        .fc-row .fc-content-skeleton .fc-day-top:hover .fc-day-number {
+            background-color: #B8B8B8 !important;
+            border-radius: 50% !important;
+            color: #FFFFFF !important;
+            transition: background-color 0.2s !important;
+        }
+
+        .fc-event {
+            border: none !important;
+        }
+
+        .fc-toolbar h2 {
+            margin: 11px 0px 0px 16px !important;
+        }
+
+        button.fc-button {
+            font-family: 'Roboto', sans-serif;
+            border-color: #9675ce;
+            color: #9675ce;
+        }
+
+        .fc-agendaDay-button.fc-button.fc-state-default {
+            min-width: 77px;
+            background: white;
+            margin: 17px 0 0 0;
+        }
+
+        .fc-agendaWeek-button.fc-button.fc-state-default {
+            min-width: 77px;
+            background: white;
+            margin: 17px 0 0 0;
+        }
+
+        .fc-month-button.fc-button.fc-state-default {
+            min-width: 77px;
+            background: white;
+            margin: 17px 0 0 0;
+        }
+
+        .fc-prev-button {
+            min-width: 59px;
+            background: white;
+            margin-top: 17px !important;
+        }
+
+        .fc-next-button {
+            min-width: 59px;
+            background: white;
+            margin-top: 17px !important;
+        }
+
+        .fc-today-button {
+            min-width: 60px;
+            margin-top: 17px !important;
+        }
+
+        td.fc-day-top.fc-tue.fc-today span.fc-day-number {
+            color: white;
+            background: red;
+            border-radius: 50%;
+        }
+
+        .fc td, .fc th {
+            border-width: 0px !important;
+        }
+
+        .table-responsive {
+            min-height: 350px;
+        }*@
+
+
+    @*</style>*@
+}
+
+@section scripts {
+    <!-- chartist chart -->
+    <script src="/Content/assets/plugins/chartist-js/dist/chartist.js"></script>
+    <script src="/Content/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <!-- Vector map JavaScript -->
+    <script src="/Content/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="/Content/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+    <script src="/Content/assets/plugins/moment/moment.js"></script>
+    <script src="/Content/assets/plugins/calendar/dist/fullcalendar.min.js"></script>
+    <!-- sparkline chart -->
+    <script src="/Content/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!-- accounting -->
+
+    <script src="/Content/assets/plugins/accounting/accounting.min.js"></script>
+    <script src="/Content/Scripts/paginationObject.js"></script>
+    <script src="/Content/PageScripts/AdminDomain/UserDashboard/Index.js"></script>
+    <script src="~/Content/PageScripts/AdminDomain/Trip/Index.js"></script>
+    <script src="/Content/PageScripts/AdminDomain/TripNote/Index.js"></script>
+    <script src="~/Content/assets/plugins/jquery.form/jquery.form.min.js"></script>
+    <script src="/Content/assets/plugins/dropzone-master/dist/dropzone.js"></script>
+    <script src="~/Content/assets/plugins/jQuery-Articulate/articulate.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#speakCalendar").on('click',function () {
+                $('div.calendarSpeak').articulate('speak');
+                },
+            );
+            $("#dashboardArticle").on('click', function () {
+                $('div.dashboardSpeak').articulate('speak');
+            },
+            );
+            graphWidgetHelper.url = '@Url.Action("GraphWidget", "UserDashboard")';
+            graphWidgetHelper.startDate = '@Model.StartDate';
+            graphWidgetHelper.endDate = '@Model.EndDate';
+            graphWidgetHelper.mode = '@Model.Mode';
+            graphWidgetHelper.individualUserId = '@Model.IndividualUserId';
+            graphWidgetHelper.pageUrl = "/AdminDomain/UserDashboard/Index?mode=@UserDashboardModel.MyPrograms";
+            graphWidgetHelper.init();
+            graphWidgetHelper.loadData();
+
+            var cw = new calendarWidget();
+            cw.mode = '@Model.Mode';
+            cw.individualUserId = '@Model.IndividualUserId';
+            cw.eventSourceUrl = '@Url.Action("Calendar", "TripNote")';
+            cw.listUrl = "@Url.Action("ToDoList", "TripNote")";
+            cw.createUrl = "@Url.Action("Create", "TripNote")";
+            cw.editUrl = "@Url.Action("Edit", "TripNote")";
+            cw.deleteUrl = "@Url.Action("Delete", "TripNote")";
+            cw.setStatusUrl = "@Url.Action("SetStatus", "TripNote")";
+            cw.exportUrl = "@Url.Action("Export", "TripNote")";
+            cw.manifestUrl = "@Url.Action("Index", "Participant")";
+            cw.eventListUrl = "@Url.Action("Index", "EventTariff")";
+            cw.reportsUrl = "@Url.Action("Index", "TripReport")";
+            cw.contractUrl = "@Url.Action("Index", "ContractGeneration", new { area = "admindomain" })";
+            cw.vendorurl = '@Url.Action("Index", "PlannerPO", new { area="admindomain"})';
+            cw.getProgramsListUrl = "@Url.Action("DIYProgramList", "UserDashboard")";
+            cw.init();
+
+            var s = new tripList();
+            s.deleteUrl = '@Url.Action("Delete","Trip")';
+            s.init();
+            $("#demo").removeClass('show');
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#takeguidetour').click(function () {               
+                let temp = document.getElementById('demoactionlink');
+                let programs = document.getElementById('divPastProgramsList');
+                programs.setAttribute("hidden", true);
+                temp.removeAttribute("hidden");                
+                
+                var guides = $.guides({
+                    guides: [
+                    {
+                        element: $('#takeguidetour'),
+                        html: 'Click Here To Know About Our Page'
+                    },                    
+                    {
+                        element: $('#articulate'),
+                        html: 'Convert Into Different Currencies From Here'
+                    }, 
+
+                    
+                    {
+                        element: $('#3'),
+                        html: 'My Reports is there as a quick view of all group programs in the system can be accessed to view & print various reports from Program Spreadsheet where you can view GP$ and more'
+                    },
+
+                    
+                    {
+                        element: $('#4'),
+                        html: 'My Activities/Supplies is where you will be able to build your own library of dynamic Events comprised of activities & supplies from a particular Supplier.  These dynamic Events will become your Catalog of Events to be used ongoingly in any group and they are uniquely yours'
+                    },
+
+                    
+                    {
+                        element: $('#5'),
+                        html: 'My Suppliers is exactly that, your Suppliers.  Each Supplier has their own Category.  For example a hotel has a Category of Accommodations.  The Supply for Accommodations can be room types & associated costs, or it can be F&B sold by the hotel, which in this would be  shown as Type breakfast'
+                    },
+
+                    {
+                        element: $('#6'),
+                        html: 'User Management is where you can add users to your destinDIY platform.'
+                    },
+                    {
+                        element: $('#7'),
+                        html: 'Additional Fields is designed to give users complete control over what information they want to request of their guests during registration, or it can be a field added to a specific report'
+                    }, 
+
+                    {
+                        element: $('#ActionDropdownProfile'),
+                        html: 'Click Here To see Action That You can Perform'
+                    },
+
+                    {
+                        element: $('#activitiesandsupplyid'),
+                        html: 'What makes destin different is that in travel Events are not linear, they can be comprised of several supplies / activities, or hundreds of supplies like in a Final Night Gala where there is everything from a dinner(meal); to the tables chairs and band'
+                    },
+
+                    {
+                        element: $('#vendorrequestsid'),
+                        html: 'Vendor Request are the purchase orders automatically generated as Events are added to your group and inside of an Event are both activities and supplies'
+                    },
+
+                    {
+                        element: $('#eproposalid'),
+                        html: 'e-Proposal is a digital proposal that can be sent electronically to whomever has to sign off, or approve your group travel program'
+                    },
+                 
+                    {
+                        element: $('#contractid'),
+                        html: 'Contract is the same here in destinDIY as a MS Word doc.  The difference here is the destinDIY Contract maintains “Terms & Conditions”; allows electronic signatures and more'
+                    },
+
+                    {
+                        element: $('#transportationid'),
+                        html: 'Ground Transportation/Air Tool is a key feature in destinDIY. Users can load guest manifest containing arrival and departure flights and easily schedule vehicles to perform transfers. There is a communication offering here that allows users to send email, or text messages.There is also the ability to have group air purchased via FlyUs templates'
+                    },
+
+                    {
+                        element: $('#reportsid'),
+                        html: 'Reports in this case are just about the specific group travel program you are working in.  The Dashboard Reports is where you can easily pull up reports from multiple groups without leaving on screen'
+                    },
+
+                    {
+                        element: $('#btndeleteid'),
+                        html: 'Delete is where you can remove the program in which you are working'
+                    },
+                    
+                    {
+                        html: 'End of A Tour ! Thank You :)'
+                    }],
+                    end: function (e) { Resetpastprogramlist(); }
+                });
+                guides.start();
+
+                function Resetpastprogramlist() {
+                    programs.removeAttribute("hidden");
+                    temp.setAttribute("hidden", true);
+                }
+            });
+        });
+    </script>
+}
+
+<article>
+    <div class="article" hidden>
+        <p>This is your group dashboard. The calendar is collapsable and you can go to any task by selecting Action. From here you can start a new group, view reprts or change the language and currency that you normally work with</p>
+
+        <p>Your calendar allows instant view of all your groups and if you want to color code you can. Add tasks to your to do list here.</p>
+
+    </div>
+</article>
+
+@Html.Partial("VideoPopup", "https://www.youtube.com/embed/IUN664s7N-c")
+
+<div class="calender card">
+    <button type="button" class="btn btn-primary" id="expand_btn"><i class="material-icons"> keyboard_arrow_down </i><b>Expand Calendar</b></button>
+    <button type="button" class="btn btn-primary" id="collapse_btn" style="display:none;"><i class="material-icons"> keyboard_arrow_up </i><b>Collapse Calendar</b> </button>
+
+    <div id="demo" class="collapse show">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="calendar"></div>
+            </div>
+            <div class="col-md-4">
+                <div class="todo-bg">
+                    <div class="todo-top" id="divTripLinks" style="display: none;">
+                        <h3 id="headingTripName"> </h3>
+                        <div class="tt-wrap">
+                            <button class="btn btn-info btn-sm" data-action="Manifest" title="Schedule Airport Transfers">Transportation Tool</button>
+                            <button class="btn btn-success btn-sm" data-action="Events">Build Inspiration</button>
+                            <button class="btn btn-primary btn-sm" data-action="Reports">Reports</button>
+                            <button class="btn btn-success btn-sm" data-action="VendorRequest" title="Vendor Requests & Pricing Updates">Need to Order</button>
+                            <button class="btn btn-warning btn-sm" title="For Client Signature" data-action="Contract">Contract</button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="to-top">
+                        <div class="to-head">
+                            <h4>To Do list</h4>
+                            <p>List of your next task to complete </p>
+                        </div>
+                        <div class="to-btnwrap">
+                            <button class="btn btn-sm btn-round btn-primary btn-block" id="btn-add-task">Add Task</button>
+                            <button class="btn btn-sm btn-round btn-warning m-r-10 btn-block" id="btn-export-task">Export</button>
+                            <button class="btn btn-sm btn-round btn-info m-r-10 btn-block" id="btn-preview-task">Preview</button>
+                        </div>
+                    </div>
+                    <div class="to-body">
+                        <div id="todo-list" class="to-do-widget m-t-20">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="MyGroupList">
+    <div class="col-lg-6 col-md-12">
+        <div class="card" id="divCurrentProgramsList">
+            <form id="frmCurrentPrograms"></form>
+        </div>
+    </div>
+
+     <div class="col-lg-6 col-md-12">
+        <div class="card" id="divPastProgramsList">
+            <form id="frmPastPrograms"></form>
+        </div>
+
+        <div class="" id="demoactionlink" hidden>
+            @* <div class="">
+                <h4 class="">Past Programs</h4>
+            </div>
+
+            <div class="">
+                <div class="" id=""> *@
+                    <table class="">
+                        <tbody>
+                            <tr>
+                                <td> <button type="button" id="ActionDropdownProfile" style="width:94%;">Action</button></td>                    
+                                <td>
+                                    <button  id="activitiesandsupplyid" style="width:94%;">Activities and Supplies</button>
+                                    <button  id="vendorrequestsid" style="width:94%;">Vendor Requests</button>
+                                    <button  id="eproposalid" style="width:94%;">e-Proposal</button>
+                                    <button  id="contractid" style="width:94%;">Contract</button>
+                                    <button  id="transportationid" style="width:94%;">Ground Transportation/Air Tool</button>
+                                    <button  id="reportsid" style="width:94%;">Reports</button>
+                                    <button  id="btndeleteid" style="width:94%;">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @* </div>
+            </div> *@
+            
+        </div>
+   
+    </div>
+</div>
+@Html.Hidden("IsDIY", "true")
