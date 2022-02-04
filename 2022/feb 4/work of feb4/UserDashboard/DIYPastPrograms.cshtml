@@ -1,0 +1,75 @@
+﻿@using guestACCESS.WebCommon
+@model NGX.Web.Areas.AdminDomain.Models.TripListModel
+@{
+    var listPastPrograms = Model.GetResultSet().ToList();
+}
+<div class="card-header card-header-warning">
+    <h4 class="card-title">Past Programs</h4>
+
+</div>
+<div class="card-body">
+    <div class="table-responsive" id="past-box">
+        <table class="table table-hover">
+            <thead class="text-primary">
+                <tr>
+                    <th>Group Name</th>
+                    <th>Guest</th>
+                    <th>Date</th>
+                    <th>Hotel</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (listPastPrograms != null && listPastPrograms.Count > 0)
+                {
+                    foreach (var group in listPastPrograms)
+                    {
+                        <tr>
+                            <td><a href="@Url.Action("DIYGroupInfo","Trip", new {id=group.TripId, area = "admindomain" })">@group.TripName</a></td>
+                            <td>@group.NumberOfPAX</td>
+                            <td>@(SharedLib.Misc.DateTimeFormatter.ConvertToString(group.StartDate, SharedLib.Misc.DateTimeFormatter.DefaultStyle))</td>
+                            <td>@(string.IsNullOrEmpty(group.HotelName)?"\"Unconfirmed\"":group.HotelName) / @group.CityName</td>
+                            <td class="show" >
+                                <a class="nav-link btn btn-sm" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Everything you need for your Group.">
+                                    Action
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                                    <a class="dropdown-item" title="Go here to make your group selections." href="@Url.Action("Index","EventTariff", new { id=group.TripId })">Activities and Supplies</a>
+                                    <a class="dropdown-item" title="Purchase Orders for all your group selections." href="@Url.Action("Index","PlannerPO", new { id=group.TripId })">Vendor Requests</a>
+                                    <a class="dropdown-item" title="Proposal created with your group selections." href="@Url.Action("Index","eproposal",new {id=group.TripId })">e-Proposal</a>
+                                    <a class="dropdown-item" title="Contract created with your group selections" href="@Url.Action("Index","ContractGeneration", new {tripId=group.TripId, area="admindomain" })">Contract  </a>
+                                    <a class="dropdown-item" title="Group Hotel, Group Air and Attendee Communication." href="@Url.Action("Index","Participant", new { id=group.TripId })">Ground Transportation/Air Tool</a>
+                                    <a class="dropdown-item" title="" href="@Url.Action("Index","TripReport", new { id=group.TripId })">Reports</a>
+                                    <button type="button" title="Delete program." style="width:94%;" class="dropdown-item" data-action="delete" data-id="@group.TripId">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No Group available</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row pagiwrap">
+        <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info">@Html.RenderPageInfo(Model.PageNum, Model.PageSize, Model.TotalRows)</div>
+        </div>
+        <div class="col-sm-12 col-md-7">
+            <div class="dataTables_paginate paging_full_numbers">
+                <ul class="pagination text-right">
+                    @Html.RenderPager2(Model.PageNum, Model.TotalPage)
+                    @Html.Hidden("pageNum", Model.PageNum)
+                    @Html.Hidden("pageCount", Model.TotalPage)
+                    @Html.Hidden("orderBy", Model.OrderBy)
+                    @Html.Hidden("orderByAscending", Model.OrderByAscending)
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

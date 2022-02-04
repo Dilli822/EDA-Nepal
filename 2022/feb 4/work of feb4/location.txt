@@ -1,0 +1,6 @@
+Guide.css
+C:\inetpub\wwwroot\NexGen\Test\Admin\NFL DIY\Content\assets\DIY\Css
+
+AdminDomain---- UserDashboard
+_LayoutDIY.cshtml
+C:\inetpub\wwwroot\NexGen\Test\Admin\NFL DIY\Views\Shared
