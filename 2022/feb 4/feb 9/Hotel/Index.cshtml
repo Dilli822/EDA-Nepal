@@ -1,4 +1,4 @@
-﻿@model NGX.Web.Models.LandingModel
+@model NGX.Web.Models.LandingModel
 @using guestACCESS.Kernel.DMCManagement;
 @using guestACCESS.Kernel.HotelBeds.ContentAPI;
 @using NGX.Web.Areas.RefDataManageDomain.Models;
@@ -12,6 +12,8 @@
 @{
     Layout = null;
     var landingModel = (LandigModel)ViewData["LandingModel"];
+    NGX.Web.Areas.HotelBookingDomain.Models.DetailsModel DetailsModel = new NGX.Web.Areas.HotelBookingDomain.Models.DetailsModel();
+    guestACCESS.Kernel.CarRental.CarRentalModels carrentalmodel = new guestACCESS.Kernel.CarRental.CarRentalModels();
 
     var isCustomize = landingModel.IsCustomize;
     var dmcInfo = (DMC)ViewData["DMCInfo"];
@@ -504,7 +506,13 @@ width:100%;
         </style>
     }
 
-   <style>
+    <style>
+
+    @@media (max-width: 576px){
+        .nav-homepage .nav-item {
+            padding: 0!important;
+        } }
+
     @@media (min-width: 480px){
     #Pills-tab-4, #Pills-tab-5{
         flex-wrap: nowrap;
@@ -521,8 +529,16 @@ width:100%;
         #Pills-tab-4 > li, #Pills-tab-5 > li {
           min-width: 100px!important;
       }
-    } 
+    }
+
+    @@media (max-width: 500px){
+        #pills-tab > li {
+            min-width: 100px!important;
+        }
+    }
     </style>
+
+
 </head>
 
 <body>
@@ -687,11 +703,11 @@ width:100%;
                             {
                                 if (flightOptions.Contains((int)EnableFlightBookingType.FlyUs) && Model.FlightUrl != null)
                                 {
-                                        var customflyus = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Flyus.GetDescription()) : null;
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="pills-flight-tab" data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="true">@(customflyus != null && !string.IsNullOrEmpty(customflyus.APIText) ? customflyus.APIText : "Flights")</button>
-                                            <img src="@(customflyus != null && !string.IsNullOrEmpty(customflyus.IconPath) ? HelperExtensions.ParseImagePath(customflyus.IconPath) : "/Content/assets/jaunt2/images/icon-flight.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-flight" role="tab" aria-controls="pills-flight" aria-selected="false">
-                                        </li>                                    
+                                    var customflyus = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Flyus.GetDescription()) : null;
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-flight-tab" data-bs-toggle="pill" data-bs-target="#pills-flight" type="button" role="tab" aria-controls="pills-flight" aria-selected="true">@(customflyus != null && !string.IsNullOrEmpty(customflyus.APIText) ? customflyus.APIText : "Flights")</button>
+                                        <img src="@(customflyus != null && !string.IsNullOrEmpty(customflyus.IconPath) ? HelperExtensions.ParseImagePath(customflyus.IconPath) : "/Content/assets/jaunt2/images/icon-flight.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-flight" role="tab" aria-controls="pills-flight" aria-selected="false">
+                                    </li>
                                 }
                             }
                             if (custom.Name == "HotelPlanner")
@@ -706,6 +722,20 @@ width:100%;
                                     </li>
                                 }
                             }
+
+                            if (custom.Name == "TukMein")
+                            {
+                                if (hoteloptions.Contains((int)EnabledHotelType.TukMein))
+                                {
+
+                                    var customTukMeIn = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.TukMein.GetDescription()) : null;
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-tukmein-tab" data-bs-toggle="pill" data-bs-target="#pills-tukmein" type="button" role="tab" aria-controls="pills-tukmein" aria-selected="true">@(customTukMeIn != null && !string.IsNullOrEmpty(customTukMeIn.APIText) ? customTukMeIn.APIText : "TukMeIn")</button>
+                                        <img src="@(customTukMeIn != null && !string.IsNullOrEmpty(customTukMeIn.IconPath) ? HelperExtensions.ParseImagePath(customTukMeIn.IconPath) : "/Content/assets/jaunt2/images/icon-hotel.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-tukmein" role="tab" aria-controls="pills-tukmein" aria-selected="false">
+                                    </li>
+                                }
+                            }
+
                             if (custom.Name == "Catalog")
                             {
                                 if (groupDashboard.EnableCatalog)
@@ -717,7 +747,7 @@ width:100%;
                                         <img src="@(customCatalog != null && !string.IsNullOrEmpty(customCatalog.IconPath) ? HelperExtensions.ParseImagePath(customCatalog.IconPath) : "/Content/assets/jaunt2/images/icon-vacation.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-specialEvent" role="tab" aria-controls="pills-specialEvent" aria-selected="false">
                                     </li>
                                 }
-                            } 
+                            }
                             if (custom.Name == "Carey")
                             {
                                 if (clientOptions.EnableHomePickDrop)
@@ -727,6 +757,19 @@ width:100%;
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-carey-tab" data-bs-toggle="pill" data-bs-target="#pills-carey" type="button" role="tab" aria-controls="pills-carey" aria-selected="true">@(customCarey != null && !string.IsNullOrEmpty(customCarey.APIText) ? customCarey.APIText : "Airport Home PickUp/DropOff")</button>
                                         <img src="@(customCarey != null && !string.IsNullOrEmpty(customCarey.IconPath) ? HelperExtensions.ParseImagePath(customCarey.IconPath) : "/Content/assets/jaunt2/images/icon-car.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carey" role="tab" aria-controls="pills-carey" aria-selected="false">
+                                    </li>
+                                }
+
+                            }
+                            if (custom.Name == "Car Rental")
+                            {
+                                if (clientOptions.EnableCarRental)
+                                {
+                                    var customCarRental = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.CarRental.GetDescription()) : null;
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-carrental-tab" data-bs-toggle="pill" data-bs-target="#pills-carrental" type="button" role="tab" aria-controls="pills-carrental" aria-selected="true">@(customCarRental != null && !string.IsNullOrEmpty(customCarRental.APIText) ? customCarRental.APIText : "Rent A CAR")</button>
+                                        <img src="@(customCarRental != null && !string.IsNullOrEmpty(customCarRental.IconPath) ? HelperExtensions.ParseImagePath(customCarRental.IconPath) : "/Content/assets/jaunt2/images/icon-car.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carrental" role="tab" aria-controls="pills-carrental" aria-selected="false">
                                     </li>
                                 }
 
@@ -770,6 +813,16 @@ width:100%;
                                 <img src="@(customHotelPlanner != null && !string.IsNullOrEmpty(customHotelPlanner.IconPath) ? HelperExtensions.ParseImagePath(customHotelPlanner.IconPath) : "/Content/assets/jaunt2/images/icon-hotel.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-hotels" role="tab" aria-controls="pills-hotels" aria-selected="true">
                             </li>
                         }
+                        @if (hoteloptions.Contains((int)EnabledHotelType.TukMein))
+                        {
+
+                            var customTukMein = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.TukMein.GetDescription()) : null;
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-tukmein-tab" data-bs-toggle="pill" data-bs-target="#pills-tukmein" type="button" role="tab" aria-controls="pills-tukmein" aria-selected="true">@(customTukMein != null && !string.IsNullOrEmpty(customTukMein.APIText) ? customTukMein.APIText : "Hotel")</button>
+                                <img src="@(customTukMein != null && !string.IsNullOrEmpty(customTukMein.IconPath) ? HelperExtensions.ParseImagePath(customTukMein.IconPath) : "/Content/assets/jaunt2/images/icon-hotel.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-tukmein" role="tab" aria-controls="pills-tukmein" aria-selected="false">
+                            </li>
+                        }
+
                         @if (flightOptions.Contains((int)EnableFlightBookingType.FlyUs))
                         {
                             var customflyus = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.Flyus.GetDescription()) : null;
@@ -798,6 +851,16 @@ width:100%;
                             </li>
                         }
 
+                        @if (clientOptions.EnableCarRental)
+                        {
+                            var customCarRentel = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.CarRental.GetDescription()) : null;
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-carrental-tab" data-bs-toggle="pill" data-bs-target="#pills-carrental" type="button" role="tab" aria-controls="pills-carrental" aria-selected="true">@(customCarRentel != null && !string.IsNullOrEmpty(customCarRentel.APIText) ? customCarRentel.APIText : "Rent A Car")</button>
+                                <img src="@(customCarRentel != null && !string.IsNullOrEmpty(customCarRentel.IconPath) ? HelperExtensions.ParseImagePath(customCarRentel.IconPath) : "/Content/assets/jaunt2/images/icon-car.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-carrental" role="tab" aria-controls="pills-carrental" aria-selected="false">
+                            </li>
+                        }
+
                         @if (groupDashboard.EnableCatalog)
                         {
                             var customCatalog = customDashboard != null ? customDashboard.FirstOrDefault(a => a.APIName == DashboardAPIUrls.CatalogActivities.GetDescription()) : null;
@@ -807,9 +870,6 @@ width:100%;
                                 <img src="@(customCatalog != null && !string.IsNullOrEmpty(customCatalog.IconPath) ? HelperExtensions.ParseImagePath(customCatalog.IconPath) : "/Content/assets/jaunt2/images/icon-vacation.png")" alt="Oops!.." data-bs-toggle="pill" data-bs-target="#pills-specialEvent" role="tab" aria-controls="pills-specialEvent" aria-selected="false">
                             </li>
                         }
-
-
-                        
                     </ul>
                 }
 
@@ -831,8 +891,7 @@ width:100%;
                                         <div class="row" id="tripListHotelBed">
                                             <div class="col-11 mb-3">
                                                 <label>Trips</label><br>
-                                                <select id="TripListHotelBed" class="select2" style="width: 100%" name="TripListHotelBed" required>
-                                                </select>
+                                                <select id="TripListHotelBed" class="select2" style="width: 100%" name="TripListHotelBed" required></select>
                                             </div>
                                         </div>
                                     }
@@ -925,7 +984,28 @@ width:100%;
                             <!-- End Search Flight -->
                         </div>
 
+                        <div class="tab-pane form-cn form-tukmein" id="pills-tukmein" role="tabpanel" aria-labelledby="pills-tukmein-tab">
+                            <!-- Search Tukmein-->
+                            @{
+                                //NGX.Web.Areas.HotelBookingDomain.Models.DetailsModel detailModel = new NGX.Web.Areas.HotelBookingDomain.Models.DetailsModel();
+                                ////carModel.OrderId = Model.AccessCode;
+                                ////carModel.PickDropDate = Model.StartDate;
+                                ////carModel.Trip = Model;
+                                //detailModel.TripId = Model.TripId;
+                                //detailModel.DMCId = Model.DmcId;
+                                ////detailModel.PaxId = Model.pax;
 
+                                Html.RenderPartial("/Views/Jaunt2Landing/_FormTukMein.cshtml", DetailsModel);
+
+                            }
+                            <!-- End Search -->
+                        </div>
+
+                        <div class="tab-pane form-cn form-carrental" id="pills-carrental" role="tabpanel" aria-labelledby="pills-carrental-tab">
+
+                            @{ Html.RenderPartial("/Views/Jaunt2Landing/_FormCarRental.cshtml", carrentalmodel);}
+
+                        </div>
 
                         <div class="tab-pane form-cn form-tiqetbooking" id="pills-activities" role="tabpanel" aria-labelledby="pills-activities-tab">
 
@@ -1150,6 +1230,8 @@ width:100%;
             landingPage.loadEventTypeUrl = '@Url.Action("GetEventType", "CacheData", new { area = "" })';
             landingPage.loadEventTypeWithDMCUrl = '@Url.Action("GetEventBasedOnCity", "CacheData", new { area = "" })';
             landingPage.hotelPlannerUrl = '@Model.HotelPlannerUrl';
+            landingPage.carRentUrl = '@Url.Action("CarRental", "EventTariff", new { area = "AdminDomain" })';
+            landingPage.TukMeinUrl = '@Url.Action("HotelSearch", "Hotel", new { area = "AdminDomain" })';
             landingPage.init();
 
             $(document).on('click', '.homepage-list li.nav-item', function () {
@@ -1203,7 +1285,7 @@ width:100%;
     }
     <!-- <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script> -->
 
-    <script>
+        <script>
         var elements = document.getElementById('pills-tab');
         console.log('id pills-tab---> ', elements);
         var childElements = elements.childElementCount;
