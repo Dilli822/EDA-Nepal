@@ -1,0 +1,383 @@
+﻿@*@model List<NGX.Web.Areas.HotelBookingDomain.Models.HotelSearchViewModel>*@
+@model NGX.Web.Areas.HotelBookingDomain.Models.DetailsModel
+@using guestACCESS.DataAccess.Entity
+@using guestACCESS.Kernel.VacencyServices;
+
+
+@{ 
+    UnitAvailable uA = new UnitAvailable();
+    var InvdropdownList = uA.GetListOfInvType().Select(n => new SelectListItem { Text = n, Value = n }).ToList();
+    var currentDate = DateTime.Now;
+    
+}
+
+<link href="~/Content/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+
+<style>
+    .goog-te-gadget .goog-te-combo {
+        margin: 1.5rem 0;
+    }
+
+    .goog-te-gadget .goog-te-combo {
+        color: #555;
+    }
+
+    select.goog-te-combo {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100%;
+        padding: 0;
+        position: absolute;
+        right: 5px;
+        top: 8px;
+        width: 40%;
+        background-color: #fff;
+    }
+    @@media only screen and (min-width: 990px) {
+        select.goog-te-combo {
+            width: 30%;
+            border: 1px solid #ddd;
+            top: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .goog-te-gadget {
+            margin: 1rem 0;
+            color: transparent !important;
+            padding: 1rem 0;
+        }
+    }
+
+    @@media (max-width: 767px) {
+        .header {
+            height: 90px;
+        }
+    }
+
+    .content{
+        position: absolute;
+        width: 100%;
+    }
+
+    .form-cn .form-search{
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .form-search .clearfix{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    /* .form-hotel .field-destination{
+        width: 400px;
+    } */
+
+    .form-search .clearfix > div {
+        padding: 0 0.5rem;
+    }
+    .form-cn h2{
+        text-align: center;
+    }
+
+    .dottedSelect {
+        width: 100%;
+        border: 2px dotted;
+        border-top: none;
+        border-right: 0;
+        border-left: 0;
+        font-weight: 600;
+    }
+
+    .check-box {
+        margin: auto;
+        width: 200px;
+        padding: 1px;
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+
+    .check-box > input {
+        margin: 0.85rem;
+    }
+
+    #dateFrom{
+        font-size: 1.6rem;
+    }
+
+    .form-search .form-field .field-input{
+        border-top: none;
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 2px dotted #4db74f;
+    }
+
+    @@media only screen and (min-width: 1650px){
+        .banner {
+            min-height: 80vh;
+        }
+    }
+    @@media only screen and (min-width: 2560px){
+        .banner {
+            min-height: 60vh;
+        }
+    }
+     @@media only screen and (max-width: 991px){
+        .form-hotel .form-search .field-destination{
+            width: 300px;
+        }
+           .banner{
+             padding-bottom: auto;
+         }
+     }
+
+    @@media only screen and (max-width:667px){
+        .banner{
+            min-height: 65vh;
+        }
+
+        .form-hotel .form-search .field-destination{
+            width: 250px;
+        }
+        .check-box{
+             max-width: 200px;
+        }
+
+        footer .logo-foter img{
+             width: 50%;
+         }
+
+    }
+
+    @@media only screen and (max-width:767px){
+        .tabs-cat .cate-item {
+             height: 80px;
+         }
+        .cate-item .active{
+             margin-top: 0;
+         }
+     }
+
+    @@media only screen and (max-width:667px){
+        .form-hotel .form-search .field-date,
+        .form-hotel .form-search .field-destination{
+            width: 100%;
+        }
+    }
+
+    @@media (max-width: 390px){
+          .check-box{
+              width: 100%;
+            }
+            .light-logo{
+                width: 180px;
+            }
+     }
+
+    .cate-item.active{
+         padding: 1rem;
+     }
+
+     .awe-search{
+        cursor: pointer!important;
+     }
+
+.form-search .form-field label {
+    position: static;
+    display: block;
+    z-index: 0;
+    font-weight: 600;
+    margin: 0;
+    overflow: hidden;
+    font-size: 14px;
+    color: #f84000;
+    top: none;
+    transform: translate(0, 0%);
+}
+
+@@media (max-width: 767px){
+.header {
+    height: 90px;
+}
+}
+.header.header-stick {
+    background-color: #000000!important;
+ }
+
+ /* upadted on sept 18 2021 **/
+ .check-box{
+    width: 20%;
+}
+
+@@media (max-width: 990px){
+.check-box{
+    width: 50%;
+    }
+}
+
+@@media (max-width: 385px){
+.check-box{
+    width: 100%;
+    }
+}
+
+.form-search .form-field.field-date .field-input {
+    border-bottom: 2px dotted #25ab4b;
+}
+.hotel-item .hotel-text .hotel-name a{
+    font-weight: 400;
+}
+
+#form-hotel h2 {
+    text-align: center;
+}
+
+.narrow-results .narrow-form:after{
+    background-color: transparent;
+}
+
+.goog-te-gadget .goog-te-combo{
+     margin: 15px 0!important;
+}
+
+
+/** Addedm on feb 10 2022 **/
+#InvDropdown, #UnitType{
+    border: 1px solid #ccc!important;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.form-search .form-field label,
+.field-date > label, .selection__placeholder,
+select > option,
+#select2-Destination-container,
+.select2-container--default .select2-selection--single .select2-selection__placeholder{
+    color: #000!important;
+}
+
+.form-control{
+    font-size: inherit!important;
+    padding: 0.7rem!important;
+}
+
+
+
+@@media (max-width: 767px){
+    .dest{
+        width: 100%;
+    }
+}
+
+@@media (max-width: 320px){
+    .tab-content{
+       width: 100%!important;
+       margin: 0!important;
+    }
+} 
+.form-search .form-field label{
+    font-weight: normal;
+}
+</style>
+<!--Banner-->
+<section class="banner">
+
+    <!--Background-->
+    <div class="bg-parallax bg-1"></div>
+    <!--End Background-->
+
+    <div class="container">
+        <!-- Banner Content -->
+        <div class="banner-cn">
+            <!-- End Tabs Cat -->
+            <!-- Tabs Content -->
+            <div class="tab-content">
+                <!-- Search Hotel -->
+                <div class="form-cn form-hotel tab-pane active in" id="form-hotel">
+                    <div class="row">
+                        <h2>Where would you like to go?</h2>
+
+                    </div>
+                    <div class="form-search clearfix">
+                        @using (Html.BeginForm("HotelSearch", "Hotel", new { area = "HotelBookingDomain" }, FormMethod.Get, new { id = "hotelSearchForm" }))
+                        {
+
+                            <div class="check-box" style="width: auto">
+                                <label>
+                                    Show available dates
+                                </label>
+                                <input type="checkbox" id="iddatesAvailable" class="datesAvailable" />
+                            </div>
+
+
+                            <div class="form-search clearfix">
+                                <div class="form-group col-md-6 mb-4 form-field field-date">
+                                    @Html.DropDownList("InvDropdown", (IEnumerable<SelectListItem>)InvdropdownList, "Select Weeks", new { @style = "width:100%; font-weight: normal; padding: 0.8rem", @class = "dottedSelect" })
+                                </div>
+
+                                <div class="form-group col-md-6 mb-4 dest">
+                                <span class="form-control selection custom" style="padding: 0.4rem!important; border: none!important">
+                                    <select class="select2-selection select2-selection--single" id="destination" name="destination" style="width: 100%;" required></select>
+                                </div> 
+
+                                    <div class="form-group col-md-6 mb-4 form-field field-date">
+                                    <label>Check In Date</label>
+                                        @Html.TextBox("Available from", null, "{0:" + SharedLib.Misc.DateTimeFormatter.DefaultStyle + "}", new { @class = "form-control", autocomplete = "off", min = SharedLib.Misc.DateTimeFormatter.ConvertToString(currentDate, "", SharedLib.Misc.DateTimeFormatter.Style9), type = "date" })
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6 mb-4 form-field field-date">
+                                    <label>Check Out Date</label>
+                                        @Html.TextBox("Available to", null, "{0:" + SharedLib.Misc.DateTimeFormatter.DefaultStyle + "}", new { @class = "form-control", autocomplete = "off", min = SharedLib.Misc.DateTimeFormatter.ConvertToString(currentDate.AddDays(1), "", SharedLib.Misc.DateTimeFormatter.Style9), type = "date" })
+                                    </div>
+
+                                <div class="form-submit text-center">
+                                   <button type="submit" id="btnhotelPlanner" class="btn-danger" style="width: 10rem; border: none;">Search</button>
+                                </div>
+
+                            </div>
+
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- End Tabs Content -->
+
+        </div>
+        <!-- End Banner Content -->
+
+    </div>
+
+</section>
+
+
+@section scripts{
+    <script src="~/Content/assets/plugins/toast-master/js/jquery.toast.js"></script>
+    <script src="~/Content/PageScripts/HotelBookingDomain/index.js"></script>
+    <script>
+        $(function () {
+            var hotelSearch = new HotelIndex();
+            hotelSearch.dmcId = '@Model.DMCId'
+            hotelSearch.getList = '@Url.Action("GetUnits", "Hotel")';
+            hotelSearch.getDatesUrl = '@Url.Action("GetDates", "Hotel")';
+            hotelSearch.init();
+
+        });
+    </script>
+
+}
+
+@section styles {
+    <style>
+        .check-box {
+            margin: auto;
+            width: 17%;
+            border: 1px solid green;
+            padding: 1px;
+            text-align: center;
+        }
+    </style>
+}

@@ -1,0 +1,88 @@
+﻿@model NGX.Web.Models.LandingModel
+@using guestACCESS.Kernel.DMCManagement;
+@using NGX.Web.Areas.Jaunt2.Models;
+@using guestACCESS.DataAccess.Entity;
+@{
+
+    var dmcInfo = (DMC)ViewData["DMCInfo"];
+    var dmcId = dmcInfo.DMCId;
+
+    var dmcOption = new DMCOption(dmcInfo.ParentDMCId > 0 ? dmcInfo.ParentDMCId.Value : dmcInfo.DMCId);
+    var cache_city = guestACCESS.DataAccess.CacheRepository.Cache_CityEntity.Instance.GetCache();
+    var dropdownModel = new DropdownModel();
+    int dmcCountryId = 0;
+    IEnumerable<SelectListItem> countryList = dropdownModel.GetTiqetsCountry();
+    List<SelectListItem> cityList = new List<SelectListItem>();
+    var cache_country = guestACCESS.DataAccess.CacheRepository.Cache_CountryEntity.Instance.GetCache();
+    if (dmcOption.DefaultCountryId > 0)
+    {
+        dmcCountryId = dmcOption.DefaultCountryId.Value;
+        cityList = dropdownModel.GetTiqetsCity(dmcCountryId).ToList();
+
+    }
+    dmcOption.CityId = dmcOption.CityId > 0 ? dmcOption.CityId : 0;
+}
+
+
+@using (Html.BeginForm("SearchAcitivity", "Jaunt2Landing", new { area = "" }, FormMethod.Get, new { id = "tiqetForm" }))
+{
+    if (Model.IsAuthenticated && Model.EnableTripTag)
+    {
+        { Html.RenderPartial("_SelectTripTiqet"); }
+        <br />
+        { Html.RenderPartial("_CreateTripTiqet"); }
+        <div class="row" id="tripListAcitivity">
+            <div class="col-12 mb-3">
+                <label class="mb-2">Trips</label>
+                <select id="TripListAcitivity" class="select2" style="width: 100%" name="TripListAcitivity" required>
+                </select>
+            </div>
+        </div>
+    }
+<h2>Search Local Activities</h2>
+
+    <div class="row" id="activity-select">
+        <div class="form-group col-md-6 mb-4">
+            <label for="CountryId" class="mb-2">Country</label>
+            <select id="CountryId" name="CountryId" style="width: 100%">
+                <option value="">Select Country</option>
+                @foreach (var ct in countryList)
+                {
+                    <option value="@ct.Text" @(ct.Text==dmcCountryId.ToString()?"selected='selected'":"") >@(ct.Value)</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-6 mb-4">
+            <label for="CityId" class="mb-2">City </label>
+            <select id="CityId" name="CityId" style="width: 100%">
+                <option value="">Select City</option>
+                @foreach (var ct in cityList.OrderBy(t=>t.Text))
+                {
+                    <option value="@ct.Value" @(ct.Value == dmcOption.CityId.ToString() ? "selected='selected'" : "")>@(ct.Text)</option>
+                }
+
+            </select>
+        </div>
+        <div class="form-group col-6 mb-4" style="display:none">
+            <label class="mb-2"><span>Event Type:</span></label>
+            @{ 
+                var eventTypeList = new List<SelectListItem>();
+                if (dmcOption.CityId > 0)
+                {
+                    eventTypeList=guestACCESS.WebCommon.DMCHelper.GetTiqetEventType(dmcOption.CityId.Value).Select(n=>new SelectListItem
+                    {
+                        Text=n.TypeName,
+                        Value=n.TypeId.ToString()
+                    }).ToList();
+                }
+            }
+            @Html.DropDownList("EventType", eventTypeList, "Select Event Type",new { @class = "form-control" })
+        </div>
+        <div class="form-group col-12" style="display:flex; justify-content:center">
+            <button type="submit" id="btnActivities" class="btn btn-danger" style="width:10rem;">Search</button>
+        </div>
+        <div class="text-center p-1">
+            <h3>You are about to book an events with our partner (Tiqets)</h3>
+        </div>
+    </div>
+}

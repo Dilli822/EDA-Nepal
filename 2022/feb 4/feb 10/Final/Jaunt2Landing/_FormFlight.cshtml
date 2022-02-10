@@ -1,0 +1,31 @@
+﻿@model NGX.Web.Models.LandingModel
+@using guestACCESS.Kernel.DMCManagement;
+@using guestACCESS.DataAccess.Entity;
+@{
+
+    var dmcInfo = (DMC)ViewData["DMCInfo"];
+    var dmcId = dmcInfo.DMCId;
+
+
+}
+@if (Model.IsAuthenticated && Model.EnableTripTag)
+{
+    { Html.RenderPartial("_SelectTripFlyUs"); }
+    <br />
+    <div class="row" id="tripListFlyUs">
+        <div class="col-12 mb-3">
+            <label class="mb-2">Trips</label><br>
+            <select id="TripListFlyUs" class="select2" style="width: 95%" name="TripListFlyUs" required>
+            </select>
+        </div>
+    </div>
+}
+<br />
+<h2>Where would you like to go?</h2>
+<iframe src="@ViewBag.FlightLink " width="100%" style="min-height: 280px;" frameBorder="0" id="flyUsIframe"></iframe>
+<div class="text-center p-2">
+    <h3>You are about to book a Flight with our partner (Flyus)</h3>
+</div>
+
+
+

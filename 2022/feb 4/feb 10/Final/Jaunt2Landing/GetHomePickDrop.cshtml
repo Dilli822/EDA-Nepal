@@ -1,0 +1,33 @@
+﻿@{ 
+    Layout = null;
+}
+<div id="modal-homePickDrop" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book  Car Service</h4>
+                <button type="button" class="btn-close btn-closeHomePickPopUp" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @{
+                    guestACCESS.Kernel.CarBooking.CarBookingModels carModel = new guestACCESS.Kernel.CarBooking.CarBookingModels();
+                    //carModel.OrderId = Model.AccessCode;
+                    //carModel.PickDropDate = Model.StartDate;
+                    //carModel.Trip = Model;
+                    //carModel.DmcId = Model.DmcId ?? 0;
+                    carModel.IsFromLayout = "True";
+                    Html.RenderPartial("/Views/Jaunt2Landing/_FormHomePickDrop.cshtml", carModel);
+                    <input type="hidden" id="TripId" />
+                    <input type="hidden" id="OrderId" />
+
+                }
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="awe-btn awe-btn-1 awe-btn-small waves-effect text-left btn-SearchHomePickDrop" id="" data-dismiss="modal">Search</button>
+                <button class="awe-btn awe-danger awe-btn-small btn-closeHomePickPopUp" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

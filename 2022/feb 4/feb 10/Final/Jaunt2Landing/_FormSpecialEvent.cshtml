@@ -1,0 +1,79 @@
+﻿@model NGX.Web.Models.LandingModel
+@using guestACCESS.Kernel.DMCManagement;
+@using NGX.Web.Areas.Jaunt2.Models;
+@using guestACCESS.DataAccess.Entity;
+@{
+    var catalogType = (IEnumerable<SelectListItem>)ViewData["CatalogType"];
+    var LogOnDMC = DMC.GetDMCListByParentUrl(Request.Url.Authority).FirstOrDefault() ?? new DMC();
+    var dmcId = LogOnDMC.DMCId;
+
+    var dmcOption = new DMCOption(LogOnDMC.ParentDMCId > 0 ? LogOnDMC.ParentDMCId.Value : LogOnDMC.DMCId);
+    var countries = (IEnumerable<SelectListItem>)ViewData["Countries"];
+    var cities = (IEnumerable<SelectListItem>)ViewData["Cities"];
+    var cache_city = guestACCESS.DataAccess.CacheRepository.Cache_CityEntity.Instance.GetCache();
+    var dropdownModel = new DropdownModel();
+    int dmcCountryId = 0;
+    IEnumerable<SelectListItem> countryList = dropdownModel.GetEventCountry(dmcOption.DMCId, string.Empty);
+    List<SelectListItem> cityList = new List<SelectListItem>();
+    if (dmcOption.DefaultCountryId > 0)
+    {
+        dmcCountryId = dmcOption.DefaultCountryId.Value;
+        cityList = dropdownModel.GetEventCityBasedOnCountry(dmcOption.DMCId, dmcCountryId, "", "").ToList();
+
+    }
+    dmcOption.CityId = dmcOption.CityId > 0 ? dmcOption.CityId : 0;
+}
+
+@using (Html.BeginForm("SearchEvent", "Jaunt2Landing", new { area = "" }, FormMethod.Get, new { id = "specialEventForm" }))
+{
+    if (Model.IsAuthenticated && Model.EnableTripTag)
+    {
+        { Html.RenderPartial("_SelectTripEvent"); }
+        <br />
+        { Html.RenderPartial("_CreateTripEvents"); }
+        <div class="row" id="tripListEvent">
+            <div class="col-12 mb-3">
+                <label class="mb-2">Trips</label>
+                <select id="TripListEvent" style="width: 100%" name="TripListEvent" required>
+                </select>
+            </div>
+        </div>
+    }
+    <h2>VIP Experiences</h2>
+
+    <div class="row" id="activity-select">
+        <div class="form-group col-md-6 mb-4">
+            <label for="CatalogCountry" class="mb-2">Country</label>
+            <select id="CatalogCountry" name="CatalogCountry" style="width: 100%">
+                <option value="">Select Country</option>
+                @foreach (var ct in countryList)
+                {
+                    <option value="@ct.Text" @(ct.Text == dmcCountryId.ToString() ? "selected='selected'" : "")>@(ct.Value)</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-6 mb-4">
+            <label for="CatalogCity" class="mb-2">City </label>
+            <select id="CatalogCity" name="CatalogCity" style="width: 100%">
+                <option value="">Select City</option>
+                @foreach (var ct in cityList)
+                {
+                    <option value="@ct.Text" @(ct.Text == dmcOption.CityId.ToString() ? "selected='selected'" : "")>@(ct.Value)</option>
+                }
+
+            </select>
+        </div>
+        <div class="form-group col-6 mb-4">
+            <label class="mb-2"><span>Event Type:</span></label>
+            <select name="EventTypeCatalog" id="EventTypeCatalog" placeholder="Event Type" class="form-control">
+            </select>
+        </div>
+        <div class="form-group col-12" style="display:flex; justify-content:center">
+            <button type="submit" id="btnCatalogActivities" class="btn btn-danger" style="width:10rem;">Search</button>
+        </div>
+    </div>
+}
+
+
+
+

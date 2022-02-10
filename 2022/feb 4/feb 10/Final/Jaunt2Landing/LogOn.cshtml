@@ -1,0 +1,69 @@
+﻿@model NGX.Web.Models.LogOnModel
+<div class="modal fade" id="logOn-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("LogOn", "jaunt2Landing", FormMethod.Post, new { id = "Jaunt2LogOnForm", @class = "form-horizontal" }))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h2 class="user-profile__title">
+                        Sign in
+
+                    </h2>
+
+                </div>
+                <div class="modal-body">
+                    <div class="user-form user-signup">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                @*<h2 class="user-profile__title">Sign in</h2>*@
+                                <p>Access your account information and manage your bookings.</p>
+                                <p>
+                                    @if (ViewData["Registered"] != null)
+                                    {
+                                        <small><strong>Your account has been activated. Please Login!</strong></small>
+                                    }
+                                </p>
+                                <div class="field-input">
+                                    @Html.TextBoxFor(t => t.UserName, new { @class = "input-text text-danger", placeholder = "Username" })
+                                </div>
+                                <div class="field-input">
+                                    @Html.PasswordFor(t => t.Password, new { @class = "input-text text-danger", placeholder = "Password" })
+                                </div>
+
+                                <div class="field-input">
+                                    <div class="check-box">
+                                        @Html.BuildCheckBox("IsPersistent", "true", Model != null ? Model.IsPersistent : false, new { id = "IsPersistent" })
+                                        <label for="IsPersistent">
+                                            Keep me logged in
+                                        </label>
+                                    </div>
+                                    @Html.ActionLink("Forget Password?", "Index", new { controller = "UserRegister", url = Request.QueryString["url"] })
+                                    @*<a href="#">Get a new password</a>*@
+                                </div>
+                                <div class="field-input">
+                                    @Html.Hidden("url", ViewData["redirect_url"])
+                                    @*<button type="submit" class="awe-btn awe-btn-1 awe-btn-medium">
+                                            Sign in
+                                        </button>*@
+                                    <p>Unable to signin. Please click on <a href="javascript:void(0);" id="signupForBooking">Sign Up </a> to manage your bookings.  </p>
+                                
+                                </div>
+                                <div class="field-input" style="display:block; height:40px">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">LogOn</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

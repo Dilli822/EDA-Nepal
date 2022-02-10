@@ -1,0 +1,38 @@
+﻿@using guestACCESS.Kernel.DMCManagement;
+@using NGX.Web.Areas.Jaunt2.Models;
+<div id="modal-specialEvent" class="modal diy-modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book  Special Event</h4>
+                <button type="button" class="btn-close btn-closeHomePickPopUp" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="activity-select">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="CatalogCountry" class="mb-2"><span>Destination:</span> Country</label>
+                            @Html.DropDownList("CatalogCountry", (IEnumerable<SelectListItem>)ViewData["CountryRange"], "", new { @class = "form-control select2", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="CatalogCity" class="mb-2"><span>Destination:</span> City </label>
+                            @Html.DropDownList("CatalogCity", (IEnumerable<SelectListItem>)ViewData["CityRange"], "Please Select City", new { @class = "select2 form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label class="mb-2"><span>Event Type:</span></label>
+                            @Html.DropDownList("EventTypeCatalog", (IEnumerable<SelectListItem>)ViewData["EventTypeRange"], "Please Select City", new { @class = "select2 form-control", style = "width: 100%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="awe-btn awe-btn-1 awe-btn-small waves-effect text-left btn-SearchHomePickDrop" id="" data-dismiss="modal">Search</button>
+                <button class="awe-btn awe-danger awe-btn-small btn-closeSpecailEventPopUp" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

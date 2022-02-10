@@ -1,0 +1,260 @@
+﻿@model guestACCESS.Kernel.CarBooking.CarBookingModels
+@using guestACCESS.Kernel.CarBooking
+@using guestACCESS.DataAccess.CacheRepository
+@using guestACCESS.Kernel.DMCManagement;
+@using SharedLib.Authenticator;
+@{
+    var ty = Model.PickDropDate;
+
+    int currentUserId = MemberTicketManager.Instance.CurrentUserTicket != null ? MemberTicketManager.Instance.CurrentUserTicket.UserId : 0;
+    var LogOnDMC = DMC.GetDMCListByParentUrl(Request.Url.Authority).FirstOrDefault() ?? new DMC();
+
+    var dmcInfo = LogOnDMC;
+    var dmcId = currentUserId > 0 ? MemberTicketManager.Instance.CurrentUserTicket.LoginDMC : dmcInfo.DMCId;
+    Model.PickDropDate = DateTime.Now;
+    var cacheCountry = Cache_Country.Instance.GetCache();
+    var cacheCity = Cache_City.Instance.GetCache();
+    ViewData["Country"] = cacheCountry.Select(c => new SelectListItem { Text = c.Value, Value = c.Key.ToString() });
+    ViewData["Cities"] = cacheCity.Select(c => new SelectListItem { Text = c.Value, Value = c.Key.ToString() });
+
+    var cache_airport = guestACCESS.DataAccess.CacheRepository.Cache_Airport.Instance;
+    var airportData = cache_airport.GetCache().OrderBy(t => t.AirportCode).Select(t => new SelectListItem { Text = string.Format("{0} ({1})", t.AirportCode, t.AirportName), Value = t.AirportCode });
+
+}
+@*<link href="~/Content/assets/openMeeting/bootstrap.min.css" rel="stylesheet" />*@
+
+
+<h2>Home Pick up / Drop off</h2>
+@using (Html.BeginForm("HomePickUpDropOffSelect", "AirportHomePickDrop", new { area = "" }, FormMethod.Post, new { id = "HomePickDropForm" }))
+{
+<div class="form-search clearfix">
+    <div id="HomeCityAddressSection">
+        <div class="row col-md-12">
+            <div id="masterPaxInfo" style="font-size:15px"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <h5 class="box-title"><b>Home City Address</b></h5>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="form-group col-md-12 col-xs-12">
+                <label>&nbsp;</label>
+                <div class="col-md-12 text-center">
+                    <div class="row" id="map-load" style="display:flex; justify-content:center">
+                        <button type="button" class="btn-danger" id="btnMapLocation" style="width: max-content; padding:0 2rem;">
+                            Click Here to Load Address from Map
+                        </button>
+                        <div id="Message" style="padding-left: 1em"></div>
+                        @if (Model.HomeCityGeoLocation != null)
+                        {
+                            <div id="MessageEdit" style="padding-left: 1em"><b>Location Selected.</b></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="map-address">
+            <div class="form-group col-md-6 mb-4">
+                <input type="text" name="HomeAddress" id="HomeAddress" class="form-control" placeholder="Address" readonly="readonly" required="required" />
+                @Html.TextBoxFor(t => t.Address, new { @class = "form-control", @type = "hidden" })
+            </div>
+            <div class="form-group col-md-6 mb-4">
+                @*<label>Country</label>*@
+                @Html.TextBoxFor(t => t.Country, new { @class = "form-control", @readonly = "readonly", @placeholder = "Country" })
+            </div>
+            <div class="form-group col-12 mb-4">
+                @*<label>City</label>*@
+                @Html.TextBoxFor(t => t.City, new { @class = "form-control", @readonly = "readonly", @required = "required", @placeholder = "City" })
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row" id="changeFlightInfo">
+        <div class="col-md-12">
+            @* <h4>You can change your flight info through this link : @Html.ActionLink("Change Flight", "Index", new { controller = "OrderParticipant", id = Model.Trip.AccessCode, isChangeFlight = true }, new { target = "_blank" }) </h4>*@
+            <h4>You can change your flight info through this link :<span id="changeFlightUrl"></span> </h4>
+
+        </div>
+    </div>
+    <br />
+    @if (Model.IsAuthenticated && Model.EnableTripTag)
+    {
+    { Html.RenderPartial("_SelectTrip");}
+    { Html.RenderPartial("_CreateTrip");}
+    <div id="tripPaxes">
+
+
+        <div class="row" id="pd-select">
+            <div class="form-group col-md-6 mb-5" id="tripListShowHide">
+                <label class="mb-2">Trips</label>
+                <select id="TripList" class="select2" style="width: 100%" name="TripList" required>
+                </select>
+            </div>
+            <div class="form-group col-md-6 mb-5">
+                <label class="mb-2">Participants</label>
+                <select id="PaxList" class="select2" style="width: 100%" multiple="multiple" name="PaxList" required>
+                </select>
+            </div>
+
+        </div>
+
+        @*<div class="row" id="tripListShowHide">
+                <div class="col-md-10">
+                    <label>Trips</label>
+                </div>
+                <div class="form-field field-select col-md-10 col-xs-6" id="">
+
+                    <select id="TripList" class="select2" style="width: 100%" name="TripList" required>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <label>Participants</label>
+                </div>
+                <div class="form-field field-select col-md-10 col-xs-6">
+
+                    <select id="PaxList" class="select2" style="width: 100%" multiple="multiple" name="PaxList" required>
+                    </select>
+                </div>
+            </div>*@
+        <div class="row mb-4">
+            <div class="form-group col-md-12">
+                <table id="PaxTbl" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Pax Name</th>
+                            <th>Airport</th>
+                            <th>Flight Time</th>
+                            <th>Update Flight Info</th>
+                            <th>Update HomeAddress</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div id="flightMessage">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    <div class="row" id="pd-info">
+        <div class="form-field col-md-4 col-xs-12 mb-3" style="width: 100%">
+            <div class="box-header with border">
+                <h5 class="box-title"><b>Pick/Drop Information</b></h5>
+            </div>
+        </div>
+        <div class="form-field col-md-4 col-xs-12 mb-4" style="width: 100%; margin-left: 5%;">
+            <div class="row">
+                <div class="form-check col-md-6">
+                    @Html.RadioButtonFor(a => a.HomePickDropSelect, HomePickUpDropOff.HomePickUp, new { id = "HomePickUpDropOff_0", @class = "form-check-input" })
+                    <label for="HomePickUpDropOff_0" class="form-check-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Home Pick up</b></label>
+                </div>
+                <div class="form-check col-md-6">
+                    @Html.RadioButtonFor(a => a.HomePickDropSelect, HomePickUpDropOff.HomeDropOff, new { id = "HomePickUpDropOff_1", @class = "form-check-input", @required = "required" })
+                    <label for="HomePickUpDropOff_1" class="form-check-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Home Drop off</b></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12 col-xs-12">
+            <div class="row text-center">
+                <b style="font-size:20px; font-style:italic" id="travelTimeText"></b>
+            </div>
+        </div>
+
+        @*<div class="form-field col-md-12 col-xs-12">
+                <div class="col-md-6" id="arrivaltoAirport">
+                    <div class="box-body">
+                        <label class="mb-2">Reach Airport Before (in mins)</label>
+                        <input type="number" id="ReachAirportTime" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6" id="departFromAirport">
+                    <div class="box-body">
+                        <label>Departure From Airport (in mins)</label>
+                        <input type="number" id="DepartureFromAirport" class="form-control" />
+                    </div>
+                </div>
+            </div>*@
+        <div class="col-md-6 col-xs-12 mb-4" id="departFromAirport">
+            <label>Departure From Airport (in mins)</label>
+            <input type="number" class="form-control" id="DepartureFromAirport" name="DepartureFromAirport" autocomplete="off">
+        </div>
+
+        <div class="form-field col-md-6 col-xs-12 mb-4" id="arrivaltoAirport">
+            <div class="col-md-12 col-xs-12">
+                <label class="mb-2">Reach Airport Before (in mins)</label>
+                <input type="number" class="form-control" id="ReachAirportTime" name="ReachAirportTime" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="form-field col-md-6 col-xs-12 mb-4 flightInfos">
+            <div class="col-md-12 col-xs-12">
+                <label class="mb-2">Flight Date/Time</label>
+                @Html.TextBoxFor(a => a.FlightDate, new { @class = "form-control", @required = "required", @autocomplete = "off", @placeholder = "Date", @type = "datetime-local" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-field col-md-6 col-xs-12 mb-4 flightInfos">
+            <div class="col-md-12 col-xs-12">
+                <label class="mb-2">Carrier</label>
+
+                <select name="AirlineCode" id="AirlineCode" class="form-control" style="width:100%" required>
+                </select>
+            </div>
+        </div>
+        <div class="form-field col-md-6 col-xs-12 mb-4 flightInfos">
+            <div class=" col-md-12 col-xs-12">
+                <label class="mb-2">Flight Number</label>
+                @Html.TextBoxFor(a => a.FlightNumber, new { @class = "form-control datepicker", @required = "required", @autocomplete = "off" })
+            </div>
+        </div>
+        <div class="form-field col-md-6 col-xs-12 mb-4">
+            <div class="col-md-12 col-xs-12">
+                <label class="mb-2">Airport</label>
+                <select name="PickDropLocation" id="PickDropLocation" class="form-control" style="width:100%" required>
+                </select>
+                @*@Html.DropDownListFor(a => a.PickDropLocation, airportData, "Airport", new { @class = "select2 form-control", @style = "width:100%", @required = "required" })*@
+            </div>
+        </div>
+        <div class="form-field col-md-6 col-xs-12 mb-4">
+            <div class=" col-md-12 col-xs-12">
+                <label class="mb-2">Pickup Date/Time</label>
+                @*@Html.TextBoxFor(a => a.PickDropDate, new { @class = "form-control datepicker ", @required = "required", @autocomplete = "off" })*@
+                @Html.TextBoxFor(a => a.PickDropDate, new { @class = "form-control", @required = "required", @autocomplete = "off", @placeholder = "Date", @type = "datetime-local" })
+            </div>
+        </div>
+    </div>
+    <div class="form-submit" style="display:flex; justify-content:center">
+        @Html.HiddenFor(a => a.PaxId)
+        @Html.HiddenFor(a => a.OrderId)
+        @Html.HiddenFor(a => a.HomeCityGeoLocation)
+        @*@Html.HiddenFor(a => a.HomeAddress)*@
+        @Html.HiddenFor(a => a.CityName)
+        @* @Html.HiddenFor(a => a.ZipCode)*@
+        @Html.Hidden("accessCode")
+        <input type="hidden" id="DmcId" value="@dmcId" />
+        <input type="hidden" id="paxFlightTime" />
+        <input type="hidden" id="calTravelTime" />
+        <input type="hidden" id="masterPaxId" />
+        @if (Model.IsFromLayout != "True")
+        {
+            <button type="button" id="btnProceed" class="btn-danger" style="width:10rem;">Proceed</button>
+        }
+
+    </div>
+    <div class="text-center">
+        <h3>You are about to book a vehicle with our partner (Carey International)</h3>
+    </div>
+</div>
+}
+
+
+
+@*<script src="~/Content/assets/openMeeting/bootstrap.min.js"></script>*@
