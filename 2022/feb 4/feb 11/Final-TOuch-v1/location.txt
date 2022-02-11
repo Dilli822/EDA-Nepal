@@ -1,0 +1,17 @@
+1.GroupInfo
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Areas\Jaunt2\Views\Trip
+
+2.style.css
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Content\assets\jaunt2\css
+
+3.Shared
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Shared
+
+4. Index.cshtml
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Areas\HotelBookingDomain\Views\Hotel
+
+5. LogOn.cshtml
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\UserAuthJaunt2
+
+6.Participant
+C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Areas\Jaunt2\Views\Participant
