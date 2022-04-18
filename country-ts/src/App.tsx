@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+
 import { Modal, Button, Breadcrumb } from 'antd';
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
-const [isModalVisible, setIsModalVisible] = useState(false);
+
 function App() {
+  
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const showModal = () => {
     setIsModalVisible(true);
   };
