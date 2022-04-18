@@ -1,6 +1,0 @@
-1. guides.js
-C:\inetpub\wwwroot\NexGen\Test\Admin\NFL DIY\Content\Scripts
-2. Guide.css
-C:\inetpub\wwwroot\NexGen\Test\Admin\NFL DIY\Content\assets\DIY\Css
-3. LayoutDIY.cshtml
-C:\inetpub\wwwroot\NexGen\Test\Admin\NFL DIY\Views\Shared

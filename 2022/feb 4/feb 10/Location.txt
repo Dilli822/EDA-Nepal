@@ -1,4 +1,0 @@
-Jaunt2Landing
-C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Views\Jaunt2Landing
-Index.cshtml
-C:\inetpub\wwwroot\NexGen\Test\Admin\Destin DIY\Areas\Jaunt2\Views\Hotel

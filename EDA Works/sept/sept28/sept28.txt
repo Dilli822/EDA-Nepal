@@ -1,9 +1,0 @@
-
-
-
------Made wp site more mobile responsive.
------- customize the header part with toggle menu.
---- changed the domain and hosting account--
------- added footer with social media links---
------- new site link is http://demo-destin.epizy.com---
-
