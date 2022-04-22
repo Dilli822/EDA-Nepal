@@ -1,0 +1,22 @@
+.discountPrice {
+    position: absolute;
+    right: 5%;
+    height: 40px;
+    width: 40px;
+    background: red;
+    border-radius: 50%;
+    top: 5%;
+}
+.hotelImg {
+    position: relative;
+}
+
+<figure class="hotel-img float-left hotelImg">
+
+<div class="discountPrice">
+                                                  Discounted Price
+                                                  </div>
+
+    <p style="text-align: center;">
+        30% off
+    </p>

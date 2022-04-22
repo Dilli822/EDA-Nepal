@@ -172,11 +172,11 @@ import './App.css';
 
 import * as React from 'react'
 import { Breadcrumb, Button, MenuProps, Menu,Pagination } from 'antd';
-import myModal from "./Components/ReferenceData/Views/Modal/Modal";
+import myModal from "./Components/ReferenceData/Country/Views/Modal/Modal";
 import {
 } from '@ant-design/icons';
 
-import SiderDemo from "./Components/ReferenceData/Views/Layout/layout";
+import Country from "./Components/ReferenceData/Country/Views/Layout/layout";
 
 
 function App(){
@@ -208,7 +208,7 @@ function App(){
   <div>
     <Pagination defaultCurrent={6} total={500} />;
   </div> */}
-  <SiderDemo/>
+  <Country/>
 
 
   </div>

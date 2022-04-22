@@ -1,7 +1,7 @@
 import { Modal, Button } from 'antd';
 import React ,{ Fragment, useState, useEffect, Component } from 'react';
 
-const myModal2 = () => {
+function createModal(){
   const [visible, setVisible] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState('Content of the modal');
@@ -42,4 +42,4 @@ const myModal2 = () => {
   );
 };
 
-export default myModal2;
+export default createModal;
