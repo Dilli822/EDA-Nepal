@@ -353,7 +353,7 @@
 
 import React, { useEffect, useState, Component } from 'react'
 import { 
-    Layout, Menu, Breadcrumb , Input, Radio , Divider, Table,
+    Layout, Menu, Breadcrumb , Input, Radio , Divider, Table, Alert,
     Popover, Button,  Descriptions, Calendar, Badge,  Avatar,
     Card, Col, Row , PageHeader, Dropdown, message, Pagination,Modal} from 'antd';
 
@@ -370,6 +370,13 @@ import {
 
 import { count } from 'console';
 import createModal from "./Modal";
+import Select from 'react-select'
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -534,7 +541,7 @@ function Country() {
     <div>
       <div style={{ }}>
 
-      <Header className="site-layout-background" style={{ padding: 0, backgroundColor: "#142c61", color: "#fff", position: "fixed", width: "100%", zIndex: "999", top: 0, minHeight: "60px"}} >
+      <Header className="site-layout-background" style={{ padding: 0, backgroundColor: "#142c61", color: "#fff", position: "fixed", width: "100%", top: 0, minHeight: "60px"}} >
       
       <div style={{ float: "right"}}>
         <Row>
@@ -684,17 +691,70 @@ function Country() {
         </Layout>
       </Layout>
 
-      <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
 
-      <Modal title="Delete" visible={isDeleteModalVisible} onOk={handleDeleteOk} onCancel={handleDeleteCancel}>
-        <h2> Delete </h2>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+      <Modal
+          visible={isModalVisible}
+          title="Create"
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={[
+            <Button key="submit" type="primary" onClick={handleOk}>
+              Save
+            </Button>,
+
+            <Button key="back" onClick={handleCancel}>
+              Cancel
+            </Button>,
+            ]}
+            >
+      <Row gutter={[16, 24]}>
+      <Col className="gutter-row" span={6}>
+        <div>Country</div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>State</div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>Start Code</div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div></div>
+      </Col>
+
+      <Col className="gutter-row" span={6}>
+        <div> <Select options={options} /> </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div> <Input placeholder="Basic usage" /> </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+      <div> <Input placeholder="Basic usage" /> </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div> <Button type="primary" icon={<PlusOutlined />} /></div>
+      </Col>
+
+      </Row>
+
+        </Modal>
+      <Modal title="" visible={isDeleteModalVisible} onOk={handleDeleteOk} onCancel={handleDeleteCancel}
+       footer={[
+
+        <Button key="back" onClick={handleDeleteCancel}>
+         No
+        </Button>,
+
+        <Button key="submit" type="primary" onClick={handleDeleteOk}>
+          Yes
+        </Button>,
+      ]}>
+
+      <Alert
+      message="Warning"
+      description="Are you sure to remove the selected state?"
+      type="warning"
+      showIcon
+      />
       </Modal>
 
       </div>
