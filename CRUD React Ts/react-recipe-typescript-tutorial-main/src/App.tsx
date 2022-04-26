@@ -177,7 +177,7 @@ import {
 } from '@ant-design/icons';
 
 import Country from "./Components/ReferenceData/Country/Views/Layout/layout";
-
+import ApiCall from "./Components/ReferenceData/axiosApi/layout";
 
 function App(){
 
@@ -209,6 +209,7 @@ function App(){
     <Pagination defaultCurrent={6} total={500} />;
   </div> */}
   <Country/>
+  <ApiCall />
 
 
   </div>

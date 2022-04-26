@@ -371,6 +371,8 @@ import {
 import { count } from 'console';
 import createModal from "./Modal";
 import Select from 'react-select'
+import axios from 'axios';
+
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -499,6 +501,26 @@ let companyName: string = "Tukmein";
 //   });
 // }
 
+
+const fetchQuotes = async () => {
+	try {
+		const res = await axios.get(
+			`https://animenewsnetwork.p.rapidapi.com/reports.xml`,
+			{
+				headers: {
+					'x-rapidapi-host': 'animenewsnetwork.p.rapidapi.com',
+					'x-rapidapi-key': 'd9a42d7ae1mshb3a3063221184b5p1e87e2jsnb00cc11fdfa4'
+				}
+			}
+		);
+        console.log(res);
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+
+
 function Country() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement> ) => {
@@ -508,6 +530,7 @@ function Country() {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
 
   const showModal = () => {
@@ -536,12 +559,23 @@ function Country() {
     setIsDeleteModalVisible(true);
   }
 
+  const showEdit = () => {
+    setIsEditModalVisible(true);
+  }
+
+  const handleEditCancel = () => {
+    setIsEditModalVisible(false);
+  }
+
+  const handleEditOk = ()=> {
+    setIsEditModalVisible(false);
+  }
 
   return (
     <div>
       <div style={{ }}>
 
-      <Header className="site-layout-background" style={{ padding: 0, backgroundColor: "#142c61", color: "#fff", position: "fixed", width: "100%", top: 0, minHeight: "60px"}} >
+      <Header className="site-layout-background" style={{ padding: 0, backgroundColor: "#142c61", zIndex: 999, color: "#fff", position: "fixed", width: "100%", top: 0, minHeight: "60px"}} >
       
       <div style={{ float: "right"}}>
         <Row>
@@ -643,7 +677,7 @@ function Country() {
                           Create
                         </Button>
 
-                        <Button type="primary" icon={<EditOutlined />}  onClick={showModal} style={{ margin: '4px '}}>
+                        <Button type="primary" icon={<EditOutlined />}  onClick={showEdit} style={{ margin: '4px '}}>
                             Edit
                         </Button>
                     
@@ -756,6 +790,24 @@ function Country() {
       showIcon
       />
       </Modal>
+
+      <Modal title="Edit" visible={isEditModalVisible} 
+        
+      onOk={handleEditOk}
+          onCancel={handleEditCancel}
+          footer={[
+            <Button key="submit" type="primary" onClick={handleEditOk}>
+              Save
+            </Button>,
+
+            <Button key="back" onClick={handleEditCancel}>
+              Cancel
+            </Button>,
+            ]}
+            >
+      </Modal>
+
+      
 
       </div>
     );
