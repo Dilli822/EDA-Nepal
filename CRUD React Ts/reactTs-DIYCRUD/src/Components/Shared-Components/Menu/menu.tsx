@@ -29,6 +29,7 @@ export default class MainMenu extends React.Component {
 
   render() {
     return (
+     
      <div>
       <Layout>
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>

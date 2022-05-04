@@ -215,8 +215,12 @@ function App(){
   {/* <Country/> */}
   {/* <ApiCall /> */}
   {/* <Layout /> */}
+  <div>
+  <div style={{ display: "block", top: 0}} id="google_translate_element">
 
   <MainMenu />
+
+  </div> </div>
 
 
   </div>
