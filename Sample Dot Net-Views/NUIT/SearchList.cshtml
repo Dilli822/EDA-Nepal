@@ -1,0 +1,477 @@
+﻿@using guestACCESS.WebCommon.NUIT;
+@model guestACCESS.WebCommon.NUIT.BookingSearch
+
+
+@{
+    var currentDate = DateTime.Now;
+
+    HotelResults hList = (HotelResults)ViewData["Hotellist"];
+    List<hotelResults> hotelList = hList.hotelResults;
+    IEnumerable<SelectListItem> ListOfHotelNames = Model.hotelResults.hotelResults.Select(a => new SelectListItem
+    {
+        Text = a.hotelInfo.hotelName,
+        Value = Convert.ToString(a.hotelInfo.hotelCode)
+    }).ToList();
+    var hpSearchParams = (SearchParameters)ViewData["SearchParameters"];
+    List<int> priceRange = new List<int>();
+    var maxPrice = Convert.ToDecimal(hpSearchParams.maxPrice);
+    var range = hpSearchParams.PriceRange.Split(',').ToList();
+    if (range.Count == 2)
+    {
+        priceRange.AddRange(range.Select(a => Convert.ToInt32(Convert.ToDecimal(a))).ToList());
+    }
+
+    //var destinations = (List<destinations>)ViewData["Destinations"];
+    //IEnumerable<SelectListItem> listOfDestin = destinations.Select(a => new SelectListItem
+    //{
+    //    Text = a.cityName + "," + a.countryName,
+    //    Value = a.cityCode
+    //}).ToList();
+}
+
+    <style>
+
+    .check-rates-form .form-search .field-select,
+    .check-rates-form .form-search .field-date{
+        width: 33.33%;
+    }
+
+    .adult, .child, #Rooms{
+        width: 100%;
+        color: #555;
+        background-color: #fff;;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .check-rates-form .form-search .form-field{
+        border-right: none;
+    }
+
+#AnCcontainer{
+    margin-top: 1rem;
+    }
+
+    #AnCcontainer .col label {
+        color: #25ab4b;
+    }
+
+    .adult{
+        margin-bottom: 1rem;
+    }
+
+   #Rooms{
+    min-height: 33px;
+    font-size: 16px;
+    }
+
+
+    @@media (max-width: 1199px) and (min-width: 567px) {
+        .check-rates-form .form-search .form-field.field-date {
+            width: 33.33%;
+        }
+    }
+
+    #bookNow{
+        background-color: #59c45b;
+        color: #fff;
+        padding: 0.8rem;
+        border: 1px solid #fff;
+        transition: 0.3s ;
+        width: 10rem;
+    }
+
+    #bookNow:hover{
+        background-color: #fff;
+        border: 1px solid #59c45b;;
+        color: #000;
+    }
+
+    #detailTable td, #detailTable th{
+        text-align: left;
+    }
+
+    .table>thead>tr>th{
+        border: none!important;
+    }
+
+    #CheckOutDate,#CheckInDate{
+        border: 1px solid #ccc!important;
+     }
+
+        #AnCcontainer {
+            display: flex;
+            padding: 0px 20px 20px 20px;
+            width: 100%;
+            overflow-x: scroll;
+            @* justify-content: space-around; *@
+        }
+
+    #AnCcontainer,#adult1{
+        width: 100%;
+    }
+
+        #AnCcontainer .AnC {
+            margin-right: 20px;
+            margin-left: 0px;
+            margin: 0.2rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+
+    #AnCcontainer p{
+        color: #59c45b;
+    }
+
+    #AnCcontainer span{
+        color: #f20d3f;
+        font-weight: bold;
+    }
+
+    #AnCcontainer label{
+        font-weight: 400;
+    }
+    .hotel-list-item .hotel-img img{
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+    }
+
+
+    @@media (max-width: 990px){
+       #AnCcontainer{
+           flex-wrap: wrap;
+           padding-right: 0;
+       }
+    }
+
+
+    @@media (max-width:567px){
+        .check-rates-form .form-search .form-field.field-date,
+        .check-rates-form .form-search .form-field.field-select{
+          width: 100%!important;
+      }
+    }
+
+
+    @@media (max-width: 476px){
+        .AnC{
+            width: 100%;
+        }
+        #AnCcontainer{
+           padding-right: 15px;
+       }
+    }
+
+
+
+    </style>
+
+@using (Html.BeginForm("Index", "NUIT", new { area = "HotelBookingDomain" }, FormMethod.Get, new { id = "NuitSearchForm" }))
+{
+    <div class="row">
+        <div class="col-md-9 col-md-push-3">
+            <section class="hotel-list">
+                <!-- Sort by and View by -->
+                <div class="sort-view clearfix">
+                    <!-- Sort by -->
+                    <div class="sort-by float-left">
+                        <label>Sort by: </label>
+                        <div class="sort-select select float-left">
+                            <span data-placeholder="Select" id="pricesorting">@(hpSearchParams.OrderBy== "price desc" ? "High to Low":"Low to High")</span>
+                            <select name="orderBy" id="drpPricing" class="price-sorting">
+                                <option @(hpSearchParams.OrderBy == "price asc" ? "selected" : "") value="price asc">Low to High</option>
+                                <option @(hpSearchParams.OrderBy == "price desc" ? "selected" : "") value="price desc">High to Low</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!-- End Sort by -->
+                    <!-- MAP -->
+                    <div class="sort-by float-right">
+                        <label> </label>
+                        <div class="sort-select select float-left">
+                            <button type="button" id="locationmapbtn" class="btn btn-info" data-toggle="modal" data-target="#mapModal">Locate in Map</button>
+                        </div>
+                    </div>
+                    <!-- End MAP -->
+                    <div id="mapModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Locate in Map</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="map_canvas" style="width: 570px; height:600px;"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--Hotel Grid Content-->
+                <div class="hotel-list-cn" clearfix">
+                    @if (hotelList.Count() > 0)
+                    {
+                        foreach (var item in hotelList)
+                        {
+                            //var priceAfterTaxAndMarkup = item.minRate + (item.minRate * Markup / 100);
+                            var detailurl = Url.Action("GetHotelInfo", new { dmcId = hpSearchParams.DMCId, sessionId =  Model.sessionId, hotelcode = item.hotelInfo.hotelCode, searchparams = Newtonsoft.Json.JsonConvert.SerializeObject(hpSearchParams) });
+                            <!-- Hotel Item -->
+                            <div class=" hotelItem" style="padding-top: 30px;">
+                                <div class="hotel-list-item">
+                                    <figure class="hotel-img float-left">
+                                        <a href="@detailurl" title="">
+                                            <img src="@(string.IsNullOrEmpty(item.hotelInfo.hotelPictureUrl)?"/Content/assets/images/noimg.jpg":item.hotelInfo.hotelPictureUrl)" alt="">
+                                        </a>
+                                    </figure>
+                                    <div class="hotel-text">
+                                        <div class="hotel-name">
+                                            <a href="@detailurl" id="btn-HotelDetail" data-resortid="@item.hotelInfo.hotelCode" data-hotelprice="@item.hotelInfo.starRating" data-content="@item.hotelInfo.hotelName">@item.hotelInfo.hotelName</a>
+                                        </div>
+                                        <div class="hotel-star-address">
+
+                                            @*<address class="hotel-address">
+                                        <span style="font-weight: 550;">  Call: </span> &nbsp; @item.
+                                    </address>*@
+
+                                            <address class="hotel-address">
+                                                <span style="font-weight: 550;">  Address: </span> &nbsp; @item.hotelInfo.hotelAddress, @Model.city.cityName @Model.city.countryName
+                                            </address>
+                                        </div>
+
+                                        <div class="my-rating-7" data-rating="@item.hotelInfo.starRating"></div>
+                                        <div class="hotel-places">
+                                            @item.hotelInfo.hotelDescription
+                                        </div>
+                                        @*<div class="hotel-places">
+                                    Distace From Search:
+                                    @item.position.distanceFromSearch miles
+                                </div>*@
+
+                                        <div class="price-box float-left">
+                                            <span class="price old-price">From-</span>
+                                            <span class="price special-price">@SharedLib.CurrencyConverter.ToPriceString(item.minPrice)<small></small></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <h4>No Hotel available. Please check with different filters</h4>
+                    }
+                </div>
+                <!-- End Hotel Grid Content-->
+                <!-- Page Navigation -->
+                @if (hpSearchParams.TotalPage > 1)
+                {
+                    <div class="page-navigation-cn" id="pagination">
+
+                        @{
+                            int previousPage = hpSearchParams.PageNum > 1 ? hpSearchParams.PageNum - 1 : 1, nextPage = hpSearchParams.TotalPage == hpSearchParams.PageNum ? hpSearchParams.TotalPage : hpSearchParams.PageNum + 1;
+                            int first = 1;
+                            int last = hpSearchParams.TotalPage;
+                        }
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="Paginationno">
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" tabindex="@first" data-id="@first"><<</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" tabindex="@previousPage" data-id="@previousPage">Previous</a>
+                                </li>
+                                @if (last <= 5)
+                                {
+                                    for (int i = 1; i <= last; i++)
+                                    {
+                                        <li class="@(i == hpSearchParams.PageNum ? "page-item active" : "page-item")">
+                                            <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                                        </li>
+                                    }
+                                }
+                                else if ((hpSearchParams.PageNum + 2) <= last && (hpSearchParams.PageNum - 2) >= first)
+                                {
+                                    for (int i = hpSearchParams.PageNum - 2; i <= hpSearchParams.PageNum + 2; i++)
+                                    {
+                                        <li class="@(i == hpSearchParams.PageNum ? "page-item active" : "page-item")">
+                                            <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                                        </li>
+                                    }
+                                }
+                                else if ((hpSearchParams.PageNum + 2) > last)
+                                {
+                                    for (int i = hpSearchParams.PageNum - 4; i <= hpSearchParams.PageNum; i++)
+                                    {
+                                        <li class="@(i == hpSearchParams.PageNum ? "page-item active" : "page-item")">
+                                            <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                                        </li>
+                                    }
+                                }
+                                else if ((hpSearchParams.PageNum - 2) < first)
+                                {
+                                    for (int i = hpSearchParams.PageNum; i <= hpSearchParams.PageNum + 4; i++)
+                                    {
+                                        <li class="@(i == hpSearchParams.PageNum ? "page-item active" : "page-item")">
+                                            <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                                        </li>
+                                    }
+                                }
+
+
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" tabindex="@nextPage" data-id="@nextPage">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:void(0)" tabindex="@last" data-id="@last">>></a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                }
+                <!-- Page Navigation -->
+            </section>
+        </div>
+        <div class="col-md-3 col-md-pull-9">
+
+
+            <!-- Sidebar Content -->
+            <div class="sidebar-cn">
+                <!-- Search Result -->
+                <div class="search-result">
+                    <p>
+                        We found <br>
+                        <ins id="totalProperty">@Model.hotelResults.hotelResults.Count()</ins> <span>properties availability</span>
+                    </p>
+                </div>
+                <!-- End Search Result -->
+                <!--star rating-->
+                <div class="search-sidebar" style="padding: 2rem;">
+                    <div class="form-check row">
+                        <div class="col">
+                            <input type="checkbox" class="form-check-input" id="Check5">
+                            <label for="Check5"></label>
+                        </div>
+                        <div class="my-rating-7 col" data-rating="5"></div>
+                    </div>
+                    <div class="form-check row">
+                        <div class="col">
+                            <input type="checkbox" class="form-check-input" id="Check4">
+                            <label for="Check4"></label>
+                        </div>
+                        <div class="my-rating-7 col" data-rating="4"></div>
+                    </div>
+                    <div class="form-check row">
+                        <div class="col">
+                            <input type="checkbox" class="form-check-input" id="Check3">
+                            <label for="Check3"></label>
+                        </div>
+                        <div class="my-rating-7 col" data-rating="3"></div>
+                    </div>
+                    <div class="form-check row">
+                        <div class="col">
+                            <input type="checkbox" class="form-check-input" id="Check2">
+                            <label for="Check2"></label>
+                        </div>
+                        <div class="my-rating-7 col" data-rating="2"></div>
+                    </div>
+                </div>
+                <!--End star rating -->
+                <!-- Search Form Sidebar -->
+                <div class="search-sidebar">
+                    <div class="row">
+                        <div class="form-search clearfix">
+                            <div class="form-field field-destination">
+                                <label for="destination"><span>Destination:</span></label>
+                                @* @Html.DropDownList("destination", listOfDestin, "--Select--", new { @class = "form-control select2", @style = "width: 100%", @id = "nuitDestination" })*@
+                                <select id="nuitDestination" name="destination" class="form-control select2" style="width: 100%">
+                                    @if (Model.city != null && !string.IsNullOrEmpty(Model.city.cityName))
+                                    {
+                                        <option value="@Model.city.cityCode" selected="selected">@Model.city.cityName, @Model.city.countryName</option>
+
+                                    }
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 50px;">
+                                <div class="form-field field-date col-md-6 formNoBorder ">
+                                    <label style="color: #25ab4b ">Check in</label>
+                                    <input type="date" class="form-control" placeholder="Check in" id="CheckInDate" name="CheckInDate" autocomplete="off" min="@SharedLib.Misc.DateTimeFormatter.ConvertToString(currentDate, "", SharedLib.Misc.DateTimeFormatter.Style9)" value="@SharedLib.Misc.DateTimeFormatter.ConvertToString(Convert.ToDateTime(Model.checkInDate), "", SharedLib.Misc.DateTimeFormatter.Style9)">
+                                </div>
+                                <div class="form-field field-date col-md-6 formNoBorder ">
+                                    <label style="color: #25ab4b "> Check Out</label>
+                                    <input type="date" class="form-control" placeholder="Check out" id="CheckOutDate" name="CheckOutDate" autocomplete="off" min="@SharedLib.Misc.DateTimeFormatter.ConvertToString(currentDate.AddDays(1), "", SharedLib.Misc.DateTimeFormatter.Style9)" value="@SharedLib.Misc.DateTimeFormatter.ConvertToString(Convert.ToDateTime(Model.checkOutDate), "", SharedLib.Misc.DateTimeFormatter.Style9)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field field-select field-adult">
+                        <label for="destination" style="margin-top: 10px; color: #25ab4b;">Rooms</label>
+                        <div class="select text-left">
+                            <span class="custBor" id="NoRom">No. of Rooms</span>
+                            <select name="Rooms" id="Rooms" class="" placeholder="Rooms">
+                                <option value="">Select Rooms</option>
+
+                                @for (int i = 1; i <= 9; i++)
+                                {
+                                    if (i < 9)
+                                    {
+                                        <option @(i == Model.roomGuests.roomGuests.Count() ? "selected" : "") value="@i">@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="9+">9+</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <!--- Shows Number of Adult and Children ---->
+
+                    <div class="col-md-12" id="AnCcontainer" style="padding: 0;"> </div>
+
+                </div>
+                <div class="widget-sidebar price-slider-sidebar">
+                    <h4 class="title-sidebar">Price <span></span></h4>
+                    <div class="slider-sidebar price-slider">
+                        <input type="text" name="priceScale" class="range" value="@Math.Floor(Convert.ToDouble(priceRange[0])),@Math.Ceiling(Convert.ToDouble(priceRange[1]))" id="priceScale" />
+                    </div>
+                </div>
+                <!-- End Search Form Sidebar -->
+                <!-- Narrow your results -->
+                <div class="narrow-results form-group">
+                    <h6>Narrow your results</h6>
+                    @Html.DropDownList("hotelId", ListOfHotelNames, "Fliter By Hotel Name", new { @class = "form-control" })
+                </div>
+                <div class="form-submit col-md-12 text-center">
+                    @Html.Hidden("TotalRow", hpSearchParams.TotalRecord)
+                    @Html.Hidden("roomGuests", hpSearchParams.RoomGuests)
+                    @Html.Hidden("prices", hpSearchParams.PriceRange)
+                    @Html.Hidden("maxPrice", hpSearchParams.maxPrice)
+                    @Html.Hidden("CacheKey", hpSearchParams.Cache_Key)
+                    @Html.Hidden("pageNum", hpSearchParams.PageNum)
+                    @Html.Hidden("starRating", Convert.ToString(hpSearchParams.starRating))
+                    <input type="hidden" id="returnURL" name="returnURL" value="@hpSearchParams.ReturnURL" />
+                    <button type="submit" id="btn-search" class="awe-btn awe-btn-medium awe-search">Search</button>
+                </div>
+            </div>
+            <!-- End Sidebar Content -->
+
+        </div>
+    </div>
+}
+

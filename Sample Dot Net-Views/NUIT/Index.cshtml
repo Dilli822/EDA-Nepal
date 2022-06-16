@@ -1,0 +1,183 @@
+﻿@using guestACCESS.WebCommon.NUIT;
+@model guestACCESS.WebCommon.NUIT.BookingSearch
+
+@{
+    ViewBag.Title = "Nuit Hotel Lists";
+    Layout = "~/Views/Shared/_hotelBookingLayout.cshtml";
+    var HotelSearchPrms = (SearchParameters)ViewData["SearchParameters"];
+
+    List<hotelResults> hotelList = Model.hotelResults.hotelResults;
+
+}
+
+@section styles{
+    <style>
+        .side {
+            vertical-align: top;
+            position: absolute;
+        }
+        .search-sidebar .my-rating-7 {
+            margin-top: -50px;
+            margin-left: 1px;
+        }
+
+        .my-rating-7 {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            margin-top: -30px;
+            margin-left: -20px;
+        }
+
+        .jq-star {
+            transform: scale(0.05, 0.05);
+            -ms-transform: scale(0.05, 0.05); /* IE 9 */
+            -webkit-transform: scale(0.05, 0.05); /* Safari and Chrome */
+            -o-transform: scale(0.05, 0.05); /* Opera */
+            -moz-transform: scale(0.05, 0.05); /* Firefox */
+            margin-right: -20px;
+        }
+
+        .select2-container {
+            border-bottom: 2px dotted;
+        }
+
+        .widget-sidebar .title-sidebar, #roomOpt {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .label {
+            letter-spacing: 1px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #25ab4b !important;
+            font-weight: 550;
+        }
+
+        .select2-selection__rendered:after {
+            color: #b9b9b9 !important;
+        }
+
+        .main {
+            padding-top: 150px;
+        }
+
+        .custBor, #EventType,
+        #CheckInDate, #CheckOutDate {
+            border-bottom: 2px dotted #25ab4b !important;
+            color: #25ab4b;
+        }
+
+        .formNoBorder .form-control {
+            border: none !important;
+        }
+
+        .form-search .form-field {
+            color: #000;
+        }
+
+        .primaryColor {
+            color: #25ab4b !important;
+        }
+
+        .custBor, #CheckInDate, #CheckOutDate, #Rooms {
+            color: #999 !important;
+        }
+
+        #select2-FilterHotel-container, #select2-Destination-container,
+        .custBor {
+            border-bottom: 2px dotted #25ab4b !important;
+        }
+
+
+        #select2-FilterHotel-container {
+            margin-top: 0.5rem;
+        }
+
+        #select2-FilterHotel-container,
+        #select2-Destination-container {
+            color: #999 !important;
+            font-weight: normal;
+        }
+
+        .main {
+            margin-top: -250px;
+        }
+
+        @@media (max-width: 767px) {
+            .main {
+                margin-top: 0;
+                padding-top: 0;
+            }
+        }
+
+        @@media (max-width: 991px) {
+            .side {
+                position: static;
+            }
+        }
+
+        .hotel-list-item .hotel-img img {
+            height: 230px;
+            width: 280px;
+            max-width: 100%;
+        }
+    </style>
+}
+
+<section class="sub-banner">
+    <!--Background-->
+    <div class="bg-parallax bg-1"></div>
+    <!--End Background-->
+    <!-- Logo -->
+    <div class="logo-banner text-center">
+        <a href="" title="">
+            <img src="images/logo-banner.png" alt="">
+        </a>
+    </div>
+    <!-- Logo -->
+</section>
+
+<div class="main">
+    <div class="container">
+        <div class="main-cn hotel-page bg-white">
+            <div class="row">
+                <div id="hplist">
+                    @if (hotelList.Count() > 0)
+                    {
+                        Html.RenderPartial("~/Areas/HotelBookingDomain/Views/NUIT/SearchList.cshtml", Model);
+                    }
+                    else
+                    {
+                        <h4>No Hotel available. Please check with different filters</h4>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/PageScripts/HotelBookingDomain/NUIT/NuitSearch.js"></script>
+    <script src="~/Content/assets/plugins/star-rating/dist/jquery.star-rating-svg.js"></script>
+    <script defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE5D8hJIjeT3f5GYZh2NMJ6TtDcPkpQsA&libraries=places"></script>
+    @{
+        var sc = "https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js";
+    }
+    <script src="@sc"></script>
+    <script>
+        $(document).ready(function () {
+            var NuitSearch = new NuitIndex();
+            NuitSearch.DMCId = @HotelSearchPrms.DMCId;
+            NuitSearch.init();
+
+            NuitSearch.LoadNuitDestinations('#nuitDestination', 'Destination');
+
+        });
+    </script>
+}

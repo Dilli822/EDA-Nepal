@@ -1,0 +1,417 @@
+﻿@using guestACCESS.Kernel.DMCManagement;
+@using SharedLib.Misc;
+@using guestACCESS.WebCommon;
+@using guestACCESS.WebCommon.NUIT;
+@model  guestACCESS.WebCommon.NUIT.hotelDetails
+@{
+    var hotelSearchParams = (SearchParameters)ViewData["HotelSearchParam"];
+    DateTime currentDate = DateTime.Now;
+    List<hotelResults> hotelRoomList = (List<hotelResults>)ViewData["hotelDetailList"];
+    if (string.IsNullOrEmpty(hotelSearchParams.PriceRange))
+    {
+        hotelSearchParams.PriceRange = "0,5000";
+    }
+    var priceRanges = hotelSearchParams.PriceRange.Split(',');
+    List<int> priceRange = new List<int>();
+    for (int ind = 0; ind < priceRanges.Length; ind++)
+    {
+        priceRange.Add(Convert.ToInt32(Convert.ToDecimal(priceRanges[ind])));
+    }
+    var maxPrice = hotelSearchParams.maxPrice;
+    var dmcID = hotelSearchParams.DMCId;
+    var sessionId = (string)ViewData["sessionId"];
+    var hotelCode = (int)ViewData["hotelCode"];
+}
+
+
+<style>
+
+    .check-rates-form .form-search .field-select,
+    .check-rates-form .form-search .field-date{
+        width: 33.33%;
+    }
+
+    .adult, .child, #Rooms{
+        width: 100%;
+        color: #555;
+        background-color: #fff;;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .check-rates-form .form-search .form-field{
+        border-right: none;
+    }
+
+#AnCcontainer{
+    margin-top: 1rem;
+    }
+
+    #AnCcontainer .col label {
+        color: #25ab4b;
+    }
+
+    .adult{
+        margin-bottom: 1rem;
+    }
+
+#Rooms{
+    min-height: 33px;
+    font-size: 16px;
+    }
+
+
+    @@media (max-width: 1199px) and (min-width: 567px) {
+        .check-rates-form .form-search .form-field.field-date {
+            width: 33.33%;
+        }
+    }
+
+    #bookNow{
+        background-color: #59c45b;
+        color: #fff;
+        padding: 0.8rem;
+        border: 1px solid #fff;
+        transition: 0.3s ;
+        width: 10rem;
+    }
+
+    #bookNow:hover{
+        background-color: #fff;
+        border: 1px solid #59c45b;;
+        color: #000;
+    }
+
+    #detailTable td, #detailTable th{
+        text-align: left;
+    }
+
+    .table>thead>tr>th{
+        border: none!important;
+    }
+
+    #CheckOutDate,#CheckInDate{
+        border: 1px solid #ccc!important;
+     }
+
+     #AnCcontainer{
+        display: flex;
+        padding: 0px 20px 20px 20px;
+        width: 100%;
+        @* justify-content: space-around; *@
+    }
+
+    #AnCcontainer,#adult1{
+        width: 100%;
+    }
+
+    .AnC{
+        width: 23.33%;
+        margin: 0.2rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 1rem;
+
+    }
+
+
+    #AnCcontainer p{
+        color: #59c45b;
+    }
+
+    #AnCcontainer span{
+        color: #f20d3f;
+        font-weight: bold;
+    }
+
+    #AnCcontainer label{
+        font-weight: 400;
+    }
+
+
+    @@media (max-width: 990px){
+       #AnCcontainer{
+           flex-wrap: wrap;
+           padding-right: 0;
+       }
+    }
+
+
+    @@media (max-width:567px){
+        .check-rates-form .form-search .form-field.field-date,
+        .check-rates-form .form-search .form-field.field-select{
+          width: 100%!important;
+      }
+    }
+
+
+    @@media (max-width: 476px){
+        .AnC{
+            width: 100%;
+        }
+        #AnCcontainer{
+           padding-right: 15px;
+       }
+    }
+</style>
+
+@using (Html.BeginForm("GetHotelInfo", "Nuit", new { area = "HotelBookingDomain" }, FormMethod.Get, new { id = "hpDetailForm" }))
+{
+
+    <!-- Form Check Hotel Availability -->
+    <div class="check-rates-form">
+        <h3>Enter dates to see prices and availability</h3>
+        <div class="form-search clearfix" id="chkAvailability">
+            <div class="form-field field-date">
+                <span>Check in</span>
+                <input type="date" class="form-control" placeholder="Check in" id="CheckInDate" name="CheckInDate" autocomplete="off" min="@SharedLib.Misc.DateTimeFormatter.ConvertToString(currentDate,"",SharedLib.Misc.DateTimeFormatter.Style9)" value="@SharedLib.Misc.DateTimeFormatter.ConvertToString(hotelSearchParams.CheckInDate,"",SharedLib.Misc.DateTimeFormatter.Style9)">
+            </div>
+            <div class="form-field field-date">
+                <span> Check out </span>
+                <input type="date" class="form-control" placeholder="Check out" id="CheckOutDate" name="CheckOutDate" autocomplete="off" min="@SharedLib.Misc.DateTimeFormatter.ConvertToString(currentDate.AddDays(1),"",SharedLib.Misc.DateTimeFormatter.Style9)" value="@SharedLib.Misc.DateTimeFormatter.ConvertToString(hotelSearchParams.CheckOutDate,"",SharedLib.Misc.DateTimeFormatter.Style9)">
+            </div>
+            @* <div class="form-field field-date col-md-12" style="border-right: none">
+                    <span>Room Weeks</span>
+                    @Html.DropDownList("InvDropdown", (IEnumerable<SelectListItem>)ViewData["InvDropdown"], "All", new { @class = "form-control" })
+                </div> *@
+
+            <div class="form-field field-date">
+                <span>No. of Rooms</span>
+                <select name="Rooms" id="Rooms" class="" placeholder="Rooms">
+                    <option value="">Select Rooms</option>
+
+                    @for (int i = 1; i <= 9; i++)
+                    {
+                        if (i < 9)
+                        {
+                            <option value="@i" @(i == hotelSearchParams.Rooms ? "selected" : "")>@i</option>
+                        }
+                        else
+                        {
+                            <option value="9+">9+</option>
+                        }
+
+                    }
+                </select>
+            </div>
+
+
+
+            <!--- Shows Number of Adult and Children ---->
+
+            <div class="col-md-12" id="AnCcontainer"> </div>
+
+
+
+            <div class="form-field field-date">
+                <span>Price Range</span>
+                <div class="widget-sidebar price-slider-sidebar">
+                    <div class="slider-sidebar price-slider">
+                        <input type="text" name="price" class="range" value="@Math.Floor(Convert.ToDouble(priceRange[0])),@Math.Ceiling(Convert.ToDouble(priceRange[1]))" id="priceRange" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-submit">
+                @Html.Hidden("NofRooms", hotelSearchParams.Rooms)
+                @Html.Hidden("prices", hotelSearchParams.PriceRange)
+                @Html.Hidden("maxPrice", hotelSearchParams.maxPrice)
+                @Html.Hidden("maxAdult", hotelSearchParams.MaxNoAdult)
+                @Html.Hidden("childcount", hotelSearchParams.ChildCount)
+                @Html.Hidden("adultcount", hotelSearchParams.AdultCount)
+                @Html.Hidden("hotelSearchParams", Newtonsoft.Json.JsonConvert.SerializeObject(hotelSearchParams))
+                @Html.Hidden("hotelId", hotelCode)
+                @Html.Hidden("sessionId", sessionId)
+                @Html.Hidden("cachekey", hotelSearchParams.Cache_Key)
+                @Html.Hidden("roomGuests", hotelSearchParams.RoomGuests)
+                <button type="submit" id="btn-search" class="awe-btn awe-btn-medium awe-search">Search</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="AvabileList">
+        @if (hotelRoomList.Count() > 0)
+        {
+
+            if (hotelRoomList[0].rateDetails != null && hotelRoomList[0].rateDetails.rateDetails != null && hotelRoomList[0].rateDetails.rateDetails.Count() > 0)
+            {
+                List<rateDetails> rateDetails = hotelRoomList[0].rateDetails.rateDetails.ToList();
+                List<Rooms> Rroom = rateDetails.Select(a => a.rooms).ToList();
+                List<rooms> roomTypes = Rroom.SelectMany(a => a.rooms).ToList();
+
+
+
+                <div class="hl-availability">
+                    <div class="table-responsive cusTable">
+                        @if (roomTypes.Count() > 0)
+                        {
+                            <table class="table table-availability" id="detailTable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Price </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody style="margin-top: 1rem">
+                                    @{
+                                        var itemCounter = 0;
+                                        var Markup = DMCHelper.GetDMCMarkup(hotelSearchParams.DMCId, MarkupType.NuiteeBooking.ToString());
+                                    }
+                                    @foreach (var room in roomTypes)
+                                    {
+                                        var boardId = room.includedBoard.boardId;
+                                        var roomCode = room.roomCode;
+                                        var rateDetaillist = hotelRoomList.Select(b => b.rateDetails.rateDetails.Where(a => a.rooms.rooms.Contains(room)).ToList()).FirstOrDefault();
+                                        var rateDetail = rateDetaillist.FirstOrDefault();
+                                        var cancelationPolicy = new cancelPoliciesInfos();
+                                        if (rateDetail.cancelPoliciesInfos.cancelPolicyInfos != null)
+                                        {
+                                            cancelationPolicy = rateDetail.cancelPoliciesInfos.cancelPolicyInfos.FirstOrDefault();
+                                        }
+                                        //var priceAfterTaxAndMarkup = rate.averageAfterTax + (rate.averageAfterTax * Markup / 100);
+                                        itemCounter++;
+                                        var roomImage = hotelRoomList[0].hotelInfo.hotelPictureUrl;
+                                        <tr>
+                                            <td>
+                                                <figure>
+                                                    <img src="@roomImage" alt="">
+                                                </figure>
+                                            </td>
+                                            <td>
+                                                <h4>@room.roomDescription</h4><span><i class="glyphicon glyphicon-user"></i> X @(room.adultCount + room.childCount)</span><br>
+                                                <p>@room.includedBoard.boardDescription</p>
+                                                @if (Convert.ToDecimal(cancelationPolicy.amount) == 0 && cancelationPolicy.cancelTime != null)
+                                                {
+                                                    <p>Free cancellation until @cancelationPolicy.cancelTime</p>
+                                                }
+                                                else if (cancelationPolicy.type == "amount")
+                                                {
+                                                    <p>Cancellation Fee: @SharedLib.CurrencyConverter.ToPriceString(Convert.ToDecimal(cancelationPolicy.amount)) till @cancelationPolicy.cancelTime</p>
+                                                }
+
+                                            </td>
+                                            <td>
+                                                <h4>Total Cost of Reservation: @SharedLib.CurrencyConverter.ToPriceString(Convert.ToDecimal(rateDetail.totalPrice + rateDetail.totalPrice * Markup / 100))</h4>
+                                                <h5>@SharedLib.CurrencyConverter.ToPriceString(Convert.ToDecimal(room.roomRate.pricePerNight[0] + room.roomRate.pricePerNight[0] * Markup / 100)) per Night</h5>
+                                                @if (rateDetail.hotelFees != null)
+                                                {
+                                                    <p>HotelFees: @SharedLib.CurrencyConverter.ToPriceString(Convert.ToDecimal(rateDetail.hotelFees + rateDetail.hotelFees * Markup / 100))</p>
+                                                }
+                                            </td>
+
+                                            <td class="avai-td-book">
+                                                <button class="btn-primary" id="reserve" name="selectRoom[@itemCounter]" data-bind="@boardId" data-roomcode="@room.roomCode" data-backdrop="@room.roomDescription" data-content="@rateDetail.rateDetailCode">RESERVE</button>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    @Html.Hidden("itemCounter", itemCounter)
+                                    @if (itemCounter == 0)
+                                    {
+                                        <tr>
+                                            <th colspan="4">
+                                                <h4 style="color:red"> Units not Found. Please change date and try again.Thank You</h4>
+                                            </th>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        }
+                        else
+                        {
+                            <h4 style="color:red"> Units not Found. Please change date and try again.Thank You</h4>
+                        }
+
+                    </div>
+                </div>
+            }
+
+        }
+        else
+        {
+            <h4> No Rooms available. Please check with different filters </h4>
+
+        }
+    </div>
+    @*<button type="button" >PREBOOK</button>*@
+    if (hotelSearchParams.TotalPage > 1)
+    {
+        <div class="page-navigation-cn" id="pagination">
+
+            @{
+                int previousPage = hotelSearchParams.PageNum > 1 ? hotelSearchParams.PageNum - 1 : 1, nextPage = hotelSearchParams.TotalPage == hotelSearchParams.PageNum ? hotelSearchParams.TotalPage : hotelSearchParams.PageNum + 1;
+                int first = 1;
+                int last = hotelSearchParams.TotalPage;
+            }
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="Paginationno">
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)" tabindex="@first" data-id="@first"><<</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)" tabindex="@previousPage" data-id="@previousPage">Previous</a>
+                    </li>
+                    @if (last <= 5)
+                    {
+                        for (int i = 1; i <= last; i++)
+                        {
+                            <li class="@(i == hotelSearchParams.PageNum ? "page-item active" : "page-item")">
+                                <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                            </li>
+                        }
+                    }
+                    else if ((hotelSearchParams.PageNum + 2) <= last && (hotelSearchParams.PageNum - 2) >= first)
+                    {
+                        for (int i = hotelSearchParams.PageNum - 2; i <= hotelSearchParams.PageNum + 2; i++)
+                        {
+                            <li class="@(i == hotelSearchParams.PageNum ? "page-item active" : "page-item")">
+                                <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                            </li>
+                        }
+                    }
+                    else if ((hotelSearchParams.PageNum + 2) > last)
+                    {
+                        for (int i = hotelSearchParams.PageNum - 4; i <= hotelSearchParams.PageNum; i++)
+                        {
+                            <li class="@(i == hotelSearchParams.PageNum ? "page-item active" : "page-item")">
+                                <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                            </li>
+                        }
+                    }
+                    else if ((hotelSearchParams.PageNum - 2) < first)
+                    {
+                        for (int i = hotelSearchParams.PageNum; i <= hotelSearchParams.PageNum + 4; i++)
+                        {
+                            <li class="@(i == hotelSearchParams.PageNum ? "page-item active" : "page-item")">
+                                <a class="page-link" data-id="@i" href="javascript:void(0)">@i</a>
+                            </li>
+                        }
+                    }
+
+
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)" tabindex="@nextPage" data-id="@nextPage">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)" tabindex="@last" data-id="@last">>></a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    }
+
+
+
+}
+
+
+
+
+

@@ -1,0 +1,301 @@
+﻿@model guestACCESS.WebCommon.NUIT.PreBookHotel
+@using guestACCESS.WebCommon.NUIT
+@using guestACCESS.WebCommon;
+@using Newtonsoft.Json;
+@using SharedLib.Misc;
+@{
+    ViewBag.Title = "Reserve";
+    var HotelDetail = (hotelDetails)ViewData["HotelDetail"];
+    var hpSearchParams = (SearchParameters)ViewData["HotelSearchParam"];
+    var rateDetails = (rateDetails)ViewData["rateDetails"];
+    var rGuests = JsonConvert.DeserializeObject<List<roomGuests>>(hpSearchParams.RoomGuests);
+}
+<link href="~/Content/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+
+<style>
+
+    .error {
+        color: red;
+    }
+
+    .payment-room .payment-info h2 {
+        font-weight: 400;
+    }
+
+    .payment-room .payment-price .total-trip {
+        padding: 0.65rem;
+    }
+</style>
+<!--Banner-->
+<section class="sub-banner">
+    <!--Background-->
+    <div class="bg-parallax bg-1"></div>
+    <!--End Background-->
+    <!-- Logo -->
+    <div class="logo-banner text-center">
+        <a href="" title="">
+            <img src="images/logo-banner.png" alt="">
+        </a>
+    </div>
+    <!-- Logo -->
+</section>
+<!--End Banner-->
+<!-- Main -->
+<div class="main">
+    <div class="container">
+        <div class="main-cn bg-white clearfix">
+
+            <!-- Payment Room -->
+            <div class="payment-room">
+                <div class="row" style="margin:30px">
+                    <div class="col-lg-4">
+
+                        <div class="payment-info">
+                            <h2>@HotelDetail.name</h2>
+                            <div class="col-lg-8">
+                                <ul>
+                                    <li>
+                                        <span>Location:</span>
+                                        @HotelDetail.address1, @HotelDetail.city, @HotelDetail.country
+                                    </li>
+                                    @*<li>
+                                            <span>Contact: </span>
+                                            @HotelDetail.
+                                        </li>*@
+
+                                    <li>
+                                        <span>Rooms:</span>
+                                        @foreach (var CRoom in Model.confirmedRooms.confirmedRooms)
+                                        {
+                                            <p>@hpSearchParams.roomName;</p>
+                                        }
+                                    </li>
+                                    <li>
+                                        <span style="color: #25ab4b;">Check In:</span>
+                                        @hpSearchParams.CheckInDate
+                                    </li>
+                                    <li>
+                                        <span style="color: #f10000;">Check Out:</span>
+                                        @hpSearchParams.CheckOutDate
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="payment-price">
+                            <div class="col-lg-8">
+                                <figure>
+                                    <img src="@Model.hotelInfo.hotelPictureUrl" alt="">
+                                </figure>
+                                <div class="total-trip">
+                                    <span>
+                                        Room Price : @SharedLib.CurrencyConverter.ToPriceString(Convert.ToDecimal(rateDetails.totalPrice))<small></small><br>
+                                    </span>
+                                    <span>
+                                        Total Rooms Selected : @Model.roomGuests.Count()<small></small><br>
+                                    </span>
+                                    <span>
+                                        @*Total Nights : @Model.NightsCount<small></small><br>*@
+                                    </span>
+                                    @{
+                                        var Markup = DMCHelper.GetDMCMarkup(hpSearchParams.DMCId, MarkupType.NuiteeBooking.ToString());
+                                        var NightsCount = (hpSearchParams.CheckOutDate.Value - hpSearchParams.CheckInDate.Value).TotalDays;
+                                        var amount = Convert.ToDecimal(rateDetails.totalPrice + rateDetails.totalPrice * Markup / 100) * Model.roomGuests.Count() * Convert.ToDecimal(NightsCount);
+                                        var tax = rateDetails.tax + rateDetails.hotelFees;
+                                        var taxAmount = Convert.ToDecimal(tax) * Model.roomGuests.Count() * Convert.ToDecimal(NightsCount);
+                                        var taxWithMarkup = taxAmount + (Convert.ToDecimal(taxAmount) * Markup / 100);
+                                        var total = amount + taxWithMarkup;
+                                                }
+                                    <p>
+                                        Amount: <ins> @SharedLib.CurrencyConverter.ToPriceString(amount)</ins>
+                                    </p>
+                                    <p>
+                                        Tax Amount/Fees: <ins> @SharedLib.CurrencyConverter.ToPriceString(taxWithMarkup)</ins>
+                                    </p>
+                                    <p>
+                                        Total: <ins> @SharedLib.CurrencyConverter.ToPriceString(total)</ins>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                @{
+                                    var adult = Model.roomGuests.Select(i => i.adultCount).Sum();
+                                                var child = @Model.roomGuests.Select(i => i.childCount).Sum();
+                                            }
+                                <span>
+                                    <small></small><br>
+                                </span>
+                                <span>
+                                    Adult : @adult<small></small><br>
+                                </span>
+                                <span>
+                                    Children : @child<small></small><br>
+                                </span>
+                                <p>
+                                    Total Visitors: @(adult + child)
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Payment Room -->
+            @using (Html.BeginForm("BookHotel", "NUIT", FormMethod.Post, new { id = "HotelBookingForm" }))
+            {
+                <div class="payment-form payment-offline">
+                    <div class="row form">
+
+                        @Html.Hidden("TripId", hpSearchParams.TripId)
+                        @Html.Hidden("NightsCount", hpSearchParams.CheckOutDate - hpSearchParams.CheckInDate)
+                        @Html.Hidden("Price", total)
+                        @Html.Hidden("RoomCode", Model.confirmedRooms.confirmedRooms[0].roomCode)
+                        @Html.Hidden("confirmRooms", JsonConvert.SerializeObject(Model.confirmedRooms.confirmedRooms))
+                        @Html.Hidden("Tax", rateDetails.tax)
+                        @Html.Hidden("paxCount", (adult + child))
+                        @Html.Hidden("HotelCity", Model.city.cityName)
+                        @Html.Hidden("CityId", Model.city.cityCode)
+                        @Html.Hidden("HotelId", hpSearchParams.HotelId)
+                        @Html.Hidden("roomCount", rGuests.Count())
+                        @Html.Hidden("sessionId", hpSearchParams.sessionId)
+                        @Html.Hidden("HotelName", Model.hotelInfo.hotelName)
+                        @Html.Hidden("HotelCountry", Model.city.countryName)
+                        @Html.Hidden("CheckInDate", hpSearchParams.CheckInDate)
+                        @Html.Hidden("CheckOutDate", hpSearchParams.CheckOutDate)
+
+                        <div class="col-md-6">
+                            <h2>Your Information</h2>
+
+                            <div class="form-field">
+                                <input type="text" placeholder="First Name*" name="FirstName" class="field-input" @*value="@Model.FirstName"*@ required>
+                            </div>
+                            <div class="form-field">
+                                <input type="text" placeholder="Last Name*" name="LastName" class="field-input" @*value="@Model.LastName"*@ required>
+                            </div>
+                            <div class="form-field">
+                                <input type="text" placeholder="Email*" name="Email" class="field-input" @*value="@Model.Email"*@ required>
+                            </div>
+                            <div class="form-field">
+                                <input type="number" placeholder="Phone number*" name="PhoneNumber" class="field-input" @*value="@Model.Email"*@ required>
+                            </div>
+                            <div class="form-field">
+                                <input type="text" placeholder="Titulation*" name="titulation" class="field-input" @*value="@Model.titulation"*@ required>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="col-md-6">
+                            <h2>Your payment details</h2>
+                            <div class="form-rw">
+                                <label for="card-element">
+                                    Credit or Debit card
+                                </label>
+
+                                <div id="card-element" class="StripeElement StripeElement--empty">
+                                    <div class="__PrivateStripeElement" style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
+                                        <iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeFrame5" allowpaymentrequest="true" src="./Payment Gateway_files/elements-inner-card-3ccf1146aefd728c2686c5e47ede5723.html" title="Secure payment input frame" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; height: 16.8px;"></iframe>
+                                        <input class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" " autocomplete="false" maxlength="1" style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
+                                    </div>
+                                </div>
+
+                                <div id="card-errors" role="alert"></div>
+                                @Html.Hidden("paymentToken")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        @if (rGuests.Count() > 1)
+                        {
+                            <h2>Additional Guests Information</h2>
+                            for (int i = 1; i < rGuests.Count(); i++)
+                            {
+                                <h3>For Room: @(i+1)</h3>
+                                @*@Html.Hidden("roomCode[" + (i + 1) + "]", Model.roomAvailability.rooms[i].roomCode)*@
+                                <div class="form-field">
+                                    <input type="text" placeholder="Additional Guests In Room[@(i+1)]'s First Name" name="firstName[@i]" class="field-input" @*value="@Model.AdditionalGuests"*@>
+                                </div>
+                                <div class="form-field">
+                                    <input type="text" placeholder="Additional Guests In Room[@(i+1)]'s Last Name" name="lastName[@i]" class="field-input" @*value="@Model.AdditionalGuests"*@>
+                                </div>
+                                <div class="form-field">
+                                    <input type="text" placeholder="Additional Guests In Room[@(i+1)]'s Titulation" name="titulation[@i]" class="field-input" @*value="@Model.AdditionalGuests"*@>
+                                </div>
+                                <div class="form-field">
+                                    <input type="text" placeholder="Additional Guests In Room[@(i+1)]'s Comment" name="customerComment[@i]" class="field-input" @*value="@Model.AdditionalGuests"*@>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="submit text-center">
+                    @Html.Hidden("paymentToken")
+
+                    <button type="submit" id="PayandBookNow" class="awe-btn awe-btn-1 awe-btn-lager">Pay &amp; Book Now</button>
+
+                </div>
+            }
+        </div>
+    </div>
+    <!-- End Main -->
+    @section scripts{
+        <script src="~/Content/assets/plugins/toast-master/js/jquery.toast.js"></script>
+        <script src="~/Content/PageScripts/HotelBookingDomain/HP/HotelPlannerBooking.js"></script>
+
+        <script src="~/Content/PageScripts/Jaunt2/Shared.js"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+        $(document).ready(function () {
+            var apiKey = "@WebConfigValues.StripeApiKey";
+            var stripe = Stripe(apiKey);
+            var elements = stripe.elements();
+            var card = elements.create('card');
+            card.mount('#card-element');
+            card.addEventListener('change', function (event) {
+                var displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+                var form = document.getElementById('HotelBookingForm');
+                form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                stripe.createToken(card).then(function (result) {
+                    if (result.error) {
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = result.error.message;
+                    } else {
+                        $("#paymentToken").val(result.token.id);
+                        var f = $(form);
+                        var data = f.serializeArray();
+                        showLoader();
+                        $.ajax({
+                            type: 'POST',
+                            url: f[0].action,
+                            data: data,
+                            dataType: 'JSON',
+                            success: function (data, strStatus) {
+                                if (data.Success) {
+                                    hideLoader();
+                                    showMessage(data.Message, "Hotel successfully booked. Thank You !", 'success');
+                                    window.location.href = data.Data;
+                                } else {
+                                    hideLoader();
+                                    showMessage(data.Message, data.Data, data.Type);
+                                }
+                            },
+                            error: handleAjaxError()
+                        });
+
+                    }
+
+                });
+            });
+        });
+        </script>
+
+    }

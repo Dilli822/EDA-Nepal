@@ -1,0 +1,436 @@
+﻿@using guestACCESS.Kernel.DMCManagement;
+@using guestACCESS.WebCommon.NUIT
+@model guestACCESS.WebCommon.NUIT.hotelDetails
+
+@{
+    Layout = "~/Views/Shared/_hotelBookingLayout.cshtml";
+    var sessionId = (string)ViewData["sessionId"];
+    DateTime currentDate = DateTime.Now;
+    var hotelSearchParams = (SearchParameters)ViewData["HotelSearchParam"];
+}
+
+@section styles{
+    <style>
+        .itemconfiguration {
+            height: 600px;
+            width: 100%;
+            overflow-y: auto;
+            float: left;
+            position: relative;
+        }
+
+        .left_contentlist {
+            width: 215px;
+            float: left;
+            padding: 0 0 0 5px;
+            position: relative;
+            float: left;
+            border-right: 1px #f8f7f3 solid;
+        }
+
+        .side {
+            vertical-align: top;
+            position: absolute;
+        }
+
+        .sidebar-cn {
+            padding: 20px;
+        }
+
+        .addInfo {
+            padding: 40px;
+        }
+
+        .my-rating-7 {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            margin-top: -30px;
+            margin-left: -20px;
+        }
+
+        .jq-star {
+            transform: scale(0.05, 0.05);
+            -ms-transform: scale(0.05, 0.05); /* IE 9 */
+            -webkit-transform: scale(0.05, 0.05); /* Safari and Chrome */
+            -o-transform: scale(0.05, 0.05); /* Opera */
+            -moz-transform: scale(0.05, 0.05); /* Firefox */
+            margin-right: -20px;
+        }
+
+        .select2-container {
+            border-bottom: 2px dotted;
+        }
+
+        .widget-sidebar .title-sidebar, #roomOpt {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .label {
+            letter-spacing: 1px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #25ab4b !important;
+            font-weight: 550;
+        }
+
+        .select2-selection__rendered:after {
+            color: #b9b9b9 !important;
+        }
+
+
+        .mySlides {
+            display: none;
+        }
+
+        #HotelName {
+            padding: 30px;
+        }
+
+        .roomtype {
+            padding: 30px;
+        }
+
+        .AnC {
+            padding-bottom: 20px;
+        }
+
+
+        #detailTable td figure img {
+            height: 200px;
+            width: 100%;
+        }
+
+        .reviews span {
+            border: 2px solid #000;
+            padding: 0.3rem;
+        }
+
+        .based {
+            font-size: 18px;
+        }
+
+        .puntuation, .outof5 {
+            font-weight: 600;
+        }
+
+        .based span, .puntuation, .outof5 {
+            color: #25ab4b;
+            font-size: 28px;
+        }
+
+        .autoPad {
+            padding: 3rem;
+        }
+
+        @@media (max-width: 767px) {
+            #detailTable td figure img {
+                height: 150px;
+                width: 150px;
+                max-width: inherit;
+            }
+
+            .autoPad {
+                padding: 0rem;
+            }
+        }
+
+        .hl-availability .table-availability .avai-td-text h3 {
+            font-weight: 400;
+        }
+
+        ul.nearBy {
+            list-style-type: disclosure-closed;
+        }
+
+            ul.nearBy li {
+                margin: 0.85rem;
+            }
+
+        .slider-sidebar {
+            margin-top: 15px;
+        }
+
+        #btn-search {
+            margin-top: 7px;
+        }
+    </style>
+}
+
+<section class="sub-banner">
+    <!--Background-->
+    <div class="bg-parallax bg-1"></div>
+    <!--End Background-->
+    <!-- Logo -->
+    <div class="logo-banner text-center">
+        <a href="" title="">
+            <img src="images/logo-banner.png" alt="">
+        </a>
+    </div>
+    <!-- End Logo -->
+</section>
+<div class="main main-dt">
+    <div class="container">
+        <div class="main-cn bg-white clearfix">
+
+            <!-- Breakcrumb -->
+            <section class="breakcrumb-sc">
+                <ul class="breadcrumb arrow">
+                    <li><a href="javascript:void(0);" title="">Hotels</a></li>
+                </ul>
+
+            </section>
+            <!-- End Breakcrumb -->
+            <!-- Header Detail -->
+            <section class="head-detail">
+                <div class="head-dt-cn" style="margin-top: 1.5rem;">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <h1 style="font-weight: 500;">@Model.name</h1>
+                            <div class="start-address">
+
+                                <address class="address" style="padding-left: 0;">
+                                    @Model.address1
+                                </address>
+                            </div>
+                            @*@Model.phone*@
+                            @Model.starRating
+
+                        </div>
+                        <div class="col-sm-5 text-right">
+                            <p class="price-book">
+                                <div id="Review-Top" style="margin-right:-15px">
+                                    <div id="word-rating">
+                                        <div class="pull-right"><span class="puntuation"> @Model.starRating </span> &nbsp; <span class="outof5"> /5 </span></div>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- End Header Detail -->
+            <!-- Detail Slide -->
+            <section class="detail-slider">
+                <!-- Lager Image -->
+                <div class="slide-room-lg">
+                    <div id="slide-room-lg">
+                        @{
+                            var Images = Model.hotelImages;
+                        }
+                        @foreach (var img in Images)
+                        {
+                            var src = System.Text.RegularExpressions.Regex.Replace(img.thumbnailUrl, @"\s", "");
+                            <img src="@src" alt="slider-hotelImg">
+                        }
+                    </div>
+
+                </div>
+                <!-- End Lager Image -->
+                <!-- Thumnail Image -->
+                <div class="slide-room-sm">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div id="slide-room-sm">
+                                @foreach (var img in Images)
+                                {
+                                    var src = System.Text.RegularExpressions.Regex.Replace(img.thumbnailUrl, @"\s", "");
+                                    <img src="@src" alt="slider-hotelImg">
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Thumnail Image -->
+            </section>
+            <!-- End Detail Slide -->
+            @if (!string.IsNullOrEmpty(Model.hotelDescription))
+            {
+                <section class="about-area detail-cn" id="profile-Description">
+                    <div class="row autoPad">
+                        <div class="col-lg-3 detail-sidebar" style="">
+                            <div class="scroll-heading">
+                                <h2>Description</h2>
+                                <hr class="hr">
+                            </div>
+                        </div>
+                        <div class="col-lg-9" style="">
+                            <h3>Description</h3>
+                            <p style="font-size: 1.4rem;">
+                                @*@Model.hotelDescription*@
+                                @Html.Raw(Model.hotelDescription)
+                        </div>
+
+                    </div>
+                </section>
+            }
+            <!-- Availability start-->
+            <section class="check-rates detail-cn" id="check-rates">
+                <div class="row autoPad">
+                    <div class="col-lg-3 detail-sidebar">
+                        <div class="scroll-heading">
+                            <h2>Check Rates &amp; Availability</h2>
+                            <hr class="hr">
+                        </div>
+                    </div>
+                    <div class="col-lg-9 check-rates-cn" id="hplist">
+
+                        @{
+                            Html.RenderPartial("~/Areas/HotelBookingDomain/Views/Nuit/DetailsList.cshtml", Model);
+                        }
+
+
+                    </div>
+                </div>
+            </section>
+            <!-- About Area -->
+            <section class="about-area detail-cn" id="about-area">
+                <div class="row autoPad">
+                    <div class="col-lg-3 detail-sidebar" style="">
+                        <div class="scroll-heading">
+                            <h2>About the area</h2>
+                            <hr class="hr">
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="">
+                        <h3>About the area</h3>
+                        <div class="hotel-detail-map">
+                                <div id="hotel-detail-map" data-latlng="@Model.latitude,@Model.longitude"></div>
+                                <p class="about-area-location"><i class="fa  fa-map-marker"></i>@Model.address1</p>
+                                <input type="hidden" id="location" value="@Model.address1" />
+                            </div>
+                    </div>
+                </div>
+            </section>
+
+            @if (Model.hotelAttributeses.Count() > 0)
+            {
+                <section class="hl-features detail-cn">
+                    <div class="row">
+                        <div class="col-lg-3 detail-sidebar">
+                            <div class="scroll-heading">
+                                <h2>Amenities</h2>
+                                <hr class="hr">
+                            </div>
+                        </div>
+                        <div class="col-lg-9 hl-features-cn">
+                            <div class="featured-service">
+                                <h3>Amenities</h3>
+                                <ul class="service-spoken">
+                                    @foreach (var item in Model.hotelAttributeses)
+                                    {
+                                        <li><img src="~/Content/assets/jaunt2/images/icon-check.png" alt="">@item</li>
+                                    }
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            }
+            @if (!string.IsNullOrEmpty(Model.hotelLocationDescription))
+            {
+                <section class="hl-features detail-cn">
+                    <div class="row">
+                        <div class="col-lg-3 detail-sidebar">
+                            <div class="scroll-heading">
+                                <h2>Location Description</h2>
+                                <hr class="hr">
+                            </div>
+                        </div>
+                        <div class="col-lg-9 hl-features-cn">
+                            <div class="featured-service">
+                                <p>@Model.hotelLocationDescription</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            }
+
+            @if (!string.IsNullOrEmpty(Model.hotelAmenitiesDescription))
+            {
+                <section class="hl-features detail-cn">
+                    <div class="row">
+                        <div class="col-lg-3 detail-sidebar">
+                            <div class="scroll-heading">
+                                <h2>Amenities Description</h2>
+                                <hr class="hr">
+                            </div>
+                        </div>
+                        <div class="col-lg-9 hl-features-cn">
+                            <div class="featured-service">
+                                <p>@Model.hotelAmenitiesDescription</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            }
+
+            @if (!string.IsNullOrEmpty(Model.hotelDiningDescription))
+            {
+                <section class="hl-features detail-cn">
+                    <div class="row">
+                        <div class="col-lg-3 detail-sidebar">
+                            <div class="scroll-heading">
+                                <h2>Dinning Facility</h2>
+                                <hr class="hr">
+                            </div>
+                        </div>
+                        <div class="col-lg-9 hl-features-cn">
+                            <div class="featured-service">
+                                <p>@Model.hotelDiningDescription</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            }
+
+        </div>
+    </div>
+
+    </div>
+
+    @section scripts{
+        <script src="~/Content/PageScripts/HotelBookingDomain/NUIT/NuitDetail.js"></script>
+        <script src="~/Content/assets/plugins/star-rating/dist/jquery.star-rating-svg.js"></script>
+        <script type="text/javascript" defer src="https://maps.googleapis.com/maps/api/js?key=@WebConfigValues.GoogleApiKey&libraries=places"></script>
+        <script>
+    $(document).ready(function () {
+        var hpDetail = new HotelPlannerBooking();
+        hpDetail.DMCId = @hotelSearchParams.DMCId;
+        hpDetail.init();
+
+
+
+
+        $("#hpDetailForm #reserve").on("click", function () {
+            debugger
+            var cRooms = new Array();
+            var boardId = $(this).data("bind");
+            var roomcode = $(this).data("roomcode");
+            var roomDescription = $(this).data("backdrop");
+            var ratedetailcode = $(this).data("content");
+            var ac = {}
+            ac.boardId = boardId;
+            ac.roomcode = roomcode;
+            cRooms.push(ac);
+            var confirmedRooms = JSON.stringify(cRooms);
+            var hotelCode = $("#hotelId").val();
+            var sessionId = $("#sessionId").val();
+            var searchparams = $("#hotelSearchParams").val();
+            window.location.href = "/NUIT/Reserve?dmcId=" + @hotelSearchParams.DMCId + "&hotelCode=" + hotelCode + "&sessionId=" + sessionId + "&ratedetailcode=" + ratedetailcode + "&confirmedRooms=" + confirmedRooms + "&searchparams=" + searchparams + "&roomDescription=" + roomDescription;
+        });
+    });
+
+        </script>
+    }
