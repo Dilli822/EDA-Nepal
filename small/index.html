@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Effects Using GSAP ScrollTrigger</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <style>
+        * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+body {
+    background: #c5c9c1;
+}
+section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 100000;
+}
+
+.sec {
+  position: relative;
+  padding: 100px;
+}
+
+h2 {
+  font-size: 2.5em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+  color: #fff;
+}
+
+img#bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+img#jet {
+  position: absolute;
+  top: 180%;
+  z-index: 10000;
+  width: 100%;
+  transform: scale(0);
+}
+
+img#hulk0 {
+  position: absolute;
+  right: 500px;
+  top: 20;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk1{
+  position: absolute;
+  right: 800px;
+  top: 20%;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk2 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk3 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk4 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+
+img#hulk5 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk6{
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk7 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk8 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk9 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+img#hulk10 {
+  position: absolute;
+  right: 800px;
+  top: 0;
+  max-width: 100%;
+  transform: scale(0);
+}
+
+html{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .circle{
+            position: relative;
+            border: 1px solid red;
+            height: 800px;
+            max-width: 800px;
+            border-radius: 50%;
+            margin-top: 5rem;
+            margin-left: 10rem;
+            padding: 1rem;
+            animation: rotate 10s infinite;
+        }
+        .circle div{
+         width: 100px;
+          height: 100px;
+          background-color: red;
+          text-align: center;
+          position: absolute;
+          
+        }
+
+    @keyframes rotate{
+        0%{
+            transform: rotate(0deg);
+        }
+        50%{
+            transform: rotate(180deg);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+        .one{
+          
+          top: -5%;
+          left: 45%;
+        }
+
+        .two{
+            left: 85%;
+            top: 20%;
+        }
+        .three{
+            top: 50%;
+            left: 90%;
+        }
+
+        .four{
+          top: 75%;
+          left: 85%;
+        }
+
+        .five{
+            left: 65%;
+            top: 90%;
+        }
+        .six{
+            top: 90%;
+            left: 25%;
+        }
+
+        .seven{
+            top: 80%;
+            left: 5%;
+        }
+
+        .eight{
+            top: 60%;
+            left: -5%;
+        }
+        .nine{
+            top: 35%;
+            left: -5%;
+        }
+        .ten{
+            top: 10%;
+            left: 5%;
+        }
+        
+/* 
+    .rotate{
+        animation: rotate 2s linear;
+    }
+ 
+
+ 
+    @keyframes rotate{
+        0%{
+            transform: rotate(0deg);
+        }
+        50%{
+            transform: rotate(180deg);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    } */
+    </style>
+</head>
+<body>
+
+      <article>
+    <h2>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae error ipsum expedita nesciunt distinctio neque totam perferendis earum assumenda harum quibusdam voluptatum eos nihil at voluptas suscipit porro iste nostrum, odio fugit ea sit! Officiis sunt aliquid facilis hic quibusdam quae illo reprehenderit molestiae esse!
+    </h2>
+  </article>
+
+    <section style="margin-top: 5rem;">
+    <!-- <img src="https://i.ibb.co/B2JC7bS/bg.jpg" id="bg">
+    <img src="https://i.ibb.co/sW7CmBr/jet.png" id="jet"> -->
+    <!-- <img src="https://i.ibb.co/q0T4JmS/hulk.png" id="hulk"> -->
+    <div class="bg"> 
+        <img id="hulk0" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 0rem;">
+        <img id="hulk1" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 5rem;">
+        <img id="hulk2" src="./destin-logo.png" alt="" style="max-width: 125px;  margin: 9rem;">
+        <img id="hulk3" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 18rem;">
+        <img id="hulk4" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 15rem;">
+        <img id="hulk5" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 3rem;">
+        <img id="hulk6" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 24rem;">
+        <img id="hulk7" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 19rem;">
+        <img id="hulk8" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 30rem;">
+        <img id="hulk9" src="./destin-logo.png" alt="" style="max-width: 125px; margin: 20rem;">
+        <img id="hulk10" src="./destin-logo.png" alt="" style="max-width: 125px; margin-left: 15rem;">
+          <!-- <div class="" >
+    <div class="one" id="hulk">1</div>
+    <div class="two" id="hulk">2</div>
+    <div class="three" id="hulk">3</div>
+    <div class="four" id="hulk">4</div>
+    <div class="five" id="hulk">5</div>
+    <div class="six" id="hulk">6</div>
+    <div class="seven" id="hulk">7</div>
+    <div class="eight" id="hulk">8</div>
+    <div class="nine" id="hulk">9</div>
+    <div class="ten" id="hulk">10</div>
+          </div> -->
+
+          <!-- <div >
+            <h5 id="hulk"> Header </h5>
+          </div> -->
+
+    </div>
+  </section>
+
+
+  <div class="sec">
+    <div class="content">
+      <h1> All these small full logos will be replaced by svgs single icons. Animation will be added later.</h1>
+    </div>
+  </div>
+  <!-- Gsap ScrollTrigger-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"
+  integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"
+  integrity="sha512-Q+G390ZU2qKo+e4q+kVcJknwfGjKJOdyu5mVMcR95NqL6XaF4lY4nsSvIVB3NDP54ACsS9rqhE1DVqgpApl//Q=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    gsap.to("#bg", {
+    scrollTrigger: {
+        scrub: true
+    },
+    y: 20,
+    scale: 1.2
+})
+
+gsap.to("#jet", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: -200,
+    y: -100,
+    scale: 1.2
+})
+
+gsap.to("#hulk0", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 100,
+    y: 200,
+    scale: 0.6
+})
+
+gsap.to("#hulk1", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 150,
+    y: -100,
+    scale: 0.8
+})
+
+gsap.to("#hulk2", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 200,
+    y: 300,
+    scale: 0.95
+})
+
+gsap.to("#hulk3", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 250,
+    y: -100,
+    scale: 1
+})
+
+gsap.to("#hulk4", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 300,
+    y: 50,
+    scale: 1.05
+})
+
+gsap.to("#hulk5", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 350,
+    y: 100,
+    scale: 1.1
+})
+
+gsap.to("#hulk6", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 600,
+    y: 200,
+    scale: 1.2
+})
+
+
+gsap.to("#hulk7", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 900,
+    y: 150,
+    scale: 1
+})
+
+gsap.to("#hulk8", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 500,
+    y: 100,
+    scale: 1
+})
+
+gsap.to("#hulk9", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 700,
+    y: 100,
+    scale: 1.5
+})
+
+gsap.to("#hulk10", {
+    scrollTrigger: {
+        scrub: true
+    },
+    x: 800,
+    y: 100,
+    scale: 1
+})
+  </script>
+</body>
+</html>
